@@ -296,3 +296,4 @@ a.item:hover { border-color: var(--border-2); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 .center { text-align: center; } .auth-msg { font-weight: 600; color: var(--accent-text); margin: 8px 0 0; } .auth-msg:empty { display: none; }
 .auth-error { background: var(--bad-soft); color: var(--bad); border-radius: 12px; padding: 10px 12px; font-weight: 600; }
+.account-actions { margin-top: 16px; align-items: center; flex-wrap: wrap; }

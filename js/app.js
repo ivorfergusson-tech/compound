@@ -362,7 +362,10 @@ async function viewAccount() {
       <button type="button" class="btn danger delete">${sync.signedIn() ? 'Delete my account' : 'Clear my progress'}</button>
     </section>
     <section class="card"><h2>Appearance</h2><button type="button" class="btn ghost theme2">Switch light or dark mode</button></section>`, { title: 'Account' });
-  sync.wireAuthPanel(app.querySelector('#auth-box'), () => route());
+  sync.wireAuthPanel(app.querySelector('#auth-box'), () => route(), name => {
+    location.hash = '#/';
+    toast(`Saved. You're on the leaderboard as ${name}`);
+  });
   app.querySelector('.theme2').addEventListener('click', cycleTheme);
   app.querySelector('.export').addEventListener('click', async () => {
     const data = await sync.exportAll(progress.state);

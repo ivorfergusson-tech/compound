@@ -7,7 +7,7 @@ import { esc } from './util.js';
 
 const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
 let sb = null, session = null, progress = null, notify = () => {};
-let nickname = null, rank = null, syncing = null, pushTimer = null, authError = null, flash = null;
+let nickname = null, rank = null, syncing = null, pushTimer = null, authError = null;
 
 export const enabled = () => Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 export const signedIn = () => Boolean(session);
@@ -141,18 +141,20 @@ export async function authPanel() {
       <p class="small muted">No password needed. Open the link on this device. We only use your email to sign you in.</p>
       <p class="auth-msg" aria-live="polite"></p>`;
   }
-  const shown = flash; flash = null;
   return `<h2>${nickname ? esc(nickname) : 'Pick a nickname'}</h2>
     <p class="small muted">Signed in as ${esc(session.user.email || 'you')}. Only you can see this.</p>
-    <form class="nick"><label class="field">${nickname ? 'Change your nickname' : 'Nickname for the leaderboard'}
+    <form class="nick" id="nickform"><label class="field">${nickname ? 'Change your nickname' : 'Nickname for the leaderboard'}
       <input name="nick" maxlength="20" value="${esc(nickname || '')}" required autocomplete="off"></label>
       <p class="small muted">3 to 20 letters, numbers, spaces, - or _. Shown publicly with your level and XP; don't use your real name.</p>
-      <button class="btn">${nickname ? 'Save nickname' : 'Join the leaderboard'}</button></form>
-    <p class="auth-msg" aria-live="polite">${shown || ''}</p>
-    <button type="button" class="btn ghost signout">Sign out</button>`;
+    </form>
+    <p class="auth-msg" aria-live="polite"></p>
+    <div class="row-between account-actions">
+      <button form="nickform" class="btn">${nickname ? 'Save nickname' : 'Join the leaderboard'}</button>
+      <button type="button" class="btn ghost signout">Sign out</button>
+    </div>`;
 }
 
-export function wireAuthPanel(box, rerender) {
+export function wireAuthPanel(box, rerender, onSaved = rerender) {
   if (!sb) return;
   const msg = text => { const m = box.querySelector('.auth-msg'); if (m) m.textContent = text; };
   const back = location.origin + location.pathname;
@@ -172,10 +174,9 @@ export function wireAuthPanel(box, rerender) {
     if (error) return msg(error.code === '23505' ? 'Someone already has that nickname. Try another.' : error.code === '23514' ? "That nickname isn't allowed. Try another." : `Couldn't save: ${error.message}`);
     nickname = name;
     progress.setNickname(name);
-    flash = `Saved. You're on the <a href="#/leaderboard">leaderboard</a> as ${esc(name)}.`;
     await refreshRank();
     notify();
-    rerender();
+    onSaved(name);
   });
   box.querySelector('.signout')?.addEventListener('click', async () => {
     await push().catch(() => {});
