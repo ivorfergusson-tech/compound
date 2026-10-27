@@ -1,0 +1,151 @@
+{
+  "module": "19",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "19-ma-calc",
+      "type": "number",
+      "topic": "moving average",
+      "q": "The last five closing prices were {a}, {b}, {c}, 104 and 106. What's the 5-day moving average?",
+      "vars": {
+        "a": { "choices": [96, 98, 100], "default": 100 },
+        "b": { "choices": [99, 101, 102], "default": 102 },
+        "c": { "choices": [100, 103, 105], "default": 103 }
+      },
+      "answer": "(a+b+c+104+106)/5",
+      "tol": 0.05,
+      "unit": "",
+      "dp": 2,
+      "why": "Add the five closes and divide by 5: {answer}."
+    },
+    {
+      "id": "19-lagging",
+      "type": "mcq",
+      "topic": "lagging indicators",
+      "q": "Why are moving averages, RSI and MACD all called lagging indicators?",
+      "options": [
+        "They're calculated from past prices, so they react after moves happen",
+        "They load slowly",
+        "They only work on weekly charts",
+        "They use tomorrow's news"
+      ],
+      "answer": 0,
+      "why": "They rearrange past prices and volume, so their signals come after the move has started."
+    },
+    {
+      "id": "19-rsi-70",
+      "type": "tf",
+      "topic": "RSI",
+      "q": "An RSI above 70 means the price is about to fall.",
+      "answer": false,
+      "why": "Overbought describes a strong past rise. In strong uptrends RSI can stay above 70 for weeks."
+    },
+    {
+      "id": "19-ma-length",
+      "type": "mcq",
+      "topic": "moving average",
+      "q": "Compared with a 10-day moving average, a 200-day moving average is…",
+      "options": [
+        "Smoother but slower to turn",
+        "More jumpy and faster to turn",
+        "Exactly the same line",
+        "Based on future prices"
+      ],
+      "answer": 0,
+      "why": "Averaging more days smooths out noise but responds later to changes in trend."
+    },
+    {
+      "id": "19-volume",
+      "type": "mcq",
+      "topic": "volume",
+      "q": "A share breaks above resistance on very low volume. What does that suggest?",
+      "options": [
+        "Little conviction: the breakout is easier to reverse",
+        "The breakout is certain to continue",
+        "Volume doesn't matter",
+        "The share will be delisted"
+      ],
+      "answer": 0,
+      "why": "High volume suggests many participants agree; low volume breakouts fail more easily."
+    },
+    {
+      "id": "19-match",
+      "type": "match",
+      "topic": "indicators",
+      "q": "Match each indicator to what it measures.",
+      "pairs": [
+        ["Moving average", "The average closing price over the last N periods"],
+        ["RSI", "Recent gains versus recent losses, from 0 to 100"],
+        ["MACD", "A fast moving average compared with a slow one"],
+        ["Volume", "How much traded in a period"]
+      ],
+      "why": "All are summaries of past prices and trading."
+    },
+    {
+      "id": "19-whipsaw",
+      "type": "tf",
+      "topic": "lagging indicators",
+      "q": "Trend-following indicators tend to give many false signals when the market moves sideways.",
+      "answer": true,
+      "why": "In ranges, lines cross back and forth, producing a string of small losing signals called whipsaws."
+    },
+    {
+      "id": "19-overload",
+      "type": "mcq",
+      "topic": "indicator overload",
+      "q": "Why doesn't adding six indicators to a chart give six times the information?",
+      "options": [
+        "They're mostly built from the same prices, so they repeat the same information",
+        "Charts can only show two indicators",
+        "Indicators cancel each other out completely",
+        "More indicators always means more profit"
+      ],
+      "answer": 0,
+      "why": "They mostly rearrange the same price data, so they tend to agree or disagree together."
+    },
+    {
+      "id": "19-ma-order",
+      "type": "order",
+      "topic": "moving average",
+      "q": "A price starts a new uptrend. Put these in the order they'd usually turn upward.",
+      "items": ["The price itself", "A 10-day moving average", "A 50-day moving average", "A 200-day moving average"],
+      "why": "The longer the average, the later it turns: that's the lag."
+    },
+    {
+      "id": "19-use-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "using indicators well",
+      "q": "If indicators lag and add no new information, explain how they can still be useful to a trader.",
+      "ideas": [
+        { "label": "They turn decisions into clear, consistent rules you can follow without emotion", "any": ["rule", "rules", "consistent", "consistency", "objective", "discipline", "emotion", "clear", "systematic"] },
+        { "label": "Those rules can be tested on past data, or used as filters to describe conditions", "any": ["test", "backtest", "filter", "confirm", "conditions", "trending", "ranging", "describe"] }
+      ],
+      "model": "They turn a vague feeling into a clear rule you can follow consistently without emotion. And a clear rule can be tested on past data to see whether it has an edge, or used as a filter (for example, only trading with the trend).",
+      "why": "Indicators help consistency and testing, not prediction.",
+      "tests": [
+        { "answer": "They give you clear rules to follow without emotion, and you can backtest those rules.", "marks": 2 },
+        { "answer": "They help you be consistent.", "marks": 1 },
+        { "answer": "They predict tomorrow's price.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "19-overbought-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "RSI",
+      "q": "A friend sells every share as soon as its RSI goes above 70. Explain the problem with that rule.",
+      "ideas": [
+        { "label": "In strong uptrends RSI can stay above 70 for a long time while price keeps rising", "any": ["stay above", "stays high", "strong trend", "uptrend", "keep rising", "keeps going up", "for weeks", "long time"] },
+        { "label": "So they'd miss most of the move: overbought describes the past, not the future", "any": ["miss", "past", "not the future", "doesn't predict", "lag", "already happened", "too early", "sell too soon"] }
+      ],
+      "model": "In a strong uptrend RSI can stay above 70 for weeks while the price keeps rising, so they'd sell far too early and miss most of the move. Overbought describes how strong the past rise was, not what happens next.",
+      "why": "An indicator reading isn't a forecast.",
+      "tests": [
+        { "answer": "In a strong uptrend RSI can stay above 70 for weeks, so they'd sell too soon and miss the move.", "marks": 2 },
+        { "answer": "The price might keep rising.", "marks": 1 },
+        { "answer": "RSI only works on weekends.", "marks": 0 }
+      ]
+    }
+  ]
+}

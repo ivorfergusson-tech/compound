@@ -1,0 +1,151 @@
+{
+  "module": "23",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "23-size",
+      "type": "number",
+      "topic": "position sizing",
+      "q": "Your paper account is {a}. You risk 1% per trade. You buy at £{e} with a stop at £{s}. How many shares should you buy?",
+      "vars": {
+        "a": { "choices": [5000, 10000, 20000], "default": 10000, "fmt": "money0" },
+        "e": { "choices": [20, 50, 80], "default": 50 },
+        "s": { "choices": [16, 18, 19], "default": 18 }
+      },
+      "answer": "Math.floor(a*0.01/(e-s))",
+      "tol": 0.5,
+      "unit": "shares",
+      "dp": 0,
+      "why": "Risk 1% of {a}, divided by the risk per share (£{e} − £{s}), rounded down: {answer} shares."
+    },
+    {
+      "id": "23-r-multiple",
+      "type": "number",
+      "topic": "R-multiples",
+      "q": "You buy at £{e} with a stop at £{s}. You sell at £{x}. What's the result in R? (Use a minus sign for a loss.)",
+      "vars": {
+        "e": { "choices": [50], "default": 50 },
+        "s": { "choices": [48, 46], "default": 48 },
+        "x": { "choices": [55, 54, 47, 52], "default": 55 }
+      },
+      "answer": "(x-e)/(e-s)",
+      "tol": 0.01,
+      "unit": "R",
+      "dp": 2,
+      "why": "R = (exit − entry) ÷ (entry − stop) = {answer}R."
+    },
+    {
+      "id": "23-breakeven",
+      "type": "number",
+      "topic": "reward to risk",
+      "q": "Every trade risks 1R to make {k}R. Ignoring costs, what win rate (in %) breaks even? (One decimal place.)",
+      "vars": { "k": { "choices": [1, 1.5, 2, 3, 4], "default": 2 } },
+      "answer": "100/(1+k)",
+      "tol": 0.15,
+      "unit": "%",
+      "dp": 1,
+      "why": "Break-even win rate = 1 ÷ (1 + reward) = {answer}%."
+    },
+    {
+      "id": "23-ten-losses",
+      "type": "mcq",
+      "topic": "why survival comes first",
+      "q": "After 10 losses in a row, roughly how much of a £10,000 account is left if you risk 10% per trade?",
+      "options": ["About £3,490", "About £9,000", "About £5,000", "Nothing at all"],
+      "answer": 0,
+      "why": "0.9 × 0.9 × … ten times leaves about 34.9%. At 1% per trade you'd still have about £9,040."
+    },
+    {
+      "id": "23-stop-first",
+      "type": "order",
+      "topic": "planning a trade",
+      "q": "Put the steps of planning a trade in order.",
+      "items": [
+        "Find where the idea is proved wrong and set the stop there",
+        "Work out position size from your 1% risk and the stop distance",
+        "Check the reward-to-risk to the target is worth it",
+        "Write it in your journal, then enter"
+      ],
+      "why": "Stop first, then size, then decide if the reward justifies it, then record before entering."
+    },
+    {
+      "id": "23-move-stop",
+      "type": "tf",
+      "topic": "stop-losses",
+      "q": "If a trade goes against you, moving your stop further away to give it more room is good risk management.",
+      "answer": false,
+      "why": "The stop marks where your idea is wrong. Moving it turns a planned 1R loss into a bigger one."
+    },
+    {
+      "id": "23-wider-stop",
+      "type": "mcq",
+      "topic": "position sizing",
+      "q": "Using the 1% rule, what happens to your position size if your stop is twice as far from your entry?",
+      "options": [
+        "It halves, so the money at risk stays the same",
+        "It doubles",
+        "It stays the same, so you risk twice as much",
+        "You can't trade with a wide stop"
+      ],
+      "answer": 0,
+      "why": "Size = risk ÷ stop distance. Double the distance, halve the size, same £ at risk."
+    },
+    {
+      "id": "23-terms",
+      "type": "match",
+      "topic": "risk terms",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["1R", "The amount you risk on a trade"],
+        ["Stop-loss", "A pre-set exit if price moves against you"],
+        ["Position size", "How much you buy so a stop-out loses your planned risk"],
+        ["Reward-to-risk", "Distance to target ÷ distance to stop"]
+      ],
+      "why": "These four ideas are the core of trading risk management."
+    },
+    {
+      "id": "23-sure-thing",
+      "type": "tf",
+      "topic": "consistent risk",
+      "q": "When you're very confident in a trade, it makes sense to risk much more than usual.",
+      "answer": false,
+      "why": "Confidence doesn't change the odds, and nobody can reliably tell which trades will win. Keep risk the same."
+    },
+    {
+      "id": "23-small-risk-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "why survival comes first",
+      "q": "Explain why risking a small percentage (like 1%) per trade matters so much.",
+      "ideas": [
+        { "label": "Losing streaks are inevitable, even with a good strategy", "any": ["losing streak", "losing run", "losses in a row", "lose several", "string of losses", "inevitable", "everyone loses", "bad run"] },
+        { "label": "Big losses are hard to recover from (a 50% loss needs 100%)", "any": ["recover", "hard to get back", "need more to", "50%", "100%", "back to even", "blow up", "wipe out"] }
+      ],
+      "model": "Every strategy has losing streaks. Risking 1% means even 10 losses in a row leaves about 90% of the account, which is easy to recover. Risking big amounts turns a normal losing run into a huge drawdown, and big losses need much bigger gains to recover.",
+      "why": "Small risk keeps losing runs survivable.",
+      "tests": [
+        { "answer": "Losing streaks always happen, and if you lose big it's very hard to recover, so small risk lets you survive.", "marks": 2 },
+        { "answer": "So you can survive a losing streak.", "marks": 1 },
+        { "answer": "Because the broker requires it.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "23-size-to-stop-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "position sizing",
+      "q": "Explain why you should set the stop first and then work out the position size, not the other way round.",
+      "ideas": [
+        { "label": "The stop should go where the trade idea is proved wrong (from the chart)", "any": ["proved wrong", "wrong", "chart", "support", "level", "logical", "where the idea fails", "invalid"] },
+        { "label": "Then size makes the loss equal to your fixed risk (e.g. 1%)", "any": ["1%", "fixed", "same amount", "planned risk", "risk amount", "how much you lose", "size", "consistent"] }
+      ],
+      "model": "The stop should go where the chart shows your idea is wrong, not wherever suits the size you want. Then you choose the position size so that if the stop is hit you lose exactly your fixed risk, such as 1%.",
+      "why": "Logic sets the stop; maths sets the size.",
+      "tests": [
+        { "answer": "The stop goes where the idea is proved wrong on the chart, then the size makes the loss equal to my 1% risk.", "marks": 2 },
+        { "answer": "So the stop is in a logical place.", "marks": 1 },
+        { "answer": "Because big positions make more money.", "marks": 0 }
+      ]
+    }
+  ]
+}

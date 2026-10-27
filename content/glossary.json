@@ -1,4 +1,9 @@
 {
+  "1% rule": {
+    "term": "1% rule",
+    "def": "Never risking more than 1% of your account on a single trade.",
+    "module": "23"
+  },
   "accumulation units": {
     "term": "Accumulation units",
     "def": "A version of a fund that reinvests dividends automatically. Income units pay them out instead.",
@@ -324,6 +329,11 @@
     "def": "A tax-free account for under-18s, opened by a parent or guardian. The child gets it at 18.",
     "module": "17"
   },
+  "lagging indicator": {
+    "term": "Lagging indicator",
+    "def": "An indicator calculated from past prices, so it reacts after moves have happened.",
+    "module": "19"
+  },
   "leverage": {
     "term": "Leverage",
     "def": "Controlling a bigger position than your deposit, which multiplies gains and losses.",
@@ -348,6 +358,11 @@
     "term": "Loss aversion",
     "def": "Feeling losses about twice as strongly as equal gains, which leads to panic selling and holding losers too long.",
     "module": "26"
+  },
+  "macd": {
+    "term": "MACD",
+    "def": "Moving Average Convergence Divergence: a fast moving average minus a slow one, with a signal line, to show momentum.",
+    "module": "19"
   },
   "margin": {
     "term": "Margin",
@@ -384,6 +399,11 @@
     "def": "Anything people accept in exchange for goods and services. In the UK that's pounds, mostly held as numbers in bank accounts rather than notes and coins.",
     "module": "00"
   },
+  "moving average": {
+    "term": "Moving average",
+    "def": "The average closing price over the last N periods, recalculated each period. Smooths noise but lags.",
+    "module": "19"
+  },
   "national insurance": {
     "term": "National Insurance",
     "def": "A deduction from pay over a threshold that builds your record for the State Pension and some benefits.",
@@ -413,6 +433,11 @@
     "term": "Overdraft",
     "def": "Borrowing by letting your current account go below £0. Arranged overdrafts often cost around 40% a year.",
     "module": "13"
+  },
+  "overfitting": {
+    "term": "Overfitting",
+    "def": "Tuning a strategy so closely to past data that it looks perfect on history and fails on new data.",
+    "module": "27"
   },
   "p/e ratio": {
     "term": "P/E ratio",
@@ -444,6 +469,11 @@
     "def": "What an investment app or website charges to hold your investments: a % of your pot or a flat fee.",
     "module": "14"
   },
+  "position sizing": {
+    "term": "Position sizing",
+    "def": "Choosing how much to buy so that if your stop is hit, you lose exactly the amount you planned.",
+    "module": "23"
+  },
   "pound-cost averaging": {
     "term": "Pound-cost averaging",
     "def": "Investing a fixed amount regularly, so you buy more units when prices are low and fewer when high.",
@@ -463,6 +493,11 @@
     "term": "Profit",
     "def": "What's left from revenue after costs. Gross, operating and net profit take off more costs at each step.",
     "module": "18"
+  },
+  "r-multiple": {
+    "term": "R-multiple",
+    "def": "A trade's result divided by the amount risked: +2R made twice the risk; −1R hit the stop.",
+    "module": "23"
   },
   "real return": {
     "term": "Real return",
@@ -498,6 +533,16 @@
     "term": "Risk premium",
     "def": "The extra expected return investors demand for taking more risk, such as shares over cash.",
     "module": "10"
+  },
+  "risk/reward": {
+    "term": "Reward-to-risk",
+    "def": "The distance to your target divided by the distance to your stop, such as 2 : 1.",
+    "module": "23"
+  },
+  "rsi": {
+    "term": "RSI",
+    "def": "Relative Strength Index: recent gains versus losses on a 0–100 scale. Above 70 is called overbought, below 30 oversold.",
+    "module": "19"
   },
   "rule of 72": {
     "term": "Rule of 72",
@@ -558,6 +603,11 @@
     "term": "Stop order",
     "def": "An order that becomes a market order once the price reaches your level. Used for stop-losses.",
     "module": "07"
+  },
+  "stop-loss": {
+    "term": "Stop-loss",
+    "def": "A pre-set exit that closes a trade if the price moves against you to a chosen level.",
+    "module": "23"
   },
   "student loan plans": {
     "term": "Student loan plans",
@@ -628,6 +678,11 @@
     "term": "Volatility",
     "def": "How much an investment's price swings up and down. A common way to measure risk.",
     "module": "10"
+  },
+  "volume": {
+    "term": "Volume",
+    "def": "How many shares or contracts traded in a period. High volume suggests more conviction behind a move.",
+    "module": "19"
   },
   "workplace pension": {
     "term": "Workplace pension",
