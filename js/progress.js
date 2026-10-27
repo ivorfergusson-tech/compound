@@ -85,6 +85,9 @@ export class Progress {
 
   replace(state) { this.state = { ...emptyState(), ...state }; this.save(); }
 
+  // Admin preview: start blank and keep everything in memory, so this browser's saved progress is left alone.
+  preview() { this.storage = null; this.replace(emptyState()); }
+
   touchDay() {
     const t = this.today();
     if (!this.state.days.includes(t)) this.state.days.push(t);
@@ -211,7 +214,7 @@ export function levelFor(xp) {
 }
 
 // Status of every item on the course map.
-export function courseStatus(items, progress, ready) {
+export function courseStatus(items, progress, ready, { unlockAll = false } = {}) {
   const out = {};
   let gate = null;
   for (const item of items) {
@@ -219,7 +222,7 @@ export function courseStatus(items, progress, ready) {
       out[item.id] = { state: progress.state.read[item.id] ? 'done' : 'open' };
       continue;
     }
-    const unlocked = !gate || progress.passed(gate.id);
+    const unlocked = unlockAll || !gate || progress.passed(gate.id);
     const best = progress.best(item.id);
     let s;
     if (!unlocked) {

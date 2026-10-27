@@ -63,6 +63,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .icon-link:hover { background: var(--surface-2); }
 .read-progress { position: sticky; top: 57px; z-index: 19; height: 4px; background: var(--border); }
 .read-progress span { display: block; height: 4px; width: 0; background: var(--accent); transition: width .15s; }
+.admin-banner { display: block; padding: 6px 16px; background: var(--warm-soft); color: var(--warm); font-size: 0.85rem; font-weight: 600; text-align: center; text-decoration: none; border-bottom: 1px solid var(--warm); }
 .strip { display: flex; align-items: center; gap: 12px; padding: 9px 16px; background: var(--accent-soft); border-bottom: 1px solid var(--accent-line); color: var(--text); text-decoration: none; }
 .strip .lv { font: 800 13px Manrope, sans-serif; background: var(--accent); color: var(--on-accent); border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
 .strip .xpbar { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }

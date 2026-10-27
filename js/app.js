@@ -31,14 +31,15 @@ function cycleTheme() {
 const strandOf = item => (item.strand ? course.strands[item.strand] : null);
 const itemById = id => course.items.find(i => i.id === id);
 
-function statusMap() { return courseStatus(course.items, progress, course.ready); }
+function statusMap() { return courseStatus(course.items, progress, course.ready, { unlockAll: sync.isAdmin() }); }
 
 function gameStrip() {
   const xp = progress.xp().total;
   const lv = levelFor(xp);
   const rank = sync.myRank();
   const pct = Math.round((lv.into / lv.need) * 100);
-  return `<a class="strip" href="#/leaderboard" aria-label="Level ${lv.level}, ${lv.into} of ${lv.need} XP to next level, ${progress.streak()} day streak${rank ? `, rank ${rank}` : ''}. Open leaderboard">
+  const banner = sync.isAdmin() ? '<a class="admin-banner" href="#/account">Admin preview · everything unlocked · nothing saved</a>' : '';
+  return banner + `<a class="strip" href="#/leaderboard" aria-label="Level ${lv.level}, ${lv.into} of ${lv.need} XP to next level, ${progress.streak()} day streak${rank ? `, rank ${rank}` : ''}. Open leaderboard">
     <span class="lv">Lv ${lv.level}</span>
     <span class="xpbar"><span class="track"><span style="width:${pct}%"></span></span><span class="xptext">${xp} XP · ${lv.to - xp} to level ${lv.level + 1}</span></span>
     <span class="streak" title="Days in a row">🔥 ${progress.streak()}</span>
@@ -48,6 +49,7 @@ function gameStrip() {
 
 function refreshStrip() {
   const s = document.querySelector('.strip');
+  document.querySelector('.admin-banner')?.remove();
   if (s) s.outerHTML = gameStrip();
 }
 
@@ -437,7 +439,7 @@ function viewAbout() {
       <li>Levels get further apart as you go: level 2 at 100 XP, level 3 at 300, level 4 at 600, level 5 at 1,000.</li>
     </ul>
     <h2>Privacy</h2>
-    <p>You can use the whole course without an account; your progress stays in this browser. If you make an account, we store your email (to sign you in), your nickname, your progress, quiz answers and notes, so you can pick up on any device. Nobody else can see them. The leaderboard shows only your nickname, level and XP. We don't sell or share your data and there are no ads or trackers. You can export or delete everything from the <a href="#/account">account page</a> at any time. Data is held by Supabase on servers in the EU. Under UK GDPR you can ask what we hold, have it corrected or deleted. <a href="privacy.html">Full privacy notice</a>.</p>
+    <p>You can use the whole course without an account; your progress stays in this browser. If you make an account, we store your email (to sign you in), your nickname, your progress, quiz answers and notes, so you can pick up on any device. Other users can't see them, and we never share them. The leaderboard shows only your nickname, level and XP. We don't sell or share your data and there are no ads or trackers. You can export or delete everything from the <a href="#/account">account page</a> at any time. Data is held by Supabase on servers in the EU. Under UK GDPR you can ask what we hold, have it corrected or deleted. <a href="privacy.html">Full privacy notice</a>.</p>
     <h2>Sources and figures</h2>
     <p>Facts come from primary sources where possible: gov.uk, HMRC, the Bank of England, the ONS, the FCA and MoneyHelper. Figures that change are checked regularly:</p>
     <ul class="sources">${figs.map(f => `<li><strong>${esc(f.label)}:</strong> ${esc(f.display)} (${esc(f.asOf)}). <a href="${esc(f.url)}">${esc(f.source)}</a>, checked ${esc(niceDate(f.checked))}.</li>`).join('')}</ul>
@@ -510,7 +512,10 @@ async function route() {
 
 async function start() {
   [course, figures, glossary] = await Promise.all([loadCourse(), loadFigures(), loadGlossary()]);
-  await sync.init(progress, () => { refreshStrip(); });
+  let wasAdmin = false;
+  await sync.init(progress, () => {
+    if (sync.isAdmin() !== wasAdmin) { wasAdmin = sync.isAdmin(); route(); } else refreshStrip();
+  });
   window.addEventListener('hashchange', route);
   route();
 }

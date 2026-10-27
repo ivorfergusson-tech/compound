@@ -55,3 +55,7 @@ Done by Claude with `gh`, after asking:
 
 ## A note on cheating
 The leaderboard is worked out on the server from stored attempts, and the database rejects impossible scores. Someone determined could still write fake attempts to their own account, because the site is static and the browser does the marking. That's fine for a course shared with friends. Move marking to a server function if it ever matters.
+
+## 7. Admin preview account and private dashboard
+- **Admin account:** sign in on the live site with a second account (use a private window so your own progress isn't touched). Don't pick a nickname. Then add it in Supabase → **SQL Editor**: `insert into public.admins (user_id) select id from auth.users where email = 'that@email';` Signed in as admin, everything is unlocked, nothing is saved, and it never shows on the leaderboard.
+- **Dashboard:** `python tools/admin_dashboard.py` writes `.tmp/admin.html` (gitignored) from the live database and opens it. Accounts, how each module is going, most-missed topics. It never goes online.

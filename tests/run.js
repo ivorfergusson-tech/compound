@@ -115,6 +115,20 @@ const stc = courseStatus(course.items, pc, course.items.map(i => i.id));
 check('checkpoint 1 open after module 8', stc.cp1.state === 'open');
 check('module 9 waits for checkpoint', stc['09'].state === 'locked' && /checkpoint/.test(stc['09'].reason));
 
+// --- admin preview: everything unlocked, nothing written to storage
+const allIds = course.items.map(i => i.id);
+const sta = courseStatus(course.items, new Progress({ storage: mem() }), allIds, { unlockAll: true });
+check('admin preview unlocks every item', Object.values(sta).every(v => v.state === 'open'));
+const store = mem();
+const pv = new Progress({ storage: store });
+pv.recordAttempt({ kind: 'quiz', id: '01', auto: 7, outOf: 7, passed: true, autoPassed: true, results: [] });
+const savedBefore = store.getItem('compound.progress.v1');
+pv.preview();
+check('preview starts blank', pv.state.attempts.length === 0);
+pv.recordAttempt({ kind: 'quiz', id: '02', auto: 7, outOf: 7, passed: true, autoPassed: true, results: [] });
+pv.markRead('03');
+check('preview leaves saved progress alone', store.getItem('compound.progress.v1') === savedBefore && JSON.parse(savedBefore).attempts.length === 1);
+
 // --- XP sums and levels
 const x = xpFromState({ read: { '00': 1, '01': 1 }, attempts: [], days: ['2026-10-01', '2026-10-02', '2026-10-03', '2026-10-04', '2026-10-05', '2026-10-06', '2026-10-07'] });
 check('XP read + days + week streak', x.total === 40 + 70 + 50, JSON.stringify(x));

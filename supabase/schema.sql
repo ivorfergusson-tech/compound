@@ -141,13 +141,23 @@ $$;
 create or replace function public.level_for(xp int) returns int
 language sql immutable as $$ select floor((1 + sqrt(1 + 0.08 * xp)) / 2)::int $$;
 
+-- ---------- admins: preview accounts (everything unlocked, nothing saved, off the leaderboard) ----------
+-- Rows are added by hand in the SQL editor. Each account can only see whether it is an admin itself.
+create table if not exists public.admins (
+  user_id uuid primary key references auth.users (id) on delete cascade
+);
+alter table public.admins enable row level security;
+drop policy if exists "admins: see own row" on public.admins;
+create policy "admins: see own row" on public.admins for select using (user_id = (select auth.uid()));
+
 -- ---------- public leaderboard: nickname, level, XP only ----------
 drop view if exists public.leaderboard;
 create view public.leaderboard as
   select nickname, public.level_for(xp) as level, xp,
          rank() over (order by xp desc) as pos,
          (user_id = (select auth.uid())) as is_me
-  from (select user_id, nickname, public.xp_for(user_id) as xp from public.profiles) s;
+  from (select user_id, nickname, public.xp_for(user_id) as xp from public.profiles
+        where user_id not in (select user_id from public.admins)) s;
 grant select on public.leaderboard to anon, authenticated;
 
 -- ---------- delete my account: removes the login and every row (all tables cascade) ----------

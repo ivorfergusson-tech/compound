@@ -7,7 +7,7 @@ import { esc } from './util.js';
 
 const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
 let sb = null, session = null, progress = null, notify = () => {};
-let nickname = null, rank = null, syncing = null, pushTimer = null, authError = null;
+let nickname = null, rank = null, syncing = null, pushTimer = null, authError = null, admin = false;
 
 export const enabled = () => Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 export const signedIn = () => Boolean(session);
@@ -47,6 +47,7 @@ function syncNow() {
   if (!syncing) {
     syncing = (async () => {
       try {
+        if (await checkAdmin()) return;
         const remote = await pull();
         progress.replace(mergeStates(progress.state, remote));
         await push();
@@ -61,6 +62,17 @@ function syncNow() {
   }
   return syncing;
 }
+
+// Admin accounts preview the course: nothing is pulled, pushed or put on the leaderboard.
+async function checkAdmin() {
+  if (admin) return true;
+  const { data, error } = await sb.from('admins').select('user_id').eq('user_id', session.user.id).maybeSingle();
+  if (error) console.warn('Admin check failed; carrying on as a normal account', error); // never block a learner's sync
+  if (data) { admin = true; progress.preview(); }
+  return admin;
+}
+
+export function isAdmin() { return admin; }
 
 async function pull() {
   const uid = session.user.id;
@@ -84,6 +96,7 @@ async function pull() {
 }
 
 async function push() {
+  if (admin) return;
   const uid = session.user.id;
   const st = progress.state;
   const up = async (table, rows, opts) => {
@@ -105,7 +118,7 @@ async function push() {
 }
 
 export function pushSoon() {
-  if (!sb || !session) return;
+  if (!sb || !session || admin) return;
   clearTimeout(pushTimer);
   pushTimer = setTimeout(() => push().then(refreshRank).then(notify).catch(e => console.warn('Push failed; will retry', e)), 1500);
 }
@@ -130,6 +143,11 @@ export async function authPanel() {
     return `<h2>Account</h2><p>Accounts aren't switched on yet. Your progress is saved in this browser.</p>`;
   }
   if (syncing) await syncing; // just signed in: wait for the profile, or the nickname shows blank
+  if (session && admin) {
+    return `<h2>Admin preview</h2>
+    <p class="small muted">Signed in as ${esc(session.user.email || 'admin')}. Every module and checkpoint is unlocked. Nothing you do here is saved or synced, and this account never appears on the leaderboard.</p>
+    <div class="row-between account-actions"><button type="button" class="btn ghost signout">Sign out</button></div>`;
+  }
   if (!session) {
     const err = authError ? `<p class="auth-error">Sign-in didn't work: ${esc(authError)}</p>` : '';
     authError = null;
@@ -143,7 +161,7 @@ export async function authPanel() {
       <p class="auth-msg" aria-live="polite"></p>`;
   }
   return `<h2>${nickname ? esc(nickname) : 'Pick a nickname'}</h2>
-    <p class="small muted">Signed in as ${esc(session.user.email || 'you')}. Only you can see this.</p>
+    <p class="small muted">Signed in as ${esc(session.user.email || 'you')}. Other users can't see this.</p>
     <form class="nick" id="nickform"><label class="field">${nickname ? 'Change your nickname' : 'Nickname for the leaderboard'}
       <input name="nick" maxlength="20" value="${esc(nickname || '')}" required autocomplete="off"></label>
       <p class="small muted">3 to 20 letters, numbers, spaces, - or _. Shown publicly with your level and XP; don't use your real name.</p>
@@ -182,6 +200,7 @@ export function wireAuthPanel(box, rerender, onSaved = rerender) {
   box.querySelector('.signout')?.addEventListener('click', async () => {
     await push().catch(() => {});
     await sb.auth.signOut();
+    if (admin) return location.reload(); // back to this browser's own saved progress
     session = null; nickname = null; rank = null;
     progress.replace(emptyState()); // don't leave notes on a shared device
     notify();
