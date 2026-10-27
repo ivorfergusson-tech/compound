@@ -1,0 +1,150 @@
+{
+  "module": "03",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "03-ev",
+      "type": "number",
+      "topic": "expected value",
+      "q": "A bet: {p}% chance to win {w}, otherwise you lose {l}. What's the expected value per go, in £? (Use a minus sign if negative.)",
+      "vars": {
+        "p": { "choices": [20, 25, 40, 50, 60], "default": 25 },
+        "w": { "choices": [100, 200, 300], "default": 300, "fmt": "money0" },
+        "l": { "choices": [50, 100, 150], "default": 100, "fmt": "money0" }
+      },
+      "answer": "p/100*w-(1-p/100)*l",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "EV = {p}% × {w} − (100 − {p})% × {l} = {answer}."
+    },
+    {
+      "id": "03-roulette",
+      "type": "mcq",
+      "topic": "gambling and the house edge",
+      "q": "Why does a casino win over time on roulette, even though players sometimes win big?",
+      "options": [
+        "The green zero gives every bet a negative expected value for the player",
+        "The wheel is fixed",
+        "Players always lose the first spin",
+        "Casinos only pay out on red"
+      ],
+      "answer": 0,
+      "why": "On a European wheel, £10 on red has an EV of about −27p (−2.7%). Over thousands of spins that edge always wins."
+    },
+    {
+      "id": "03-match",
+      "type": "match",
+      "topic": "investing vs trading vs gambling",
+      "q": "Match each activity to its usual expected value for an ordinary person.",
+      "pairs": [
+        ["Long-term investing in a global index fund", "Positive over long periods"],
+        ["Short-term retail trading after costs", "Usually negative"],
+        ["Roulette", "Negative by design"],
+        ["A fair coin flip with no fees", "Zero"]
+      ],
+      "why": "Owning businesses has a positive expected return; casinos build in an edge; trading is roughly zero before costs and negative after."
+    },
+    {
+      "id": "03-one-month",
+      "type": "tf",
+      "topic": "luck vs edge",
+      "q": "Making money trading for one month is good evidence that your approach has an edge.",
+      "answer": false,
+      "why": "Short-run results are mostly luck. You need many trades, honestly tested, before results mean anything."
+    },
+    {
+      "id": "03-cfd-loss",
+      "type": "mcq",
+      "topic": "the evidence on retail trading",
+      "q": "What do UK CFD providers' required risk warnings typically show?",
+      "options": [
+        "Most retail accounts lose money (around 68–82% at big providers)",
+        "Most retail accounts make money",
+        "About half win and half lose",
+        "Only beginners lose"
+      ],
+      "answer": 0,
+      "why": "FCA rules make providers publish the share of retail accounts that lose money; at big UK providers it's typically around 68–82%."
+    },
+    {
+      "id": "03-edge",
+      "type": "mcq",
+      "topic": "edge",
+      "q": "Which of these could be a genuine trading edge?",
+      "options": [
+        "A tested strategy whose wins outweigh its losses after costs across many trades",
+        "A strong feeling that a share will rise",
+        "A share that has gone up three days in a row",
+        "A tip from a popular social media account"
+      ],
+      "answer": 0,
+      "why": "An edge is a repeatable reason for positive expected value after costs. Feelings, recent moves and tips aren't edges."
+    },
+    {
+      "id": "03-horizon-order",
+      "type": "order",
+      "topic": "time horizon",
+      "q": "Put these in order of time horizon, shortest first.",
+      "items": ["Day trading", "Swing trading over a few weeks", "Saving for a car in 3 years", "Investing for retirement"],
+      "why": "Day traders hold for minutes or hours, swing traders days or weeks, savers years, retirement investors decades."
+    },
+    {
+      "id": "03-win-rate",
+      "type": "tf",
+      "topic": "expected value",
+      "q": "A strategy that loses 70% of the time must have a negative expected value.",
+      "answer": false,
+      "why": "If the wins are big enough, EV can be positive: winning 30% at 4 times the loss gives 0.3 × 4 − 0.7 × 1 = +0.5."
+    },
+    {
+      "id": "03-break-even",
+      "type": "number",
+      "topic": "expected value",
+      "q": "You win £{w} or lose £100 on each trade. What win rate (in %) makes the expected value exactly zero? (One decimal place.)",
+      "vars": { "w": { "choices": [100, 150, 200, 300], "default": 150, "fmt": "money0" } },
+      "answer": "100/(w+100)*100",
+      "tol": 0.15,
+      "unit": "%",
+      "dp": 1,
+      "why": "Break-even win rate = loss ÷ (win + loss) = £100 ÷ ({w} + £100) = {answer}%."
+    },
+    {
+      "id": "03-negative-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "why most retail trading loses",
+      "q": "Explain why short-term trading usually has a negative expected value for beginners.",
+      "ideas": [
+        { "label": "Before costs it's roughly zero-sum: one trader's gain is another's loss", "any": ["zero-sum", "zero sum", "other side", "someone else loses", "one wins one loses", "for every winner", "break even", "noise", "random"] },
+        { "label": "Costs (spreads, fees, charges) push it below zero", "any": ["cost", "costs", "spread", "fees", "commission", "charges", "overnight"] },
+        { "label": "Beginners are up against professionals with better tools and information", "any": ["professional", "experts", "institutions", "faster", "better information", "algorithms", "computers", "experience", "no edge"] }
+      ],
+      "model": "Over short periods price moves are mostly noise and, before costs, one trader's gain is another's loss. Spreads, fees and overnight charges then push the average below zero. And beginners are up against professionals with faster systems and better information, so they have no edge.",
+      "why": "Zero-sum before costs, negative after, and the competition is strong.",
+      "tests": [
+        { "answer": "It's zero sum before costs, the spread and fees make it negative, and you're against professionals with better information.", "marks": 3 },
+        { "answer": "Because of the fees.", "marks": 1 },
+        { "answer": "Because the app is rigged against you.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "03-resulting-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "luck vs edge",
+      "q": "Explain why judging a trade only by whether it made money can teach you the wrong lessons.",
+      "ideas": [
+        { "label": "One result is mostly luck (a good decision can lose and a bad one can win)", "any": ["luck", "lucky", "chance", "random", "good decision can lose", "bad decision can win", "one result", "one trade"] },
+        { "label": "Judge the process and expected value over many trades instead", "any": ["process", "expected value", "many trades", "over time", "long run", "decision", "plan", "rules", "sample"] }
+      ],
+      "model": "A single result is mostly luck: a good decision can lose and a bad one can win. If you judge by results, you might repeat reckless trades that happened to pay off. Judge the decision and process instead, and look at expected value over many trades.",
+      "why": "Decisions and results aren't the same thing.",
+      "tests": [
+        { "answer": "One result is mostly luck, so you should judge the process and the expected value over many trades.", "marks": 2 },
+        { "answer": "Because you might just have been lucky.", "marks": 1 },
+        { "answer": "Because making money is bad.", "marks": 0 }
+      ]
+    }
+  ]
+}

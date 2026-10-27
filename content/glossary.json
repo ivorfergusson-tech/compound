@@ -19,6 +19,11 @@
     "def": "Annual Percentage Rate: the yearly cost of borrowing, including interest and compulsory fees. Lower is cheaper.",
     "module": "13"
   },
+  "ask": {
+    "term": "Ask",
+    "def": "The lowest price a seller will accept right now: what you pay if you buy. Also called the offer.",
+    "module": "07"
+  },
   "asset": {
     "term": "Asset",
     "def": "Something you own that's worth money: savings, shares, a car, a house.",
@@ -54,6 +59,11 @@
     "def": "The difference between what funds return and what their investors earn, lost to badly timed buying and selling.",
     "module": "26"
   },
+  "bid": {
+    "term": "Bid",
+    "def": "The highest price a buyer will pay right now: what you get if you sell.",
+    "module": "07"
+  },
   "bills": {
     "term": "Bills",
     "def": "Regular household costs such as energy, water, broadband, phone and insurance. Budget for each as a monthly amount.",
@@ -88,6 +98,11 @@
     "term": "Cash ISA",
     "def": "A savings account inside an ISA wrapper, so the interest is tax-free.",
     "module": "17"
+  },
+  "cfd": {
+    "term": "CFD",
+    "def": "Contract for difference: a leveraged product where you settle the price change with a provider, without owning the asset.",
+    "module": "07"
   },
   "compound interest": {
     "term": "Compound interest",
@@ -169,6 +184,11 @@
     "def": "A savings account you can pay into and take money from at any time. The rate is usually variable.",
     "module": "09"
   },
+  "edge": {
+    "term": "Edge",
+    "def": "A genuine, repeatable reason your expected value is positive after all costs.",
+    "module": "03"
+  },
   "emergency fund": {
     "term": "Emergency fund",
     "def": "Easy-access savings kept for the unexpected. Guidance suggests three to six months of essential costs.",
@@ -193,6 +213,11 @@
     "term": "EV/EBITDA",
     "def": "Enterprise value ÷ earnings before interest, tax, depreciation and amortisation. Values a whole company including its debt.",
     "module": "22"
+  },
+  "expected value": {
+    "term": "Expected value",
+    "def": "The average result per go over many repeats: chance of winning × win − chance of losing × loss.",
+    "module": "03"
   },
   "fixed-rate saver": {
     "term": "Fixed-rate saver",
@@ -284,10 +309,25 @@
     "def": "A tax-free account for under-18s, opened by a parent or guardian. The child gets it at 18.",
     "module": "17"
   },
+  "leverage": {
+    "term": "Leverage",
+    "def": "Controlling a bigger position than your deposit, which multiplies gains and losses.",
+    "module": "07"
+  },
   "lifetime isa": {
     "term": "Lifetime ISA",
     "def": "An ISA for a first home or later life: open at 18–39, pay in up to £4,000 a year, get a 25% bonus. A 25% charge applies to other withdrawals.",
     "module": "17"
+  },
+  "limit order": {
+    "term": "Limit order",
+    "def": "An order that only fills at your chosen price or better.",
+    "module": "07"
+  },
+  "liquidity": {
+    "term": "Liquidity",
+    "def": "How easily something can be bought or sold without moving its price.",
+    "module": "07"
   },
   "loss aversion": {
     "term": "Loss aversion",
@@ -296,8 +336,8 @@
   },
   "margin": {
     "term": "Margin",
-    "def": "Profit as a percentage of revenue, so companies of different sizes can be compared.",
-    "module": "18"
+    "def": "The deposit needed to open and keep a leveraged position.",
+    "module": "07"
   },
   "marginal rate": {
     "term": "Marginal tax rate",
@@ -313,6 +353,11 @@
     "term": "Market cap",
     "def": "A company's total stock market value: share price × number of shares.",
     "module": "06"
+  },
+  "market order": {
+    "term": "Market order",
+    "def": "An order to buy or sell now at the best available price.",
+    "module": "07"
   },
   "minimum payment trap": {
     "term": "Minimum payment trap",
@@ -454,6 +499,21 @@
     "def": "Self-Invested Personal Pension: a pension you open and manage yourself, with the same tax relief.",
     "module": "21"
   },
+  "speculation": {
+    "term": "Speculation",
+    "def": "Buying or selling to profit from short-term price moves rather than to own a business for its long-term returns.",
+    "module": "03"
+  },
+  "spread": {
+    "term": "Spread",
+    "def": "The gap between the bid and ask prices: a cost on every round-trip trade.",
+    "module": "07"
+  },
+  "spread bet": {
+    "term": "Spread bet",
+    "def": "A leveraged bet of an amount per point of price movement. Usually free of UK Capital Gains Tax because it counts as gambling.",
+    "module": "07"
+  },
   "state pension": {
     "term": "State Pension",
     "def": "A regular payment from the government from State Pension age, based on your National Insurance record.",
@@ -468,6 +528,11 @@
     "term": "Stocks and Shares ISA",
     "def": "An ISA that holds investments such as funds and shares. Gains and dividends are tax-free; the value can fall.",
     "module": "17"
+  },
+  "stop order": {
+    "term": "Stop order",
+    "def": "An order that becomes a market order once the price reaches your level. Used for stop-losses.",
+    "module": "07"
   },
   "student loan plans": {
     "term": "Student loan plans",
@@ -488,6 +553,11 @@
     "term": "Tax relief",
     "def": "Income tax given back on pension contributions, so each £1 in your pot costs a basic-rate taxpayer about 80p.",
     "module": "21"
+  },
+  "time horizon": {
+    "term": "Time horizon",
+    "def": "How long you plan to hold an investment or trade, from minutes to decades.",
+    "module": "03"
   },
   "total return": {
     "term": "Total return",

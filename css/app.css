@@ -338,3 +338,16 @@ a.item:hover { border-color: var(--border-2); }
 .lb-bar i { display: block; height: 8px; border-radius: 4px; }
 .lb-risk { background: var(--chart-b); } .lb-ret { background: var(--chart-a); }
 @media (min-width: 720px) { .ladder-row { grid-template-columns: minmax(0, 1fr) 240px; align-items: center; } }
+
+/* candlestick charts */
+.cd-up, .cd-down { stroke-width: 1.2; }
+.cd-up { stroke: var(--chart-a); } .cd-down { stroke: var(--chart-b); }
+.cd-up-body { fill: var(--surface); stroke: var(--chart-a); stroke-width: 1.2; }
+.cd-down-body { fill: var(--chart-b); stroke: var(--chart-b); stroke-width: 1; }
+.vol-bar { fill: var(--chart-c); opacity: .45; }
+.ch-tag { font-weight: 600; fill: var(--text-2); }
+.cd-key { display: inline-block; width: 10px; height: 14px; border-radius: 2px; border: 1.5px solid var(--chart-a); }
+.cd-key.down { background: var(--chart-b); border-color: var(--chart-b); }
+.check { display: flex; align-items: center; gap: 8px; font-size: 15px; min-height: 40px; }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.made-up { margin: 0; font-style: italic; }

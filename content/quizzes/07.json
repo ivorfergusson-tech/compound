@@ -1,0 +1,304 @@
+{
+  "module": "07",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "07-bid-ask",
+      "type": "match",
+      "topic": "bid, ask and spread",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        [
+          "Bid",
+          "The price you get if you sell now"
+        ],
+        [
+          "Ask",
+          "The price you pay if you buy now"
+        ],
+        [
+          "Spread",
+          "The gap between the two"
+        ],
+        [
+          "Slippage",
+          "Getting a worse price than you expected"
+        ]
+      ],
+      "why": "You buy at the ask and sell at the lower bid, so the spread is a cost on every round trip."
+    },
+    {
+      "id": "07-spread-cost",
+      "type": "number",
+      "topic": "bid, ask and spread",
+      "q": "A share is quoted {b}p bid / {a}p ask. You buy {q} shares and sell them straight back. How much do you lose, in £?",
+      "vars": {
+        "b": {
+          "choices": [
+            99,
+            199,
+            49.5
+          ],
+          "default": 99
+        },
+        "a": {
+          "choices": [
+            100,
+            200,
+            50
+          ],
+          "default": 100
+        },
+        "q": {
+          "choices": [
+            500,
+            1000,
+            2000
+          ],
+          "default": 1000
+        }
+      },
+      "answer": "(a-b)*q/100",
+      "tol": 0.05,
+      "unit": "£",
+      "dp": 2,
+      "why": "The spread is ({a}p − {b}p) per share × {q} shares = £{answer}."
+    },
+    {
+      "id": "07-leverage-loss",
+      "type": "number",
+      "topic": "leverage",
+      "q": "You put down {m} as margin with {l}:1 leverage. The market moves {d}% against you. How much do you lose, in £?",
+      "vars": {
+        "m": {
+          "choices": [
+            200,
+            500,
+            1000
+          ],
+          "default": 500,
+          "fmt": "money0"
+        },
+        "l": {
+          "choices": [
+            5,
+            10,
+            20,
+            30
+          ],
+          "default": 20
+        },
+        "d": {
+          "choices": [
+            1,
+            2,
+            3
+          ],
+          "default": 2
+        }
+      },
+      "answer": "m*l*d/100",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 0,
+      "why": "Position = {m} × {l}. {d}% of that is £{answer}, a big share of your margin."
+    },
+    {
+      "id": "07-limit",
+      "type": "mcq",
+      "topic": "order types",
+      "q": "You want to buy only if the price is 95p or lower. Which order?",
+      "options": [
+        "Limit order",
+        "Market order",
+        "Stop order",
+        "Any of them"
+      ],
+      "answer": 0,
+      "why": "A limit order fills only at your price or better."
+    },
+    {
+      "id": "07-stop-gap",
+      "type": "tf",
+      "topic": "order types",
+      "q": "A normal stop-loss always sells at exactly your stop price.",
+      "answer": false,
+      "why": "It becomes a market order when triggered. If the price gaps past your level, you get the next available price, which can be worse."
+    },
+    {
+      "id": "07-short",
+      "type": "mcq",
+      "topic": "going short",
+      "q": "Why is going short riskier than buying, without a stop?",
+      "options": [
+        "A price can rise without limit, so losses have no ceiling",
+        "You can't profit from shorting",
+        "Shorting is illegal in the UK",
+        "Short positions can't be closed"
+      ],
+      "answer": 0,
+      "why": "When you buy, the worst case is the price going to zero. When you short, the price can keep rising."
+    },
+    {
+      "id": "07-uk-rules",
+      "type": "mcq",
+      "topic": "UK CFD rules",
+      "q": "Which of these is a UK rule for retail CFD customers?",
+      "options": [
+        "Leverage capped between 30:1 and 2:1, and you can't lose more than your account",
+        "Unlimited leverage if you sign a form",
+        "CFDs are tax-free",
+        "Crypto CFDs are allowed with 50:1 leverage"
+      ],
+      "answer": 0,
+      "why": "The FCA caps leverage, closes positions at 50% of margin and gives negative balance protection. Crypto derivatives are banned for retail."
+    },
+    {
+      "id": "07-tax-match",
+      "type": "match",
+      "topic": "CFDs vs spread bets",
+      "q": "Match each product to how its profits are usually treated in the UK.",
+      "pairs": [
+        [
+          "Spread bet",
+          "Treated as gambling: usually no Capital Gains Tax"
+        ],
+        [
+          "CFD",
+          "Taxed as capital gains above the allowance"
+        ],
+        [
+          "Shares in a Stocks and Shares ISA",
+          "No tax at all"
+        ],
+        [
+          "Shares bought outside an ISA",
+          "Stamp Duty to buy UK shares, CGT on gains"
+        ]
+      ],
+      "why": "Wrappers and products change the tax. Check HMRC rules for your situation."
+    },
+    {
+      "id": "07-liquidity",
+      "type": "tf",
+      "topic": "liquidity",
+      "q": "Shares in a tiny company usually have wider spreads than shares in a FTSE 100 company.",
+      "answer": true,
+      "why": "Fewer buyers and sellers means less liquidity, so spreads are wider and big orders move the price."
+    },
+    {
+      "id": "07-leverage-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "leverage",
+      "q": "Explain why leverage is dangerous for a beginner, even though it can multiply profits.",
+      "ideas": [
+        {
+          "label": "It multiplies losses as much as gains",
+          "any": [
+            "losses",
+            "lose",
+            "both ways",
+            "magnif*",
+            "multiplies",
+            "works against",
+            "amplif*"
+          ]
+        },
+        {
+          "label": "A small market move can wipe out much or all of the deposit",
+          "any": [
+            "small move",
+            "wipe out",
+            "whole deposit",
+            "all your money",
+            "margin",
+            "closed out",
+            "account",
+            "deposit"
+          ]
+        },
+        {
+          "label": "It doesn't improve your odds or edge (and costs are magnified too)",
+          "any": [
+            "doesn't improve",
+            "same odds",
+            "no edge",
+            "chances",
+            "costs",
+            "fees",
+            "spread",
+            "probability"
+          ]
+        }
+      ],
+      "model": "Leverage multiplies losses exactly as much as gains, so a small move against you (5% at 20:1) can wipe out the whole deposit. It doesn't make you any more likely to be right, and costs are magnified too, so a beginner without an edge just loses faster.",
+      "why": "Leverage magnifies results, not skill.",
+      "tests": [
+        {
+          "answer": "It multiplies losses as well as gains, so a small move can wipe out your deposit, and it doesn't improve your chances.",
+          "marks": 3
+        },
+        {
+          "answer": "You can lose your whole deposit.",
+          "marks": 2
+        },
+        {
+          "answer": "Because it's illegal.",
+          "marks": 0
+        }
+      ]
+    },
+    {
+      "id": "07-costs-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "what a trade really costs",
+      "q": "Explain why frequent trading is so expensive even when each trade's costs look tiny.",
+      "ideas": [
+        {
+          "label": "Costs (spread, commission, overnight fees) are paid on every single trade",
+          "any": [
+            "every trade",
+            "each trade",
+            "spread",
+            "commission",
+            "fees",
+            "overnight",
+            "costs"
+          ]
+        },
+        {
+          "label": "Many trades add up to a large share of your money over a year",
+          "any": [
+            "add up",
+            "many trades",
+            "lots of trades",
+            "over a year",
+            "frequent",
+            "often",
+            "accumulate",
+            "pile up",
+            "100%"
+          ]
+        }
+      ],
+      "model": "Spreads, commissions and overnight charges are paid on every trade. Each looks tiny, but frequent traders make hundreds of trades a year, so the costs add up to a large share of their money, and any edge must beat that before making a profit.",
+      "why": "Small costs × many trades = big costs.",
+      "tests": [
+        {
+          "answer": "You pay the spread and fees on every trade, and over a year lots of trades add up.",
+          "marks": 2
+        },
+        {
+          "answer": "Because of the spread.",
+          "marks": 1
+        },
+        {
+          "answer": "Because prices go down.",
+          "marks": 0
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import { instantiate, mark, buildAttempt, buildCheckpoint, score, seededRng } fr
 import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState } from '../js/progress.js';
 import { nicknameProblem } from '../js/nickname.js';
 import { payslip } from '../js/calcs-money.js';
+import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-trade.js';
 
 let pass = 0, fail = 0;
 function check(name, cond, extra = '') {
@@ -172,6 +173,21 @@ r = ps({ salary: 60000 });
 check('payslip £60k higher rate', near(r.tax, 11432) && near(r.ni, 3210.6), JSON.stringify(r));
 r = ps({ salary: 110000 });
 check('payslip £110k allowance taper', near(r.pa, 7570), JSON.stringify(r));
+
+// --- trading maths
+check('sma', JSON.stringify(sma([1, 2, 3, 4], 2)) === JSON.stringify([null, 1.5, 2.5, 3.5]));
+const rup = rsi(Array.from({ length: 30 }, (_, i) => 100 + i));
+check('rsi of steady rise is 100', Math.round(rup[29]) === 100, rup[29]);
+const rmix = rsi(Array.from({ length: 40 }, (_, i) => 100 + (i % 2 ? 1 : -1)));
+check('rsi of chop is near 50', Math.abs(rmix[39] - 50) < 10, rmix[39]);
+check('streak certain when all lose', Math.abs(streakChance(10, 3, 1) - 1) < 1e-9);
+check('streak impossible when short', streakChance(2, 3, 0.9) === 0);
+check('streak 2 in 2 coin flips = 25%', Math.abs(streakChance(2, 2, 0.5) - 0.25) < 1e-9);
+const ts = tradeStats([2, -1, -1, 1.5, -1]);
+check('trade stats', ts.n === 5 && Math.abs(ts.winRate - 0.4) < 1e-9 && Math.abs(ts.expectancy - 0.1) < 1e-9 && ts.longest === 2 && Math.abs(ts.maxDd - 2) < 1e-9, JSON.stringify(ts));
+const mc = makeCandles();
+check('candles valid', mc.length === 70 && mc.every(c => c.h >= Math.max(c.o, c.c) && c.l <= Math.min(c.o, c.c)));
+check('candles range then breakout', Math.max(...mc.slice(25, 50).map(c => c.c)) < 113 && mc.at(-1).c > 112, mc.at(-1).c);
 
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

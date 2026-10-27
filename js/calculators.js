@@ -4,6 +4,7 @@ import { esc, gbp } from './util.js';
 import { lineChart, moneyShort } from './charts.js';
 import { moneyCalculators } from './calcs-money.js';
 import { investCalculators } from './calcs-invest.js';
+import { tradeCalculators } from './calcs-trade.js';
 
 function slider(id, label, { min, max, step, value, fmt }) {
   return `<label class="slider"><span class="slider-top"><span>${esc(label)}</span><output data-out="${id}">${esc(fmt(value))}</output></span>`
@@ -36,6 +37,7 @@ const pounds = v => gbp(v, 0);
 export const calculators = {
   ...moneyCalculators,
   ...investCalculators,
+  ...tradeCalculators,
 
   compound(root, a) {
     const specs = {

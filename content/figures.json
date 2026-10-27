@@ -587,6 +587,56 @@
       "url": "https://www.morningstar.com/funds/investors-still-need-mind-gap-their-funds-returns",
       "checked": "2026-10-27",
       "refresh": "each year"
+    },
+    "cfdLossRate": {
+      "value": 70,
+      "display": "about 68–82%",
+      "label": "Retail CFD accounts that lose money",
+      "asOf": "big UK providers' required risk warnings, 2026 (average about 70% across 14 FCA-authorised brokers, April 2026)",
+      "source": "providers' FCA risk warnings, compiled by The Investors Centre and Pound Sterling Live",
+      "url": "https://www.poundsterlinglive.com/news/23132-even-at-major-uk-brokers-most-cfd-accounts-lost-money-report-finds",
+      "checked": "2026-10-27",
+      "refresh": "every few months"
+    },
+    "cfdLeverage": {
+      "value": 30,
+      "display": "between 30:1 and 2:1",
+      "label": "Maximum leverage for retail CFDs and spread bets",
+      "asOf": "FCA rules since 2019 (30:1 on major currency pairs down to 5:1 on individual shares); positions are closed when funds fall to 50% of the margin needed; you can't lose more than your account",
+      "source": "FCA (PS19/18)",
+      "url": "https://www.fca.org.uk/publications/policy-statements/ps19-18-restricting-contract-difference-products",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "cryptoRules": {
+      "value": null,
+      "display": "banned for retail since 6 January 2021",
+      "label": "Crypto derivatives (CFDs, futures, options) for retail customers",
+      "asOf": "crypto exchange-traded notes on UK exchanges allowed for retail from 8 October 2025, with no FSCS cover; buying crypto itself is mostly unregulated",
+      "source": "FCA",
+      "url": "https://www.fca.org.uk/news/press-releases/fca-bans-sale-crypto-derivatives-retail-consumers",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "dayTraders": {
+      "value": 97,
+      "display": "97%",
+      "label": "Day traders who kept going for 300+ days and lost money",
+      "asOf": "all individuals who started day trading Brazilian equity futures in 2013–2015; only 0.4% earned more than a bank teller's wage",
+      "source": "Chague, De-Losso and Giovannetti, \"Day Trading for a Living?\" (FGV)",
+      "url": "https://repositorio.fgv.br/items/e87d04fc-4b4c-4a56-ab5a-1c84c1afde1b/full",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "spreadBetTax": {
+      "value": null,
+      "display": "usually free of Capital Gains Tax",
+      "label": "Spread betting tax",
+      "asOf": "HMRC treats it as gambling, so losses can't offset gains; CFD profits are taxed as capital gains above the £3,000 allowance",
+      "source": "providers' tax guides (IG, CMC Markets); check HMRC",
+      "url": "https://www.ig.com/uk/learn/trading/spread-betting-vs-cfds-tax",
+      "checked": "2026-10-27",
+      "refresh": "after each Budget"
     }
   }
 }
