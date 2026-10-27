@@ -7,7 +7,7 @@ export function normalise(text) {
   return String(text || '')
     .toLowerCase()
     .replace(/[’']/g, '')
-    .replace(/[^a-z0-9£%.\s-]/g, ' ')
+    .replace(/[^a-z0-9£%.*\s-]/g, ' ')
     .replace(/(\D)\.|\.(\D)/g, '$1 $2')
     .replace(/\s+/g, ' ')
     .trim();
@@ -39,7 +39,9 @@ export function editDistance(a, b) {
 }
 
 // Typo allowance grows with word length; short words must match exactly.
+// A phrase word ending in * matches any word starting with it ("accelerat*" → accelerates, acceleration).
 export function wordMatches(answerWord, phraseWord) {
+  if (phraseWord.endsWith('*')) return answerWord.startsWith(phraseWord.slice(0, -1));
   const a = stem(answerWord), p = stem(phraseWord);
   if (a === p) return true;
   if (/\d/.test(p)) return false;

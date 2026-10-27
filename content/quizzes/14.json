@@ -1,0 +1,139 @@
+{
+  "module": "14",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "14-active-passive",
+      "type": "match",
+      "topic": "active vs passive",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["Active fund", "A manager picks investments to try to beat the market"],
+        ["Index fund", "Copies an index, holding everything in it"],
+        ["ETF", "A fund that trades on a stock exchange like a share"],
+        ["OCF", "A fund's yearly charge as a % of what you hold"]
+      ],
+      "why": "Passive funds copy; active funds pick. ETFs are one way to hold either. The OCF is the fund's running cost."
+    },
+    {
+      "id": "14-why-active-lags",
+      "type": "mcq",
+      "topic": "active vs passive",
+      "q": "Why do most active funds trail index funds over 10+ years?",
+      "options": [
+        "On average they earn the market return before fees, and higher fees push most below a cheap tracker",
+        "Index funds use secret information",
+        "Active funds can only hold bonds",
+        "Index funds are guaranteed by the government"
+      ],
+      "answer": 0,
+      "why": "Before costs, active investors as a group earn the market return. After their higher costs, most lag."
+    },
+    {
+      "id": "14-fee-amount",
+      "type": "number",
+      "topic": "fees",
+      "q": "You hold {p} in a fund with total yearly fees of {f}. Roughly how much do you pay in fees this year?",
+      "vars": {
+        "p": { "choices": [5000, 10000, 20000, 50000], "default": 20000, "fmt": "money0" },
+        "f": { "choices": [0.2, 0.5, 1, 1.5], "default": 1, "fmt": "pct" }
+      },
+      "answer": "p*f/100",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "{f} of {p} = {answer}, and it's charged again next year on the whole (hopefully bigger) pot."
+    },
+    {
+      "id": "14-fee-tf",
+      "type": "tf",
+      "topic": "fees",
+      "q": "A 1% yearly fee only costs 1% of your money in total, however long you invest.",
+      "answer": false,
+      "why": "It's charged on the whole pot every year, including growth, so over decades it can take a large share of your final pot."
+    },
+    {
+      "id": "14-acc-inc",
+      "type": "mcq",
+      "topic": "accumulation vs income units",
+      "q": "What's the difference between accumulation and income units of the same fund?",
+      "options": [
+        "Accumulation reinvests dividends inside the fund; income pays them out to you",
+        "Accumulation is riskier",
+        "Income units hold different companies",
+        "Accumulation units have no fees"
+      ],
+      "answer": 0,
+      "why": "Same investments; only what happens to the dividends differs."
+    },
+    {
+      "id": "14-cost-layers",
+      "type": "order",
+      "topic": "fees",
+      "q": "Put these in the order you'd usually find them when buying a fund through an app, from opening the account to holding the fund.",
+      "items": ["Choose a platform", "Open a Stocks and Shares ISA on it", "Pay money in", "Buy an index fund inside the ISA"],
+      "why": "Platform, then the wrapper, then money in, then actually buy the investment. Skipping the last step leaves your money as uninvested cash."
+    },
+    {
+      "id": "14-global-uk",
+      "type": "mcq",
+      "topic": "choosing an index",
+      "q": "Which is usually more diversified for a UK investor?",
+      "options": ["A global index fund", "A FTSE 100 tracker", "One UK bank's shares", "A fund of only UK small companies"],
+      "answer": 0,
+      "why": "A global index holds thousands of companies across many countries and industries; the UK is a small slice of the world market."
+    },
+    {
+      "id": "14-pound-cost",
+      "type": "tf",
+      "topic": "investing regularly",
+      "q": "Investing a fixed amount each month means you buy more units when prices are low and fewer when they're high.",
+      "answer": true,
+      "why": "That's pound-cost averaging: the same £ amount buys more units at lower prices, without having to time the market."
+    },
+    {
+      "id": "14-cheap-myth",
+      "type": "tf",
+      "topic": "fees",
+      "q": "In investing, a fund with higher fees is usually better because you get what you pay for.",
+      "answer": false,
+      "why": "Lower fees are one of the few reliable predictors of better future returns. Higher fees come straight out of your return."
+    },
+    {
+      "id": "14-fees-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "fees",
+      "q": "Explain why a difference of 1% a year in fees can make such a big difference over 30 years.",
+      "ideas": [
+        { "label": "The fee is charged on the whole pot every year, including past growth", "any": ["whole pot", "every year", "each year", "entire", "all of it", "total value", "including growth", "on the growth"] },
+        { "label": "Money taken in fees can't compound, so the gap grows over time", "any": ["compound", "can't compound", "cannot compound", "never compound", "can never compound", "doesn't compound", "stops compounding", "can't grow", "cannot grow", "lost growth", "grows over time", "adds up", "snowball", "missed growth"] }
+      ],
+      "model": "The fee is a percentage of your whole pot every year, including all the growth so far. And each pound taken in fees can never compound for you, so the gap grows bigger every year: on £100 a month for 30 years, 1% extra can cost around £16,000.",
+      "why": "Fees compound against you, just as returns compound for you.",
+      "tests": [
+        { "answer": "It's charged on the whole pot each year and that money can't compound, so the difference keeps growing.", "marks": 2 },
+        { "answer": "Because it's taken every year.", "marks": 1 },
+        { "answer": "Because 1% is a lot of money.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "14-arithmetic-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "active vs passive",
+      "q": "Explain why, before costs, active investors as a group can't beat the market on average.",
+      "ideas": [
+        { "label": "Together all investors own the whole market, so on average they earn the market return", "any": ["are the market", "own the market", "whole market", "market return", "on average", "all investors", "together"] },
+        { "label": "For every winner there must be a loser (it's zero-sum relative to the market)", "any": ["winner", "loser", "someone else", "other side", "zero-sum", "zero sum", "for every", "someone loses", "must lag"] }
+      ],
+      "model": "All investors together own the whole market, so before costs their average return must equal the market's. For every active manager who beats it, someone else must lag it. After fees, the average active investor falls behind.",
+      "why": "It's arithmetic, not opinion.",
+      "tests": [
+        { "answer": "All investors together are the market, so on average they get the market return, and for every winner there's a loser.", "marks": 2 },
+        { "answer": "Because for every winner there is a loser.", "marks": 1 },
+        { "answer": "Because active managers are lazy.", "marks": 0 }
+      ]
+    }
+  ]
+}

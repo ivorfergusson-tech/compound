@@ -125,7 +125,7 @@
       "q": "Explain why starting a pension at 22 rather than 32 can make a difference of tens of thousands of pounds.",
       "ideas": [
         { "label": "The money gets 10 more years to compound", "any": ["compound", "more years", "longer", "more time", "ten years", "10 years", "extra years", "grow for longer"] },
-        { "label": "The final years add the most growth, so missing years costs a lot", "any": ["end", "final years", "last years", "bigger pot", "grows most", "biggest", "snowball", "accelerat", "speeds up", "exponential"] }
+        { "label": "The final years add the most growth, so missing years costs a lot", "any": ["end", "final years", "last years", "bigger pot", "grows most", "biggest", "snowball", "accelerat*", "speeds up", "exponential"] }
       ],
       "model": "Money paid in at 22 gets 10 more years to compound, and the growth is biggest in the final years when the pot is largest, so a later start loses the most valuable growth.",
       "why": "Time in the pot matters more than the amount.",

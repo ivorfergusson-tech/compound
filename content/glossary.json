@@ -1,4 +1,9 @@
 {
+  "accumulation units": {
+    "term": "Accumulation units",
+    "def": "A version of a fund that reinvests dividends automatically. Income units pay them out instead.",
+    "module": "14"
+  },
   "aer": {
     "term": "AER",
     "def": "Annual Equivalent Rate: a savings rate including compounding over a year, so you can compare accounts fairly.",
@@ -23,6 +28,11 @@
     "term": "Auto-enrolment",
     "def": "The law that makes employers put eligible staff (22+, earning over £10,000) into a workplace pension automatically.",
     "module": "21"
+  },
+  "balance sheet": {
+    "term": "Balance sheet",
+    "def": "A snapshot of what a company owns (assets), owes (liabilities) and what's left for shareholders (equity) on one date.",
+    "module": "18"
   },
   "bank of england": {
     "term": "Bank of England",
@@ -58,6 +68,11 @@
     "term": "Capital gain",
     "def": "The profit when you sell an investment for more than you paid.",
     "module": "02"
+  },
+  "cash flow statement": {
+    "term": "Cash flow statement",
+    "def": "Shows the real cash coming in and going out, split into operating, investing and financing.",
+    "module": "18"
   },
   "cash isa": {
     "term": "Cash ISA",
@@ -124,6 +139,11 @@
     "def": "A fall from a previous high to a low, such as the FTSE 100 losing about half in 2007–2009.",
     "module": "10"
   },
+  "earnings per share": {
+    "term": "Earnings per share (EPS)",
+    "def": "Net profit divided by the number of shares.",
+    "module": "18"
+  },
   "easy-access account": {
     "term": "Easy-access account",
     "def": "A savings account you can pay into and take money from at any time. The rate is usually variable.",
@@ -139,10 +159,20 @@
     "def": "Money your employer pays into your pension on top of your pay. At least 3% of qualifying earnings under auto-enrolment.",
     "module": "21"
   },
+  "etf": {
+    "term": "ETF",
+    "def": "Exchange-traded fund: a fund that trades on a stock exchange like a share, with prices all day.",
+    "module": "14"
+  },
   "fixed-rate saver": {
     "term": "Fixed-rate saver",
     "def": "A savings account (often called a bond) that locks your money away for a set time at a fixed rate.",
     "module": "09"
+  },
+  "free cash flow": {
+    "term": "Free cash flow",
+    "def": "Cash from the everyday business minus spending on equipment and premises: the cash a company really generates.",
+    "module": "18"
   },
   "fscs": {
     "term": "FSCS",
@@ -169,10 +199,20 @@
     "def": "What you earn before anything is taken off: your salary or hourly rate times hours.",
     "module": "05"
   },
+  "income statement": {
+    "term": "Income statement",
+    "def": "The account showing revenue, costs and profit over a period. Also called the profit and loss account.",
+    "module": "18"
+  },
   "index": {
     "term": "Index",
     "def": "A number that tracks the value of a group of shares, such as the FTSE 100, to show how a market is doing.",
     "module": "06"
+  },
+  "index fund": {
+    "term": "Index fund",
+    "def": "A fund that copies an index, holding everything in it in proportion to size. Also called a tracker or passive fund.",
+    "module": "14"
   },
   "inflation": {
     "term": "Inflation",
@@ -214,6 +254,11 @@
     "def": "An ISA for a first home or later life: open at 18–39, pay in up to £4,000 a year, get a 25% bonus. A 25% charge applies to other withdrawals.",
     "module": "17"
   },
+  "margin": {
+    "term": "Margin",
+    "def": "Profit as a percentage of revenue, so companies of different sizes can be compared.",
+    "module": "18"
+  },
   "marginal rate": {
     "term": "Marginal tax rate",
     "def": "The rate charged on your next pound of income. Higher than your average rate, because lower slices of pay are taxed less.",
@@ -254,6 +299,11 @@
     "def": "The return shown on your statement, before taking inflation into account.",
     "module": "01"
   },
+  "ocf": {
+    "term": "OCF",
+    "def": "Ongoing charges figure: a fund's yearly running cost as a % of what you hold, taken automatically.",
+    "module": "14"
+  },
   "overdraft": {
     "term": "Overdraft",
     "def": "Borrowing by letting your current account go below £0. Arranged overdrafts often cost around 40% a year.",
@@ -274,10 +324,25 @@
     "def": "The income you can have each tax year before paying income tax: £12,570 for most people in 2026/27.",
     "module": "05"
   },
+  "platform fee": {
+    "term": "Platform fee",
+    "def": "What an investment app or website charges to hold your investments: a % of your pot or a flat fee.",
+    "module": "14"
+  },
+  "pound-cost averaging": {
+    "term": "Pound-cost averaging",
+    "def": "Investing a fixed amount regularly, so you buy more units when prices are low and fewer when high.",
+    "module": "14"
+  },
   "principal": {
     "term": "Principal",
     "def": "The amount you start with, before any interest is added.",
     "module": "01"
+  },
+  "profit": {
+    "term": "Profit",
+    "def": "What's left from revenue after costs. Gross, operating and net profit take off more costs at each step.",
+    "module": "18"
   },
   "real return": {
     "term": "Real return",
@@ -288,6 +353,11 @@
     "term": "Rent",
     "def": "What you pay a landlord to live in a home. In England, deposits are capped at five weeks' rent and must be protected.",
     "module": "25"
+  },
+  "revenue": {
+    "term": "Revenue",
+    "def": "Money from sales before any costs are taken off. Also called turnover or the top line.",
+    "module": "18"
   },
   "risk premium": {
     "term": "Risk premium",

@@ -109,7 +109,7 @@
       "q": "Explain why shares have usually returned more than bonds over the long run.",
       "ideas": [
         { "label": "Shares are riskier: owners are paid last and prices swing", "any": ["risk", "riskier", "risky", "paid last", "last in line", "can lose", "go bust", "swing", "volatile", "go down", "fall"] },
-        { "label": "Investors need a higher expected return to accept that risk", "any": ["reward", "compensat", "higher return", "expect more", "more return", "extra return", "premium", "worth it", "for taking"] }
+        { "label": "Investors need a higher expected return to accept that risk", "any": ["reward", "compensat*", "higher return", "expect more", "more return", "extra return", "premium", "worth it", "for taking"] }
       ],
       "model": "Shares are riskier: shareholders are paid last, prices swing a lot and a company can go bust. Nobody would take that extra risk without the chance of a higher reward, so on average shares must offer a higher expected return than bonds.",
       "why": "More risk has to come with more expected reward, or no one would take it.",

@@ -40,6 +40,9 @@ Normal Markdown, plus:
   :::
   ```
 
+## Quiz format (`content/quizzes/*.json`)
+Types: mcq, tf, order, match, number (with `vars`, `answer` expression, `tol`), explain (`ideas` with `any` phrases; a phrase word ending in `*` matches any word starting with it). Questions sharing a `group` are alternatives (one per attempt). Every explain question needs `tests`: a right, a half-right and a wrong answer with expected marks; `node tests/run.js` checks them.
+
 ## Rules
 - **Facts:** UK rules (England, Wales, NI; flag Scotland for income tax). Primary sources only (gov.uk, HMRC, Bank of England, ONS, FCA, MoneyHelper). Never invent numbers. Every changing figure lives in `figures.json` with a source and a checked date.
 - **Safety:** education only, not financial advice. Trading is paper only. Every trading-strand module shows the paper-only notice.

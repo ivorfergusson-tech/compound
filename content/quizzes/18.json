@@ -1,0 +1,312 @@
+{
+  "module": "18",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "18-three-statements",
+      "type": "match",
+      "topic": "the three statements",
+      "q": "Match each statement to the question it answers.",
+      "pairs": [
+        [
+          "Income statement",
+          "Did the company make a profit over the year?"
+        ],
+        [
+          "Balance sheet",
+          "What does it own and owe on one date?"
+        ],
+        [
+          "Cash flow statement",
+          "Did real cash come in and go out?"
+        ],
+        [
+          "Auditor's report",
+          "Did an independent firm check the accounts?"
+        ]
+      ],
+      "why": "Profit, position and cash are three different views of the same business; auditors check them."
+    },
+    {
+      "id": "18-gross-margin",
+      "type": "number",
+      "topic": "margins",
+      "q": "A company has revenue of £{r}m and cost of sales of £{c}m. What's its gross margin, in %?",
+      "vars": {
+        "r": {
+          "choices": [
+            100,
+            200,
+            250,
+            400
+          ],
+          "default": 200
+        },
+        "c": {
+          "choices": [
+            40,
+            60,
+            80,
+            90
+          ],
+          "default": 80
+        }
+      },
+      "answer": "(r-c)/r*100",
+      "tol": 0.1,
+      "unit": "%",
+      "dp": 1,
+      "why": "Gross profit = £{r}m − £{c}m; divided by revenue gives {answer}%."
+    },
+    {
+      "id": "18-operating-margin",
+      "type": "number",
+      "topic": "margins",
+      "q": "Revenue is £{r}m and operating profit is £{p}m. What's the operating margin, in %?",
+      "vars": {
+        "r": {
+          "choices": [
+            80,
+            150,
+            200,
+            500
+          ],
+          "default": 200
+        },
+        "p": {
+          "choices": [
+            6,
+            12,
+            20,
+            30
+          ],
+          "default": 30
+        }
+      },
+      "answer": "p/r*100",
+      "tol": 0.1,
+      "unit": "%",
+      "dp": 1,
+      "why": "Operating margin = operating profit ÷ revenue = £{p}m ÷ £{r}m = {answer}%."
+    },
+    {
+      "id": "18-equity",
+      "type": "number",
+      "topic": "balance sheet",
+      "q": "A company has total assets of £{a}m and total liabilities of £{l}m. What's its equity, in £m?",
+      "vars": {
+        "a": {
+          "choices": [
+            300,
+            500,
+            750
+          ],
+          "default": 500
+        },
+        "l": {
+          "choices": [
+            120,
+            200,
+            320
+          ],
+          "default": 320
+        }
+      },
+      "answer": "a-l",
+      "tol": 0.5,
+      "unit": "£m",
+      "dp": 0,
+      "why": "Assets = liabilities + equity, so equity = £{a}m − £{l}m = £{answer}m."
+    },
+    {
+      "id": "18-profit-cash",
+      "type": "tf",
+      "topic": "profit vs cash",
+      "q": "A company that reports a profit must have that much extra cash.",
+      "answer": false,
+      "why": "Sales count as profit when made, even if customers haven't paid. Cash can be much lower than profit."
+    },
+    {
+      "id": "18-income-order",
+      "type": "order",
+      "topic": "income statement",
+      "q": "Put these lines of an income statement in order, top to bottom.",
+      "items": [
+        "Revenue",
+        "Gross profit",
+        "Operating profit",
+        "Profit before tax",
+        "Net profit"
+      ],
+      "why": "Start with sales, then take off cost of sales, running costs, interest and tax in turn."
+    },
+    {
+      "id": "18-eps",
+      "type": "number",
+      "topic": "earnings per share",
+      "q": "A company's net profit is £{p}m and it has {s} million shares. What are its earnings per share, in pence?",
+      "vars": {
+        "p": {
+          "choices": [
+            10,
+            20,
+            30,
+            45
+          ],
+          "default": 20
+        },
+        "s": {
+          "choices": [
+            50,
+            100,
+            150,
+            200
+          ],
+          "default": 100
+        }
+      },
+      "answer": "p/s*100",
+      "tol": 0.1,
+      "unit": "p",
+      "dp": 1,
+      "why": "EPS = net profit ÷ shares = £{p}m ÷ {s}m = {answer}p."
+    },
+    {
+      "id": "18-cash-sections",
+      "type": "mcq",
+      "topic": "cash flow statement",
+      "q": "A company pays a dividend to shareholders. Which part of the cash flow statement shows it?",
+      "options": [
+        "Financing",
+        "Operating",
+        "Investing",
+        "It doesn't appear"
+      ],
+      "answer": 0,
+      "why": "Cash paid to or from lenders and shareholders (loans, dividends, share issues) is financing."
+    },
+    {
+      "id": "18-revenue-myth",
+      "type": "tf",
+      "topic": "revenue vs profit",
+      "q": "If a company's revenue rises, its profit must rise too.",
+      "answer": false,
+      "why": "Costs can grow faster than sales, or growth can be bought with price cuts and marketing, so profit can fall while revenue rises."
+    },
+    {
+      "id": "18-cash-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "profit vs cash",
+      "q": "Explain how a profitable company can still run out of cash.",
+      "ideas": [
+        {
+          "label": "Customers haven't paid yet, though the sales count as profit",
+          "any": [
+            "haven't paid",
+            "not paid",
+            "owe",
+            "customers pay late",
+            "slow to pay",
+            "on credit",
+            "invoices",
+            "money owed",
+            "receivables",
+            "debtors"
+          ]
+        },
+        {
+          "label": "Cash is tied up in stock, equipment or debt repayments",
+          "any": [
+            "stock",
+            "inventory",
+            "equipment",
+            "machinery",
+            "investment",
+            "spending",
+            "loan repayments",
+            "repay",
+            "debt",
+            "tied up",
+            "buildings"
+          ]
+        }
+      ],
+      "model": "Profit counts sales when they're made, so if customers are slow to pay, the profit isn't cash yet. Cash can also be tied up in stock, spent on new equipment, or needed for loan repayments. A company goes bust when it can't pay its bills, even if it's profitable on paper.",
+      "why": "Profit is an accounting measure; cash is what pays the bills.",
+      "tests": [
+        {
+          "answer": "Customers haven't paid yet, and the cash is tied up in stock and new equipment.",
+          "marks": 2
+        },
+        {
+          "answer": "Because customers owe it money.",
+          "marks": 1
+        },
+        {
+          "answer": "Because it pays too much tax.",
+          "marks": 0
+        }
+      ]
+    },
+    {
+      "id": "18-margins-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "margins",
+      "q": "Explain why margins can be more useful than profit in pounds when comparing two companies.",
+      "ideas": [
+        {
+          "label": "Margins adjust for size: profit as a share of revenue",
+          "any": [
+            "size",
+            "percentage",
+            "share of",
+            "per pound",
+            "for every",
+            "relative",
+            "proportion",
+            "divided by revenue",
+            "compare different",
+            "adjust for size",
+            "takes out size",
+            "regardless of size",
+            "size of the company"
+          ]
+        },
+        {
+          "label": "They show efficiency or pricing power, and trends over time",
+          "any": [
+            "pricing power",
+            "how well",
+            "costs",
+            "trend",
+            "over time",
+            "improving",
+            "falling",
+            "keeps of each",
+            "efficient",
+            "efficiently",
+            "efficiency"
+          ]
+        }
+      ],
+      "model": "Profit in pounds mostly reflects size: a giant makes more than a small firm even if it's run worse. Margins show profit as a share of revenue, so they compare companies fairly and show how efficiently each turns sales into profit, and whether that's improving.",
+      "why": "Margins take size out of the comparison.",
+      "tests": [
+        {
+          "answer": "Margins are a percentage so they adjust for size, and they show how efficiently a company turns sales into profit.",
+          "marks": 2
+        },
+        {
+          "answer": "Because they're a percentage.",
+          "marks": 1
+        },
+        {
+          "answer": "Because bigger profit is always better.",
+          "marks": 0
+        }
+      ]
+    }
+  ]
+}

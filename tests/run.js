@@ -44,6 +44,7 @@ for (const qz of Object.values(quizzes)) {
 const ideas = [{ label: 'spending power', any: ['spending power', 'buys less'] }];
 check('typo tolerant', markExplain('It looses SPENDNG POWER', ideas).marks === 1);
 check('negation', markExplain('it does not buys less', ideas).marks === 0);
+check('prefix *', markExplain('growth accelerates later', [{ label: 'x', any: ['accelerat*'] }]).marks === 1);
 
 // --- every question in every pool instantiates and marks its own right answer as correct
 const rng = seededRng(42);
