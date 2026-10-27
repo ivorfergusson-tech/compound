@@ -253,8 +253,8 @@
       "display": "£450,000",
       "label": "Lifetime ISA first-home price limit",
       "asOf": "October 2026; a 25% charge applies to other withdrawals before 60",
-      "source": "ownyourhome.gov.uk; Financial Ombudsman Service",
-      "url": "https://www.financial-ombudsman.org.uk/lifetime-isas",
+      "source": "gov.uk; ownyourhome.gov.uk",
+      "url": "https://www.gov.uk/lifetime-isa/withdrawing-your-money",
       "checked": "2026-10-27",
       "refresh": "after each Budget",
       "charge": 25
@@ -327,7 +327,7 @@
       "label": "Auto-enrolment minimum contributions",
       "asOf": "of qualifying earnings, 2026/27",
       "source": "The Pensions Regulator",
-      "url": "https://www.thepensionsregulator.gov.uk/en/employers/managing-a-scheme/automatic-enrolment-contributions",
+      "url": "https://www.thepensionsregulator.gov.uk/en/employers/new-employers/im-an-employer-who-has-to-provide-a-pension/choose-a-pension-scheme/understanding-your-costs/making-contributions-to-your-pension-scheme",
       "checked": "2026-10-27",
       "refresh": "each April",
       "employer": 3
@@ -472,6 +472,26 @@
       "asOf": "MoneyHelper guidance",
       "source": "NS&I, quoting MoneyHelper",
       "url": "https://www.nsandi.com/guide/emergency-fund",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "lisaReplacement": {
+      "value": null,
+      "display": "a new First Time Buyer ISA",
+      "label": "Planned Lifetime ISA replacement",
+      "asOf": "consultation launched 23 June 2026; launch possibly April 2028 and not yet law; existing Lifetime ISA holders are expected to keep paying in",
+      "source": "L&C; Financial Reporter (reporting HM Treasury)",
+      "url": "https://www.landc.co.uk/insight/government-to-replace-lifetime-isa-with-new-first-time-buyer-isa",
+      "checked": "2026-10-27",
+      "refresh": "after each Budget"
+    },
+    "pensionAccessAge": {
+      "value": 55,
+      "display": "55, rising to 57 on 6 April 2028",
+      "label": "Earliest age you can usually take a private or workplace pension",
+      "asOf": "normal minimum pension age, legislated; most people can take 25% of their pot tax-free",
+      "source": "Standard Life; AJ Bell",
+      "url": "https://www.ajbell.co.uk/news/turning-55-2028-pension-access-questions-answered",
       "checked": "2026-10-27",
       "refresh": "rarely changes"
     }

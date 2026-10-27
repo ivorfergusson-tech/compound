@@ -174,7 +174,7 @@ async function viewModule(id) {
   const st = statusMap()[id];
   if (st.state === 'locked' || st.state === 'soon') return viewLocked(item, st);
   const strand = strandOf(item);
-  const [md, quiz] = await Promise.all([loadLesson(id), loadQuiz(id)]);
+  const [md, quiz] = await Promise.all([loadLesson(id), item.kind === 'module' ? loadQuiz(id) : null]);
   const { sections, blocks } = parseLesson(md, { figures, glossary });
   const minutes = Math.max(5, Math.round(md.split(/\s+/).length / 200) + (quiz ? 10 : 0) + blocks.length);
 

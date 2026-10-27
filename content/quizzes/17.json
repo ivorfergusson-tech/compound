@@ -1,0 +1,151 @@
+{
+  "module": "17",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "17-wrapper",
+      "type": "mcq",
+      "topic": "what an ISA is",
+      "q": "Which best describes an ISA?",
+      "options": [
+        "A tax-free wrapper you hold cash or investments inside",
+        "A type of share",
+        "A government bond paying a fixed rate",
+        "A savings account that always pays the best rate"
+      ],
+      "answer": 0,
+      "why": "The ISA is the wrapper; what you hold inside it (cash, funds, shares) is the saving or investment."
+    },
+    {
+      "id": "17-allowance-left",
+      "type": "number",
+      "topic": "ISA allowance",
+      "q": "This tax year you've paid {c} into a Cash ISA and {s} into a Stocks and Shares ISA. How much more can you pay into ISAs before 5 April?",
+      "vars": {
+        "c": { "min": 1000, "max": 8000, "step": 500, "default": 5000, "fmt": "money0" },
+        "s": { "min": 1000, "max": 8000, "step": 500, "default": 3000, "fmt": "money0" }
+      },
+      "answer": "20000-c-s",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 0,
+      "why": "£20,000 − {c} − {s} = {answer}. The allowance covers all ISA types together."
+    },
+    {
+      "id": "17-rollover",
+      "type": "tf",
+      "topic": "ISA allowance",
+      "q": "Unused ISA allowance carries over to the next tax year.",
+      "answer": false,
+      "why": "It's use it or lose it: the allowance resets on 6 April."
+    },
+    {
+      "id": "17-lisa-bonus",
+      "type": "number",
+      "topic": "Lifetime ISA bonus",
+      "q": "You pay {p} into a Lifetime ISA this tax year. How much bonus does the government add?",
+      "vars": { "p": { "min": 500, "max": 4000, "step": 250, "default": 3000, "fmt": "money0" } },
+      "answer": "p*0.25",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "25% of {p} = {answer}, up to a maximum of £1,000 a year (on £4,000)."
+    },
+    {
+      "id": "17-lisa-early",
+      "type": "number",
+      "topic": "Lifetime ISA withdrawal charge",
+      "q": "You paid £1,000 into a Lifetime ISA and got the £250 bonus. You take all £1,250 out to buy a car. After the 25% withdrawal charge, how much do you get?",
+      "answer": "1250*0.75",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "25% of £1,250 is £312.50, leaving £937.50. You lose £62.50 of your own money, not just the bonus."
+    },
+    {
+      "id": "17-lisa-rules",
+      "type": "mcq",
+      "topic": "Lifetime ISA rules",
+      "q": "Which of these lets you take money out of a Lifetime ISA without the 25% charge?",
+      "options": [
+        "Buying your first home for £450,000 or less, at least 12 months after opening",
+        "Buying a car",
+        "Paying for university",
+        "Buying a second home"
+      ],
+      "answer": 0,
+      "why": "Charge-free withdrawals are for a first home (within the price cap and the 12-month rule), from age 60, or if terminally ill."
+    },
+    {
+      "id": "17-psa-match",
+      "type": "mcq",
+      "topic": "Personal Savings Allowance vs Cash ISA",
+      "q": "A basic-rate taxpayer has £4,000 in savings at 4.5%. Will they pay tax on the interest outside an ISA?",
+      "options": [
+        "No: £180 is under their £1,000 Personal Savings Allowance",
+        "Yes, 20% of all interest",
+        "Yes, on anything over £100",
+        "Only if the account is easy-access"
+      ],
+      "answer": 0,
+      "why": "4.5% of £4,000 = £180, under the £1,000 Personal Savings Allowance for basic-rate taxpayers."
+    },
+    {
+      "id": "17-goal-match",
+      "type": "match",
+      "topic": "choosing the right ISA",
+      "q": "Match each goal to the account that often fits it.",
+      "pairs": [
+        ["Long-term investing for 10+ years", "Stocks and Shares ISA"],
+        ["First flat costing £250,000, buying in 3 years, age 24", "Lifetime ISA"],
+        ["Emergency fund", "Easy-access savings"],
+        ["Savings for a child", "Junior ISA"]
+      ],
+      "why": "Match the timeframe and the rules: investments for the long term, LISA for a first home under the cap, easy access for emergencies, JISA for under-18s."
+    },
+    {
+      "id": "17-uninvested",
+      "type": "tf",
+      "topic": "uninvested cash",
+      "q": "Once you pay money into a Stocks and Shares ISA, it's automatically invested.",
+      "answer": false,
+      "why": "Usually not: it sits as cash until you choose and buy an investment inside the ISA."
+    },
+    {
+      "id": "17-ss-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "why use a Stocks and Shares ISA",
+      "q": "Explain why someone investing for 20 years might use a Stocks and Shares ISA rather than a normal investment account.",
+      "ideas": [
+        { "label": "Gains and dividends inside are tax-free", "any": ["tax-free", "tax free", "no tax", "capital gains", "dividends", "not taxed", "without tax", "avoid tax"] },
+        { "label": "That matters more as the pot grows over the years (or if income rises)", "any": ["grows", "bigger", "larger", "over time", "long term", "long-term", "years", "higher-rate tax", "higher rate tax", "income rises", "compounding", "adds up"] }
+      ],
+      "model": "Everything inside the ISA grows tax-free: no tax on dividends or gains, and no tax return. Over 20 years the pot can get large, and their income might rise, so outside an ISA they could end up paying dividend tax or Capital Gains Tax. Inside, they never will.",
+      "why": "The wrapper's value grows with the pot.",
+      "tests": [
+        { "answer": "Dividends and gains are tax-free inside, which matters more as the pot grows over 20 years.", "marks": 2 },
+        { "answer": "Because it's tax-free.", "marks": 1 },
+        { "answer": "Because the bank pays a higher rate.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "17-lisa-risk-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "Lifetime ISA withdrawal charge",
+      "q": "Explain the main risk of saving for a first home in a Lifetime ISA.",
+      "ideas": [
+        { "label": "If you take the money out for anything else before 60, there's a 25% charge", "any": ["25%", "charge", "penalty", "lose", "withdrawal", "take it out", "fee"] },
+        { "label": "That happens if plans change or the home costs more than the £450,000 cap", "any": ["450", "cap", "price limit", "costs more", "expensive", "plans change", "change your mind", "don't buy", "something else", "not a first home", "need the money"] }
+      ],
+      "model": "If you need the money for anything else, or your home costs more than the £450,000 cap, you pay a 25% withdrawal charge, which takes back the bonus and some of your own money too.",
+      "why": "The bonus comes with strings.",
+      "tests": [
+        { "answer": "If plans change or the house costs more than the £450,000 cap you pay a 25% charge to take it out.", "marks": 2 },
+        { "answer": "There's a penalty for taking money out.", "marks": 1 },
+        { "answer": "Interest rates might be low.", "marks": 0 }
+      ]
+    }
+  ]
+}

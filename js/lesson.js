@@ -71,6 +71,12 @@ function mountBlock(holder, b, ctx) {
       break;
     }
     case 'guess': guessBlock(holder, JSON.parse(b.arg || '{}'), ctx); break;
+    case 'myanswer': { // shows something the learner wrote earlier: :::myanswer 00-guess
+      const saved = ctx.progress.state.guesses[b.arg];
+      holder.outerHTML = `<aside class="callout"><span class="eyebrow">What you wrote before</span>`
+        + (saved ? `<p class="pre">${esc(saved)}</p>` : `<p class="muted">${marked.parseInline(inline(b.body.trim() || 'You didn\'t write an answer then. Write one now below.', ctx))}</p>`) + '</aside>';
+      break;
+    }
     case 'callout': {
       const kind = b.arg || 'note';
       const titles = { idea: 'The idea in one sentence', note: 'Note', warn: 'Watch out', paper: 'Paper trading only' };

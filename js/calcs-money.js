@@ -64,7 +64,7 @@ export const moneyCalculators = {
       + slider('pensionPct', 'Your pension contribution', { min: 0, max: 10, step: 1, value: a.pension ?? 5 })
       + `<div class="stats">${stat('Income tax', 'tax')}${stat('National Insurance', 'ni')}${stat('Student loan', 'loan')}${stat('Pension', 'pension')}</div>`
       + `<div class="stats">${stat('Take-home a year', 'net', 'good')}${stat('Take-home a month', 'month', 'good')}</div><div class="split" aria-hidden="true"></div>`,
-      `Tax year ${esc(figures.taxYear)}. The pension is modelled as a workplace scheme taken from pay between ${esc(F.aeBand.display)} before tax. A rough guide: real payslips can differ slightly because they're worked out each pay period.`);
+      `Tax year ${esc(figures.taxYear)}. The pension is modelled as a workplace scheme taken from pay from ${esc(F.aeBand.display)} before tax. A rough guide: real payslips can differ slightly because they're worked out each pay period.`);
     wire(root, { salary: pounds, pensionPct: v => `${v}% of qualifying pay` }, (v, set) => {
       const p = payslip(F, { salary: v.salary, region: v.region, plan: v.plan, pensionPct: v.pensionPct });
       set('tax', gbp(p.tax)); set('ni', gbp(p.ni)); set('loan', gbp(p.loan)); set('pension', gbp(p.pension));
@@ -173,6 +173,34 @@ export const moneyCalculators = {
     });
   },
 
+  // Plan 5 in today's money: interest is RPI only, so the balance doesn't grow above inflation.
+  studentloan(root, a, { figures }) {
+    const F = figures.figures, th = F.plan5.value, rate = F.plan5.rate / 100;
+    root.innerHTML = card('Plan 5 student loan: what you\'d really repay',
+      slider('borrowed', 'Total borrowed', { min: 10000, max: 90000, step: 10, value: a.borrowed ?? 61860 })
+      + slider('salary', 'Starting salary after uni', { min: 18000, max: 60000, step: 500, value: a.salary ?? 28000 })
+      + slider('growth', 'Pay rises a year above inflation', { min: 0, max: 5, step: 0.5, value: a.growth ?? 2 })
+      + `<div class="stats">${stat('First year: repay a month', 'month')}${stat('Total repaid', 'total', 'warm')}${stat('Cleared?', 'cleared')}</div><div data-chart></div>`,
+      `Plan 5: ${F.plan5.rate}% of pay above ${esc(F.plan5.display)}, written off 40 years after you're first due to repay. Shown in today's money: Plan 5 interest is set at RPI inflation (${esc(F.plan5Interest.display)} for ${esc('2026/27')}), so it doesn't grow above inflation. Assumes steady pay rises and no gaps in work. An illustration only.`);
+    wire(root, { borrowed: pounds, salary: pounds, growth: pct }, (v, set) => {
+      let paid = 0, s = v.salary, year = 0; const pts = [[0, v.borrowed]];
+      for (year = 1; year <= 40 && paid < v.borrowed - 0.5; year++) {
+        paid += Math.min(Math.max(0, (s - th) * rate), v.borrowed - paid);
+        s *= 1 + v.growth / 100;
+        pts.push([year, v.borrowed - paid]);
+      }
+      const cleared = paid >= v.borrowed - 0.5;
+      set('month', gbp(Math.max(0, (v.salary - th) * rate) / 12));
+      set('total', gbp(paid, 0));
+      set('cleared', cleared ? `Yes, after ${pts.length - 1} years` : `No: ${gbp(v.borrowed - paid, 0)} written off`);
+      root.querySelector('[data-chart]').innerHTML = lineChart({
+        label: cleared ? `Loan cleared after ${pts.length - 1} years` : `Loan written off after 40 years with ${gbp(v.borrowed - paid, 0)} left`,
+        series: [{ name: 'Balance left (today\'s money)', tone: 'b', points: pts }],
+        yFmt: moneyShort, xFmt: x => `yr ${x}`,
+      });
+    });
+  },
+
   pension(root, a, { figures }) {
     const F = figures.figures, band = F.aeBand;
     root.innerHTML = card('Workplace pension',
@@ -183,7 +211,7 @@ export const moneyCalculators = {
       + slider('growth', 'Growth a year after inflation', { min: 0, max: 6, step: 0.5, value: a.growth ?? 3 })
       + `<div class="stats">${stat('Each month: you', 'mine')}${stat('Employer adds', 'theirs', 'good')}${stat('Costs you after tax relief', 'cost')}</div>`
       + `<div class="stats">${stat('Pot at 67, in today\'s money', 'pot', 'good')}${stat('Cost to you after tax relief', 'paid')}</div><div data-chart></div>`,
-      `Contributions on pay between ${esc(band.display)} (minimums: ${esc(F.aeMinimum.display)}). Assumes a basic-rate taxpayer, pay rising with inflation and steady growth, which real markets never give. An illustration, not a forecast.`);
+      `Contributions on pay from ${esc(band.display)} (minimums: ${esc(F.aeMinimum.display)}). Assumes a basic-rate taxpayer, pay rising with inflation and steady growth, which real markets never give. An illustration, not a forecast.`);
     wire(root, { salary: pounds, me: v => `${v}%`, boss: v => `${v}%`, start: v => `${v}`, growth: pct }, (v, set) => {
       const q = clamp(v.salary, band.value, band.upper) - band.value;
       const mine = q * v.me / 100, theirs = q * v.boss / 100;

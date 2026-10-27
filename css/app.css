@@ -328,3 +328,4 @@ a.item:hover { border-color: var(--border-2); }
 .split:empty { display: none; }
 .seg-net { background: var(--chart-a); } .seg-tax { background: var(--chart-b); } .seg-ni { background: var(--investing); }
 .seg-loan { background: var(--industry); } .seg-pension { background: var(--money); } .seg-needs { background: var(--investing); } .seg-wants { background: var(--chart-b); }
+.pre { white-space: pre-wrap; }

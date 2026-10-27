@@ -6,6 +6,7 @@ import { markExplain, parseNumber } from '../js/marking.js';
 import { instantiate, mark, buildAttempt, buildCheckpoint, score, seededRng } from '../js/quiz.js';
 import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState } from '../js/progress.js';
 import { nicknameProblem } from '../js/nickname.js';
+import { payslip } from '../js/calcs-money.js';
 
 let pass = 0, fail = 0;
 function check(name, cond, extra = '') {
@@ -154,6 +155,22 @@ check('merge days and nickname', mg.days.length === 2 && mg.nickname === 'saver'
 // --- nicknames
 for (const ok of ['Essex_lad', 'Dickens fan', 'grapefruit', 'Scunthorpe', 'money-wise 99']) check(`nickname ok: ${ok}`, nicknameProblem(ok) === null);
 for (const bad of ['ab', 'f.u.c.k', 'sh1tlord', 'big sex', 'a'.repeat(21), 'emoji😀']) check(`nickname blocked: ${bad}`, nicknameProblem(bad) !== null);
+
+// --- take-home pay matches hand-worked 2026/27 figures
+const near = (a, b) => Math.abs(a - b) < 0.02;
+const ps = (o) => payslip(figures, o);
+let r = ps({ salary: 25000 });
+check('payslip £25k England', near(r.tax, 2486) && near(r.ni, 994.4) && near(r.net, 21519.6), JSON.stringify(r));
+r = ps({ salary: 25000, region: 'scot' });
+check('payslip £25k Scotland', near(r.tax, 2446.33), JSON.stringify(r));
+r = ps({ salary: 25000, pensionPct: 5 });
+check('payslip £25k with 5% pension', near(r.pension, 938) && near(r.tax, 2298.4) && near(r.net, 20769.2), JSON.stringify(r));
+r = ps({ salary: 30000, plan: 'plan5', pensionPct: 5 });
+check('payslip £30k Plan 5', near(r.loan, 450) && near(r.net, 23719.2), JSON.stringify(r));
+r = ps({ salary: 60000 });
+check('payslip £60k higher rate', near(r.tax, 11432) && near(r.ni, 3210.6), JSON.stringify(r));
+r = ps({ salary: 110000 });
+check('payslip £110k allowance taper', near(r.pa, 7570), JSON.stringify(r));
 
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

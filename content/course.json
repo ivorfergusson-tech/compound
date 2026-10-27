@@ -2,7 +2,7 @@
   "name": "Compound",
   "tagline": "A free course on money, investing, trading and the finance industry, for anyone in the UK.",
   "passMark": 0.6,
-  "ready": ["00", "01"],
+  "ready": ["00", "01", "05", "09", "13", "17", "21", "25", "29"],
   "strands": {
     "money": { "name": "Money", "emoji": "💷", "blurb": "Your own money: income, tax, budgeting, credit, ISAs, pensions." },
     "investing": { "name": "Investing", "emoji": "📈", "blurb": "Shares, bonds, funds, risk, and building a long-term portfolio." },

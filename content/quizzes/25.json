@@ -1,0 +1,132 @@
+{
+  "module": "25",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "25-plan5-yearly",
+      "type": "number",
+      "topic": "Plan 5 repayments",
+      "q": "On a Plan 5 student loan you earn {s} a year. How much do you repay in a year?",
+      "vars": { "s": { "min": 26000, "max": 50000, "step": 1000, "default": 30000, "fmt": "money0" } },
+      "answer": "(s-25000)*0.09",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "9% of pay above £25,000: 9% × ({s} − £25,000) = {answer}."
+    },
+    {
+      "id": "25-below-threshold",
+      "type": "mcq",
+      "topic": "Plan 5 repayments",
+      "q": "A graduate with a Plan 5 loan earns £22,000 a year. How much do they repay?",
+      "options": ["Nothing: they're below the £25,000 threshold", "9% of £22,000", "A fixed £100 a month", "It depends how much they borrowed"],
+      "answer": 0,
+      "why": "Repayments are 9% of income above £25,000, so below the threshold they repay nothing."
+    },
+    {
+      "id": "25-borrow-more",
+      "type": "tf",
+      "topic": "student loans vs normal debt",
+      "q": "On Plan 5, borrowing more for university always means paying more each month after you graduate.",
+      "answer": false,
+      "why": "The monthly repayment depends only on income above the threshold, not on the balance."
+    },
+    {
+      "id": "25-write-off",
+      "type": "mcq",
+      "topic": "Plan 5 rules",
+      "q": "What happens to a Plan 5 balance that hasn't been repaid after 40 years?",
+      "options": ["It's written off", "It passes to your family", "It moves to a credit card", "You must pay it all at once"],
+      "answer": 0,
+      "why": "Plan 5 loans are written off 40 years after you're first due to repay. Plan 2 loans after 30."
+    },
+    {
+      "id": "25-apprentice-pay",
+      "type": "number",
+      "topic": "apprentice pay",
+      "q": "An apprentice on the minimum apprentice rate of £8.00 an hour works {h} hours a week. What's their gross weekly pay?",
+      "vars": { "h": { "choices": [30, 35, 37.5, 40], "default": 37.5 } },
+      "answer": "h*8",
+      "tol": 0.01,
+      "unit": "£",
+      "dp": 2,
+      "why": "{h} × £8.00 = {answer} a week. Many employers pay apprentices more than the minimum."
+    },
+    {
+      "id": "25-deposit",
+      "type": "mcq",
+      "topic": "renting rules",
+      "q": "In England, what's the maximum tenancy deposit a landlord can usually take (rent under £50,000 a year)?",
+      "options": ["Five weeks' rent", "Two months' rent", "Three months' rent", "No limit"],
+      "answer": 0,
+      "why": "Five weeks' rent, protected in a government-approved scheme. Holding deposits are capped at one week."
+    },
+    {
+      "id": "25-council-tax",
+      "type": "match",
+      "topic": "council tax",
+      "q": "Match each situation to how council tax usually works.",
+      "pairs": [
+        ["Living alone", "25% discount"],
+        ["Full-time students only in the home", "Usually exempt"],
+        ["Two working adults sharing", "Full bill, split however they agree"],
+        ["Living with parents", "The bill is the household's, not yours"]
+      ],
+      "why": "Council tax is per home. Discounts and exemptions depend on who lives there."
+    },
+    {
+      "id": "25-bills-order",
+      "type": "order",
+      "topic": "living costs",
+      "q": "For a typical renter, put these costs in order from biggest to smallest.",
+      "items": ["Rent", "Council tax", "Energy", "Phone contract"],
+      "why": "Rent dominates most budgets. Council tax and energy are usually next, then smaller bills."
+    },
+    {
+      "id": "25-interest",
+      "type": "mcq",
+      "topic": "Plan 5 interest",
+      "q": "What is the interest rate on a Plan 5 student loan set to?",
+      "options": ["RPI inflation", "A fixed 9%", "Bank Rate plus 3%", "The same as credit cards"],
+      "answer": 0,
+      "why": "Plan 5 interest is RPI inflation (4.1% from September 2026), so the balance doesn't grow above inflation."
+    },
+    {
+      "id": "25-graduate-tax-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "student loans vs normal debt",
+      "q": "Explain why people often say a Plan 5 student loan works more like a tax than a normal debt.",
+      "ideas": [
+        { "label": "You repay a share (9%) of income above a threshold, not a fixed amount based on what you owe", "any": ["9%", "nine percent", "percentage of", "share of", "income", "earnings", "threshold", "what you earn", "how much you earn", "salary"] },
+        { "label": "Anything left after 40 years is written off, so lower earners don't repay it all", "any": ["written off", "wiped", "cancelled", "40 years", "forty years", "don't repay it all", "never repay", "not all", "low earners"] }
+      ],
+      "model": "You repay 9% of what you earn above £25,000, through payroll like tax, so the amount depends on your income, not your balance. Whatever's left after 40 years is written off, so people who earn less repay less.",
+      "why": "Income-linked repayments plus a write-off make it behave like a graduate tax.",
+      "tests": [
+        { "answer": "You pay 9% of income over the threshold, like tax, and the rest is written off after 40 years.", "marks": 2 },
+        { "answer": "It depends on how much you earn.", "marks": 1 },
+        { "answer": "Because the government gives it to you.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "25-compare-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "comparing routes",
+      "q": "Explain two things you should compare, beyond first-year pay, when choosing between an apprenticeship and university.",
+      "ideas": [
+        { "label": "Long-term pay in the specific career (after several years)", "any": ["long term", "long-term", "future pay", "later", "years", "progression", "career", "after 5", "after five", "10 years", "lifetime"] },
+        { "label": "Costs: fees, debt, living costs or lost earnings while studying", "any": ["debt", "loan", "fees", "cost", "living costs", "rent", "lost earnings", "not earning", "tuition"] },
+        { "label": "Qualifications needed, enjoyment or fit", "any": ["qualification", "degree", "need a degree", "enjoy", "interest", "fit", "stick", "requirements", "entry"] }
+      ],
+      "model": "Compare likely pay after several years in the specific career, the total costs (fees, debt, living costs and lost earnings while studying), and whether the career needs a degree, as well as which route you'd enjoy and stick with.",
+      "why": "Year-one pay is only the start of the story.",
+      "tests": [
+        { "answer": "Long-term pay in that career, and the cost of debt and living costs at uni, plus whether the job needs a degree.", "marks": 3 },
+        { "answer": "How much debt you'd have.", "marks": 1 },
+        { "answer": "Which one my friends do.", "marks": 0 }
+      ]
+    }
+  ]
+}

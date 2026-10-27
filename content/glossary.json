@@ -4,6 +4,11 @@
     "def": "Annual Equivalent Rate: a savings rate including compounding over a year, so you can compare accounts fairly.",
     "module": "09"
   },
+  "apprentice wage": {
+    "term": "Apprentice wage",
+    "def": "Pay for an apprentice: at least the apprentice minimum (£8.00 an hour from April 2026) under 19 or in the first year, then the rate for your age.",
+    "module": "25"
+  },
   "apr": {
     "term": "APR",
     "def": "Annual Percentage Rate: the yearly cost of borrowing, including interest and compulsory fees. Lower is cheaper.",
@@ -13,6 +18,11 @@
     "term": "Asset",
     "def": "Something you own that's worth money: savings, shares, a car, a house.",
     "module": "00"
+  },
+  "auto-enrolment": {
+    "term": "Auto-enrolment",
+    "def": "The law that makes employers put eligible staff (22+, earning over £10,000) into a workplace pension automatically.",
+    "module": "21"
   },
   "bank of england": {
     "term": "Bank of England",
@@ -24,6 +34,11 @@
     "def": "The Bank of England's main interest rate. Savings and borrowing rates across the UK tend to follow it.",
     "module": "12"
   },
+  "bills": {
+    "term": "Bills",
+    "def": "Regular household costs such as energy, water, broadband, phone and insurance. Budget for each as a monthly amount.",
+    "module": "25"
+  },
   "bnpl": {
     "term": "Buy now, pay later",
     "def": "Splitting a purchase into a few payments, often interest-free. It's still debt, and missed payments can hurt your credit file.",
@@ -34,10 +49,20 @@
     "def": "A plan for your money: what comes in, what goes out on needs and wants, and what's left to save.",
     "module": "09"
   },
+  "cash isa": {
+    "term": "Cash ISA",
+    "def": "A savings account inside an ISA wrapper, so the interest is tax-free.",
+    "module": "17"
+  },
   "compound interest": {
     "term": "Compound interest",
     "def": "Interest that's added to your balance, so next time you earn interest on the interest too.",
     "module": "01"
+  },
+  "council tax": {
+    "term": "Council tax",
+    "def": "A yearly charge per home paid to the local council. 25% off if you live alone; full-time students are usually exempt.",
+    "module": "25"
   },
   "cpi": {
     "term": "CPI",
@@ -74,6 +99,11 @@
     "def": "Easy-access savings kept for the unexpected. Guidance suggests three to six months of essential costs.",
     "module": "09"
   },
+  "employer contribution": {
+    "term": "Employer contribution",
+    "def": "Money your employer pays into your pension on top of your pay. At least 3% of qualifying earnings under auto-enrolment.",
+    "module": "21"
+  },
   "fixed-rate saver": {
     "term": "Fixed-rate saver",
     "def": "A savings account (often called a bond) that locks your money away for a set time at a fixed rate.",
@@ -103,6 +133,26 @@
     "term": "Interest rate",
     "def": "Interest as a percentage of the principal. Nearly always quoted per year.",
     "module": "01"
+  },
+  "isa": {
+    "term": "ISA",
+    "def": "Individual Savings Account: a tax-free wrapper for cash or investments. Nothing inside is taxed.",
+    "module": "17"
+  },
+  "isa allowance": {
+    "term": "ISA allowance",
+    "def": "The most you can pay into ISAs in a tax year: £20,000 in 2026/27, across all types. Use it or lose it.",
+    "module": "17"
+  },
+  "junior isa": {
+    "term": "Junior ISA",
+    "def": "A tax-free account for under-18s, opened by a parent or guardian. The child gets it at 18.",
+    "module": "17"
+  },
+  "lifetime isa": {
+    "term": "Lifetime ISA",
+    "def": "An ISA for a first home or later life: open at 18–39, pay in up to £4,000 a year, get a 25% bonus. A 25% charge applies to other withdrawals.",
+    "module": "17"
   },
   "marginal rate": {
     "term": "Marginal tax rate",
@@ -169,6 +219,11 @@
     "def": "What you gain in spending power after inflation. Roughly the nominal rate minus inflation; exactly (1 + nominal) ÷ (1 + inflation) − 1.",
     "module": "01"
   },
+  "rent": {
+    "term": "Rent",
+    "def": "What you pay a landlord to live in a home. In England, deposits are capped at five weeks' rent and must be protected.",
+    "module": "25"
+  },
   "rule of 72": {
     "term": "Rule of 72",
     "def": "A shortcut: 72 ÷ the yearly rate ≈ how many years it takes money to double. At 6%, about 12 years.",
@@ -184,10 +239,35 @@
     "def": "Interest worked out only on the original principal, so it's the same every year.",
     "module": "01"
   },
+  "sipp": {
+    "term": "SIPP",
+    "def": "Self-Invested Personal Pension: a pension you open and manage yourself, with the same tax relief.",
+    "module": "21"
+  },
+  "state pension": {
+    "term": "State Pension",
+    "def": "A regular payment from the government from State Pension age, based on your National Insurance record.",
+    "module": "21"
+  },
+  "stocks and shares isa": {
+    "term": "Stocks and Shares ISA",
+    "def": "An ISA that holds investments such as funds and shares. Gains and dividends are tax-free; the value can fall.",
+    "module": "17"
+  },
+  "student loan plans": {
+    "term": "Student loan plans",
+    "def": "The repayment rules for your loan. Plan 5 (England, courses from 2023): 9% of income above £25,000, written off after 40 years.",
+    "module": "25"
+  },
   "tax code": {
     "term": "Tax code",
     "def": "Tells your employer how much tax-free pay you get. 1257L means £12,570 a year, the standard Personal Allowance.",
     "module": "05"
+  },
+  "tax relief": {
+    "term": "Tax relief",
+    "def": "Income tax given back on pension contributions, so each £1 in your pot costs a basic-rate taxpayer about 80p.",
+    "module": "21"
   },
   "trading allowance": {
     "term": "Trading allowance",
@@ -198,5 +278,10 @@
     "term": "Variable rate",
     "def": "An interest rate the bank can change at any time. Most easy-access savings accounts have one.",
     "module": "01"
+  },
+  "workplace pension": {
+    "term": "Workplace pension",
+    "def": "A pension your employer sets up, which you and your employer pay into while you work.",
+    "module": "21"
   }
 }

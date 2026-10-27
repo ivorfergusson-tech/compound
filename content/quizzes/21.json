@@ -1,0 +1,139 @@
+{
+  "module": "21",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "21-qualifying",
+      "type": "number",
+      "topic": "qualifying earnings",
+      "q": "You earn {s} a year. Your employer pays the minimum 3% of qualifying earnings (pay between £6,240 and £50,270). How much does your employer pay in a year?",
+      "vars": { "s": { "min": 15000, "max": 45000, "step": 1000, "default": 25000, "fmt": "money0" } },
+      "answer": "(s-6240)*0.03",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "Qualifying earnings are {s} − £6,240. 3% of that is {answer}."
+    },
+    {
+      "id": "21-relief-at-source",
+      "type": "number",
+      "topic": "tax relief",
+      "q": "Your pension uses relief at source. You pay in {p}. How much lands in your pot once 20% basic-rate relief is added?",
+      "vars": { "p": { "min": 40, "max": 400, "step": 20, "default": 80, "fmt": "money0" } },
+      "answer": "p/0.8",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "What you pay is 80% of the gross amount: {p} ÷ 0.8 = {answer}."
+    },
+    {
+      "id": "21-auto-enrol-who",
+      "type": "mcq",
+      "topic": "auto-enrolment",
+      "q": "Who must be automatically enrolled into a workplace pension?",
+      "options": [
+        "Workers aged 22 to State Pension age earning over £10,000 a year",
+        "Everyone with a job, from age 16",
+        "Only people earning over £50,270",
+        "Only people who ask"
+      ],
+      "answer": 0,
+      "why": "The trigger is age 22 to State Pension age and earnings over £10,000. Younger or lower-paid workers can usually ask to join."
+    },
+    {
+      "id": "21-opt-out",
+      "type": "tf",
+      "topic": "employer contribution",
+      "q": "If you opt out of your workplace pension, your employer pays you their contribution as extra wages instead.",
+      "answer": false,
+      "why": "The employer contribution only exists if you're in the scheme. Opt out and it's simply lost."
+    },
+    {
+      "id": "21-access-age",
+      "type": "mcq",
+      "topic": "pension access age",
+      "q": "From 6 April 2028, what's the earliest age most people can take money from a workplace pension?",
+      "options": ["57", "50", "55", "67"],
+      "answer": 0,
+      "why": "The normal minimum pension age rises from 55 to 57 on 6 April 2028. The State Pension age is separate (66, rising to 67)."
+    },
+    {
+      "id": "21-state-years",
+      "type": "number",
+      "topic": "State Pension record",
+      "q": "How many qualifying years of National Insurance do you normally need for the full new State Pension?",
+      "answer": "35",
+      "tol": 0.1,
+      "unit": "years",
+      "dp": 0,
+      "why": "35 qualifying years for the full amount, and at least 10 to get any."
+    },
+    {
+      "id": "21-layers-match",
+      "type": "match",
+      "topic": "retirement income",
+      "q": "Match each pension to how it works.",
+      "pairs": [
+        ["State Pension", "Paid by the government, based on your NI record"],
+        ["Workplace pension", "You and your employer pay in while you work"],
+        ["SIPP", "A personal pension you open and run yourself"],
+        ["Annuity", "A guaranteed income bought with your pension pot"]
+      ],
+      "why": "Most people's retirement income combines the State Pension with workplace and personal savings."
+    },
+    {
+      "id": "21-start-order",
+      "type": "order",
+      "topic": "starting early",
+      "q": "Same contributions and growth, all stopping at 67. Put these starting ages in order of final pot, biggest first.",
+      "items": ["Start at 22", "Start at 27", "Start at 32", "Start at 42"],
+      "why": "Earlier contributions get more years to compound, and the last years grow the most."
+    },
+    {
+      "id": "21-tax-free",
+      "type": "mcq",
+      "topic": "taking a pension",
+      "q": "When you start taking a workplace pension, how much can usually be taken tax-free?",
+      "options": ["25%", "None", "All of it", "50%"],
+      "answer": 0,
+      "why": "Usually 25% tax-free (within an overall limit); the rest is taxed as income when you take it."
+    },
+    {
+      "id": "21-stay-in-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "employer contribution",
+      "q": "A friend wants to opt out of their workplace pension to have more money now. Explain what they'd give up.",
+      "ideas": [
+        { "label": "The employer's contribution (free money)", "any": ["employer", "free money", "boss pays", "company pays", "their contribution", "matching", "match"] },
+        { "label": "Tax relief from the government", "any": ["tax relief", "tax back", "government adds", "government top up", "less tax", "taken before tax", "tax"] },
+        { "label": "Years of compound growth", "any": ["compound", "growth", "grow", "years", "invested", "interest", "starting early", "time"] }
+      ],
+      "model": "They'd give up the employer's contribution, which they only get by staying in, and the tax relief, which together roughly double what they pay. They'd also lose decades of compound growth on that money, which is worth most when started young.",
+      "why": "Opting out loses the employer money and tax relief today, plus growth later.",
+      "tests": [
+        { "answer": "They lose the employer contribution and the tax relief, and all the compound growth over the years.", "marks": 3 },
+        { "answer": "They lose the free money their employer pays in.", "marks": 1 },
+        { "answer": "They might get fined.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "21-early-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "starting early",
+      "q": "Explain why starting a pension at 22 rather than 32 can make a difference of tens of thousands of pounds.",
+      "ideas": [
+        { "label": "The money gets 10 more years to compound", "any": ["compound", "more years", "longer", "more time", "ten years", "10 years", "extra years", "grow for longer"] },
+        { "label": "The final years add the most growth, so missing years costs a lot", "any": ["end", "final years", "last years", "bigger pot", "grows most", "biggest", "snowball", "accelerat", "speeds up", "exponential"] }
+      ],
+      "model": "Money paid in at 22 gets 10 more years to compound, and the growth is biggest in the final years when the pot is largest, so a later start loses the most valuable growth.",
+      "why": "Time in the pot matters more than the amount.",
+      "tests": [
+        { "answer": "It has ten more years to compound and the growth is biggest at the end.", "marks": 2 },
+        { "answer": "It has longer to grow.", "marks": 1 },
+        { "answer": "Pensions pay more to young people.", "marks": 0 }
+      ]
+    }
+  ]
+}

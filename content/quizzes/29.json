@@ -1,0 +1,158 @@
+{
+  "module": "29",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "29-ladder-order",
+      "type": "order",
+      "topic": "the money priority ladder",
+      "q": "Put these steps in the order the priority ladder suggests, first to last.",
+      "items": [
+        "Starter emergency fund of £500–£1,000",
+        "Join the workplace pension, at least up to the employer match",
+        "Clear credit card and overdraft debt",
+        "Build three to six months of essential costs",
+        "Invest for the long term in a Stocks and Shares ISA"
+      ],
+      "why": "Protect yourself, take free money, stop expensive debt, finish the safety net, then invest money you won't need for years."
+    },
+    {
+      "id": "29-sam-first-step",
+      "type": "mcq",
+      "topic": "the money priority ladder",
+      "q": "Sam, 23, has £300 in the bank, £1,200 on a card at 29% APR, and wants to start investing £100 a month. What's the best next step?",
+      "options": [
+        "Build a small emergency buffer and put the £100 towards the card until it's cleared",
+        "Start investing straight away; markets beat 29% over time",
+        "Pay only the card minimum and invest the rest",
+        "Stop paying the card to save faster"
+      ],
+      "answer": 0,
+      "why": "Clearing 29% debt is a guaranteed 29% return; investing can't promise that. Never miss minimum payments."
+    },
+    {
+      "id": "29-windfall",
+      "type": "number",
+      "topic": "goal planning",
+      "q": "You want {g} for a car in {m} months. Ignoring interest, how much must you save each month? (To the nearest pound.)",
+      "vars": {
+        "g": { "choices": [1800, 2400, 3000, 3600], "default": 2400, "fmt": "money0" },
+        "m": { "choices": [12, 18, 24], "default": 24 }
+      },
+      "answer": "g/m",
+      "tol": 1,
+      "unit": "£",
+      "dp": 0,
+      "why": "{g} ÷ {m} = {answer} a month. Put it on a standing order for payday."
+    },
+    {
+      "id": "29-where-match",
+      "type": "match",
+      "topic": "the right home for each goal",
+      "q": "Match each goal to where the money would usually sit.",
+      "pairs": [
+        ["Emergency fund", "Easy-access savings"],
+        ["Car in two years", "Savings account or Cash ISA"],
+        ["Retirement", "Workplace pension"],
+        ["Wealth for 15+ years", "Stocks and Shares ISA"]
+      ],
+      "why": "Short timeframes need cash that can't fall in value; long timeframes can ride out ups and downs for higher expected growth."
+    },
+    {
+      "id": "29-take-home",
+      "type": "number",
+      "topic": "pay and tax",
+      "q": "Someone in England earns {s} a year with no pension or loan. What's their yearly take-home pay after income tax (20%) and NI (8%) on pay above £12,570?",
+      "vars": { "s": { "min": 18000, "max": 45000, "step": 1000, "default": 28000, "fmt": "money0" } },
+      "answer": "s-(s-12570)*0.28",
+      "tol": 2,
+      "unit": "£",
+      "dp": 2,
+      "why": "{s} − 28% × ({s} − £12,570) = {answer}."
+    },
+    {
+      "id": "29-pension-free",
+      "type": "tf",
+      "topic": "workplace pension",
+      "q": "Someone with a small credit card balance should still usually stay in their workplace pension at the minimum.",
+      "answer": true,
+      "why": "The employer contribution and tax relief roughly double their money immediately, which beats card interest. They just shouldn't pay extra into the pension until the card is cleared."
+    },
+    {
+      "id": "29-cash-isa-need",
+      "type": "mcq",
+      "topic": "ISAs and the Personal Savings Allowance",
+      "q": "A basic-rate taxpayer with £2,000 in savings is choosing between a Cash ISA paying 3.8% and a normal saver paying 4.5%. Which usually wins?",
+      "options": [
+        "The 4.5% saver: £90 of interest is under the £1,000 Personal Savings Allowance anyway",
+        "The Cash ISA, because ISAs always win",
+        "The Cash ISA, because normal savings are taxed at 20%",
+        "Neither: keep it in a current account"
+      ],
+      "answer": 0,
+      "why": "Interest under the Personal Savings Allowance is already tax-free, so the higher rate wins."
+    },
+    {
+      "id": "29-plan5-check",
+      "type": "number",
+      "topic": "student loans",
+      "q": "A graduate on Plan 5 earns {s}. What's their monthly student loan repayment?",
+      "vars": { "s": { "min": 26000, "max": 40000, "step": 1000, "default": 30000, "fmt": "money0" } },
+      "answer": "(s-25000)*0.09/12",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "9% of pay above £25,000, divided by 12: {answer} a month."
+    },
+    {
+      "id": "29-review-when",
+      "type": "mcq",
+      "topic": "keeping a plan alive",
+      "q": "When is a good regular time to review a financial plan, and why?",
+      "options": [
+        "Each April, when the new tax year brings new allowances and rates",
+        "Only when something goes wrong",
+        "Never: a good plan doesn't need changing",
+        "Every day"
+      ],
+      "answer": 0,
+      "why": "Tax figures, ISA allowances and pension thresholds change from 6 April, and a yearly review keeps goals current."
+    },
+    {
+      "id": "29-invest-last-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "the money priority ladder",
+      "q": "Explain why the priority ladder puts long-term investing after an emergency fund and clearing expensive debt.",
+      "ideas": [
+        { "label": "Investments can fall, so money you might need soon shouldn't be invested; an emergency fund stops you selling at a bad time or borrowing", "any": ["fall", "go down", "drop", "lose value", "risk", "risky", "need it soon", "emergency", "sell at a loss", "short term", "might need"] },
+        { "label": "Expensive debt costs more than investments are likely to earn", "any": ["debt costs", "interest on debt", "30%", "higher than", "more than", "card", "apr", "guaranteed", "costs more", "expensive"] }
+      ],
+      "model": "Investments can fall in value, so money you might need soon shouldn't be in them: without an emergency fund you might have to sell at a bad time or borrow. And expensive debt at around 30% costs far more than investments are likely to earn, so clearing it first is a guaranteed better return.",
+      "why": "Investing works best on money you won't need for years, with no expensive debt dragging against it.",
+      "tests": [
+        { "answer": "Investments can go down so you need an emergency fund first, and card debt costs more than investing would earn.", "marks": 2 },
+        { "answer": "Because investing is risky.", "marks": 1 },
+        { "answer": "Because you need to be older to invest.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "29-rules-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "rules for future you",
+      "q": "Explain why writing rules in advance (for pay rises, windfalls, card use) helps a plan work.",
+      "ideas": [
+        { "label": "The decision is already made, so you don't rely on willpower or mood in the moment", "any": ["already decided", "decision is made", "in advance", "willpower", "temptation", "mood", "in the moment", "don't have to think", "automatic", "impulse"] },
+        { "label": "It stops spending rising to match extra money (lifestyle creep)", "any": ["spend it", "lifestyle", "creep", "spending rises", "spending grows", "waste", "extra money", "pay rise", "windfall", "save it"] }
+      ],
+      "model": "If the rule is set in advance, the decision is already made, so you don't have to rely on willpower when you're tempted. It stops spending quietly rising to swallow every pay rise or windfall.",
+      "why": "Decide once, calmly, instead of every time under temptation.",
+      "tests": [
+        { "answer": "The decision is made in advance so you don't rely on willpower, and it stops lifestyle creep when you get a pay rise.", "marks": 2 },
+        { "answer": "So you don't just spend extra money.", "marks": 1 },
+        { "answer": "Because banks require a plan.", "marks": 0 }
+      ]
+    }
+  ]
+}
