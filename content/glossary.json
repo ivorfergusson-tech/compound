@@ -4,10 +4,20 @@
     "def": "Never risking more than 1% of your account on a single trade.",
     "module": "23"
   },
+  "2 and 20": {
+    "term": "2 and 20",
+    "def": "A traditional hedge fund and private equity fee: 2% of assets a year plus 20% of profits.",
+    "module": "20"
+  },
   "accumulation units": {
     "term": "Accumulation units",
     "def": "A version of a fund that reinvests dividends automatically. Income units pay them out instead.",
     "module": "14"
+  },
+  "active investing": {
+    "term": "Active investing",
+    "def": "Picking investments to try to beat a benchmark, usually for higher fees than index funds.",
+    "module": "20"
   },
   "advisory": {
     "term": "Advisory",
@@ -53,6 +63,11 @@
     "term": "Asset manager",
     "def": "A firm that invests other people's money, such as pensions and funds, for a fee. The buy side.",
     "module": "04"
+  },
+  "aum": {
+    "term": "AUM",
+    "def": "Assets under management: the total value of money a manager invests for clients. Fees are usually a % of it.",
+    "module": "20"
   },
   "auto-enrolment": {
     "term": "Auto-enrolment",
@@ -344,6 +359,11 @@
     "def": "What you earn before anything is taken off: your salary or hourly rate times hours.",
     "module": "05"
   },
+  "hedge fund": {
+    "term": "Hedge fund",
+    "def": "A lightly restricted fund for professional investors that can short, borrow and use derivatives.",
+    "module": "20"
+  },
   "herding": {
     "term": "Herding",
     "def": "Copying what the crowd is doing, which helps inflate bubbles and deepen panics.",
@@ -418,6 +438,11 @@
     "term": "Lagging indicator",
     "def": "An indicator calculated from past prices, so it reacts after moves have happened.",
     "module": "19"
+  },
+  "lbo": {
+    "term": "LBO",
+    "def": "Leveraged buyout: buying a company largely with borrowed money, repaid from the company's own cash.",
+    "module": "20"
   },
   "lending": {
     "term": "Lending",
@@ -554,6 +579,11 @@
     "def": "Practising trades with pretend money at real prices, recorded as if they were real.",
     "module": "11"
   },
+  "passive investing": {
+    "term": "Passive investing",
+    "def": "Tracking an index cheaply instead of trying to beat it.",
+    "module": "20"
+  },
   "paye": {
     "term": "PAYE",
     "def": "Pay As You Earn: your employer works out your income tax and National Insurance and pays it to HMRC each time you're paid.",
@@ -598,6 +628,11 @@
     "term": "Principal",
     "def": "The amount you start with, before any interest is added.",
     "module": "01"
+  },
+  "private equity": {
+    "term": "Private equity",
+    "def": "Firms that buy whole companies, often with borrowed money, run them for years and sell them.",
+    "module": "20"
   },
   "profit": {
     "term": "Profit",

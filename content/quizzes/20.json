@@ -1,0 +1,150 @@
+{
+  "module": "20",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "20-two-twenty",
+      "type": "number",
+      "topic": "2 and 20",
+      "q": "A £100m fund makes {g}% (£{g}m) before fees. It charges 2% of the money managed, then 20% of the profit left. How much do investors keep, in £m?",
+      "vars": { "g": { "choices": [5, 8, 10, 15, 20], "default": 10 } },
+      "answer": "(g-2)*0.8",
+      "tol": 0.05,
+      "unit": "£m",
+      "dp": 1,
+      "why": "£{g}m − £2m = remaining profit; investors keep 80% of it: £{answer}m."
+    },
+    {
+      "id": "20-aum-fee",
+      "type": "number",
+      "topic": "AUM and fees",
+      "q": "An asset manager runs £{a}bn and charges an average 0.5% a year. What's its yearly fee income, in £m?",
+      "vars": { "a": { "choices": [10, 50, 100, 200], "default": 50 } },
+      "answer": "a*1000*0.005",
+      "tol": 0.5,
+      "unit": "£m",
+      "dp": 0,
+      "why": "0.5% of £{a}bn = £{answer}m, whether or not its funds beat the market."
+    },
+    {
+      "id": "20-types-match",
+      "type": "match",
+      "topic": "the buy side",
+      "q": "Match each type of manager to what it does.",
+      "pairs": [
+        ["Passive manager", "Tracks an index cheaply"],
+        ["Active manager", "Picks investments to beat a benchmark"],
+        ["Hedge fund", "Uses shorting, leverage and derivatives for professional investors"],
+        ["Private equity", "Buys whole companies, improves them, sells them"]
+      ],
+      "why": "The buy side ranges from cheap index funds to complex, high-fee strategies."
+    },
+    {
+      "id": "20-lbo",
+      "type": "mcq",
+      "topic": "leveraged buyouts",
+      "q": "What makes a buyout 'leveraged'?",
+      "options": [
+        "A large part of the price is paid with borrowed money, repaid from the company's cash",
+        "The buyer uses only its own cash",
+        "The company is bought with shares from the stock market",
+        "The government lends the money"
+      ],
+      "answer": 0,
+      "why": "Borrowing magnifies the return on the fund's own money, and the risk."
+    },
+    {
+      "id": "20-hedged-myth",
+      "type": "tf",
+      "topic": "hedge funds",
+      "q": "Hedge funds are always low-risk because they're hedged.",
+      "answer": false,
+      "why": "Many use leverage, shorting and derivatives. The name describes a structure and tools, not safety."
+    },
+    {
+      "id": "20-leverage-both",
+      "type": "tf",
+      "topic": "leveraged buyouts",
+      "q": "More debt in a buyout can turn a small fall in the company's value into a big loss on the fund's own money.",
+      "answer": true,
+      "why": "Debt must be repaid first, so equity absorbs losses as well as gains in magnified form."
+    },
+    {
+      "id": "20-who-can",
+      "type": "mcq",
+      "topic": "hedge funds",
+      "q": "Why are hedge funds usually limited to professional or wealthy investors?",
+      "options": [
+        "They're riskier, less transparent and harder to sell out of",
+        "They're illegal for everyone else",
+        "They always lose money",
+        "They only invest abroad"
+      ],
+      "answer": 0,
+      "why": "Regulators restrict complex, high-risk, illiquid products for ordinary retail investors."
+    },
+    {
+      "id": "20-pe-order",
+      "type": "order",
+      "topic": "private equity",
+      "q": "Put the life of a private equity investment in order.",
+      "items": [
+        "Raise a fund from investors",
+        "Buy a company with fund money plus debt",
+        "Improve the business and repay debt from its cash",
+        "Sell the company and share the profit"
+      ],
+      "why": "Raise, buy, improve, sell. The performance fee (carry) comes from the profit at the end."
+    },
+    {
+      "id": "20-stewardship",
+      "type": "mcq",
+      "topic": "asset managers as owners",
+      "q": "What is stewardship by asset managers?",
+      "options": [
+        "Using their votes and influence as shareholders to shape how companies are run",
+        "Managing a company's payroll",
+        "Lending money to banks",
+        "Setting interest rates"
+      ],
+      "answer": 0,
+      "why": "Because they own so many shares, asset managers vote on directors, pay and deals, and engage with companies."
+    },
+    {
+      "id": "20-fees-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "2 and 20",
+      "q": "Explain why a 2 and 20 fee structure sets a high bar for a fund to be worth it.",
+      "ideas": [
+        { "label": "Fees take a big share of returns: 2% every year plus 20% of profits", "any": ["2%", "20%", "every year", "share of profits", "take a lot", "big chunk", "fees eat", "fees take", "performance fee", "management fee", "fees are high", "high fees", "expensive"] },
+        { "label": "So it must beat cheaper alternatives (like index funds) after fees, consistently", "any": ["index", "cheaper", "tracker", "beat", "outperform", "after fees", "worth it", "alternative", "consistently"] }
+      ],
+      "model": "The fund takes 2% of the money every year, whatever happens, plus 20% of profits, so a 10% gross return becomes about 6.4% for investors. To be worth it, it has to consistently beat cheap index funds by enough to cover those fees.",
+      "why": "High fees need high, reliable outperformance.",
+      "tests": [
+        { "answer": "It takes 2% every year plus 20% of profits, so it has to beat cheap index funds after fees to be worth it.", "marks": 2 },
+        { "answer": "Because the fees are high.", "marks": 1 },
+        { "answer": "Because hedge funds are safe.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "20-aum-incentive-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "AUM and fees",
+      "q": "Explain how being paid a percentage of AUM can shape an asset manager's behaviour.",
+      "ideas": [
+        { "label": "They earn more by gathering more money, even without beating the market", "any": ["more assets", "gather", "attract", "bigger fund", "more money", "grow the fund", "marketing", "size", "without beating"] },
+        { "label": "So investors should judge them on returns after fees", "any": ["after fees", "judge", "returns", "performance", "compare", "index", "net"] }
+      ],
+      "model": "Because fees rise with the money managed, a manager can earn more by gathering assets (through marketing or rising markets) than by beating the market. Investors should therefore judge managers on their returns after fees, compared with cheap alternatives.",
+      "why": "Pay structures shape incentives.",
+      "tests": [
+        { "answer": "They earn more by gathering more money even without beating the market, so judge them on returns after fees.", "marks": 2 },
+        { "answer": "They want to attract more money.", "marks": 1 },
+        { "answer": "They pay more tax.", "marks": 0 }
+      ]
+    }
+  ]
+}

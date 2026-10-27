@@ -41,9 +41,13 @@ export function bondPrice(couponPct, years, yieldPct, face = 100) {
 // cash flow pays down debt; sell at exit multiple. Returns money multiple and IRR for the equity.
 export function lbo({ ebitda, entryMult, debtPct, growth, years, exitMult, paydownPct }) {
   const price = ebitda * entryMult, debt0 = price * debtPct / 100, equity0 = price - debt0;
-  let e = ebitda, debt = debt0;
-  for (let t = 0; t < years; t++) { e *= 1 + growth / 100; debt = Math.max(0, debt - e * paydownPct / 100); }
-  const exitValue = e * exitMult, equityOut = Math.max(0, exitValue - debt);
+  let e = ebitda, debt = debt0, cash = 0;
+  for (let t = 0; t < years; t++) {
+    e *= 1 + growth / 100;
+    const free = e * paydownPct / 100, repay = Math.min(debt, free);
+    debt -= repay; cash += free - repay; // once debt is gone, spare cash builds up for the owners
+  }
+  const exitValue = e * exitMult, equityOut = Math.max(0, exitValue - debt + cash);
   const moic = equityOut / equity0;
   return { price, equity0, debt0, exitValue, debtLeft: debt, equityOut, moic, irr: moic > 0 ? (moic ** (1 / years) - 1) * 100 : -100 };
 }
@@ -147,7 +151,7 @@ export const industryCalculators = {
       + slider('exitMult', 'Sell at (EV / EBITDA)', { min: 4, max: 15, step: 0.5, value: a.exitMult ?? 10 })
       + `<div class="stats">${stat('Price paid', 'price')}${stat('Fund\'s own money in', 'eq')}${stat('Sale value after 5 years', 'exit')}</div>`
       + `<div class="stats">${stat('Fund\'s money back', 'out', 'good')}${stat('Money multiple', 'moic', 'good')}${stat('Return a year', 'irr', 'good')}</div>`,
-      'Simplified: 5 years, 40% of EBITDA each year used to repay debt, no fees, interest or tax shown. Try 0% debt to see how borrowing magnifies the return, then a fall in EBITDA to see how it magnifies losses.');
+      'Simplified: 5 years, 40% of EBITDA each year repays debt (or builds up as cash once debt is gone); no fees, interest or tax shown. Try 0% debt to see how borrowing magnifies the return, then a fall in EBITDA to see how it magnifies losses.');
     wire(root, { ebitda: v => `£${v}m`, entryMult: v => `${v}×`, debtPct: v => `${v}%`, growth: v => `${v}%`, exitMult: v => `${v}×` }, (v, set) => {
       const x = lbo({ ...v, years: 5, paydownPct: 40 });
       const m = n => `£${Math.round(n)}m`;

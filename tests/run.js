@@ -195,7 +195,7 @@ check('mortgage 200k 4.5% 25y', Math.abs(mortgagePayment(200000, 4.5, 25) - 1111
 check('bond at par when coupon = yield', Math.abs(bondPrice(5, 10, 5) - 100) < 1e-9);
 check('bond below par when yield > coupon', bondPrice(4, 10, 5) < 100);
 check('longer bond moves more', (bondPrice(4, 30, 6) / bondPrice(4, 30, 5)) < (bondPrice(4, 2, 6) / bondPrice(4, 2, 5)));
-const l0 = lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 0, years: 5, exitMult: 10, paydownPct: 40 });
+const l0 = lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 0, years: 5, exitMult: 10, paydownPct: 0 });
 check('LBO no debt, no growth = 1x', Math.abs(l0.moic - 1) < 1e-9, l0.moic);
 const l6 = lbo({ ebitda: 20, entryMult: 10, debtPct: 60, growth: 5, years: 5, exitMult: 10, paydownPct: 40 });
 check('LBO debt magnifies return', l6.moic > lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 5, years: 5, exitMult: 10, paydownPct: 40 }).moic, l6.moic);
