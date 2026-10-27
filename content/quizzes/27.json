@@ -1,0 +1,151 @@
+{
+  "module": "27",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "27-expectancy",
+      "type": "number",
+      "topic": "expectancy",
+      "q": "A strategy wins {w}% of trades. Wins average {a}R and losses average 1R. What's its expectancy per trade, in R? (Minus sign if negative.)",
+      "vars": {
+        "w": { "choices": [30, 40, 50, 60], "default": 40 },
+        "a": { "choices": [1, 1.5, 2, 3], "default": 2 }
+      },
+      "answer": "w/100*a-(1-w/100)*1",
+      "tol": 0.01,
+      "unit": "R",
+      "dp": 2,
+      "why": "{w}% × {a}R − (100 − {w})% × 1R = {answer}R per trade, before costs."
+    },
+    {
+      "id": "27-winrate-alone",
+      "type": "tf",
+      "topic": "win rate vs expectancy",
+      "q": "A strategy that wins 90% of its trades must be profitable.",
+      "answer": false,
+      "why": "If the 10% of losses are huge (say 20R each), it loses money overall. Expectancy needs win rate and the size of wins and losses."
+    },
+    {
+      "id": "27-costs",
+      "type": "number",
+      "topic": "expectancy",
+      "q": "A strategy's expectancy is {e}R per trade before costs. Spreads and fees cost {c}R per trade. What's the expectancy after costs?",
+      "vars": {
+        "e": { "choices": [0.05, 0.1, 0.2, 0.3], "default": 0.2 },
+        "c": { "choices": [0.05, 0.1, 0.15], "default": 0.1 }
+      },
+      "answer": "e-c",
+      "tol": 0.005,
+      "unit": "R",
+      "dp": 2,
+      "why": "Costs come straight off: {e}R − {c}R = {answer}R. A small edge can disappear entirely."
+    },
+    {
+      "id": "27-streaks",
+      "type": "mcq",
+      "topic": "losing streaks",
+      "q": "A strategy wins 40% of the time. Over 100 trades, how likely is at least one run of 6 losses in a row?",
+      "options": ["Very likely: about 87%", "Almost impossible: under 5%", "About 50%", "Exactly 40%"],
+      "answer": 0,
+      "why": "With a 60% chance of losing each trade, long losing runs are normal. Plan your risk for them."
+    },
+    {
+      "id": "27-overfit-signs",
+      "type": "mcq",
+      "topic": "overfitting",
+      "q": "Which is a warning sign that a backtested strategy is overfitted?",
+      "options": [
+        "It does brilliantly with a 17-day average but terribly with 16 or 18",
+        "It uses simple rules with a clear reason",
+        "It was tested on hundreds of trades across rising and falling markets",
+        "It performs similarly on data it wasn't designed on"
+      ],
+      "answer": 0,
+      "why": "Results that collapse when a setting is nudged suggest the rules fit past noise, not a real pattern."
+    },
+    {
+      "id": "27-backtest-order",
+      "type": "order",
+      "topic": "testing honestly",
+      "q": "Put the steps of honest testing in order.",
+      "items": [
+        "Write exact rules before looking at results",
+        "Backtest on one period, taking every signal and including costs",
+        "Run the final rules once on data you held back",
+        "Forward test live on paper"
+      ],
+      "why": "Rules first, then in-sample testing, then out-of-sample, then real time."
+    },
+    {
+      "id": "27-bias-match",
+      "type": "match",
+      "topic": "testing biases",
+      "q": "Match each testing mistake to its description.",
+      "pairs": [
+        ["Overfitting", "Tuning rules until they fit past noise"],
+        ["Survivorship bias", "Testing only on companies that still exist"],
+        ["Look-ahead bias", "Using information you couldn't have had at the time"],
+        ["Cherry-picking", "Showing only the period where it worked"]
+      ],
+      "why": "Each one makes a backtest look better than reality."
+    },
+    {
+      "id": "27-exact-rules",
+      "type": "mcq",
+      "topic": "strategy rules",
+      "q": "Which of these is a testable strategy rule?",
+      "options": [
+        "Buy at the close when price closes above its 20-day high and above the 50-day moving average",
+        "Buy when it looks strong",
+        "Buy when I have a good feeling",
+        "Buy shares that are popular this week"
+      ],
+      "answer": 0,
+      "why": "It's exact enough that anyone following it would take the same trades, so it can be tested."
+    },
+    {
+      "id": "27-few-trades",
+      "type": "tf",
+      "topic": "testing honestly",
+      "q": "Ten winning trades in a backtest is strong proof of an edge.",
+      "answer": false,
+      "why": "Ten trades can easily come from luck. You need dozens to hundreds, across different conditions."
+    },
+    {
+      "id": "27-overfit-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "overfitting",
+      "q": "Explain what overfitting is and why an overfitted strategy fails on new data.",
+      "ideas": [
+        { "label": "Tweaking rules or settings until they fit past data perfectly", "any": ["tweak*", "tune", "tuning", "adjust*", "fit the past", "fits past", "too many rules", "settings", "optimis*", "optimiz*"] },
+        { "label": "It captures past noise or luck rather than a real pattern, so it doesn't repeat", "any": ["noise", "luck", "random", "not real", "won't repeat", "doesn't repeat", "coincidence", "chance", "new data"] }
+      ],
+      "model": "Overfitting is tweaking rules and settings until they fit past data perfectly. The rules end up describing that data's random noise and luck rather than a real, repeatable pattern, so on new data the noise is different and the strategy fails.",
+      "why": "Fitting noise looks like skill until the noise changes.",
+      "tests": [
+        { "answer": "It's tweaking the settings until they fit the past perfectly, so it captures random noise that won't repeat on new data.", "marks": 2 },
+        { "answer": "Tweaking the settings until the backtest looks perfect.", "marks": 1 },
+        { "answer": "When a trader eats too much.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "27-streak-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "losing streaks",
+      "q": "Explain why you shouldn't abandon a well-tested strategy after six losses in a row.",
+      "ideas": [
+        { "label": "Long losing runs are normal and expected, even with a positive expectancy", "any": ["normal", "expected", "likely", "happen", "streaks", "87%", "arithmetic", "probability", "even good strategies"] },
+        { "label": "Judge it over many trades; with small risk per trade the run is survivable", "any": ["many trades", "over time", "long run", "expectancy", "sample", "1%", "small risk", "survive*", "100 trades"] }
+      ],
+      "model": "With a 40% win rate, six losses in a row is very likely somewhere in 100 trades, so it's normal, not a sign the strategy is broken. It should be judged on expectancy over many trades, and with 1% risk per trade the run only costs about 6% of the account.",
+      "why": "Streaks are part of the maths, not proof of failure.",
+      "tests": [
+        { "answer": "Losing streaks are normal even with positive expectancy, so judge it over many trades and keep risk at 1%.", "marks": 2 },
+        { "answer": "Because losing streaks are normal.", "marks": 1 },
+        { "answer": "Because the next trade must win.", "marks": 0 }
+      ]
+    }
+  ]
+}
