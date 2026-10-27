@@ -121,7 +121,8 @@
         "dividend",
         "bond",
         "coupon",
-        "fund"
+        "fund",
+        "capital gain"
       ],
       "summary": "The three main things people invest in and how each pays you."
     },
@@ -161,7 +162,9 @@
         "investment bank",
         "asset manager",
         "broker",
-        "regulator"
+        "regulator",
+        "buy side",
+        "sell side"
       ],
       "summary": "Who does what in finance, and where boutique firms fit."
     },
@@ -184,7 +187,9 @@
         "National Insurance",
         "personal allowance",
         "trading allowance",
-        "self-assessment"
+        "self-assessment",
+        "marginal rate",
+        "payslip"
       ],
       "summary": "What happens to your pay from a Saturday job, side hustle or first full-time job before it reaches you."
     },
@@ -204,7 +209,8 @@
         "IPO",
         "index",
         "market cap",
-        "FTSE 100"
+        "FTSE 100",
+        "total return"
       ],
       "summary": "Why share prices move and what an index measures."
     },
@@ -252,7 +258,8 @@
         "deposit",
         "lending",
         "FSCS",
-        "fractional reserve"
+        "fractional reserve",
+        "capital"
       ],
       "summary": "Where your bank's profit comes from and how your deposit is protected."
     },
@@ -391,7 +398,8 @@
         "ETF",
         "OCF",
         "platform fee",
-        "accumulation units"
+        "accumulation units",
+        "pound-cost averaging"
       ],
       "summary": "Why low-cost tracking beats most stock pickers, and how fees eat returns."
     },
@@ -435,7 +443,8 @@
         "ECM",
         "DCM",
         "pitch book",
-        "boutique"
+        "boutique",
+        "synergies"
       ],
       "summary": "What investment banks and boutiques actually do all day."
     },
@@ -675,7 +684,8 @@
         "overconfidence",
         "herding",
         "recency bias",
-        "sunk cost"
+        "sunk cost",
+        "behaviour gap"
       ],
       "summary": "Why smart people make bad money decisions, and how to guard against it."
     },
@@ -800,7 +810,9 @@
         "PRA",
         "Basel rules",
         "systemic risk",
-        "stock pitch"
+        "stock pitch",
+        "moral hazard",
+        "ring-fencing"
       ],
       "summary": "Why finance is regulated, and a stock pitch you could give in an interview."
     },
