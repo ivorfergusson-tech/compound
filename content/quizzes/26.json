@@ -1,0 +1,144 @@
+{
+  "module": "26",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "26-bias-match",
+      "type": "match",
+      "topic": "naming biases",
+      "q": "Match each behaviour to the bias behind it.",
+      "pairs": [
+        ["Refusing to sell a fallen share until it's back to what you paid", "Loss aversion"],
+        ["Buying because everyone online is buying", "Herding"],
+        ["Assuming last year's big rise will continue", "Recency bias"],
+        ["Trading often because you're sure you can beat the market", "Overconfidence"]
+      ],
+      "why": "Naming the bias is the first step to building a rule against it."
+    },
+    {
+      "id": "26-loss-aversion",
+      "type": "mcq",
+      "topic": "loss aversion",
+      "q": "According to Kahneman and Tversky's research, roughly how strongly does a loss feel compared with an equal gain?",
+      "options": ["About twice as strong", "About the same", "Half as strong", "Ten times as strong"],
+      "answer": 0,
+      "why": "Losses feel roughly twice as painful as equal gains feel good, which pushes people to sell in panics and hold losers too long."
+    },
+    {
+      "id": "26-sunk-cost",
+      "type": "mcq",
+      "topic": "sunk cost",
+      "q": "You've already put £2,000 into a share that's now worth £1,200. What's the best question to ask?",
+      "options": [
+        "If I had £1,200 in cash today, would I buy this share?",
+        "How do I get my £2,000 back?",
+        "What did I pay for it?",
+        "What are my friends doing?"
+      ],
+      "answer": 0,
+      "why": "The £800 lost is a sunk cost. Decide from here, as if starting fresh."
+    },
+    {
+      "id": "26-gap",
+      "type": "number",
+      "topic": "the behaviour gap",
+      "q": "Funds earned {f} a year, but investors in them earned {i} a year because of when they bought and sold. What's the behaviour gap, in percentage points?",
+      "vars": {
+        "f": { "choices": [8.2, 9.9], "default": 8.2, "fmt": "pct" },
+        "i": { "choices": [7.0, 8.7], "default": 7.0, "fmt": "pct" }
+      },
+      "answer": "f-i",
+      "tol": 0.05,
+      "unit": "points",
+      "dp": 1,
+      "why": "{f} − {i} = {answer} percentage points a year, lost to timing decisions, not to the funds themselves."
+    },
+    {
+      "id": "26-herding-tf",
+      "type": "tf",
+      "topic": "herding",
+      "q": "A share that's doubled because lots of people are buying it is likely to be a sound investment.",
+      "answer": false,
+      "why": "Popularity and a rising price aren't evidence of value. That's herding, and late buyers in bubbles often lose most."
+    },
+    {
+      "id": "26-checking",
+      "type": "tf",
+      "topic": "loss aversion",
+      "q": "Checking your investments every day usually helps you make better decisions.",
+      "answer": false,
+      "why": "Daily checks show many small losses, which feel worse than gains feel good, and tempt you to act on noise."
+    },
+    {
+      "id": "26-guards-order",
+      "type": "order",
+      "topic": "guardrails",
+      "q": "A crash hits. Put these steps in the order a calm investor might follow.",
+      "items": [
+        "Wait before acting: no trades today",
+        "Re-read your written investment plan",
+        "Check your timeframe and goals haven't changed",
+        "Keep the monthly direct debit going"
+      ],
+      "why": "Pause, consult the plan written while calm, check nothing real has changed, and stay the course."
+    },
+    {
+      "id": "26-guard-match",
+      "type": "match",
+      "topic": "guardrails",
+      "q": "Match each bias to a guardrail that helps.",
+      "pairs": [
+        ["Loss aversion", "Check your investments less often"],
+        ["Overconfidence", "Keep a decision journal and review it honestly"],
+        ["Herding", "Wait 48 hours before buying anything trending"],
+        ["Recency bias", "Set your mix from goals, not recent returns"]
+      ],
+      "why": "Systems beat willpower: each rule blocks a specific bias."
+    },
+    {
+      "id": "26-anchoring",
+      "type": "mcq",
+      "topic": "anchoring",
+      "q": "\"This share used to be £10, so at £4 it must be a bargain.\" Which bias is this mainly?",
+      "options": ["Anchoring", "Diversification", "Pound-cost averaging", "Market risk"],
+      "answer": 0,
+      "why": "The old price is an anchor. What matters is the company's value now, not where the price once was."
+    },
+    {
+      "id": "26-system-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "guardrails",
+      "q": "Explain why automating your investing (a monthly direct debit into a fund) helps against behavioural biases.",
+      "ideas": [
+        { "label": "It removes the need to decide each time, so emotions don't make the decision", "any": ["don't have to decide", "no decision", "automatic", "emotion", "feelings", "willpower", "don't think about", "have to think", "without thinking", "takes the decision away"] },
+        { "label": "You keep buying through falls instead of panicking or trying to time the market", "any": ["keep buying", "through falls", "crash", "panic", "timing", "time the market", "when prices are low", "carry on", "stay invested", "pound-cost"] }
+      ],
+      "model": "Once it's automatic, you don't have to decide each month, so fear, greed and hype don't get a vote. You keep buying through falls (often at lower prices) instead of panicking or trying to time the market.",
+      "why": "Systems beat willpower.",
+      "tests": [
+        { "answer": "It happens automatically so emotions don't decide, and you keep buying through a crash instead of panicking.", "marks": 2 },
+        { "answer": "You don't have to think about it.", "marks": 1 },
+        { "answer": "Because direct debits pay more interest.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "26-loss-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "loss aversion",
+      "q": "Explain how loss aversion can lead investors to sell at exactly the wrong time.",
+      "ideas": [
+        { "label": "Losses feel much worse than gains, so falling prices cause panic", "any": ["losses feel", "hurt more", "twice", "painful", "panic", "fear", "can't bear", "feel worse"] },
+        { "label": "They sell after a fall, locking in the loss and missing the recovery", "any": ["sell low", "after a fall", "lock in", "locks in", "miss the recovery", "at the bottom", "permanent", "realise the loss"] }
+      ],
+      "model": "Because losses feel about twice as painful as gains, a falling market causes panic. Investors sell to stop the pain, usually after prices have already fallen, which locks in the loss and means missing the recovery.",
+      "why": "The urge to stop the pain sells at the low.",
+      "tests": [
+        { "answer": "Losses hurt more than gains so people panic and sell after a fall, locking in the loss and missing the recovery.", "marks": 2 },
+        { "answer": "They panic when prices drop.", "marks": 1 },
+        { "answer": "They want to buy more shares.", "marks": 0 }
+      ]
+    }
+  ]
+}

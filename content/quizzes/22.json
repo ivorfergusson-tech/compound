@@ -1,0 +1,159 @@
+{
+  "module": "22",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "22-pe",
+      "type": "number",
+      "topic": "P/E ratio",
+      "q": "A share costs {p} and earnings per share are {e}. What's the P/E ratio?",
+      "vars": {
+        "p": { "choices": [6, 9, 12, 18, 24], "default": 12, "fmt": "money2" },
+        "e": { "choices": [0.4, 0.6, 0.8, 1.2], "default": 0.8, "fmt": "money2" }
+      },
+      "answer": "p/e",
+      "tol": 0.05,
+      "unit": "×",
+      "dp": 1,
+      "why": "P/E = price ÷ EPS = {p} ÷ {e} = {answer}."
+    },
+    {
+      "id": "22-pv",
+      "type": "number",
+      "topic": "present value",
+      "q": "You'll receive {c} in {n} years. You could earn {r} a year elsewhere. What's it worth today?",
+      "vars": {
+        "c": { "choices": [100, 1000], "default": 100, "fmt": "money0" },
+        "n": { "choices": [3, 5, 10], "default": 5 },
+        "r": { "choices": [5, 8, 9, 10], "default": 9, "fmt": "pct" }
+      },
+      "answer": "c/(1+r/100)**n",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "Present value = {c} ÷ (1 + {r})^{n} = {answer}. Compounding in reverse."
+    },
+    {
+      "id": "22-ev",
+      "type": "number",
+      "topic": "enterprise value",
+      "q": "A company's market cap is £{m}m, it has £{d}m of debt and £{c}m of cash. What's its enterprise value, in £m?",
+      "vars": {
+        "m": { "choices": [300, 500, 800], "default": 300 },
+        "d": { "choices": [50, 80, 150], "default": 80 },
+        "c": { "choices": [10, 20, 40], "default": 10 }
+      },
+      "answer": "m+d-c",
+      "tol": 0.5,
+      "unit": "£m",
+      "dp": 0,
+      "why": "EV = market cap + debt − cash = £{answer}m: the price of the whole business."
+    },
+    {
+      "id": "22-rate-up",
+      "type": "tf",
+      "topic": "discount rate",
+      "q": "If interest rates rise, the present value of a company's future profits usually rises.",
+      "answer": false,
+      "why": "Higher rates mean a higher discount rate, so future cash is worth less today. That's why share prices often fall when rates rise."
+    },
+    {
+      "id": "22-low-pe",
+      "type": "mcq",
+      "topic": "value traps",
+      "q": "A share has a P/E of 5 while similar companies are on 15. What's the most sensible conclusion?",
+      "options": [
+        "Find out why: the market may expect its profits to fall",
+        "It's definitely a bargain",
+        "Its accounts must be wrong",
+        "The P/E will rise to 15 next year"
+      ],
+      "answer": 0,
+      "why": "A low P/E can be a bargain or a value trap. Ask why it's cheap before buying."
+    },
+    {
+      "id": "22-dcf-order",
+      "type": "order",
+      "topic": "DCF",
+      "q": "Put the steps of a DCF valuation in order.",
+      "items": [
+        "Forecast free cash flow for the next few years",
+        "Estimate a terminal value for the years after",
+        "Discount everything back to today",
+        "Add it up and divide by the number of shares"
+      ],
+      "why": "Forecast, add a terminal value, discount, then sum and divide by shares."
+    },
+    {
+      "id": "22-terms-match",
+      "type": "match",
+      "topic": "valuation terms",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["P/E ratio", "Share price ÷ earnings per share"],
+        ["Enterprise value", "Market cap + debt − cash"],
+        ["Discount rate", "The yearly return you require for waiting and risk"],
+        ["Terminal value", "A DCF's value for all years after the forecast"]
+      ],
+      "why": "These are the building blocks of how analysts value companies."
+    },
+    {
+      "id": "22-high-pe",
+      "type": "mcq",
+      "topic": "P/E ratio",
+      "q": "What does a high P/E ratio usually suggest?",
+      "options": [
+        "Investors expect strong profit growth or see the company as safe",
+        "The company is about to go bust",
+        "The share price is definitely too high",
+        "The company pays a big dividend"
+      ],
+      "answer": 0,
+      "why": "Investors pay more per £ of today's profit when they expect more profit later or see little risk."
+    },
+    {
+      "id": "22-sensitivity",
+      "type": "tf",
+      "topic": "DCF",
+      "q": "A DCF valuation gives a precise, reliable value that doesn't depend much on your assumptions.",
+      "answer": false,
+      "why": "Small changes to growth or the discount rate can move the value by 10% or more. Treat it as a range."
+    },
+    {
+      "id": "22-pv-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "present value",
+      "q": "Explain why £100 in five years is worth less than £100 today.",
+      "ideas": [
+        { "label": "Money today could be invested to earn a return (opportunity cost)", "any": ["invest", "earn interest", "interest", "grow", "return", "opportunity", "could earn", "put in savings"] },
+        { "label": "Waiting has risk and inflation shrinks what it buys", "any": ["risk", "might not", "uncertain", "inflation", "buys less", "prices rise", "wait", "waiting"] }
+      ],
+      "model": "£100 today could be invested and grow to more than £100 in five years, so future money must be discounted to compare fairly. Waiting also carries risk (you might not get paid) and inflation shrinks what it can buy.",
+      "why": "Discounting is compounding in reverse.",
+      "tests": [
+        { "answer": "Because you could invest the £100 today and earn interest, and there's risk and inflation while you wait.", "marks": 2 },
+        { "answer": "Because you could earn interest on it now.", "marks": 1 },
+        { "answer": "Because banks charge fees.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "22-terminal-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "DCF",
+      "q": "Explain why a DCF valuation can change a lot with small changes in assumptions.",
+      "ideas": [
+        { "label": "Most of the value is in the distant future (the terminal value)", "any": ["terminal", "far future", "distant", "long term", "years after", "most of the value", "later years", "forever"] },
+        { "label": "So small changes to growth or the discount rate compound over many years", "any": ["discount rate", "growth rate", "small change", "compound", "many years", "sensitive", "each year", "over time"] }
+      ],
+      "model": "Most of a company's value usually comes from the terminal value, the cash far in the future. Small changes to the growth rate or discount rate compound over all those years, so they swing the total a lot.",
+      "why": "Long horizons magnify small guesses.",
+      "tests": [
+        { "answer": "Most of the value comes from the terminal value far in the future, so a small change in the discount rate compounds over many years.", "marks": 2 },
+        { "answer": "Because it depends on the discount rate.", "marks": 1 },
+        { "answer": "Because share prices change every day.", "marks": 0 }
+      ]
+    }
+  ]
+}

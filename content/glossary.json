@@ -44,6 +44,11 @@
     "def": "The Bank of England's main interest rate. Savings and borrowing rates across the UK tend to follow it.",
     "module": "12"
   },
+  "behaviour gap": {
+    "term": "Behaviour gap",
+    "def": "The difference between what funds return and what their investors earn, lost to badly timed buying and selling.",
+    "module": "26"
+  },
   "bills": {
     "term": "Bills",
     "def": "Regular household costs such as energy, water, broadband, phone and insurance. Budget for each as a monthly amount.",
@@ -119,10 +124,20 @@
     "def": "Your everyday bank account for pay coming in and bills and card payments going out. Usually pays little or no interest.",
     "module": "09"
   },
+  "dcf": {
+    "term": "DCF",
+    "def": "Discounted cash flow: valuing a company by adding up the present value of all its future free cash flow.",
+    "module": "22"
+  },
   "deflation": {
     "term": "Deflation",
     "def": "Prices in general falling over time.",
     "module": "01"
+  },
+  "discount rate": {
+    "term": "Discount rate",
+    "def": "The yearly return you require for waiting and taking risk, used to turn future cash into today's value.",
+    "module": "22"
   },
   "diversification": {
     "term": "Diversification",
@@ -159,10 +174,20 @@
     "def": "Money your employer pays into your pension on top of your pay. At least 3% of qualifying earnings under auto-enrolment.",
     "module": "21"
   },
+  "enterprise value": {
+    "term": "Enterprise value",
+    "def": "The price of a whole company: market cap + debt − cash.",
+    "module": "22"
+  },
   "etf": {
     "term": "ETF",
     "def": "Exchange-traded fund: a fund that trades on a stock exchange like a share, with prices all day.",
     "module": "14"
+  },
+  "ev/ebitda": {
+    "term": "EV/EBITDA",
+    "def": "Enterprise value ÷ earnings before interest, tax, depreciation and amortisation. Values a whole company including its debt.",
+    "module": "22"
   },
   "fixed-rate saver": {
     "term": "Fixed-rate saver",
@@ -198,6 +223,11 @@
     "term": "Gross pay",
     "def": "What you earn before anything is taken off: your salary or hourly rate times hours.",
     "module": "05"
+  },
+  "herding": {
+    "term": "Herding",
+    "def": "Copying what the crowd is doing, which helps inflate bubbles and deepen panics.",
+    "module": "26"
   },
   "income statement": {
     "term": "Income statement",
@@ -254,6 +284,11 @@
     "def": "An ISA for a first home or later life: open at 18–39, pay in up to £4,000 a year, get a 25% bonus. A 25% charge applies to other withdrawals.",
     "module": "17"
   },
+  "loss aversion": {
+    "term": "Loss aversion",
+    "def": "Feeling losses about twice as strongly as equal gains, which leads to panic selling and holding losers too long.",
+    "module": "26"
+  },
   "margin": {
     "term": "Margin",
     "def": "Profit as a percentage of revenue, so companies of different sizes can be compared.",
@@ -304,10 +339,20 @@
     "def": "Ongoing charges figure: a fund's yearly running cost as a % of what you hold, taken automatically.",
     "module": "14"
   },
+  "overconfidence": {
+    "term": "Overconfidence",
+    "def": "Believing you know more or can predict better than you can, leading to over-trading and concentrated bets.",
+    "module": "26"
+  },
   "overdraft": {
     "term": "Overdraft",
     "def": "Borrowing by letting your current account go below £0. Arranged overdrafts often cost around 40% a year.",
     "module": "13"
+  },
+  "p/e ratio": {
+    "term": "P/E ratio",
+    "def": "Share price ÷ earnings per share: how many years of today's profit you pay for each share.",
+    "module": "22"
   },
   "paye": {
     "term": "PAYE",
@@ -334,6 +379,11 @@
     "def": "Investing a fixed amount regularly, so you buy more units when prices are low and fewer when high.",
     "module": "14"
   },
+  "present value": {
+    "term": "Present value",
+    "def": "What future money is worth today: the future amount ÷ (1 + discount rate) for each year of waiting.",
+    "module": "22"
+  },
   "principal": {
     "term": "Principal",
     "def": "The amount you start with, before any interest is added.",
@@ -348,6 +398,11 @@
     "term": "Real return",
     "def": "What you gain in spending power after inflation. Roughly the nominal rate minus inflation; exactly (1 + nominal) ÷ (1 + inflation) − 1.",
     "module": "01"
+  },
+  "recency bias": {
+    "term": "Recency bias",
+    "def": "Giving too much weight to what just happened, as if recent returns predict the future.",
+    "module": "26"
   },
   "rent": {
     "term": "Rent",
@@ -408,6 +463,11 @@
     "term": "Student loan plans",
     "def": "The repayment rules for your loan. Plan 5 (England, courses from 2023): 9% of income above £25,000, written off after 40 years.",
     "module": "25"
+  },
+  "sunk cost": {
+    "term": "Sunk cost",
+    "def": "Money or time already spent that can't be recovered. It shouldn't drive future decisions.",
+    "module": "26"
   },
   "tax code": {
     "term": "Tax code",
