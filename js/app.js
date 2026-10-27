@@ -68,7 +68,7 @@ function shell(main, { title } = {}) {
     <footer class="foot">
       <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
       <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
-      <p>Made by Ivor Fergusson · <a href="#/about">About, sources and privacy</a></p>
+      <p>Made by Ivor Fergusson · <a href="#/about">About and sources</a> · <a href="privacy.html">Privacy</a></p>
     </footer>`;
   app.querySelector('.theme-btn').addEventListener('click', cycleTheme);
   window.scrollTo(0, 0);
@@ -405,7 +405,7 @@ function viewAbout() {
       <li>Levels get further apart as you go: level 2 at 100 XP, level 3 at 300, level 4 at 600, level 5 at 1,000.</li>
     </ul>
     <h2>Privacy</h2>
-    <p>You can use the whole course without an account; your progress stays in this browser. If you make an account, we store your email (to sign you in), your nickname, your progress, quiz answers and notes, so you can pick up on any device. Nobody else can see them. The leaderboard shows only your nickname, level and XP. We don't sell or share your data and there are no ads or trackers. You can export or delete everything from the <a href="#/account">account page</a> at any time. Data is held by Supabase on servers in the EU. Under UK GDPR you can ask what we hold, have it corrected or deleted.</p>
+    <p>You can use the whole course without an account; your progress stays in this browser. If you make an account, we store your email (to sign you in), your nickname, your progress, quiz answers and notes, so you can pick up on any device. Nobody else can see them. The leaderboard shows only your nickname, level and XP. We don't sell or share your data and there are no ads or trackers. You can export or delete everything from the <a href="#/account">account page</a> at any time. Data is held by Supabase on servers in the EU. Under UK GDPR you can ask what we hold, have it corrected or deleted. <a href="privacy.html">Full privacy notice</a>.</p>
     <h2>Sources and figures</h2>
     <p>Facts come from primary sources where possible: gov.uk, HMRC, the Bank of England, the ONS, the FCA and MoneyHelper. Figures that change are checked regularly:</p>
     <ul class="sources">${figs.map(f => `<li><strong>${esc(f.label)}:</strong> ${esc(f.display)} (${esc(f.asOf)}). <a href="${esc(f.url)}">${esc(f.source)}</a>, checked ${esc(niceDate(f.checked))}.</li>`).join('')}</ul>
