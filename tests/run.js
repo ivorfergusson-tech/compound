@@ -4,7 +4,8 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { markExplain, parseNumber } from '../js/marking.js';
 import { instantiate, mark, buildAttempt, buildCheckpoint, score, seededRng } from '../js/quiz.js';
-import { Progress, xpFromState, levelFor, courseStatus, pickRecall } from '../js/progress.js';
+import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState } from '../js/progress.js';
+import { nicknameProblem } from '../js/nickname.js';
 
 let pass = 0, fail = 0;
 function check(name, cond, extra = '') {
@@ -140,6 +141,19 @@ for (const f of readdirSync(new URL('modules/', root))) {
 }
 for (const [k, f] of Object.entries(figures)) check(`figure ${k} has source and date`, f.source && f.url && /^\d{4}-\d{2}-\d{2}$/.test(f.checked));
 for (const [k, g] of Object.entries(glossary)) check(`glossary ${k} module exists`, course.items.some(i => i.id === g.module));
+
+// --- merging this browser with the account
+const local = { ...emptyState(), read: { '01': '2026-10-27T10:00:00Z' }, attempts: [{ uid: 'a', id: '01', at: '2026-10-27T11:00:00Z' }], notes: { '01': { text: 'new', at: '2026-10-27T12:00:00Z' } }, days: ['2026-10-27'] };
+const remote = { ...emptyState(), nickname: 'saver', read: { '00': '2026-10-26T10:00:00Z', '01': '2026-10-26T10:00:00Z' }, attempts: [{ uid: 'a', id: '01', at: '2026-10-27T11:00:00Z' }, { uid: 'b', id: '01', at: '2026-10-26T11:00:00Z' }], notes: { '01': { text: 'old', at: '2026-10-26T12:00:00Z' } }, days: ['2026-10-26'] };
+const mg = mergeStates(local, remote);
+check('merge keeps both reads, earliest time', Object.keys(mg.read).length === 2 && mg.read['01'] === '2026-10-26T10:00:00Z');
+check('merge dedupes attempts', mg.attempts.length === 2);
+check('merge keeps newest note', mg.notes['01'].text === 'new');
+check('merge days and nickname', mg.days.length === 2 && mg.nickname === 'saver');
+
+// --- nicknames
+for (const ok of ['Essex_lad', 'Dickens fan', 'grapefruit', 'Scunthorpe', 'money-wise 99']) check(`nickname ok: ${ok}`, nicknameProblem(ok) === null);
+for (const bad of ['ab', 'f.u.c.k', 'sh1tlord', 'big sex', 'a'.repeat(21), 'emoji😀']) check(`nickname blocked: ${bad}`, nicknameProblem(bad) !== null);
 
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

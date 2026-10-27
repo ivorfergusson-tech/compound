@@ -12,6 +12,36 @@ export const XP_RULES = {
   streakWeek: 50,      // every 7 days in a row
 };
 const SRS_GAPS = [1, 3, 7, 21]; // days until a missed question comes back, by box
+const RETIRED = '9999-12-31';
+
+function newId() {
+  if (globalThis.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = (Math.random() * 16) | 0;
+    return (c === 'x' ? r : (r & 3) | 8).toString(16);
+  });
+}
+
+// Joins two progress states (this browser + the account) without losing anything.
+export function mergeStates(a, b) {
+  const later = (x, y, key) => (!x ? y : !y ? x : (x[key] || '') >= (y[key] || '') ? x : y);
+  const out = emptyState();
+  out.nickname = b.nickname || a.nickname;
+  for (const s of [a, b]) {
+    for (const [id, t] of Object.entries(s.read || {})) out.read[id] = out.read[id] && out.read[id] < t ? out.read[id] : t;
+    for (const [k, v] of Object.entries(s.guesses || {})) if (!(k in out.guesses)) out.guesses[k] = v;
+    for (const [k, v] of Object.entries(s.notes || {})) out.notes[k] = later(out.notes[k], v, 'at');
+    for (const [k, v] of Object.entries(s.srs || {})) out.srs[k] = later(out.srs[k], v, 'at');
+  }
+  const seen = new Set();
+  for (const at of [...(a.attempts || []), ...(b.attempts || [])]) {
+    const key = at.uid || `${at.id}|${at.at}`;
+    if (!seen.has(key)) { seen.add(key); out.attempts.push(at); }
+  }
+  out.attempts.sort((x, y) => (x.at < y.at ? -1 : 1));
+  out.days = [...new Set([...(a.days || []), ...(b.days || [])])].sort();
+  return out;
+}
 
 const KEY = 'compound.progress.v1';
 
@@ -86,21 +116,23 @@ export class Progress {
     const today = this.today();
     const missed = [...new Set(a.results.filter(r => !r.correct).map(r => r.topic).filter(Boolean))];
     const attempt = {
-      at: new Date().toISOString(), day: today, kind: a.kind, id: a.id,
+      uid: newId(), at: new Date().toISOString(), day: today, kind: a.kind, id: a.id,
       auto: a.auto, claimed: a.claimed || 0, outOf: a.outOf,
       passed: Boolean(a.passed), autoPassed: Boolean(a.autoPassed), missed,
       wrong: a.results.filter(r => !r.correct).map(r => r.qid),
       right: a.results.filter(r => r.correct).map(r => r.qid),
     };
     this.state.attempts.push(attempt);
+    const at = attempt.at;
     for (const r of a.results) {
       const s = this.state.srs[r.qid];
       if (!r.correct) {
-        this.state.srs[r.qid] = { box: 0, due: today, module: r.module, misses: (s ? s.misses : 0) + 1 };
-      } else if (s) {
+        this.state.srs[r.qid] = { box: 0, due: today, module: r.module, misses: (s ? s.misses : 0) + 1, at };
+      } else if (s && s.due !== RETIRED) {
         const box = s.box + 1;
-        if (box > SRS_GAPS.length) delete this.state.srs[r.qid];
-        else this.state.srs[r.qid] = { ...s, box, due: addDays(today, SRS_GAPS[box - 1]) };
+        // Kept (not deleted) once learnt, so sync never brings it back.
+        const due = box > SRS_GAPS.length ? RETIRED : addDays(today, SRS_GAPS[box - 1]);
+        this.state.srs[r.qid] = { ...s, box, due, at };
       }
     }
     this.touchDay();

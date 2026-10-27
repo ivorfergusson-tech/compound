@@ -294,3 +294,4 @@ a.item:hover { border-color: var(--border-2); }
   .match-row select { min-width: 280px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+.center { text-align: center; } .auth-msg { font-weight: 600; color: var(--accent-text); margin: 8px 0 0; } .auth-msg:empty { display: none; }

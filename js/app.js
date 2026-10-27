@@ -338,12 +338,12 @@ async function viewLeaderboard() {
   shell(`<h1>Leaderboard</h1><p class="muted">Shows nickname, level and XP only. Claimed marks never count.</p><div class="lb">Loading…</div>`, { title: 'Leaderboard' });
   const box = app.querySelector('.lb');
   const rows = await sync.leaderboard();
-  if (!rows) {
-    box.innerHTML = `<div class="card"><p>You're on <strong>level ${lv.level}</strong> with <strong>${xp} XP</strong>.</p><p>${sync.enabled() ? 'Make a free account to join the leaderboard.' : 'The leaderboard switches on once accounts are set up.'}</p>${sync.enabled() ? '<a class="btn" href="#/account">Make an account</a>' : ''}</div>`;
-    return;
-  }
-  const me = sync.myUserId();
-  box.innerHTML = `<ol class="lb-list">${rows.map((r, k) => `<li class="${r.user_id === me ? 'me' : ''}"><strong class="pos">${k + 1}</strong><span class="nick">${esc(r.nickname)}${r.user_id === me ? ' (you)' : ''}</span><span class="muted">Lv ${r.level}</span><strong>${r.xp}</strong></li>`).join('')}</ol>`;
+  const joined = rows && rows.some(r => r.is_me);
+  const invite = joined ? '' : `<div class="card"><p>You're on <strong>level ${lv.level}</strong> with <strong>${xp} XP</strong>.</p>
+    <p>${!sync.enabled() ? 'The leaderboard switches on once accounts are set up.' : sync.signedIn() ? 'Pick a nickname to join the leaderboard.' : 'Make a free account and pick a nickname to join the leaderboard.'}</p>
+    ${sync.enabled() ? `<a class="btn" href="#/account">${sync.signedIn() ? 'Pick a nickname' : 'Make an account'}</a>` : ''}</div>`;
+  if (!rows || !rows.length) { box.innerHTML = invite || '<p class="muted">Nobody here yet.</p>'; return; }
+  box.innerHTML = invite + `<ol class="lb-list">${rows.map(r => `<li class="${r.is_me ? 'me' : ''}"><strong class="pos">${r.pos}</strong><span class="nick">${esc(r.nickname)}${r.is_me ? ' (you)' : ''}</span><span class="muted">Lv ${r.level}</span><strong>${r.xp}</strong></li>`).join('')}</ol>`;
 }
 
 async function viewAccount() {
@@ -375,7 +375,9 @@ async function viewAccount() {
       ? 'Delete your account and all your progress, notes and quiz history? This cannot be undone.'
       : 'Clear all your progress, notes and quiz history from this browser? This cannot be undone.';
     if (!confirm(msg)) return;
-    if (sync.signedIn()) await sync.deleteAccount();
+    if (sync.signedIn()) {
+      try { await sync.deleteAccount(); } catch (e) { toast(`Couldn't delete: ${e.message}`); return; }
+    }
     progress.replace({});
     toast('Deleted');
     location.hash = '#/';
