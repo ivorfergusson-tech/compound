@@ -13,7 +13,7 @@ function inputFor(q) {
     case 'number':
       return `<label class="input-unit">${q.unit === '£' ? '<span>£</span>' : ''}<input inputmode="decimal" autocomplete="off" aria-label="Your answer"${q.unit && q.unit !== '£' ? ` placeholder="${esc(q.unit)}"` : ''}>${q.unit && q.unit !== '£' ? `<span>${esc(q.unit)}</span>` : ''}</label>`;
     case 'order':
-      return `<ol class="order">${q.shown.map(it => `<li data-item="${esc(it)}"><span>${esc(it)}</span><span class="order-btns"><button type="button" class="icon-btn" data-move="-1" aria-label="Move up">▲</button><button type="button" class="icon-btn" data-move="1" aria-label="Move down">▼</button></span></li>`).join('')}</ol>`;
+      return `<p class="small muted order-hint">Drag to reorder, or use the arrows.</p><ol class="order">${q.shown.map(it => `<li data-item="${esc(it)}"><span class="grip" aria-hidden="true">⠿</span><span class="order-text">${esc(it)}</span><span class="order-btns"><button type="button" class="icon-btn" data-move="-1" aria-label="Move up">▲</button><button type="button" class="icon-btn" data-move="1" aria-label="Move down">▼</button></span></li>`).join('')}</ol>`;
     case 'match':
       return `<div class="match">${q.pairs.map(([l], i) => `<label class="match-row"><span>${esc(l)}</span><select data-left="${esc(l)}" aria-label="${esc(l)}"><option value="">Choose…</option>${q.rightShown.map(r => `<option>${esc(r)}</option>`).join('')}</select></label>`).join('')}</div>`;
     case 'explain':
@@ -55,11 +55,14 @@ export function questionCard(q, { label, onResult, number } = {}) {
     const mv = e.target.closest('[data-move]');
     if (mv && !card.classList.contains('marked')) {
       const li = mv.closest('li');
-      if (mv.dataset.move === '-1' && li.previousElementSibling) li.parentElement.insertBefore(li, li.previousElementSibling);
-      if (mv.dataset.move === '1' && li.nextElementSibling) li.parentElement.insertBefore(li.nextElementSibling, li);
+      flip(li.parentElement, () => {
+        if (mv.dataset.move === '-1' && li.previousElementSibling) li.parentElement.insertBefore(li, li.previousElementSibling);
+        if (mv.dataset.move === '1' && li.nextElementSibling) li.parentElement.insertBefore(li.nextElementSibling, li);
+      });
       mv.focus();
     }
   });
+  if (q.type === 'order') makeSortable(card.querySelector('.order'), () => card.classList.contains('marked'));
   const num = card.querySelector('input');
   if (num) num.addEventListener('keydown', e => { if (e.key === 'Enter') card.querySelector('.check-btn').click(); });
 
@@ -83,6 +86,57 @@ export function questionCard(q, { label, onResult, number } = {}) {
     onResult && onResult(result);
   });
   return card;
+}
+
+// Animates list items from their old to their new positions after `change` moves them in the DOM.
+function flip(list, change) {
+  const items = [...list.children];
+  const before = new Map(items.map(li => [li, li.getBoundingClientRect().top]));
+  change();
+  for (const li of items) {
+    if (li.classList.contains('dragging')) continue;
+    const dy = before.get(li) - li.getBoundingClientRect().top;
+    if (!dy) continue;
+    li.style.transition = 'none';
+    li.style.transform = `translateY(${dy}px)`;
+    requestAnimationFrame(() => { li.style.transition = 'transform .18s ease'; li.style.transform = ''; });
+  }
+}
+
+// Drag to reorder (mouse, pen or finger). The grabbed item follows the pointer; the rest slide round it.
+function makeSortable(list, locked) {
+  let drag = null;
+  list.addEventListener('pointerdown', e => {
+    const li = e.target.closest('li');
+    if (!li || locked() || e.target.closest('button') || e.button > 0) return;
+    e.preventDefault();
+    li.setPointerCapture(e.pointerId);
+    const listTop = list.getBoundingClientRect().top;
+    drag = { li, grab: e.clientY - listTop - li.offsetTop };
+    li.classList.add('dragging');
+    list.classList.add('sorting');
+  });
+  list.addEventListener('pointermove', e => {
+    if (!drag) return;
+    const { li, grab } = drag;
+    const y = e.clientY - list.getBoundingClientRect().top - grab; // where the item's top should be
+    const mid = y + li.offsetHeight / 2;
+    const others = [...list.children].filter(x => x !== li);
+    const target = others.find(x => mid < x.offsetTop + x.offsetHeight / 2) || null;
+    if (target !== li.nextElementSibling) flip(list, () => list.insertBefore(li, target));
+    li.style.transform = `translateY(${y - li.offsetTop}px)`;
+  });
+  const end = () => {
+    if (!drag) return;
+    const { li } = drag;
+    drag = null;
+    li.style.transition = 'transform .15s ease';
+    li.style.transform = '';
+    li.classList.remove('dragging');
+    list.classList.remove('sorting');
+  };
+  list.addEventListener('pointerup', end);
+  list.addEventListener('pointercancel', end);
 }
 
 function showOptionMarks(card, q, response) {

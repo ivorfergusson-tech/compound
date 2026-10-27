@@ -216,8 +216,15 @@ a.item:hover { border-color: var(--border-2); }
 .option.right::after { content: "  ✓"; color: var(--good); font-weight: 700; }
 .option.wrong { border: 2px solid var(--bad); background: var(--bad-soft); padding: 9px 13px; }
 .option:disabled { cursor: default; opacity: 1; }
-.order { list-style: decimal inside; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.order li { display: flex; align-items: center; gap: 10px; justify-content: space-between; border: 1px solid var(--border-2); border-radius: 12px; padding: 6px 6px 6px 14px; background: var(--surface); }
+.order { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; position: relative; }
+.order li { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border-2); border-radius: 12px; padding: 6px 6px 6px 8px; background: var(--surface); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; position: relative; }
+.order li .order-text { flex: 1; }
+.order .grip { color: var(--muted); font-size: 20px; line-height: 1; padding: 0 4px; }
+.order li.dragging { z-index: 2; cursor: grabbing; border-color: var(--accent); box-shadow: 0 10px 24px rgba(0, 0, 0, .18); background: var(--accent-soft); }
+.order.sorting { cursor: grabbing; }
+.marked .order li { cursor: default; touch-action: auto; }
+.marked .order .grip, .marked .order-hint { display: none; }
+.order-hint { margin: -4px 0 0; }
 .order-btns { display: flex; gap: 4px; }
 .match { display: flex; flex-direction: column; gap: 10px; }
 .match-row { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 15px; }
