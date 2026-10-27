@@ -1,0 +1,149 @@
+{
+  "module": "24",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "24-price-yield",
+      "type": "tf",
+      "topic": "price and yield",
+      "q": "When market yields rise, the price of an existing bond with a fixed coupon rises.",
+      "answer": false,
+      "why": "Price and yield move in opposite directions: the fixed coupon becomes less attractive, so the price falls."
+    },
+    {
+      "id": "24-current-yield",
+      "type": "number",
+      "topic": "price and yield",
+      "q": "A gilt pays a coupon of £{c} a year per £100. You buy it for £{p}. What's its current yield (coupon ÷ price), in %?",
+      "vars": {
+        "c": { "choices": [2, 3, 4, 5], "default": 4 },
+        "p": { "choices": [80, 90, 100, 105], "default": 80 }
+      },
+      "answer": "c/p*100",
+      "tol": 0.05,
+      "unit": "%",
+      "dp": 2,
+      "why": "£{c} ÷ £{p} = {answer}%."
+    },
+    {
+      "id": "24-duration-order",
+      "type": "order",
+      "topic": "duration",
+      "q": "Yields rise by 1 percentage point. Put these 4% bonds in order of how much their price falls, smallest fall first.",
+      "items": ["2 years to maturity", "10 years to maturity", "30 years to maturity"],
+      "why": "Longer bonds have higher duration, so the same yield change moves their price much more."
+    },
+    {
+      "id": "24-par",
+      "type": "mcq",
+      "topic": "price and yield",
+      "q": "A bond pays a 5% coupon. If the market yield is also 5%, what's its price per £100?",
+      "options": ["£100 (at par)", "£95", "£105", "£50"],
+      "answer": 0,
+      "why": "When the coupon equals the market yield, the bond is worth its face value."
+    },
+    {
+      "id": "24-ratings",
+      "type": "match",
+      "topic": "credit ratings",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["AAA", "The strongest credit rating"],
+        ["Investment grade", "Rated BBB− or above"],
+        ["High yield (junk)", "Rated below investment grade"],
+        ["Credit spread", "Extra yield over a government bond for default risk"]
+      ],
+      "why": "Lower ratings mean higher default risk and higher yields."
+    },
+    {
+      "id": "24-normal-curve",
+      "type": "mcq",
+      "topic": "the yield curve",
+      "q": "Why does the yield curve usually slope upwards?",
+      "options": [
+        "Lenders want more for tying money up longer and taking more rate and inflation risk",
+        "Long bonds are always safer",
+        "The law requires it",
+        "Short bonds pay no interest"
+      ],
+      "answer": 0,
+      "why": "Longer loans carry more uncertainty, so investors usually demand higher yields."
+    },
+    {
+      "id": "24-inversion",
+      "type": "mcq",
+      "topic": "inversion",
+      "q": "An inverted yield curve means…",
+      "options": [
+        "Short-term yields are higher than long-term yields",
+        "Long-term yields are much higher than short-term",
+        "All yields are zero",
+        "Bond prices can't change"
+      ],
+      "answer": 0,
+      "why": "It often reflects high short rates now and expected cuts later; it has preceded many US recessions, but isn't a reliable timer."
+    },
+    {
+      "id": "24-2022",
+      "type": "mcq",
+      "topic": "bonds and financial stability",
+      "q": "What happened in UK bond markets after the September 2022 mini-budget?",
+      "options": [
+        "Gilt yields jumped, pension LDI strategies were forced to sell, and the Bank of England bought long gilts",
+        "Gilt prices doubled",
+        "The government stopped issuing gilts",
+        "Nothing unusual"
+      ],
+      "answer": 0,
+      "why": "Falling prices forced leveraged pension strategies to sell, deepening the fall until the Bank stepped in."
+    },
+    {
+      "id": "24-price-calc",
+      "type": "number",
+      "topic": "price and yield",
+      "q": "A bond pays £5 a year and returns £100 in exactly one year. The market yield is {y}%. What's its price today? (£, 2 dp)",
+      "vars": { "y": { "choices": [3, 4, 5, 6, 8], "default": 6 } },
+      "answer": "105/(1+y/100)",
+      "tol": 0.02,
+      "unit": "£",
+      "dp": 2,
+      "why": "Price = (coupon + face value) ÷ (1 + yield) = £105 ÷ (1 + {y}%) = £{answer}."
+    },
+    {
+      "id": "24-why-falls-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "price and yield",
+      "q": "Explain why an existing bond's price falls when interest rates rise.",
+      "ideas": [
+        { "label": "Its coupon is fixed, so new bonds now pay more", "any": ["fixed", "new bonds", "pay more", "higher coupon", "better rate", "newer bonds", "set when issued"] },
+        { "label": "Its price falls until its yield matches the market (less attractive)", "any": ["less attractive", "nobody will pay", "price falls", "price drops", "match", "same yield", "compete", "lower price"] }
+      ],
+      "model": "Its coupon was fixed when it was issued. When rates rise, new bonds pay more, so nobody will pay full price for the old one. Its price falls until its yield is competitive with the market.",
+      "why": "A fixed payment is worth less when better ones are on offer.",
+      "tests": [
+        { "answer": "Its coupon is fixed and new bonds pay more, so its price falls until its yield matches the market.", "marks": 2 },
+        { "answer": "Because new bonds pay more.", "marks": 1 },
+        { "answer": "Because the government cancels it.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "24-risk-free-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "duration",
+      "q": "Explain why a UK government bond can lose value even though the government is very unlikely to default.",
+      "ideas": [
+        { "label": "If yields rise, its price falls (interest rate risk), especially long bonds", "any": ["yields rise", "rates rise", "price falls", "interest rate risk", "duration", "long bonds", "longer", "sell before"] },
+        { "label": "Inflation can shrink the real value of fixed payments", "any": ["inflation", "real value", "buys less", "spending power", "purchasing power"] }
+      ],
+      "model": "If market yields rise, the price of an existing gilt falls, a lot for long bonds, so anyone selling before maturity can lose money. And inflation can shrink what its fixed payments are worth in real terms.",
+      "why": "No default risk isn't the same as no risk.",
+      "tests": [
+        { "answer": "If yields rise its price falls, especially for long bonds, and inflation reduces the real value of the payments.", "marks": 2 },
+        { "answer": "Its price falls when interest rates rise.", "marks": 1 },
+        { "answer": "Because the government might go bankrupt tomorrow.", "marks": 0 }
+      ]
+    }
+  ]
+}

@@ -209,6 +209,11 @@
     "def": "Your record of borrowing and repayments, kept by Experian, Equifax and TransUnion. Lenders check it when you apply.",
     "module": "13"
   },
+  "credit rating": {
+    "term": "Credit rating",
+    "def": "An agency's opinion of how likely a borrower is to repay, from AAA (strongest) down to D (in default).",
+    "module": "24"
+  },
   "credit score": {
     "term": "Credit score",
     "def": "A number an agency or app works out from your credit file. Lenders use your file and their own rules, not this number.",
@@ -263,6 +268,11 @@
     "term": "Drawdown",
     "def": "A fall from a previous high to a low, such as the FTSE 100 losing about half in 2007–2009.",
     "module": "10"
+  },
+  "duration": {
+    "term": "Duration",
+    "def": "How sensitive a bond's price is to changes in yields. Longer bonds have higher duration.",
+    "module": "24"
   },
   "earnings per share": {
     "term": "Earnings per share (EPS)",
@@ -403,6 +413,11 @@
     "term": "Interest rate",
     "def": "Interest as a percentage of the principal. Nearly always quoted per year.",
     "module": "01"
+  },
+  "inversion": {
+    "term": "Inversion",
+    "def": "When short-term yields are higher than long-term yields. Has preceded many US recessions.",
+    "module": "24"
   },
   "investment bank": {
     "term": "Investment bank",
@@ -878,5 +893,15 @@
     "term": "Workplace pension",
     "def": "A pension your employer sets up, which you and your employer pay into while you work.",
     "module": "21"
+  },
+  "yield": {
+    "term": "Yield",
+    "def": "The yearly return from a bond bought at today's price and held to maturity, counting coupons and the gain or loss to face value.",
+    "module": "24"
+  },
+  "yield curve": {
+    "term": "Yield curve",
+    "def": "A chart of yields on one issuer's bonds against how long they have to run. Usually slopes upwards.",
+    "module": "24"
   }
 }
