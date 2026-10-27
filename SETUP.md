@@ -43,7 +43,7 @@ On by default. Supabase's built-in email only sends a few emails an hour, which 
 
 **In Supabase:** **Authentication** → **Sign In / Providers** → **Google** → turn on → paste the Client ID and Client secret → **Save**.
 
-## 6. GitHub repo and Pages (only after you approve going public)
+## 6. GitHub repo and Pages (done 27 Oct 2026)
 Done by Claude with `gh`, after asking:
 - `gh repo create compound --public --source . --push`
 - Settings → Pages → Source **Deploy from a branch** → branch `main`, folder `/ (root)` → Save. The site appears at `https://ivorfergusson-tech.github.io/compound/` within a couple of minutes.
