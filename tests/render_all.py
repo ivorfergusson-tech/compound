@@ -28,7 +28,7 @@ with sync_playwright() as p:
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
         page.on("console", lambda m: m.type == "error" and "supabase" not in m.text.lower() and errors.append(m.text))
-        for mid in course["ready"]:
+        for mid in [m for m in course["ready"] if not m.startswith("cp")]:
             errors.clear()
             page.goto(f"{BASE}#/m/{mid}")
             page.wait_for_selector(".lesson-section", timeout=15000)

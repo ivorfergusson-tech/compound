@@ -4,7 +4,7 @@ A static website that teaches personal finance, investing, paper trading and the
 
 ## How to run
 - Local: `python -m http.server 8000` in this folder, then open http://localhost:8000. No build step.
-- Tests: `node tests/run.js` (marking, quiz engine, progress, XP, locks).
+- Tests: `node tests/run.js` (marking, quiz engine, progress, XP, locks). Browser tests (serve on port 8765 first): `python tests/browser_test.py`, `python tests/render_all.py`, `python tests/checkpoint_test.py`.
 - Hosting: GitHub Pages from `main`, root folder. **Ask Ivor before pushing anything public.**
 
 ## Layout

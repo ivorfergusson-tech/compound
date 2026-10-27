@@ -311,13 +311,23 @@ async function viewCheckpoint(num) {
   const pools = await loadPools(course, item.covers[1]);
   const start = () => {
     const xpBefore = progress.xp().total;
+    const wasPassed = progress.passed(item.id);
     const qs = buildCheckpoint(pools, item.covers, { size: item.num === 4 ? 20 : 18 });
     runQuiz(box, qs, {
       kind: 'checkpoint', title: item.title, passMark: course.passMark, onRetry: start,
       onFinish: s => {
         progress.recordAttempt({ kind: 'checkpoint', id: item.id, ...s });
         sync.pushSoon(); refreshStrip();
-        return `<p class="muted">+${progress.xp().total - xpBefore} XP</p>`;
+        const gained = progress.xp().total - xpBefore;
+        const next = course.items[course.items.indexOf(item) + 1];
+        let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>`;
+        if (s.passed && !wasPassed) {
+          html += next ? `<a class="btn wide" href="#/m/${next.id}">Unlocked: ${esc(next.short || next.title)} →</a>`
+            : `<p><strong>That's the whole course done.</strong> Retake any quiz to keep it fresh.</p>`;
+        } else if (!s.passed && next) {
+          html += `<p>Module ${next.num} stays locked until you pass. Retries use new questions and new numbers.</p>`;
+        }
+        return html;
       },
     });
   };
