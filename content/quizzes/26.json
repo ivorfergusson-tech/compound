@@ -111,7 +111,7 @@
       "topic": "guardrails",
       "q": "Explain why automating your investing (a monthly direct debit into a fund) helps against behavioural biases.",
       "ideas": [
-        { "label": "It removes the need to decide each time, so emotions don't make the decision", "any": ["don't have to decide", "no decision", "automatic", "emotion", "feelings", "willpower", "don't think about", "have to think", "without thinking", "takes the decision away"] },
+        { "label": "It removes the need to decide each time, so emotions don't make the decision", "any": ["don't have to decide", "no decision", "automatic", "emotion", "feelings", "willpower", "don't think about", "have to think", "don't have to think", "without thinking", "takes the decision away"] },
         { "label": "You keep buying through falls instead of panicking or trying to time the market", "any": ["keep buying", "through falls", "crash", "panic", "timing", "time the market", "when prices are low", "carry on", "stay invested", "pound-cost"] }
       ],
       "model": "Once it's automatic, you don't have to decide each month, so fear, greed and hype don't get a vote. You keep buying through falls (often at lower prices) instead of panicking or trying to time the market.",
