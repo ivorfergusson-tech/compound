@@ -352,3 +352,19 @@ a.item:hover { border-color: var(--border-2); }
 .check input { width: 20px; height: 20px; accent-color: var(--accent); }
 .made-up { margin: 0; font-style: italic; }
 .ch-tag { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+/* industry diagrams */
+.fin-map { margin: 0; gap: 8px; }
+.map-row { display: grid; grid-template-columns: 1fr; gap: 8px; }
+@media (min-width: 560px) { .map-row.three { grid-template-columns: repeat(3, 1fr); } .map-row.two { grid-template-columns: repeat(2, 1fr); } }
+.map-box { border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; font-size: 15px; background: var(--surface-2); }
+.map-box span { font-size: 13px; color: var(--text-2); }
+.map-people, .map-users { background: var(--accent-soft); }
+.map-bank { background: var(--money-soft); } .map-buy { background: var(--investing-soft); }
+.map-broker, .map-market { background: var(--trading-soft); } .map-sell { background: var(--industry-soft); }
+.map-arrow { text-align: center; font-size: 13px; color: var(--muted); font-weight: 600; }
+.map-reg { border: 1.5px dashed var(--border-2); border-radius: 12px; padding: 10px 12px; font-size: 14px; }
+.chain-list { margin: 0; padding: 0; list-style: none; counter-reset: c; display: flex; flex-direction: column; gap: 6px; }
+.chain-list li { counter-increment: c; display: flex; flex-direction: column; padding: 10px 12px 10px 46px; border-radius: 12px; background: var(--surface-2); position: relative; }
+.chain-list li::before { content: counter(c); position: absolute; left: 12px; top: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.chain-list li span { font-size: 13px; color: var(--text-2); }

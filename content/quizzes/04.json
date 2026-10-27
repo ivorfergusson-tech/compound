@@ -1,0 +1,154 @@
+{
+  "module": "04",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "04-firms-match",
+      "type": "match",
+      "topic": "who does what",
+      "q": "Match each firm to its main job.",
+      "pairs": [
+        ["Retail bank", "Current accounts, savings and mortgages for the public"],
+        ["Investment bank", "Advising companies on deals and raising money"],
+        ["Asset manager", "Investing other people's money for a fee"],
+        ["Broker", "Buying and selling on behalf of clients"]
+      ],
+      "why": "Each type of firm handles one part of moving and managing money."
+    },
+    {
+      "id": "04-regulators-match",
+      "type": "match",
+      "topic": "regulators",
+      "q": "Match each body to its role.",
+      "pairs": [
+        ["FCA", "Makes sure firms treat customers fairly and markets are honest"],
+        ["PRA", "Makes sure banks and insurers are strong enough to survive shocks"],
+        ["Financial Ombudsman Service", "Settles complaints for free"],
+        ["FSCS", "Pays compensation if an authorised firm fails"]
+      ],
+      "why": "Conduct (FCA), safety (PRA, part of the Bank of England), complaints (Ombudsman), compensation (FSCS)."
+    },
+    {
+      "id": "04-buy-sell",
+      "type": "mcq",
+      "topic": "buy side and sell side",
+      "q": "Why are asset managers called the 'buy side'?",
+      "options": [
+        "They buy investments with the money they manage",
+        "They only ever buy and never sell",
+        "They buy companies outright",
+        "They buy services from shops"
+      ],
+      "answer": 0,
+      "why": "Asset managers buy investments; investment banks sell them services and products, so they're the sell side."
+    },
+    {
+      "id": "04-jobs-of-finance",
+      "type": "mcq",
+      "topic": "what finance is for",
+      "q": "Which is a core job of the financial system?",
+      "options": [
+        "Moving money from savers to people and firms who can use it",
+        "Setting the prices of food in shops",
+        "Collecting income tax",
+        "Running the NHS"
+      ],
+      "answer": 0,
+      "why": "Finance moves money from savers to users, handles payments, manages risk and prices assets."
+    },
+    {
+      "id": "04-building-society",
+      "type": "tf",
+      "topic": "retail banks",
+      "q": "Building societies are owned by their members rather than by outside shareholders.",
+      "answer": true,
+      "why": "They're mutuals: owned by their savers and borrowers."
+    },
+    {
+      "id": "04-ib-jobs",
+      "type": "mcq",
+      "topic": "investment banks",
+      "q": "Which of these is NOT a usual job of an investment bank?",
+      "options": [
+        "Running your personal current account",
+        "Advising on mergers and acquisitions",
+        "Helping companies issue shares and bonds",
+        "Trading for big clients"
+      ],
+      "answer": 0,
+      "why": "Current accounts are retail banking. Investment banks advise, raise money and trade for institutions."
+    },
+    {
+      "id": "04-chain-order",
+      "type": "order",
+      "topic": "following your money",
+      "q": "Put the journey of a pension contribution in order.",
+      "items": [
+        "Employer deducts it from your pay",
+        "Pension provider credits your account",
+        "Asset manager invests it in the fund",
+        "The fund buys company shares on a stock exchange"
+      ],
+      "why": "Payroll, provider, fund manager, market. Each step adds a small cost."
+    },
+    {
+      "id": "04-check-firm",
+      "type": "mcq",
+      "topic": "staying safe",
+      "q": "Before handing money to a financial firm, what's the best quick check?",
+      "options": [
+        "Look it up on the FCA register",
+        "Check it has a nice website",
+        "Ask how high its returns are",
+        "See if it advertises on social media"
+      ],
+      "answer": 0,
+      "why": "The FCA register shows whether a firm is authorised and what it may do. Watch for clones using real names."
+    },
+    {
+      "id": "04-uk-size",
+      "type": "mcq",
+      "topic": "size of UK finance",
+      "q": "Roughly how big are UK financial services, on government figures?",
+      "options": ["About 9% of economic output and 1.2 million jobs", "About 50% of output", "Under 1% of output", "Exactly half of all UK jobs"],
+      "answer": 0,
+      "why": "About 9% of output and 1.2 million jobs (2025), more if related professional services are included."
+    },
+    {
+      "id": "04-why-finance-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "what finance is for",
+      "q": "Explain how your savings in a bank or fund end up helping the wider economy.",
+      "ideas": [
+        { "label": "Banks and funds pass savers' money to borrowers or companies", "any": ["lend", "loans", "mortgage", "invest", "companies", "businesses", "borrowers", "fund", "shares", "bonds"] },
+        { "label": "Those firms or people use it productively: build, hire, buy homes, grow", "any": ["build", "hire", "jobs", "grow", "growth", "factory", "homes", "expand", "productive", "projects", "invest in"] }
+      ],
+      "model": "Banks lend savers' deposits on as mortgages and business loans, and funds buy shares and bonds in companies and governments. Those borrowers use the money productively: buying homes, building factories, hiring staff and growing, and they pay savers back with interest, dividends and growth.",
+      "why": "Finance links people with money now to people who can put it to work.",
+      "tests": [
+        { "answer": "The bank lends it to businesses and home buyers, who use it to build, hire and grow.", "marks": 2 },
+        { "answer": "Banks lend it out.", "marks": 1 },
+        { "answer": "It sits in a vault.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "04-fees-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "following your money",
+      "q": "Explain why the long chain of firms between you and your investments makes fees important.",
+      "ideas": [
+        { "label": "Each firm in the chain takes a fee or spread", "any": ["each", "every", "fee", "fees", "charge", "spread", "cut", "middlemen", "layers"] },
+        { "label": "Small charges add up and reduce your return over time", "any": ["add up", "reduce", "less return", "eat", "over time", "compound", "lower returns", "cost you"] }
+      ],
+      "model": "Every firm in the chain (provider, fund manager, broker, custodian) takes a fee or a spread. Each looks small, but together they add up and, compounded over years, can take a big slice of your return.",
+      "why": "A long chain means many small charges.",
+      "tests": [
+        { "answer": "Each firm takes a fee, and together they add up and reduce your return over time.", "marks": 2 },
+        { "answer": "Because every firm charges something.", "marks": 1 },
+        { "answer": "Because regulators are expensive.", "marks": 0 }
+      ]
+    }
+  ]
+}

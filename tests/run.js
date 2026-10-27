@@ -8,6 +8,7 @@ import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates,
 import { nicknameProblem } from '../js/nickname.js';
 import { payslip } from '../js/calcs-money.js';
 import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-trade.js';
+import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 
 let pass = 0, fail = 0;
 function check(name, cond, extra = '') {
@@ -188,6 +189,18 @@ check('trade stats', ts.n === 5 && Math.abs(ts.winRate - 0.4) < 1e-9 && Math.abs
 const mc = makeCandles();
 check('candles valid', mc.length === 70 && mc.every(c => c.h >= Math.max(c.o, c.c) && c.l <= Math.min(c.o, c.c)));
 check('candles range then breakout', Math.max(...mc.slice(25, 50).map(c => c.c)) < 111 && mc.at(-1).c > 112, mc.at(-1).c);
+
+// --- industry maths
+check('mortgage 200k 4.5% 25y', Math.abs(mortgagePayment(200000, 4.5, 25) - 1111.66) < 0.05, mortgagePayment(200000, 4.5, 25));
+check('bond at par when coupon = yield', Math.abs(bondPrice(5, 10, 5) - 100) < 1e-9);
+check('bond below par when yield > coupon', bondPrice(4, 10, 5) < 100);
+check('longer bond moves more', (bondPrice(4, 30, 6) / bondPrice(4, 30, 5)) < (bondPrice(4, 2, 6) / bondPrice(4, 2, 5)));
+const l0 = lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 0, years: 5, exitMult: 10, paydownPct: 40 });
+check('LBO no debt, no growth = 1x', Math.abs(l0.moic - 1) < 1e-9, l0.moic);
+const l6 = lbo({ ebitda: 20, entryMult: 10, debtPct: 60, growth: 5, years: 5, exitMult: 10, paydownPct: 40 });
+check('LBO debt magnifies return', l6.moic > lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 5, years: 5, exitMult: 10, paydownPct: 40 }).moic, l6.moic);
+check('call payoff', optionPnl('call', 100, 5, 110) === 5 && optionPnl('call', 100, 5, 90) === -5);
+check('put payoff', optionPnl('put', 100, 5, 80) === 15 && optionPnl('put', 100, 5, 120) === -5);
 
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

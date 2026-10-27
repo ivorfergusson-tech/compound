@@ -44,6 +44,11 @@
     "def": "A group of investments that behave in similar ways, such as shares, bonds, currencies, commodities or crypto.",
     "module": "11"
   },
+  "asset manager": {
+    "term": "Asset manager",
+    "def": "A firm that invests other people's money, such as pensions and funds, for a fee. The buy side.",
+    "module": "04"
+  },
   "auto-enrolment": {
     "term": "Auto-enrolment",
     "def": "The law that makes employers put eligible staff (22+, earning over £10,000) into a workplace pension automatically.",
@@ -99,10 +104,20 @@
     "def": "Price pushing clearly through support or resistance. Many breakouts fail and fall back.",
     "module": "15"
   },
+  "broker": {
+    "term": "Broker",
+    "def": "A middleman that buys and sells on behalf of clients, earning fees, commission or a spread.",
+    "module": "04"
+  },
   "budget": {
     "term": "Budget",
     "def": "A plan for your money: what comes in, what goes out on needs and wants, and what's left to save.",
     "module": "09"
+  },
+  "buy side": {
+    "term": "Buy side",
+    "def": "Firms that invest money, such as asset managers, pension funds, hedge funds and private equity.",
+    "module": "04"
   },
   "candlestick": {
     "term": "Candlestick",
@@ -324,6 +339,11 @@
     "def": "Interest as a percentage of the principal. Nearly always quoted per year.",
     "module": "01"
   },
+  "investment bank": {
+    "term": "Investment bank",
+    "def": "A bank serving companies, governments and big investors: deal advice, raising money and trading.",
+    "module": "04"
+  },
   "ipo": {
     "term": "IPO",
     "def": "Initial Public Offering: when a private company first sells shares to the public and lists on a stock exchange.",
@@ -534,6 +554,11 @@
     "def": "Giving too much weight to what just happened, as if recent returns predict the future.",
     "module": "26"
   },
+  "regulator": {
+    "term": "Regulator",
+    "def": "A body that sets and enforces rules for firms, such as the FCA, the PRA and the Bank of England.",
+    "module": "04"
+  },
   "rent": {
     "term": "Rent",
     "def": "What you pay a landlord to live in a home. In England, deposits are capped at five weeks' rent and must be protected.",
@@ -543,6 +568,11 @@
     "term": "Resistance",
     "def": "A price level where rises have repeatedly stalled, because sellers stepped in.",
     "module": "15"
+  },
+  "retail bank": {
+    "term": "Retail bank",
+    "def": "A bank serving the public: current accounts, savings, mortgages, loans and payments.",
+    "module": "04"
   },
   "revenue": {
     "term": "Revenue",
@@ -573,6 +603,11 @@
     "term": "Self Assessment",
     "def": "The yearly tax return for income HMRC doesn't already tax through PAYE, such as self-employed profit over £1,000.",
     "module": "05"
+  },
+  "sell side": {
+    "term": "Sell side",
+    "def": "Firms that sell financial services and products to investors, mainly investment banks and brokers.",
+    "module": "04"
   },
   "share": {
     "term": "Share",

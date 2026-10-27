@@ -5,6 +5,7 @@ import { lineChart, moneyShort } from './charts.js';
 import { moneyCalculators } from './calcs-money.js';
 import { investCalculators } from './calcs-invest.js';
 import { tradeCalculators } from './calcs-trade.js';
+import { industryCalculators } from './calcs-industry.js';
 
 function slider(id, label, { min, max, step, value, fmt }) {
   return `<label class="slider"><span class="slider-top"><span>${esc(label)}</span><output data-out="${id}">${esc(fmt(value))}</output></span>`
@@ -38,6 +39,7 @@ export const calculators = {
   ...moneyCalculators,
   ...investCalculators,
   ...tradeCalculators,
+  ...industryCalculators,
 
   compound(root, a) {
     const specs = {

@@ -637,6 +637,95 @@
       "url": "https://www.ig.com/uk/learn/trading/spread-betting-vs-cfds-tax",
       "checked": "2026-10-27",
       "refresh": "after each Budget"
+    },
+    "ukFinanceSize": {
+      "value": 9,
+      "display": "about 9% of UK economic output and about 1.2 million jobs",
+      "label": "Size of UK financial services",
+      "asOf": "government figures, July 2025 (about 11% and 2.5 million jobs if related professional services such as law and accounting are included, TheCityUK 2026)",
+      "source": "HM Treasury written statement; TheCityUK",
+      "url": "https://www.thecityuk.com/news/financial-and-related-professional-services-remain-key-contributor-to-uk-economy/",
+      "checked": "2026-10-27",
+      "refresh": "each year"
+    },
+    "ukAum": {
+      "value": 11.1,
+      "display": "£11.1 trillion",
+      "label": "Assets managed by UK investment managers",
+      "asOf": "2025, up 11% on 2024; about 53% for clients overseas",
+      "source": "Investment Association survey (reported by Investment Week, MarketsMedia)",
+      "url": "https://www.investmentweek.co.uk/news/4534039/uk-investment-management-industry-reaches-record-111trn-aum-2025",
+      "checked": "2026-10-27",
+      "refresh": "each autumn"
+    },
+    "mpc": {
+      "value": 8,
+      "display": "eight times a year",
+      "label": "How often the Monetary Policy Committee sets Bank Rate",
+      "asOf": "nine members vote; decisions are published with the minutes",
+      "source": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "qeStock": {
+      "value": 488,
+      "display": "£488 billion",
+      "label": "Gilts still held under quantitative easing",
+      "asOf": "September 2026, down from a peak of £895 billion around the start of 2022; the Bank plans to unwind the rest by about 2034",
+      "source": "Bank of England (Governor's letter to the Chancellor, September 2026)",
+      "url": "https://www.bankofengland.co.uk/-/media/boe/files/letter/2026/letter-from-governor-to-the-chancellor---apf.pdf",
+      "checked": "2026-10-27",
+      "refresh": "after each MPC decision",
+      "peak": 895
+    },
+    "giltYields": {
+      "value": 5.4,
+      "display": "about 4.3% (2028 gilt), 4.8% (2031), 5.4% (2036) and 5.8% (2063)",
+      "label": "UK gilt yields at auction",
+      "asOf": "Debt Management Office auctions, 7–20 October 2026: longer loans paying higher yields",
+      "source": "UK Debt Management Office (via Newsquawk auction reports)",
+      "url": "https://www.newsquawk.com/headlines/newsquawk-daily-bond-auction-preview---20th-october-2026",
+      "checked": "2026-10-27",
+      "refresh": "monthly",
+      "curve": [
+        [
+          2,
+          4.27
+        ],
+        [
+          5,
+          4.84
+        ],
+        [
+          10,
+          5.42
+        ],
+        [
+          37,
+          5.8
+        ]
+      ]
+    },
+    "bailoutCost": {
+      "value": 33,
+      "display": "about £33 billion",
+      "label": "Final cost of the 2008 UK bank rescues",
+      "asOf": "Office for Budget Responsibility estimate, October 2021 (a £35.5 billion loss on RBS, now NatWest, offset by gains elsewhere); total support at the peak was about £850 billion including guarantees (National Audit Office, 2009)",
+      "source": "Office for Budget Responsibility; National Audit Office",
+      "url": "https://www.nao.org.uk/wp-content/uploads/2010/12/1011567.pdf",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "ringFencing": {
+      "value": 25,
+      "display": "more than £25 billion",
+      "label": "Ring-fencing threshold for UK banks' core deposits",
+      "asOf": "in force since 1 January 2019: everyday banking kept separate from investment banking",
+      "source": "Bank of England (PRA)",
+      "url": "https://www.bankofengland.co.uk/prudential-regulation/key-initiatives/structural-reform",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
     }
   }
 }
