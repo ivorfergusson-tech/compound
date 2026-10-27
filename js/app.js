@@ -51,7 +51,7 @@ function refreshStrip() {
   if (s) s.outerHTML = gameStrip();
 }
 
-function shell(main, { title } = {}) {
+function shell(main, { title, wide } = {}) {
   document.title = title ? `${title} · Compound` : 'Compound: a free UK finance course';
   app.innerHTML = `
     <header class="top">
@@ -64,7 +64,7 @@ function shell(main, { title } = {}) {
     </header>
     <div class="read-progress" hidden><span></span></div>
     ${gameStrip()}
-    <main class="page">${main}</main>
+    <main class="page${wide ? ' page-wide' : ''}">${main}</main>
     <footer class="foot">
       <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
       <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
@@ -131,7 +131,7 @@ function viewHome(params) {
     return `<a class="strand-tile strand-${k}" href="#/?strand=${k}"><span aria-hidden="true">${s.emoji}</span><span>${esc(s.name)}</span><strong>${done} / ${mine.length}</strong></a>`;
   }).join('');
 
-  shell(`
+  shell(`<div class="home">
     <section class="card hero">
       <span class="eyebrow">${progress.state.attempts.length || Object.keys(progress.state.read).length ? 'Pick up where you left off' : 'Welcome'}</span>
       ${nextStrand ? `<span class="pill strand-pill-${next.strand}">${nextStrand.emoji} ${esc(nextStrand.name)} · module ${next.num}</span>` : ''}
@@ -145,8 +145,27 @@ function viewHome(params) {
       <div class="bar"><span style="width:${(passedCount / modules.length) * 100}%"></span></div>
       <div class="strand-tiles">${strandTotals}</div>
     </section>
+    <aside class="card side-lb" aria-labelledby="lb-h">
+      <div class="row-between"><h2 id="lb-h">Leaderboard</h2><a class="small" href="#/leaderboard">See all</a></div>
+      <div class="lb-mini"><p class="muted small">Loading…</p></div>
+    </aside>
     <nav class="chips" aria-label="Filter by strand">${chips}</nav>
-    <section class="items">${list}</section>`);
+    <section class="items">${list}</section></div>`, { wide: true });
+  fillMiniLeaderboard(app.querySelector('.lb-mini'));
+}
+
+async function fillMiniLeaderboard(box) {
+  const rows = await sync.leaderboard();
+  if (!box.isConnected) return;
+  if (!rows) {
+    box.innerHTML = `<p class="small muted">${sync.enabled() ? 'Make a free account to join.' : 'Coming soon.'}</p>`;
+    return;
+  }
+  const me = rows.find(r => r.is_me);
+  const top = rows.slice(0, 5);
+  const row = r => `<li class="${r.is_me ? 'me' : ''}"><strong class="pos">${r.pos}</strong><span class="nick">${esc(r.nickname)}${r.is_me ? ' (you)' : ''}</span><span class="muted small">Lv ${r.level}</span><strong>${r.xp}</strong></li>`;
+  box.innerHTML = (top.length ? `<ol class="lb-list mini">${top.map(row).join('')}${me && !top.includes(me) ? `<li class="gap" aria-hidden="true">···</li>${row(me)}` : ''}</ol>` : '<p class="small muted">Nobody here yet. Be first.</p>')
+    + (me ? '' : `<a class="btn ghost wide join" href="#/account">${sync.signedIn() ? 'Pick a nickname to join' : 'Join the leaderboard'}</a>`);
 }
 
 async function viewModule(id) {
