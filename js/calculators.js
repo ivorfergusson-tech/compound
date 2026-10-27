@@ -2,6 +2,7 @@
 // Each one is mount(container, args) and redraws when an input changes.
 import { esc, gbp } from './util.js';
 import { lineChart, moneyShort } from './charts.js';
+import { moneyCalculators } from './calcs-money.js';
 
 function slider(id, label, { min, max, step, value, fmt }) {
   return `<label class="slider"><span class="slider-top"><span>${esc(label)}</span><output data-out="${id}">${esc(fmt(value))}</output></span>`
@@ -32,6 +33,8 @@ const yrs = v => `${v} ${v === 1 ? 'year' : 'years'}`;
 const pounds = v => gbp(v, 0);
 
 export const calculators = {
+  ...moneyCalculators,
+
   compound(root, a) {
     const specs = {
       p: { min: 100, max: 20000, step: 100, value: a.p ?? 1500, fmt: pounds },

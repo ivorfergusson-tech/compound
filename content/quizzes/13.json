@@ -1,0 +1,148 @@
+{
+  "module": "13",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "13-representative-apr",
+      "type": "mcq",
+      "topic": "representative APR",
+      "q": "A loan advertises \"9.9% APR representative\". What does that guarantee you?",
+      "options": [
+        "Nothing for certain: at least 51% of accepted applicants get 9.9% or less, others may be offered more",
+        "You'll pay exactly 9.9%",
+        "9.9% is the highest rate anyone pays",
+        "It's the monthly rate"
+      ],
+      "answer": 0,
+      "why": "Representative APR must be offered to at least 51% of people accepted. Up to 49% can get a higher rate."
+    },
+    {
+      "id": "13-monthly-interest",
+      "type": "number",
+      "topic": "APR and monthly interest",
+      "q": "A card charges about {m} interest a month. You owe {b}. Roughly how much interest is added this month?",
+      "vars": {
+        "m": { "choices": [1.5, 2, 2.5], "default": 2, "fmt": "pct" },
+        "b": { "min": 500, "max": 3000, "step": 100, "default": 1500, "fmt": "money0" }
+      },
+      "answer": "b*m/100",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "{m} of {b} = {answer}. Leave it unpaid and next month you pay interest on that too."
+    },
+    {
+      "id": "13-min-trap",
+      "type": "tf",
+      "topic": "minimum payment trap",
+      "q": "Paying only the minimum on a credit card is a cheap way to spread the cost.",
+      "answer": false,
+      "why": "Most of each minimum payment is interest, so £1,500 at 30% APR on minimums takes over 23 years and about £3,080 in interest."
+    },
+    {
+      "id": "13-pay-in-full",
+      "type": "mcq",
+      "topic": "using a credit card well",
+      "q": "How do you use a credit card without paying any interest on purchases?",
+      "options": ["Pay the full balance every month", "Pay the minimum on time", "Only use it abroad", "Use it for cash withdrawals"],
+      "answer": 0,
+      "why": "Clear the full statement balance each month (a direct debit makes this automatic). Cash withdrawals cost fees and interest from day one."
+    },
+    {
+      "id": "13-cost-order",
+      "type": "order",
+      "topic": "the cost of borrowing",
+      "q": "Put these ways of borrowing £500 for a year in order, cheapest first (typical 2026 rates).",
+      "items": [
+        "Credit card cleared in full each month",
+        "Personal loan at about 10% APR",
+        "Arranged overdraft at about 40% EAR",
+        "Payday loan"
+      ],
+      "why": "Cleared cards cost nothing; personal loans are cheaper than overdrafts; payday loans are the dearest even with the FCA cap."
+    },
+    {
+      "id": "13-build-credit",
+      "type": "mcq",
+      "topic": "building a credit record",
+      "q": "Which is the best way to start building a credit record at 18?",
+      "options": [
+        "Register to vote and use a small credit card, paid in full by direct debit",
+        "Apply for several cards in one week to see which accepts",
+        "Avoid all credit, phone contracts included",
+        "Pay interest on a card to show you can"
+      ],
+      "answer": 0,
+      "why": "Being on the electoral roll and paying on time builds your file. Many applications leave hard searches; paying interest proves nothing extra."
+    },
+    {
+      "id": "13-terms-match",
+      "type": "match",
+      "topic": "credit terms",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["Credit file", "Your record of borrowing and repaying"],
+        ["Hard search", "A full credit check that other lenders can see"],
+        ["Soft search", "An eligibility check that lenders can't see"],
+        ["APR", "The yearly cost of borrowing, including fees"]
+      ],
+      "why": "Use soft-search eligibility checkers before applying; each full application leaves a hard search."
+    },
+    {
+      "id": "13-overdraft-cost",
+      "type": "number",
+      "topic": "overdraft cost",
+      "q": "You stay {d} into an arranged overdraft for a whole year at 40% EAR. Roughly how much interest do you pay?",
+      "vars": { "d": { "min": 200, "max": 1500, "step": 100, "default": 500, "fmt": "money0" } },
+      "answer": "d*0.4",
+      "tol": 1,
+      "unit": "£",
+      "dp": 0,
+      "why": "40% of {d} = {answer} over a year. Overdrafts are for short gaps, not long-term borrowing."
+    },
+    {
+      "id": "13-bnpl",
+      "type": "tf",
+      "topic": "buy now, pay later",
+      "q": "Buy now, pay later plans can't affect your credit file because they're interest-free.",
+      "answer": false,
+      "why": "BNPL is credit. Missed payments can bring fees and show on your credit file, and lenders working through shops have followed FCA rules since 15 July 2026."
+    },
+    {
+      "id": "13-min-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "minimum payment trap",
+      "q": "Explain why paying only the minimum on a credit card takes so long to clear the debt.",
+      "ideas": [
+        { "label": "Most of each payment goes on interest, so the balance hardly falls", "any": ["interest", "goes on interest", "covers the interest", "mostly interest", "pays the interest"] },
+        { "label": "The minimum is tiny (about 1%) and shrinks as the balance shrinks, so it drags on for years", "any": ["small", "tiny", "1%", "one percent", "only a little", "barely", "hardly", "shrinks", "gets smaller", "years", "decades", "slowly"] }
+      ],
+      "model": "Most of each minimum payment just covers that month's interest, and only about 1% of the balance is actually paid off. The minimum also shrinks as the balance shrinks, so the debt lasts for years and the interest can add up to more than you borrowed.",
+      "why": "Interest eats the payment; only a sliver reduces the debt.",
+      "tests": [
+        { "answer": "Most of the payment goes on interest, so only a tiny bit comes off the balance and it takes years.", "marks": 2 },
+        { "answer": "Because the minimum is only a small amount.", "marks": 1 },
+        { "answer": "Because the bank adds fees.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "13-pay-debt-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "debt vs savings",
+      "q": "You have £2,000 in savings earning 4.5% and £1,500 on a card charging 30% APR. Explain why paying off most of the card usually makes sense.",
+      "ideas": [
+        { "label": "The card costs far more in interest than the savings earn", "any": ["30%", "more than", "costs more", "higher rate", "far more", "much more", "interest on the card", "charges more", "bigger than"] },
+        { "label": "Keep a small emergency buffer so a surprise doesn't add new debt", "any": ["emergency", "buffer", "keep some", "keep a little", "small amount", "for emergencies", "some savings", "rainy day", "just in case", "safety net"] }
+      ],
+      "model": "The card charges about 30% while the savings earn about 4.5%, so every pound moved from savings to the card saves far more than it earned. Keep a small emergency buffer, though, so a surprise doesn't go straight back on the card.",
+      "why": "Clearing 30% debt is like a 30% risk-free return.",
+      "tests": [
+        { "answer": "The card charges 30% which is far more than the 4.5% savings earn, but keep a small emergency buffer.", "marks": 2 },
+        { "answer": "Because the card interest is much more than the savings interest.", "marks": 1 },
+        { "answer": "Because savings are risky.", "marks": 0 }
+      ]
+    }
+  ]
+}

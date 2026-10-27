@@ -1,0 +1,156 @@
+{
+  "module": "05",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "05-tax-on-salary",
+      "type": "number",
+      "topic": "income tax bands",
+      "q": "Someone in England earns {s} a year, with no pension or student loan. How much income tax do they pay in the year?",
+      "vars": { "s": { "min": 15000, "max": 45000, "step": 500, "default": 25000, "fmt": "money0" } },
+      "answer": "(s-12570)*0.2",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "Tax-free up to £12,570, then 20% on the rest: 20% × ({s} − £12,570) = {answer}."
+    },
+    {
+      "id": "05-ni-on-salary",
+      "type": "number",
+      "topic": "National Insurance",
+      "q": "An employee earns {s} a year. How much employee National Insurance do they pay in the year?",
+      "vars": { "s": { "min": 15000, "max": 45000, "step": 500, "default": 30000, "fmt": "money0" } },
+      "answer": "(s-12570)*0.08",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "8% on pay between £12,570 and £50,270: 8% × ({s} − £12,570) = {answer}."
+    },
+    {
+      "id": "05-net-monthly",
+      "type": "number",
+      "topic": "gross vs net pay",
+      "q": "In England, someone earns {s} a year, with no pension or student loan. Roughly what's their take-home pay each month? (Within £5.)",
+      "vars": { "s": { "min": 18000, "max": 45000, "step": 1000, "default": 25000, "fmt": "money0" } },
+      "answer": "(s-(s-12570)*0.28)/12",
+      "tol": 5,
+      "unit": "£",
+      "dp": 2,
+      "why": "Tax 20% + NI 8% = 28% on pay above £12,570. ({s} − 28% × ({s} − £12,570)) ÷ 12 = {answer} a month."
+    },
+    {
+      "id": "05-tax-code",
+      "type": "mcq",
+      "topic": "tax code",
+      "q": "What does the tax code 1257L tell your employer?",
+      "options": ["You can earn £12,570 a year tax-free", "You have paid £1,257 in tax so far", "Your tax rate is 12.57%", "You live in Scotland"],
+      "answer": 0,
+      "why": "1257 → £12,570 of tax-free pay; L is the standard Personal Allowance. Scottish codes start with S."
+    },
+    {
+      "id": "05-band-myth",
+      "type": "tf",
+      "topic": "marginal vs average rate",
+      "q": "If a pay rise takes you into the 40% band, all of your pay is then taxed at 40%.",
+      "answer": false,
+      "why": "Only the pay above £50,270 is taxed at 40%. Each band only taxes the slice of pay inside it."
+    },
+    {
+      "id": "05-keep-of-rise",
+      "type": "number",
+      "topic": "marginal vs average rate",
+      "q": "You earn exactly £50,270 in England and get a {r} pay rise. After 40% income tax and 2% National Insurance on the rise, how much of it do you keep?",
+      "vars": { "r": { "min": 500, "max": 3000, "step": 500, "default": 1000, "fmt": "money0" } },
+      "answer": "r*0.58",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "Only the rise is above £50,270, so you lose 40% + 2% = 42% of it and keep 58%: {answer}."
+    },
+    {
+      "id": "05-side-hustle",
+      "type": "mcq",
+      "topic": "trading allowance and Self Assessment",
+      "q": "You earn £1,800 from tutoring in 2026/27, with almost no costs. What do you need to do?",
+      "options": [
+        "Register for Self Assessment by 5 October 2027 and declare it",
+        "Nothing: under £2,000 is tax-free",
+        "Nothing, as long as you also have a job",
+        "Pay 20% of it to HMRC straight away"
+      ],
+      "answer": 0,
+      "why": "Trading income over the £1,000 trading allowance means registering for Self Assessment by 5 October after the tax year ends."
+    },
+    {
+      "id": "05-sa-order",
+      "type": "order",
+      "topic": "trading allowance and Self Assessment",
+      "q": "Put the Self Assessment steps for a new side hustle in order, first to last.",
+      "items": [
+        "Earn over £1,000 from trading in the tax year",
+        "The tax year ends on 5 April",
+        "Register for Self Assessment by 5 October",
+        "File your return and pay by 31 January"
+      ],
+      "why": "Go over £1,000, wait for the tax year to end, register by 5 October, then file and pay by 31 January."
+    },
+    {
+      "id": "05-terms-match",
+      "type": "match",
+      "topic": "payslip terms",
+      "q": "Match each payslip word to what it means.",
+      "pairs": [
+        ["Gross pay", "What you earn before deductions"],
+        ["Net pay", "What reaches your bank account"],
+        ["PAYE", "Your employer takes tax off for you"],
+        ["National Insurance", "Builds your State Pension record"]
+      ],
+      "why": "Gross minus deductions (tax, NI, pension, loan) gives net. PAYE is how employers collect tax; NI years count towards the State Pension."
+    },
+    {
+      "id": "05-scotland",
+      "type": "mcq",
+      "topic": "Scotland",
+      "q": "Which of these is different if you live in Scotland?",
+      "options": ["Income tax bands and rates on wages", "National Insurance rates", "Whether you get a Personal Allowance", "Whether you use PAYE"],
+      "answer": 0,
+      "why": "Scotland sets its own income tax bands on wages (six of them). NI, the Personal Allowance and PAYE work the same across the UK."
+    },
+    {
+      "id": "05-pay-rise-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "marginal vs average rate",
+      "q": "A friend turns down a pay rise because it would \"put them in a higher tax band\". Explain why that's a mistake.",
+      "ideas": [
+        { "label": "Only the extra pay above the threshold is taxed at the higher rate", "any": ["only the", "slice", "extra", "the part above", "the bit above", "portion", "amount above", "anything above", "over the threshold", "above the threshold", "money above", "pay above"] },
+        { "label": "The rest of their pay keeps its old rate, so they still take home more", "any": ["rest", "below", "still taxed at", "same rate", "doesn't change", "does not change", "unchanged", "lower band", "first part", "take home more", "still better off", "keep more", "still get more", "more money overall"] }
+      ],
+      "model": "Only the pay above the threshold is taxed at the higher rate. Everything below it keeps its old rate, so they still take home more than before: on a £1,000 rise over £50,270 they'd keep £580.",
+      "why": "Tax bands are slices, not a switch for your whole pay.",
+      "tests": [
+        { "answer": "Only the slice of pay above the threshold is taxed at the higher rate; the rest stays at the same rate, so they still take home more.", "marks": 2 },
+        { "answer": "Only the extra money gets taxed more.", "marks": 1 },
+        { "answer": "Because tax is lower when you earn more.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "05-saturday-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "Personal Allowance",
+      "q": "Your Saturday job pays £60 a week, all year. Explain why no income tax is taken off.",
+      "ideas": [
+        { "label": "It's under the Personal Allowance (tax-free amount)", "any": ["personal allowance", "tax-free", "tax free", "12,570", "12570", "allowance", "below the threshold", "under the threshold", "tax threshold"] },
+        { "label": "The allowance is yearly, and the job pays only about £3,120 over a year", "any": ["a year", "yearly", "annual", "per year", "over the year", "whole year", "3,120", "3120", "annually", "each year", "in a year"] }
+      ],
+      "model": "£60 × 52 is about £3,120 a year. The Personal Allowance is £12,570 a year, so all of it is tax-free (and it's under the National Insurance threshold too).",
+      "why": "Allowances are yearly, so small part-time jobs usually pay no income tax.",
+      "tests": [
+        { "answer": "Over a year that's about £3,120, which is under the £12,570 personal allowance.", "marks": 2 },
+        { "answer": "It's under the tax-free allowance.", "marks": 1 },
+        { "answer": "Because students don't pay tax.", "marks": 0 }
+      ]
+    }
+  ]
+}

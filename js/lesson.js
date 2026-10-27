@@ -62,12 +62,12 @@ function mountBlock(holder, b, ctx) {
     }
     case 'calc': {
       const { name, args } = splitArg(b.arg);
-      calculators[name](holder, args);
+      calculators[name](holder, args, ctx);
       break;
     }
     case 'chart': {
       const { name, args } = splitArg(b.arg);
-      charts[name](holder, args);
+      charts[name](holder, args, ctx);
       break;
     }
     case 'guess': guessBlock(holder, JSON.parse(b.arg || '{}'), ctx); break;

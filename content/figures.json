@@ -61,6 +61,419 @@
       "url": "https://www.moneyfactsgroup.co.uk/media-centre/consumer/cost-to-borrow-on-credit-cards-hits-20-year-high",
       "checked": "2026-10-13",
       "refresh": "every few months"
+    },
+    "personalAllowance": {
+      "value": 12570,
+      "display": "£12,570",
+      "label": "Personal Allowance",
+      "asOf": "2026/27 tax year; shrinks by £1 for every £2 of income over £100,000",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "incomeTaxBands": {
+      "value": null,
+      "display": "20% up to £50,270, 40% up to £125,140, 45% above",
+      "label": "Income tax bands (England, Wales, NI)",
+      "asOf": "2026/27 tax year",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "bands": [
+        [
+          37700,
+          20
+        ],
+        [
+          125140,
+          40
+        ],
+        [
+          null,
+          45
+        ]
+      ]
+    },
+    "scottishBands": {
+      "value": null,
+      "display": "19%, 20%, 21%, 42%, 45% and 48%",
+      "label": "Income tax bands (Scotland)",
+      "asOf": "2026/27 tax year",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "bands": [
+        [
+          3967,
+          19
+        ],
+        [
+          16956,
+          20
+        ],
+        [
+          31092,
+          21
+        ],
+        [
+          62430,
+          42
+        ],
+        [
+          125140,
+          45
+        ],
+        [
+          null,
+          48
+        ]
+      ]
+    },
+    "niEmployee": {
+      "value": 8,
+      "display": "8%",
+      "label": "Employee National Insurance",
+      "asOf": "2026/27: 8% on pay between £12,570 and £50,270 a year, 2% above",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "lower": 12570,
+      "upper": 50270,
+      "rateAbove": 2
+    },
+    "nlw": {
+      "value": 12.71,
+      "display": "£12.71 an hour",
+      "label": "National Living Wage (21 and over)",
+      "asOf": "from 1 April 2026",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "nmw1820": {
+      "value": 10.85,
+      "display": "£10.85 an hour",
+      "label": "National Minimum Wage, age 18 to 20",
+      "asOf": "from 1 April 2026",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "nmwUnder18": {
+      "value": 8.0,
+      "display": "£8.00 an hour",
+      "label": "National Minimum Wage, under 18",
+      "asOf": "from 1 April 2026",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "nmwApprentice": {
+      "value": 8.0,
+      "display": "£8.00 an hour",
+      "label": "Apprentice rate",
+      "asOf": "from 1 April 2026: apprentices under 19, or 19+ in their first year",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "tradingAllowance": {
+      "value": 1000,
+      "display": "£1,000",
+      "label": "Trading allowance",
+      "asOf": "a year, unchanged since April 2017; the point you must report rises to £3,000 from 2027/28 (announced)",
+      "source": "HMRC (gov.uk); accountancy guides",
+      "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "psa": {
+      "value": 1000,
+      "display": "£1,000",
+      "label": "Personal Savings Allowance",
+      "asOf": "2026/27, basic-rate taxpayers (£500 higher-rate, £0 additional-rate); savings tax rates rise 2 points from 6 April 2027 (announced in Budget 2025)",
+      "source": "gov.uk; LITRG",
+      "url": "https://www.litrg.org.uk/savings-property/tax-savings-and-investments/tax-savings-income/personal-savings-allowance",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "higher": 500
+    },
+    "startingRateSavings": {
+      "value": 5000,
+      "display": "£5,000",
+      "label": "Starting rate for savings",
+      "asOf": "2026/27; shrinks by £1 for each £1 of other income over £12,570",
+      "source": "LITRG",
+      "url": "https://www.litrg.org.uk/savings-property/tax-savings-and-investments/tax-savings-income",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "isaAllowance": {
+      "value": 20000,
+      "display": "£20,000",
+      "label": "ISA allowance",
+      "asOf": "2026/27 tax year",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/individual-savings-accounts",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "cashIsaCap2027": {
+      "value": 12000,
+      "display": "£12,000",
+      "label": "Cash ISA limit for under-65s",
+      "asOf": "from 6 April 2027 (announced in Budget 2025; the £20,000 total stays; final rules still to be laid)",
+      "source": "providers' summaries (e.g. Close Brothers Savings); check gov.uk",
+      "url": "https://www.closesavings.co.uk/personal/news/cash-isas-how-they-work-and-whats-changing-in-april-2027",
+      "checked": "2026-10-27",
+      "refresh": "after each Budget"
+    },
+    "lisaLimit": {
+      "value": 4000,
+      "display": "£4,000",
+      "label": "Lifetime ISA yearly limit",
+      "asOf": "2026/27; open at 18 to 39, pay in until 50, 25% government bonus up to £1,000 a year",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/lifetime-isa",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "bonus": 25,
+      "maxBonus": 1000
+    },
+    "lisaHomeCap": {
+      "value": 450000,
+      "display": "£450,000",
+      "label": "Lifetime ISA first-home price limit",
+      "asOf": "October 2026; a 25% charge applies to other withdrawals before 60",
+      "source": "ownyourhome.gov.uk; Financial Ombudsman Service",
+      "url": "https://www.financial-ombudsman.org.uk/lifetime-isas",
+      "checked": "2026-10-27",
+      "refresh": "after each Budget",
+      "charge": 25
+    },
+    "jisaLimit": {
+      "value": 9000,
+      "display": "£9,000",
+      "label": "Junior ISA yearly limit",
+      "asOf": "2026/27, separate from the adult allowance",
+      "source": "ISA providers (AJ Bell)",
+      "url": "https://www.ajbell.co.uk/isa/isa-allowances",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "fscs": {
+      "value": 120000,
+      "display": "£120,000",
+      "label": "FSCS deposit protection",
+      "asOf": "per person, per banking licence, from 1 December 2025 (was £85,000)",
+      "source": "FSCS; Bank of England (PRA)",
+      "url": "https://www.bankofengland.co.uk/news/2025/november/pra-confirms-fscs-deposit-limit-to-be-increased-to-120000-from-1-december",
+      "checked": "2026-10-27",
+      "refresh": "every few years"
+    },
+    "statePension": {
+      "value": 241.3,
+      "display": "£241.30 a week",
+      "label": "Full new State Pension",
+      "asOf": "2026/27, about £12,548 a year; needs 35 qualifying years of National Insurance",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/new-state-pension/what-youll-get",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "years": 35
+    },
+    "statePensionAge": {
+      "value": 66,
+      "display": "66, rising to 67 between 2026 and 2028",
+      "label": "State Pension age",
+      "asOf": "legislated timetable; the rise to 68 is currently due 2044 to 2046 and is under review",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/government/publications/state-pension-age-timetable/state-pension-age-timetable",
+      "checked": "2026-10-27",
+      "refresh": "after each review"
+    },
+    "aeTrigger": {
+      "value": 10000,
+      "display": "£10,000 a year",
+      "label": "Auto-enrolment earnings trigger",
+      "asOf": "2026/27 (unchanged); applies from age 22 to State Pension age",
+      "source": "DWP review; The Pensions Regulator",
+      "url": "https://www.thepensionsregulator.gov.uk/employers/new-employers/im-an-employer-who-has-to-provide-a-pension/declare-your-compliance/ongoing-duties-for-employers/earnings-thresholds",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "aeBand": {
+      "value": 6240,
+      "display": "£6,240 to £50,270",
+      "label": "Qualifying earnings band",
+      "asOf": "2026/27 (unchanged); minimum contributions are a share of pay in this band",
+      "source": "DWP review; The Pensions Regulator",
+      "url": "https://www.thepensionsregulator.gov.uk/employers/new-employers/im-an-employer-who-has-to-provide-a-pension/declare-your-compliance/ongoing-duties-for-employers/earnings-thresholds",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "upper": 50270
+    },
+    "aeMinimum": {
+      "value": 8,
+      "display": "8% in total, at least 3% from the employer",
+      "label": "Auto-enrolment minimum contributions",
+      "asOf": "of qualifying earnings, 2026/27",
+      "source": "The Pensions Regulator",
+      "url": "https://www.thepensionsregulator.gov.uk/en/employers/managing-a-scheme/automatic-enrolment-contributions",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "employer": 3
+    },
+    "annualAllowance": {
+      "value": 60000,
+      "display": "£60,000",
+      "label": "Pension annual allowance",
+      "asOf": "2026/27; lower for very high earners and after taking pension money flexibly",
+      "source": "gov.uk; pension providers",
+      "url": "https://www.gov.uk/tax-on-your-private-pension/annual-allowance",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "salarySacrificeCap": {
+      "value": 2000,
+      "display": "£2,000 a year",
+      "label": "Salary sacrifice National Insurance cap",
+      "asOf": "from 6 April 2029 (announced in Budget 2025)",
+      "source": "Legal & General; Penfold",
+      "url": "https://www.legalandgeneral.com/articles/prepare-for-lifes-big-moments/autumn-budget-2025/",
+      "checked": "2026-10-27",
+      "refresh": "after each Budget"
+    },
+    "plan2": {
+      "value": 29385,
+      "display": "£29,385",
+      "label": "Student loan Plan 2 threshold",
+      "asOf": "2026/27; you repay 9% of pay above it",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "rate": 9
+    },
+    "plan5": {
+      "value": 25000,
+      "display": "£25,000",
+      "label": "Student loan Plan 5 threshold",
+      "asOf": "2026/27; you repay 9% of pay above it (courses in England from August 2023)",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "rate": 9
+    },
+    "postgradLoan": {
+      "value": 21000,
+      "display": "£21,000",
+      "label": "Postgraduate loan threshold",
+      "asOf": "2026/27; you repay 6% of pay above it",
+      "source": "HMRC (gov.uk)",
+      "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "rate": 6
+    },
+    "plan5Interest": {
+      "value": 4.1,
+      "display": "4.1%",
+      "label": "Plan 5 interest rate",
+      "asOf": "1 September 2026 to 31 August 2027 (RPI); Plan 2 is RPI to RPI + 3%, capped at 6% for the year",
+      "source": "gov.uk (Student Loans Company)",
+      "url": "https://www.gov.uk/government/news/student-loans-interest-rates-and-repayment-threshold-announcement--7",
+      "checked": "2026-10-27",
+      "refresh": "each September"
+    },
+    "tuitionFee": {
+      "value": 9790,
+      "display": "£9,790 a year",
+      "label": "Tuition fee cap (England)",
+      "asOf": "2026/27 academic year",
+      "source": "university funding guides (University of Worcester)",
+      "url": "https://studentservices.on.worc.ac.uk/wp-content/uploads/Funding-your-studies-2026-27-v2.pdf",
+      "checked": "2026-10-27",
+      "refresh": "each year"
+    },
+    "maintenanceLoan": {
+      "value": 10830,
+      "display": "£10,830",
+      "label": "Maximum maintenance loan away from home, outside London",
+      "asOf": "2026/27, England (£9,118 living at home, £14,135 in London; less for higher household incomes)",
+      "source": "Prospects; Leeds Beckett University",
+      "url": "https://www.prospects.ac.uk/applying-for-university/student-loans-and-finance",
+      "checked": "2026-10-27",
+      "refresh": "each year"
+    },
+    "rentUK": {
+      "value": 1406,
+      "display": "£1,406 a month",
+      "label": "Average UK private rent",
+      "asOf": "September 2026, provisional (England £1,466, Wales £848, Scotland £1,011)",
+      "source": "ONS",
+      "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/privaterentandhousepricesuk/october2026",
+      "checked": "2026-10-27",
+      "refresh": "monthly"
+    },
+    "councilTax": {
+      "value": 2392,
+      "display": "£2,392 a year",
+      "label": "Average Band D council tax (England)",
+      "asOf": "2026-27",
+      "source": "MHCLG (gov.uk)",
+      "url": "https://www.gov.uk/government/statistics/council-tax-levels-set-by-local-authorities-in-england-2026-to-2027/council-tax-levels-set-by-local-authorities-in-england-2026-to-2027",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "energyCap": {
+      "value": 1723,
+      "display": "£1,723 a year",
+      "label": "Energy price cap, typical dual-fuel home",
+      "asOf": "1 October to 31 December 2026, paying by Direct Debit",
+      "source": "Ofgem (reported by Uswitch and PayPlan)",
+      "url": "https://www.uswitch.com/gas-electricity/news/october-energy-price-cap-to-increase-by-four-percent/",
+      "checked": "2026-10-27",
+      "refresh": "every three months"
+    },
+    "bnplRules": {
+      "value": null,
+      "display": "15 July 2026",
+      "label": "Buy now, pay later brought under FCA rules",
+      "asOf": "lenders must now check affordability; complaints can go to the Financial Ombudsman",
+      "source": "FCA",
+      "url": "https://www.fca.org.uk/consumers/buy-now-pay-later",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "overdraftEar": {
+      "value": 39.9,
+      "display": "about 40% EAR",
+      "label": "Typical arranged overdraft rate at big banks",
+      "asOf": "2026; some app banks charge 15–39% depending on your credit record",
+      "source": "Pocketwise round-up of bank rates (one source)",
+      "url": "https://pocketwise.co.uk/debt/specific-debts/overdraft-charges-uk-guide/",
+      "checked": "2026-10-27",
+      "refresh": "every few months"
+    },
+    "emergencyFund": {
+      "value": 3,
+      "display": "three to six months of essential costs",
+      "label": "Emergency fund guide",
+      "asOf": "MoneyHelper guidance",
+      "source": "NS&I, quoting MoneyHelper",
+      "url": "https://www.nsandi.com/guide/emergency-fund",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
     }
   }
 }

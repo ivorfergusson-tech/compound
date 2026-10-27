@@ -1,20 +1,202 @@
 {
-  "money": { "term": "Money", "def": "Anything people accept in exchange for goods and services. In the UK that's pounds, mostly held as numbers in bank accounts rather than notes and coins.", "module": "00" },
-  "asset": { "term": "Asset", "def": "Something you own that's worth money: savings, shares, a car, a house.", "module": "00" },
-  "market": { "term": "Market", "def": "Anywhere buyers and sellers meet to agree a price.", "module": "00" },
-  "interest": { "term": "Interest", "def": "The price of using money. Savers earn it and borrowers pay it.", "module": "01" },
-  "principal": { "term": "Principal", "def": "The amount you start with, before any interest is added.", "module": "01" },
-  "interest rate": { "term": "Interest rate", "def": "Interest as a percentage of the principal. Nearly always quoted per year.", "module": "01" },
-  "simple interest": { "term": "Simple interest", "def": "Interest worked out only on the original principal, so it's the same every year.", "module": "01" },
-  "compound interest": { "term": "Compound interest", "def": "Interest that's added to your balance, so next time you earn interest on the interest too.", "module": "01" },
-  "rule of 72": { "term": "Rule of 72", "def": "A shortcut: 72 ÷ the yearly rate ≈ how many years it takes money to double. At 6%, about 12 years.", "module": "01" },
-  "inflation": { "term": "Inflation", "def": "The rate at which prices in general rise over time, so the same £1 buys less.", "module": "01" },
-  "cpi": { "term": "CPI", "def": "The Consumer Prices Index: the main UK measure of inflation, worked out by the ONS from the prices of a basket of everyday items.", "module": "01" },
-  "nominal return": { "term": "Nominal return", "def": "The return shown on your statement, before taking inflation into account.", "module": "01" },
-  "real return": { "term": "Real return", "def": "What you gain in spending power after inflation. Roughly the nominal rate minus inflation; exactly (1 + nominal) ÷ (1 + inflation) − 1.", "module": "01" },
-  "variable rate": { "term": "Variable rate", "def": "An interest rate the bank can change at any time. Most easy-access savings accounts have one.", "module": "01" },
-  "deflation": { "term": "Deflation", "def": "Prices in general falling over time.", "module": "01" },
-  "bank of england": { "term": "Bank of England", "def": "The UK's central bank. It sets Bank Rate and aims to keep inflation at 2%.", "module": "01" },
-  "bank rate": { "term": "Bank Rate", "def": "The Bank of England's main interest rate. Savings and borrowing rates across the UK tend to follow it.", "module": "12" },
-  "aer": { "term": "AER", "def": "Annual Equivalent Rate: a savings account's yearly rate including compounding, so you can compare accounts fairly.", "module": "09" }
+  "aer": {
+    "term": "AER",
+    "def": "Annual Equivalent Rate: a savings rate including compounding over a year, so you can compare accounts fairly.",
+    "module": "09"
+  },
+  "apr": {
+    "term": "APR",
+    "def": "Annual Percentage Rate: the yearly cost of borrowing, including interest and compulsory fees. Lower is cheaper.",
+    "module": "13"
+  },
+  "asset": {
+    "term": "Asset",
+    "def": "Something you own that's worth money: savings, shares, a car, a house.",
+    "module": "00"
+  },
+  "bank of england": {
+    "term": "Bank of England",
+    "def": "The UK's central bank. It sets Bank Rate and aims to keep inflation at 2%.",
+    "module": "01"
+  },
+  "bank rate": {
+    "term": "Bank Rate",
+    "def": "The Bank of England's main interest rate. Savings and borrowing rates across the UK tend to follow it.",
+    "module": "12"
+  },
+  "bnpl": {
+    "term": "Buy now, pay later",
+    "def": "Splitting a purchase into a few payments, often interest-free. It's still debt, and missed payments can hurt your credit file.",
+    "module": "13"
+  },
+  "budget": {
+    "term": "Budget",
+    "def": "A plan for your money: what comes in, what goes out on needs and wants, and what's left to save.",
+    "module": "09"
+  },
+  "compound interest": {
+    "term": "Compound interest",
+    "def": "Interest that's added to your balance, so next time you earn interest on the interest too.",
+    "module": "01"
+  },
+  "cpi": {
+    "term": "CPI",
+    "def": "The Consumer Prices Index: the main UK measure of inflation, worked out by the ONS from the prices of a basket of everyday items.",
+    "module": "01"
+  },
+  "credit file": {
+    "term": "Credit file",
+    "def": "Your record of borrowing and repayments, kept by Experian, Equifax and TransUnion. Lenders check it when you apply.",
+    "module": "13"
+  },
+  "credit score": {
+    "term": "Credit score",
+    "def": "A number an agency or app works out from your credit file. Lenders use your file and their own rules, not this number.",
+    "module": "13"
+  },
+  "current account": {
+    "term": "Current account",
+    "def": "Your everyday bank account for pay coming in and bills and card payments going out. Usually pays little or no interest.",
+    "module": "09"
+  },
+  "deflation": {
+    "term": "Deflation",
+    "def": "Prices in general falling over time.",
+    "module": "01"
+  },
+  "easy-access account": {
+    "term": "Easy-access account",
+    "def": "A savings account you can pay into and take money from at any time. The rate is usually variable.",
+    "module": "09"
+  },
+  "emergency fund": {
+    "term": "Emergency fund",
+    "def": "Easy-access savings kept for the unexpected. Guidance suggests three to six months of essential costs.",
+    "module": "09"
+  },
+  "fixed-rate saver": {
+    "term": "Fixed-rate saver",
+    "def": "A savings account (often called a bond) that locks your money away for a set time at a fixed rate.",
+    "module": "09"
+  },
+  "fscs": {
+    "term": "FSCS",
+    "def": "The Financial Services Compensation Scheme: pays back savers up to £120,000 per person per banking licence if a UK bank fails.",
+    "module": "08"
+  },
+  "gross pay": {
+    "term": "Gross pay",
+    "def": "What you earn before anything is taken off: your salary or hourly rate times hours.",
+    "module": "05"
+  },
+  "inflation": {
+    "term": "Inflation",
+    "def": "The rate at which prices in general rise over time, so the same £1 buys less.",
+    "module": "01"
+  },
+  "interest": {
+    "term": "Interest",
+    "def": "The price of using money. Savers earn it and borrowers pay it.",
+    "module": "01"
+  },
+  "interest rate": {
+    "term": "Interest rate",
+    "def": "Interest as a percentage of the principal. Nearly always quoted per year.",
+    "module": "01"
+  },
+  "marginal rate": {
+    "term": "Marginal tax rate",
+    "def": "The rate charged on your next pound of income. Higher than your average rate, because lower slices of pay are taxed less.",
+    "module": "05"
+  },
+  "market": {
+    "term": "Market",
+    "def": "Anywhere buyers and sellers meet to agree a price.",
+    "module": "00"
+  },
+  "minimum payment trap": {
+    "term": "Minimum payment trap",
+    "def": "Paying only a card's minimum, so most of each payment is interest and the debt lasts for years.",
+    "module": "13"
+  },
+  "money": {
+    "term": "Money",
+    "def": "Anything people accept in exchange for goods and services. In the UK that's pounds, mostly held as numbers in bank accounts rather than notes and coins.",
+    "module": "00"
+  },
+  "national insurance": {
+    "term": "National Insurance",
+    "def": "A deduction from pay over a threshold that builds your record for the State Pension and some benefits.",
+    "module": "05"
+  },
+  "net pay": {
+    "term": "Net pay",
+    "def": "Take-home pay: what reaches your bank account after tax, National Insurance, pension and any student loan.",
+    "module": "05"
+  },
+  "nominal return": {
+    "term": "Nominal return",
+    "def": "The return shown on your statement, before taking inflation into account.",
+    "module": "01"
+  },
+  "overdraft": {
+    "term": "Overdraft",
+    "def": "Borrowing by letting your current account go below £0. Arranged overdrafts often cost around 40% a year.",
+    "module": "13"
+  },
+  "paye": {
+    "term": "PAYE",
+    "def": "Pay As You Earn: your employer works out your income tax and National Insurance and pays it to HMRC each time you're paid.",
+    "module": "05"
+  },
+  "payslip": {
+    "term": "Payslip",
+    "def": "The statement you get each payday showing gross pay, every deduction and net pay.",
+    "module": "05"
+  },
+  "personal allowance": {
+    "term": "Personal Allowance",
+    "def": "The income you can have each tax year before paying income tax: £12,570 for most people in 2026/27.",
+    "module": "05"
+  },
+  "principal": {
+    "term": "Principal",
+    "def": "The amount you start with, before any interest is added.",
+    "module": "01"
+  },
+  "real return": {
+    "term": "Real return",
+    "def": "What you gain in spending power after inflation. Roughly the nominal rate minus inflation; exactly (1 + nominal) ÷ (1 + inflation) − 1.",
+    "module": "01"
+  },
+  "rule of 72": {
+    "term": "Rule of 72",
+    "def": "A shortcut: 72 ÷ the yearly rate ≈ how many years it takes money to double. At 6%, about 12 years.",
+    "module": "01"
+  },
+  "self-assessment": {
+    "term": "Self Assessment",
+    "def": "The yearly tax return for income HMRC doesn't already tax through PAYE, such as self-employed profit over £1,000.",
+    "module": "05"
+  },
+  "simple interest": {
+    "term": "Simple interest",
+    "def": "Interest worked out only on the original principal, so it's the same every year.",
+    "module": "01"
+  },
+  "tax code": {
+    "term": "Tax code",
+    "def": "Tells your employer how much tax-free pay you get. 1257L means £12,570 a year, the standard Personal Allowance.",
+    "module": "05"
+  },
+  "trading allowance": {
+    "term": "Trading allowance",
+    "def": "Up to £1,000 a year of income from self-employment or side hustles that you don't need to declare or pay tax on.",
+    "module": "05"
+  },
+  "variable rate": {
+    "term": "Variable rate",
+    "def": "An interest rate the bank can change at any time. Most easy-access savings accounts have one.",
+    "module": "01"
+  }
 }

@@ -201,7 +201,7 @@ async function viewModule(id) {
     </article>`, { title: item.short || item.title });
 
   const article = app.querySelector('.lesson');
-  hydrateBlocks(article, blocks, { progress, moduleId: id });
+  hydrateBlocks(article, blocks, { progress, moduleId: id, figures });
   wireTerms(article);
   wireOwnWords(article, id);
   wireReading(article, id);

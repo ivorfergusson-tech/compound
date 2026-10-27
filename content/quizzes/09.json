@@ -1,0 +1,147 @@
+{
+  "module": "09",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "09-503020",
+      "type": "number",
+      "topic": "budgeting (50/30/20)",
+      "q": "You take home {t} a month. Using the 50/30/20 split, how much would go to saving each month?",
+      "vars": { "t": { "min": 1000, "max": 3000, "step": 50, "default": 1800, "fmt": "money0" } },
+      "answer": "t*0.2",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "20% of {t} = {answer}. 50% would go on needs and 30% on wants."
+    },
+    {
+      "id": "09-months-to-goal",
+      "type": "number",
+      "topic": "saving towards a goal",
+      "q": "You want {g} and can save {m} a month. Ignoring interest, how many months will it take? (Round up to whole months.)",
+      "vars": {
+        "g": { "choices": [1200, 1500, 2000, 3000], "default": 1500, "fmt": "money0" },
+        "m": { "choices": [100, 125, 150, 200, 250], "default": 150, "fmt": "money0" }
+      },
+      "answer": "Math.ceil(g/m)",
+      "tol": 0.1,
+      "unit": "months",
+      "dp": 0,
+      "why": "{g} ÷ {m} = {answer} months (rounded up). Interest shortens it slightly, but for small short goals the habit matters most."
+    },
+    {
+      "id": "09-needs-wants",
+      "type": "match",
+      "topic": "needs vs wants",
+      "q": "Sort each cost into need or want by matching it.",
+      "pairs": [
+        ["Rent or board", "Need"],
+        ["Bus pass to get to work", "Need"],
+        ["Music streaming subscription", "Want"],
+        ["Weekend takeaway", "Want"]
+      ],
+      "why": "Needs are what you must pay to live and work. Wants are choices, even if they're nice ones."
+    },
+    {
+      "id": "09-aer",
+      "type": "mcq",
+      "topic": "AER",
+      "q": "What does AER tell you about a savings account?",
+      "options": [
+        "What you'd earn in a year including compounding, so you can compare accounts fairly",
+        "The rate before any compounding",
+        "The highest rate the bank has ever paid",
+        "How much tax you'll pay on the interest"
+      ],
+      "answer": 0,
+      "why": "AER (Annual Equivalent Rate) includes the effect of interest being added during the year, so accounts paying monthly and yearly can be compared."
+    },
+    {
+      "id": "09-regular-saver",
+      "type": "tf",
+      "topic": "regular saver small print",
+      "q": "A regular saver paying 7% on £200 a month earns about 7% of the £2,400 you pay in over the year.",
+      "answer": false,
+      "why": "Money goes in month by month, so on average only about half of it is in the account. It earns about £90, roughly 3.75% of £2,400."
+    },
+    {
+      "id": "09-access-order",
+      "type": "order",
+      "topic": "access vs rate",
+      "q": "Put these accounts in order from easiest to reach your money to hardest.",
+      "items": ["Easy-access account", "30-day notice account", "1-year fixed-rate bond", "5-year fixed-rate bond"],
+      "why": "Easy access is instant; notice accounts need warning; fixed bonds lock money away for the term."
+    },
+    {
+      "id": "09-emergency-where",
+      "type": "mcq",
+      "topic": "emergency fund",
+      "q": "Where should an emergency fund usually be kept?",
+      "options": ["An easy-access savings account", "A 3-year fixed-rate bond", "Shares", "Mixed in with your spending money"],
+      "answer": 0,
+      "why": "It must be reachable the same day and not fall in value. Keeping it separate stops it being spent by accident."
+    },
+    {
+      "id": "09-emergency-size",
+      "type": "number",
+      "topic": "emergency fund",
+      "q": "Your essential costs are {e} a month. Using the lower end of MoneyHelper's guide (three months), how big should your emergency fund be?",
+      "vars": { "e": { "min": 600, "max": 1500, "step": 50, "default": 900, "fmt": "money0" } },
+      "answer": "e*3",
+      "tol": 1,
+      "unit": "£",
+      "dp": 0,
+      "why": "3 × {e} = {answer}. The guide is three to six months of essential costs, which means needs only, not wants."
+    },
+    {
+      "id": "09-fscs",
+      "type": "mcq",
+      "topic": "FSCS protection",
+      "q": "Your bank fails. What protects your savings?",
+      "options": [
+        "The FSCS pays back up to £120,000 per person per banking licence",
+        "Nothing: you lose it all",
+        "The bank's insurance pays back everything, however much",
+        "The government pays back any amount"
+      ],
+      "answer": 0,
+      "why": "The Financial Services Compensation Scheme covers up to £120,000 per person per banking licence (from 1 December 2025)."
+    },
+    {
+      "id": "09-pay-first-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "paying yourself first",
+      "q": "Explain why \"saving whatever's left at the end of the month\" often doesn't work, and what works better.",
+      "ideas": [
+        { "label": "Spending grows to use up what's there, so there's rarely anything left", "any": ["nothing left", "rarely anything", "spend it", "spend everything", "spend whatever", "money gets spent", "always spend", "nothing is left", "expands", "spend it all", "spend the rest", "spent by the end"] },
+        { "label": "Save first: move a set amount on payday (automatically), then spend the rest", "any": ["pay yourself first", "save first", "on payday", "standing order", "automatic", "automatically", "start of the month", "as soon as you get paid", "when you get paid", "set amount", "before spending", "beginning of the month"] }
+      ],
+      "model": "Spending tends to grow to fill whatever's in the account, so by the end of the month there's rarely anything left. It works better to pay yourself first: move a set amount to savings automatically on payday and live on the rest.",
+      "why": "Order matters more than willpower.",
+      "tests": [
+        { "answer": "You usually spend it all so nothing is left. Set up a standing order to save on payday instead.", "marks": 2 },
+        { "answer": "Because you end up spending everything you have.", "marks": 1 },
+        { "answer": "Because interest rates are low.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "09-rate-vs-habit-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "rates matter more as the pot grows",
+      "q": "Saving £150 a month for 10 months, a 4.5% account earns only about £19 more than a 1% account. Explain why, and when the rate starts to matter more.",
+      "ideas": [
+        { "label": "The pot is small and builds up gradually over a short time, so little interest is earned either way", "any": ["small", "short time", "not long", "few months", "builds up gradually", "little money", "low balance", "small amount", "small pot", "short period"] },
+        { "label": "The rate matters more with a bigger balance or over a longer time", "any": ["bigger", "larger", "more money", "longer", "years", "big pot", "large balance", "grows", "over time"] }
+      ],
+      "model": "The pot is small and only builds up month by month over a short time, so little interest is earned in either account. The rate matters much more with a bigger balance or over a longer time: £5,000 for a year earns about £175 more at 4.5% than at 1%.",
+      "why": "For small, short goals the habit matters most; for bigger pots the rate matters too.",
+      "tests": [
+        { "answer": "The amount is small and it's only for a few months. With a bigger balance over years the rate makes a big difference.", "marks": 2 },
+        { "answer": "Because it is a small amount of money.", "marks": 1 },
+        { "answer": "Because banks don't pay interest monthly.", "marks": 0 }
+      ]
+    }
+  ]
+}
