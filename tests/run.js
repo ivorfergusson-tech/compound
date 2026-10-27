@@ -187,7 +187,7 @@ const ts = tradeStats([2, -1, -1, 1.5, -1]);
 check('trade stats', ts.n === 5 && Math.abs(ts.winRate - 0.4) < 1e-9 && Math.abs(ts.expectancy - 0.1) < 1e-9 && ts.longest === 2 && Math.abs(ts.maxDd - 2) < 1e-9, JSON.stringify(ts));
 const mc = makeCandles();
 check('candles valid', mc.length === 70 && mc.every(c => c.h >= Math.max(c.o, c.c) && c.l <= Math.min(c.o, c.c)));
-check('candles range then breakout', Math.max(...mc.slice(25, 50).map(c => c.c)) < 113 && mc.at(-1).c > 112, mc.at(-1).c);
+check('candles range then breakout', Math.max(...mc.slice(25, 50).map(c => c.c)) < 111 && mc.at(-1).c > 112, mc.at(-1).c);
 
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

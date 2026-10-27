@@ -34,6 +34,11 @@
     "def": "How you split your money between shares, bonds and cash. It drives most of a portfolio's risk and return.",
     "module": "30"
   },
+  "asset class": {
+    "term": "Asset class",
+    "def": "A group of investments that behave in similar ways, such as shares, bonds, currencies, commodities or crypto.",
+    "module": "11"
+  },
   "auto-enrolment": {
     "term": "Auto-enrolment",
     "def": "The law that makes employers put eligible staff (22+, earning over £10,000) into a workplace pension automatically.",
@@ -79,10 +84,20 @@
     "def": "A loan to a government or company that pays a fixed coupon and returns the face value at maturity.",
     "module": "02"
   },
+  "breakout": {
+    "term": "Breakout",
+    "def": "Price pushing clearly through support or resistance. Many breakouts fail and fall back.",
+    "module": "15"
+  },
   "budget": {
     "term": "Budget",
     "def": "A plan for your money: what comes in, what goes out on needs and wants, and what's left to save.",
     "module": "09"
+  },
+  "candlestick": {
+    "term": "Candlestick",
+    "def": "A chart symbol showing one period's open, high, low and close: a body from open to close, wicks to the high and low.",
+    "module": "15"
   },
   "capital gain": {
     "term": "Capital gain",
@@ -404,6 +419,11 @@
     "def": "Share price ÷ earnings per share: how many years of today's profit you pay for each share.",
     "module": "22"
   },
+  "paper trading": {
+    "term": "Paper trading",
+    "def": "Practising trades with pretend money at real prices, recorded as if they were real.",
+    "module": "11"
+  },
   "paye": {
     "term": "PAYE",
     "def": "Pay As You Earn: your employer works out your income tax and National Insurance and pays it to HMRC each time you're paid.",
@@ -463,6 +483,11 @@
     "term": "Rent",
     "def": "What you pay a landlord to live in a home. In England, deposits are capped at five weeks' rent and must be protected.",
     "module": "25"
+  },
+  "resistance": {
+    "term": "Resistance",
+    "def": "A price level where rises have repeatedly stalled, because sellers stepped in.",
+    "module": "15"
   },
   "revenue": {
     "term": "Revenue",
@@ -544,6 +569,11 @@
     "def": "Money or time already spent that can't be recovered. It shouldn't drive future decisions.",
     "module": "26"
   },
+  "support": {
+    "term": "Support",
+    "def": "A price level where falls have repeatedly stopped, because buyers stepped in.",
+    "module": "15"
+  },
   "tax code": {
     "term": "Tax code",
     "def": "Tells your employer how much tax-free pay you get. 1257L means £12,570 a year, the standard Personal Allowance.",
@@ -559,6 +589,11 @@
     "def": "How long you plan to hold an investment or trade, from minutes to decades.",
     "module": "03"
   },
+  "timeframe": {
+    "term": "Timeframe",
+    "def": "How much time each candle or bar covers on a chart, from a minute to a week or more.",
+    "module": "15"
+  },
   "total return": {
     "term": "Total return",
     "def": "An investment's price change plus dividends or interest, as if reinvested. The fair way to compare investments.",
@@ -568,6 +603,21 @@
     "term": "Trading allowance",
     "def": "Up to £1,000 a year of income from self-employment or side hustles that you don't need to declare or pay tax on.",
     "module": "05"
+  },
+  "trading hours": {
+    "term": "Trading hours",
+    "def": "When a market is open. The London Stock Exchange is 8am–4.30pm; US markets about 2.30pm–9pm UK time.",
+    "module": "11"
+  },
+  "trading journal": {
+    "term": "Trading journal",
+    "def": "A record of every trade: the plan, entry, stop, target, size, result in R and whether you followed your rules.",
+    "module": "11"
+  },
+  "trend": {
+    "term": "Trend",
+    "def": "The general direction of prices: up (higher highs and lows), down, or sideways.",
+    "module": "15"
   },
   "variable rate": {
     "term": "Variable rate",

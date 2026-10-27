@@ -37,7 +37,7 @@ export function makeCandles(seed = 7, n = 70) {
   for (let i = 0; i < n; i++) {
     let drift;
     if (i < 18) drift = 0.9;
-    else if (i < 52) drift = (price > 108 ? -1.6 : price < 101 ? 1.6 : (rng() - 0.5) * 2);
+    else if (i < 52) drift = (price > 107.5 ? -2.2 : price < 102 ? 2.2 : (rng() - 0.5) * 3);
     else drift = 0.8;
     const o = price;
     const c = Math.max(60, o + drift + (rng() - 0.5) * 3);
@@ -50,6 +50,12 @@ export function makeCandles(seed = 7, n = 70) {
   return out;
 }
 
+// Support and resistance of the sideways stretch (days 20 to 51): its lowest low and highest high.
+export function rangeLevels(candles, from = 20, to = 51) {
+  const part = candles.slice(from, to + 1);
+  return { support: Math.min(...part.map(c => c.l)), resistance: Math.max(...part.map(c => c.h)) };
+}
+
 export function sma(values, n) {
   return values.map((_, i) => (i < n - 1 ? null : values.slice(i - n + 1, i + 1).reduce((s, x) => s + x, 0) / n));
 }
@@ -59,7 +65,11 @@ export function rsi(closes, n = 14) {
   let gain = 0, loss = 0;
   for (let i = 1; i < closes.length; i++) {
     const ch = closes[i] - closes[i - 1];
-    if (i <= n) { gain += Math.max(0, ch); loss += Math.max(0, -ch); if (i === n) out[i] = 100 - 100 / (1 + gain / (loss || 1e-9)); continue; }
+    if (i <= n) {
+      gain += Math.max(0, ch); loss += Math.max(0, -ch);
+      if (i === n) { gain /= n; loss /= n; out[i] = 100 - 100 / (1 + gain / (loss || 1e-9)); }
+      continue;
+    }
     gain = (gain * (n - 1) + Math.max(0, ch)) / n;
     loss = (loss * (n - 1) + Math.max(0, -ch)) / n;
     out[i] = 100 - 100 / (1 + gain / (loss || 1e-9));
@@ -123,7 +133,7 @@ export function candleChart(candles, { lines = [], overlays = [], volume = false
   }
   for (const ln of lines) {
     svg += `<line x1="${P.l}" x2="${W - P.r}" y1="${y(ln.y)}" y2="${y(ln.y)}" class="ch-line ch-${ln.tone} ch-dash" style="stroke-width:2"/>`
-      + `<text x="${W - P.r - 2}" y="${y(ln.y) - 4}" text-anchor="end" class="ch-label ch-tag">${esc(ln.label)}</text>`;
+      + `<text x="${P.l + 4}" y="${y(ln.y) + (ln.below ? 13 : -5)}" class="ch-label ch-tag">${esc(ln.label)}</text>`;
   }
   if (volume) {
     const vmax = Math.max(...candles.map(c => c.v)), vb = H - 8, vh = 40;
@@ -187,6 +197,7 @@ export const tradeCalculators = {
 
   candles(root, a) {
     const cs = makeCandles(a.seed ?? 7);
+    const lv = rangeLevels(cs);
     root.innerHTML = card('Reading a chart',
       `<div class="row"><label class="check"><input type="checkbox" data-in="sr" ${a.lines === false ? '' : 'checked'}> Show support and resistance</label>`
       + `<label class="check"><input type="checkbox" data-in="weekly"> Weekly candles (5 days each)</label></div><div data-chart></div>${madeUp}`,
@@ -201,8 +212,8 @@ export const tradeCalculators = {
         }
       }
       root.querySelector('[data-chart]').innerHTML = candleChart(data, {
-        label: 'Made-up price rising, then moving sideways between about 100 and 110, then breaking above 110',
-        lines: v.sr ? [{ y: 110, label: 'Resistance', tone: 'b' }, { y: 100, label: 'Support', tone: 'a' }] : [],
+        label: `Made-up price rising, then moving sideways between about ${Math.round(lv.support)} and ${Math.round(lv.resistance)}, then breaking above ${Math.round(lv.resistance)}`,
+        lines: v.sr ? [{ y: lv.resistance, label: 'Resistance', tone: 'b' }, { y: lv.support, label: 'Support', tone: 'a', below: true }] : [],
       }) + legend(v.sr ? [['b', 'Resistance', true], ['a', 'Support', true]] : []);
     });
   },
@@ -227,7 +238,7 @@ export const tradeCalculators = {
           { name: '70 overbought', tone: 'b', dashed: true, points: [[14, 70], [cs.length - 1, 70]] },
           { name: '30 oversold', tone: 'c', dashed: true, points: [[14, 30], [cs.length - 1, 30]] },
         ],
-        yFmt: x => `${Math.round(x)}`, xFmt: x => `day ${x}`, xTicks: [14, 40, cs.length - 1],
+        yFmt: x => `${Math.round(x)}`, xFmt: x => `${x}`, xTicks: [14, 40, cs.length - 1],
       });
     });
   },

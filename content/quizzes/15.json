@@ -1,0 +1,140 @@
+{
+  "module": "15",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "15-candle-parts",
+      "type": "match",
+      "topic": "candlesticks",
+      "q": "Match each part of a candle to what it shows.",
+      "pairs": [
+        ["Body", "From the open to the close"],
+        ["Upper wick", "Up to the highest price"],
+        ["Lower wick", "Down to the lowest price"],
+        ["Hollow (or green) candle", "Closed higher than it opened"]
+      ],
+      "why": "A candle packs open, high, low and close for one period into one shape."
+    },
+    {
+      "id": "15-candle-read",
+      "type": "mcq",
+      "topic": "candlesticks",
+      "q": "A candle opens at 50, falls to 44, rises to 51 and closes at 46. What kind of candle is it?",
+      "options": [
+        "A down candle: body from 50 to 46, wicks to 51 and 44",
+        "An up candle: body from 46 to 50",
+        "A down candle: body from 51 to 44",
+        "An up candle with no wicks"
+      ],
+      "answer": 0,
+      "why": "It closed below its open, so it's a down candle. Body = open to close; wicks = high and low."
+    },
+    {
+      "id": "15-uptrend",
+      "type": "mcq",
+      "topic": "trends",
+      "q": "Which describes an uptrend?",
+      "options": ["Higher highs and higher lows", "Lower highs and lower lows", "Prices bouncing between two levels", "One big rise in a day"],
+      "answer": 0,
+      "why": "An uptrend makes higher highs and higher lows; a downtrend the opposite; a range moves sideways."
+    },
+    {
+      "id": "15-support-def",
+      "type": "match",
+      "topic": "support and resistance",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["Support", "A level where falls have repeatedly stopped"],
+        ["Resistance", "A level where rises have repeatedly stalled"],
+        ["Breakout", "Price pushing clearly through a level"],
+        ["False breakout", "Poking through a level then falling back"]
+      ],
+      "why": "Levels show where buyers or sellers have acted before, not guarantees."
+    },
+    {
+      "id": "15-flip",
+      "type": "tf",
+      "topic": "support and resistance",
+      "q": "After a price breaks above resistance, that old resistance level often acts as support.",
+      "answer": true,
+      "why": "Old resistance often becomes new support (and vice versa), though not always."
+    },
+    {
+      "id": "15-stop-place",
+      "type": "mcq",
+      "topic": "using levels",
+      "q": "You buy near support at 100. Where does a stop-loss usually make most sense?",
+      "options": ["Just below support, say 98.50", "Just above your entry, at 100.50", "At 50, far away", "No stop: support always holds"],
+      "answer": 0,
+      "why": "The stop goes where you'd be proved wrong: just beyond the level that should have held."
+    },
+    {
+      "id": "15-timeframe-order",
+      "type": "order",
+      "topic": "timeframes",
+      "q": "Put these chart timeframes in order from most noise to the biggest picture.",
+      "items": ["1-minute", "1-hour", "Daily", "Weekly"],
+      "why": "Shorter timeframes show more random wiggles; longer ones show the main trend."
+    },
+    {
+      "id": "15-certainty",
+      "type": "tf",
+      "topic": "fooling yourself",
+      "q": "A price that has bounced off a level three times will definitely bounce the fourth time.",
+      "answer": false,
+      "why": "Nothing is definite. Repeated bounces suggest buyers have been active there, but levels break often."
+    },
+    {
+      "id": "15-risk-reward",
+      "type": "number",
+      "topic": "using levels",
+      "q": "You buy at {e} with a stop at {s} and a target at the next resistance, {t}. What's the reward-to-risk ratio? (e.g. 2 for 2:1)",
+      "vars": {
+        "e": { "choices": [101], "default": 101 },
+        "s": { "choices": [98, 99], "default": 99 },
+        "t": { "choices": [105, 107, 109], "default": 107 }
+      },
+      "answer": "(t-e)/(e-s)",
+      "tol": 0.05,
+      "unit": ":1",
+      "dp": 2,
+      "why": "Reward ({t} − {e}) ÷ risk ({e} − {s}) = {answer}."
+    },
+    {
+      "id": "15-why-levels-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "support and resistance",
+      "q": "Explain why support and resistance levels might work, at least some of the time.",
+      "ideas": [
+        { "label": "Traders remember prices: buyers who missed out or sellers wanting to get out even act at the same levels", "any": ["remember", "missed", "get out", "break even", "even", "previous", "past", "before", "memory", "round number"] },
+        { "label": "Many traders watch the same levels, so their orders can make it self-fulfilling", "any": ["self-fulfilling", "self fulfilling", "everyone watches", "lots of traders", "many traders", "orders", "same levels", "believe"] }
+      ],
+      "model": "People remember prices: buyers who missed out at a low may buy if it returns, and people who bought at a high may sell to get out even when it comes back. And because many traders watch the same levels and place orders there, the effect can become partly self-fulfilling.",
+      "why": "Memory and crowd behaviour, not magic.",
+      "tests": [
+        { "answer": "Traders remember previous prices and want to get out even, and because many traders watch the same levels it's self-fulfilling.", "marks": 2 },
+        { "answer": "Because lots of traders place orders there.", "marks": 1 },
+        { "answer": "Because the price can't go lower.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "15-fool-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "fooling yourself",
+      "q": "Explain why chart patterns can look far more reliable than they really are.",
+      "ideas": [
+        { "label": "Hindsight: on old charts you know what happened next", "any": ["hindsight", "afterwards", "already know", "know what happened", "looking back", "old charts", "after the fact"] },
+        { "label": "Random prices also make patterns, and failures get forgotten (need testing on many examples)", "any": ["random", "noise", "fail", "failures", "forget", "cherry", "many examples", "test", "luck", "see what you want"] }
+      ],
+      "model": "On old charts you know what happened next, so successful patterns stand out and failures are forgotten. Random prices also form trends and patterns by chance. The only way to know is to test a pattern on many examples, including the failures.",
+      "why": "Hindsight and randomness make charts persuasive.",
+      "tests": [
+        { "answer": "With hindsight you already know what happened, and random noise makes patterns while you forget the failures.", "marks": 2 },
+        { "answer": "Because of hindsight.", "marks": 1 },
+        { "answer": "Because charts are always right.", "marks": 0 }
+      ]
+    }
+  ]
+}

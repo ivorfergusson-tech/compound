@@ -1,0 +1,157 @@
+{
+  "module": "11",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "11-paper-what",
+      "type": "mcq",
+      "topic": "paper trading",
+      "q": "What is paper trading?",
+      "options": [
+        "Practising trades with pretend money at real prices, recording them as if real",
+        "Trading shares in paper companies",
+        "Trading using printed share certificates",
+        "Trading only on weekends"
+      ],
+      "answer": 0,
+      "why": "It lets you test ideas, rules and your own behaviour without risking real money."
+    },
+    {
+      "id": "11-hours-match",
+      "type": "match",
+      "topic": "trading hours",
+      "q": "Match each market to its usual hours (UK time).",
+      "pairs": [
+        ["London Stock Exchange", "8am to 4.30pm weekdays"],
+        ["US stock markets", "About 2.30pm to 9pm weekdays"],
+        ["Forex", "Sunday night to Friday night, almost round the clock"],
+        ["Crypto", "24 hours, 7 days a week"]
+      ],
+      "why": "Hours matter: pick a market you can actually watch when you need to."
+    },
+    {
+      "id": "11-paper-feel",
+      "type": "tf",
+      "topic": "paper trading",
+      "q": "Paper trading feels just the same as trading real money, so results transfer exactly.",
+      "answer": false,
+      "why": "Pretend losses don't hurt like real ones, so people often trade more boldly on paper. Size paper trades realistically."
+    },
+    {
+      "id": "11-journal-why",
+      "type": "mcq",
+      "topic": "trading journal",
+      "q": "Why should you write the reason for a trade in your journal before entering it?",
+      "options": [
+        "Afterwards it's too easy to invent a convincing story",
+        "It's required by law",
+        "It makes the trade more likely to win",
+        "Brokers ask for it"
+      ],
+      "answer": 0,
+      "why": "Hindsight makes every trade look sensible. A written plan beforehand keeps you honest."
+    },
+    {
+      "id": "11-r-result",
+      "type": "number",
+      "topic": "trading journal",
+      "q": "You risked {r} on a paper trade (the gap to your stop × size) and made {p}. What's the result in R?",
+      "vars": {
+        "r": { "choices": [50, 100, 200], "default": 100, "fmt": "money0" },
+        "p": { "choices": [50, 150, 190, 300], "default": 190, "fmt": "money0" }
+      },
+      "answer": "p/r",
+      "tol": 0.02,
+      "unit": "R",
+      "dp": 2,
+      "why": "R = result ÷ amount risked = {p} ÷ {r} = {answer}R."
+    },
+    {
+      "id": "11-routine-order",
+      "type": "order",
+      "topic": "your first paper trade",
+      "q": "Put the steps for a first paper trade in order.",
+      "items": [
+        "Choose a market and watch it for a week",
+        "Write a simple entry and exit rule",
+        "Fill in setup, entry, stop, target and size in the journal",
+        "Enter the trade and leave the stop alone",
+        "Record the result and whether you followed your rules"
+      ],
+      "why": "Learn the market, set rules, plan in writing, execute, then review honestly."
+    },
+    {
+      "id": "11-crypto",
+      "type": "mcq",
+      "topic": "choosing your market",
+      "q": "What does the FCA say about crypto for ordinary investors?",
+      "options": [
+        "It's high risk and mostly unregulated: be prepared to lose all the money you put in",
+        "It's protected by the FSCS",
+        "Crypto CFDs are fine for beginners",
+        "It's as safe as a savings account"
+      ],
+      "answer": 0,
+      "why": "Most crypto isn't regulated, there's usually no FSCS cover, and crypto derivatives are banned for retail customers."
+    },
+    {
+      "id": "11-demo",
+      "type": "tf",
+      "topic": "paper trading",
+      "q": "A provider's demo account is always set up to help you trade carefully.",
+      "answer": false,
+      "why": "Many demos encourage high leverage and frequent trading, because that's how providers earn. Set your own realistic rules."
+    },
+    {
+      "id": "11-one-market",
+      "type": "mcq",
+      "topic": "choosing your market",
+      "q": "Why is it usually better for a beginner to focus on one market?",
+      "options": [
+        "You learn how it behaves: its hours, spreads, typical moves and news",
+        "Other markets are illegal for beginners",
+        "One market always beats the others",
+        "It's the only way to avoid tax"
+      ],
+      "answer": 0,
+      "why": "Depth beats breadth: knowing one market well makes your journal and results meaningful."
+    },
+    {
+      "id": "11-choose-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "choosing your market",
+      "q": "Explain two things to consider when choosing which market to paper trade.",
+      "ideas": [
+        { "label": "Its trading hours versus when you can watch it", "any": ["hours", "when it's open", "open", "time", "schedule", "job", "school", "evening", "watch"] },
+        { "label": "How volatile it is versus your nerves and risk", "any": ["volatil*", "moves", "swing", "risk", "nerves", "calm", "how much it moves", "stress"] },
+        { "label": "Costs and regulation (spreads, fees, protection)", "any": ["cost", "spread", "fees", "regulat*", "fca", "protection", "safe"] }
+      ],
+      "model": "Its trading hours (can you watch it when it matters?), how volatile it is compared with your nerves and risk limits, and its costs and regulation (spreads, fees, and whether it's FCA-regulated, unlike most crypto).",
+      "why": "The right market fits your life, your nerves and your costs.",
+      "tests": [
+        { "answer": "Whether its hours fit my school day, how volatile it is for my nerves, and the spreads and regulation.", "marks": 3 },
+        { "answer": "When it's open.", "marks": 1 },
+        { "answer": "Which one my friend uses.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "11-journal-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "trading journal",
+      "q": "Explain why a trading journal helps you tell skill from luck.",
+      "ideas": [
+        { "label": "It records every trade, wins and losses, so you see the real overall results", "any": ["every trade", "all trades", "losses", "record", "results", "track", "honest", "statistics", "data"] },
+        { "label": "Over many trades you can check whether results come from following rules or chance (patterns, expectancy)", "any": ["many trades", "over time", "patterns", "rules", "expectancy", "sample", "repeat", "consistent", "process"] }
+      ],
+      "model": "A journal records every trade, including losses we'd rather forget, so you see your real results. Over many trades you can check whether profits come from following your rules (an edge) or just a lucky streak, and spot patterns in your mistakes.",
+      "why": "Without records, memory flatters you.",
+      "tests": [
+        { "answer": "It records all trades including losses, and over many trades shows whether following my rules works or it was luck.", "marks": 2 },
+        { "answer": "It keeps a record of your trades.", "marks": 1 },
+        { "answer": "It makes trades win more often.", "marks": 0 }
+      ]
+    }
+  ]
+}

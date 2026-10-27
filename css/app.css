@@ -351,3 +351,4 @@ a.item:hover { border-color: var(--border-2); }
 .check { display: flex; align-items: center; gap: 8px; font-size: 15px; min-height: 40px; }
 .check input { width: 20px; height: 20px; accent-color: var(--accent); }
 .made-up { margin: 0; font-style: italic; }
+.ch-tag { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
