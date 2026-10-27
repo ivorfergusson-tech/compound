@@ -457,7 +457,8 @@ function toast(text) {
 async function route() {
   cleanup.forEach(fn => fn()); cleanup = [];
   closePopover();
-  const [path, query] = (location.hash.slice(1) || '/').split('?');
+  const raw = location.hash.slice(1);
+  const [path, query] = (raw.startsWith('/') ? raw : '/').split('?');
   const params = new URLSearchParams(query || '');
   const parts = path.split('/').filter(Boolean);
   try {

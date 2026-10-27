@@ -7,7 +7,7 @@ import { esc } from './util.js';
 
 const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
 let sb = null, session = null, progress = null, notify = () => {};
-let nickname = null, rank = null, syncing = null, pushTimer = null;
+let nickname = null, rank = null, syncing = null, pushTimer = null, authError = null;
 
 export const enabled = () => Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 export const signedIn = () => Boolean(session);
@@ -20,9 +20,15 @@ export async function init(p, onChange) {
   try {
     const { createClient } = await import(LIB);
     sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true } });
+    // Coming back from Google or an email link: details arrive in ?query or #fragment.
+    const q = new URLSearchParams(location.search);
+    const h = new URLSearchParams(location.hash.startsWith('#/') ? '' : location.hash.slice(1));
+    const returned = q.has('code') || q.has('error') || h.has('error') || h.has('access_token');
+    authError = q.get('error_description') || h.get('error_description') || null;
+    if (h.has('access_token')) await sb.auth.setSession({ access_token: h.get('access_token'), refresh_token: h.get('refresh_token') });
     const { data } = await sb.auth.getSession();
     session = data.session;
-    if (new URLSearchParams(location.search).has('code')) history.replaceState(null, '', location.pathname + location.hash);
+    if (returned) history.replaceState(null, '', location.pathname + '#/account');
     sb.auth.onAuthStateChange((event, s) => {
       session = s;
       if (event === 'SIGNED_IN') setTimeout(syncNow, 0);
@@ -124,7 +130,9 @@ export async function authPanel() {
     return `<h2>Account</h2><p>Accounts aren't switched on yet. Your progress is saved in this browser.</p>`;
   }
   if (!session) {
-    return `<h2>Make a free account</h2>
+    const err = authError ? `<p class="auth-error">Sign-in didn't work: ${esc(authError)}</p>` : '';
+    authError = null;
+    return err + `<h2>Make a free account</h2>
       <p>Keep your progress on any device and join the leaderboard. Everything you've done in this browser moves across.</p>
       <button type="button" class="btn wide google">Continue with Google</button>
       <p class="muted center">or</p>
