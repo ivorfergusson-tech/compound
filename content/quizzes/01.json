@@ -1,0 +1,353 @@
+{
+  "module": "01",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "01-compound-balance",
+      "type": "number",
+      "topic": "compound interest",
+      "q": "{p} earns {r} compound interest a year for {y} years. What's the final balance?",
+      "vars": {
+        "p": {
+          "min": 500,
+          "max": 2000,
+          "step": 100,
+          "default": 800,
+          "fmt": "money0"
+        },
+        "r": {
+          "min": 2,
+          "max": 8,
+          "step": 0.5,
+          "default": 5,
+          "fmt": "pct"
+        },
+        "y": {
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        }
+      },
+      "answer": "p*(1+r/100)**y",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "{p} × (1 + {r})^{y} = {answer}. Each year's interest is added before the next year's is worked out."
+    },
+    {
+      "id": "01-interest-on-interest",
+      "type": "number",
+      "topic": "interest on interest vs total interest",
+      "q": "{p} earns {r} compound interest a year for {y} years. How much of the interest is interest on interest (the extra compared with simple interest)?",
+      "vars": {
+        "p": {
+          "min": 500,
+          "max": 2000,
+          "step": 100,
+          "default": 800,
+          "fmt": "money0"
+        },
+        "r": {
+          "min": 3,
+          "max": 8,
+          "step": 1,
+          "default": 5,
+          "fmt": "pct"
+        },
+        "y": {
+          "min": 2,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      },
+      "calc": {
+        "total": "p*(1+r/100)**y - p",
+        "simple": "p*r/100*y"
+      },
+      "calcFmt": {
+        "total": "money2",
+        "simple": "money2"
+      },
+      "answer": "p*(1+r/100)**y - p - p*r/100*y",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 2,
+      "why": "Total interest is {total}. Simple interest would be {simple}. The difference, {answer}, is interest earned on interest. It isn't next year's interest."
+    },
+    {
+      "id": "01-rule-72",
+      "type": "number",
+      "topic": "rule of 72",
+      "q": "Using the rule of 72, roughly how many years does money take to double at {r} a year?",
+      "vars": {
+        "r": {
+          "choices": [
+            3,
+            4,
+            6,
+            8,
+            9,
+            12
+          ],
+          "default": 6,
+          "fmt": "pct"
+        }
+      },
+      "answer": "72/r",
+      "tol": 0.6,
+      "unit": "years",
+      "dp": 0,
+      "why": "72 ÷ {r} = {answer} years. Halve the rate and the time doubles."
+    },
+    {
+      "id": "01-real-mcq",
+      "type": "mcq",
+      "group": "real",
+      "topic": "real return (subtract inflation)",
+      "q": "Your savings pay 4.5% and inflation is 3.5%. Roughly what's your real return?",
+      "options": [
+        "About 8%",
+        "About 1%",
+        "About 4.5%",
+        "About −1%"
+      ],
+      "answer": 1,
+      "why": "Inflation works against you, so subtract it: 4.5 − 3.5 ≈ 1%. Adding it (8%) is the classic mistake."
+    },
+    {
+      "id": "01-real-number",
+      "type": "number",
+      "group": "real",
+      "topic": "real return (subtract inflation)",
+      "q": "An account pays {r} a year and inflation is {i}. Roughly what's the real return, in %? (Use a minus sign if it's negative.)",
+      "vars": {
+        "r": {
+          "min": 1,
+          "max": 6,
+          "step": 0.5,
+          "default": 4.5,
+          "fmt": "pct"
+        },
+        "i": {
+          "min": 2,
+          "max": 6,
+          "step": 0.5,
+          "default": 3.5,
+          "fmt": "pct"
+        }
+      },
+      "answer": "((1+r/100)/(1+i/100)-1)*100",
+      "tol": 0.3,
+      "unit": "%",
+      "dp": 2,
+      "why": "Real ≈ {r} − {i}. Exactly: (1 + {r}) ÷ (1 + {i}) − 1 = {answer}%. Subtract inflation, never add it."
+    },
+    {
+      "id": "01-balance-up-tf",
+      "type": "tf",
+      "topic": "nominal vs real",
+      "q": "If your savings balance goes up, you're always better off.",
+      "answer": false,
+      "why": "Only if your rate beats inflation. A 1% account with 3.5% inflation grows in pounds but buys less."
+    },
+    {
+      "id": "01-start-early",
+      "type": "explain",
+      "group": "explain",
+      "topic": "why time matters most (more years at the end)",
+      "q": "Explain why starting to save at 18 rather than 28 makes such a big difference, even with the same money and the same rate.",
+      "ideas": [
+        {
+          "label": "Names compounding: interest earning interest",
+          "any": [
+            "compound",
+            "compounding",
+            "interest on interest",
+            "interest on the interest",
+            "interest earns interest",
+            "earn interest on",
+            "snowball"
+          ]
+        },
+        {
+          "label": "The earlier money gets more years to grow, and the last years grow the most",
+          "any": [
+            "more years",
+            "more time",
+            "extra years",
+            "extra time",
+            "longer",
+            "starts earlier",
+            "start earlier",
+            "earlier",
+            "10 years",
+            "ten years",
+            "years at the end",
+            "final years",
+            "last years",
+            "biggest growth",
+            "grows most",
+            "grows fastest",
+            "time to grow"
+          ]
+        }
+      ],
+      "model": "Money saved earlier gets more years of interest earning interest. Growth is biggest in the final years, when the pot is largest, so starting at 28 cuts off the most valuable years at the end. The time matters more than the amount.",
+      "why": "Compounding is the mechanism; extra years (especially the big final ones) are the reason it matters.",
+      "tests": [
+        {
+          "answer": "Money you save at 18 gets ten more years of interest earning interest, and the last years grow the most.",
+          "marks": 2
+        },
+        {
+          "answer": "Because of compound interest the money will compound and beat it.",
+          "marks": 1
+        },
+        {
+          "answer": "At 18 you have less money so it doesn't really matter.",
+          "marks": 0
+        }
+      ]
+    },
+    {
+      "id": "01-safe-account",
+      "type": "explain",
+      "group": "explain",
+      "topic": "nominal vs real",
+      "q": "A friend says their savings account paying 1% is safe because the balance never goes down. Inflation is 3.5%. What would you tell them?",
+      "ideas": [
+        {
+          "label": "Prices are rising faster than their interest (inflation is higher than 1%)",
+          "any": [
+            "inflation",
+            "prices rise",
+            "prices go up",
+            "prices rising",
+            "cost of living",
+            "things cost more",
+            "more expensive",
+            "prices are rising",
+            "prices are going up",
+            "price rises",
+            "rising prices"
+          ]
+        },
+        {
+          "label": "So the money loses spending power / real value",
+          "any": [
+            "spending power",
+            "buying power",
+            "purchasing power",
+            "buys less",
+            "buy less",
+            "worth less",
+            "real value",
+            "real terms",
+            "loses value",
+            "lose value",
+            "losing value",
+            "negative real",
+            "real return"
+          ]
+        }
+      ],
+      "model": "They're right about the pounds but wrong about the value. Inflation is 3.5%, so prices are rising faster than their money grows at 1%. It loses about 2.4% of its spending power a year. A better-paying account keeps the same safety and shrinks the loss.",
+      "why": "Safe in pounds isn't safe in spending power.",
+      "tests": [
+        {
+          "answer": "Inflation is 3.5% so prices rise faster than the 1% interest, meaning their money buys less each year.",
+          "marks": 2
+        },
+        {
+          "answer": "Prices go up every year.",
+          "marks": 1
+        },
+        {
+          "answer": "They are right, banks are safe and protected.",
+          "marks": 0
+        }
+      ]
+    },
+    {
+      "id": "01-bank-rate",
+      "type": "mcq",
+      "topic": "Bank Rate and other rates",
+      "q": "The Bank of England raises Bank Rate. What usually happens next?",
+      "options": [
+        "Savings and borrowing rates both tend to rise",
+        "Savings rates rise and borrowing rates fall",
+        "Borrowing rates rise and savings rates fall",
+        "Nothing changes for ordinary people"
+      ],
+      "answer": 0,
+      "why": "Other rates follow Bank Rate. Borrowing rates often move quickly; savings rates can lag because many savers never switch."
+    },
+    {
+      "id": "01-spending-order",
+      "type": "order",
+      "topic": "real return (subtract inflation)",
+      "q": "Inflation is 3.5%. Put these places for £1,500 in order of spending power after one year, most first.",
+      "items": [
+        "Account paying 5%",
+        "Account paying 4.5%",
+        "Account paying 1%",
+        "Cash at home"
+      ],
+      "why": "The higher the rate, the more spending power. Only the accounts above 3.5% gain any; cash at home loses about 3.4%."
+    },
+    {
+      "id": "01-terms-match",
+      "type": "match",
+      "topic": "key terms",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        [
+          "Principal",
+          "The amount you start with"
+        ],
+        [
+          "CPI",
+          "The main UK measure of inflation"
+        ],
+        [
+          "Nominal return",
+          "The number on your statement"
+        ],
+        [
+          "Real return",
+          "Your gain in spending power"
+        ]
+      ],
+      "why": "Nominal is before inflation; real is after it. CPI is how the ONS measures inflation."
+    },
+    {
+      "id": "01-inflation-cost",
+      "type": "number",
+      "topic": "inflation",
+      "q": "Prices rise by {i} over a year. Shopping that cost {p} last year costs how much now?",
+      "vars": {
+        "p": {
+          "min": 50,
+          "max": 500,
+          "step": 10,
+          "default": 200,
+          "fmt": "money0"
+        },
+        "i": {
+          "min": 2,
+          "max": 8,
+          "step": 0.5,
+          "default": 3.5,
+          "fmt": "pct"
+        }
+      },
+      "answer": "p*(1+i/100)",
+      "tol": 0.05,
+      "unit": "£",
+      "dp": 2,
+      "why": "{p} × (1 + {i}) = {answer}."
+    }
+  ]
+}

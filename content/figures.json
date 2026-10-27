@@ -1,0 +1,66 @@
+{
+  "_about": "Every figure that changes. Lessons show these with {{fig:key}}. Update 'value', 'display', 'asOf' and 'checked' together. See UPDATING.md.",
+  "taxYear": "2026/27",
+  "figures": {
+    "bankRate": {
+      "value": 3.75,
+      "display": "3.75%",
+      "label": "Bank Rate",
+      "asOf": "held on 17 September 2026; next decision 5 November 2026",
+      "source": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+      "checked": "2026-10-27",
+      "refresh": "after every Bank of England decision"
+    },
+    "cpi": {
+      "value": 3.5,
+      "display": "3.5%",
+      "label": "CPI inflation",
+      "asOf": "12 months to September 2026 (published 21 October 2026)",
+      "source": "Office for National Statistics",
+      "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+      "checked": "2026-10-27",
+      "refresh": "monthly (ONS release, mid-month)"
+    },
+    "inflationTarget": {
+      "value": 2,
+      "display": "2%",
+      "label": "Bank of England inflation target",
+      "asOf": "set by the government",
+      "source": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/explainers/what-is-inflation",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "cpiBasket": {
+      "value": 700,
+      "display": "about 700",
+      "label": "Items in the CPI basket",
+      "asOf": "2026 basket",
+      "source": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/explainers/what-is-inflation",
+      "checked": "2026-10-27",
+      "refresh": "each March (ONS basket update)"
+    },
+    "topEasyAccess": {
+      "value": 4.5,
+      "display": "about 4.5–5.0% AER",
+      "label": "Top easy-access savings rates",
+      "asOf": "late October 2026; several only with a temporary bonus",
+      "source": "Moneyfacts Compare",
+      "url": "https://moneyfactscompare.co.uk/savings-accounts/easy-access-savings-accounts/",
+      "checked": "2026-10-27",
+      "refresh": "after every Bank of England decision"
+    },
+    "cardApr": {
+      "value": 35.8,
+      "display": "35.8%",
+      "label": "Average advertised credit card purchase APR",
+      "asOf": "February 2026",
+      "source": "Moneyfacts Group",
+      "url": "https://www.moneyfactsgroup.co.uk/media-centre/consumer/cost-to-borrow-on-credit-cards-hits-20-year-high",
+      "checked": "2026-10-13",
+      "refresh": "every few months"
+    }
+  }
+}
