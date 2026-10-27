@@ -84,7 +84,7 @@ export const industryCalculators = {
       ['Banks change their rates', 'Mortgages, loans, savings, often within weeks'],
       ['Spending and borrowing change', 'Higher rates: borrow less, save more'],
       ['Demand in the economy changes', 'Less spending cools prices and hiring'],
-      ['Inflation moves towards 2%', 'Full effect can take 18–24 months'],
+      ['Inflation moves towards 2%', 'The main effect often comes a year or two later'],
     ];
     root.innerHTML = `<figure class="calc chain" role="img" aria-label="How a Bank Rate change spreads: banks change rates, spending changes, demand changes, inflation moves">
       <h3 class="calc-title">How a rate change spreads (the transmission mechanism)</h3>
@@ -118,6 +118,23 @@ export const industryCalculators = {
     wire(root, { loan: pounds, years: v => `${v}`, rate: pct, change: v => `+${v}%` }, (v, set) => {
       const now = mortgagePayment(v.loan, v.rate, v.years), after = mortgagePayment(v.loan, v.rate + v.change, v.years);
       set('now', gbp(now, 0)); set('after', gbp(after, 0)); set('extra', gbp(after - now, 0));
+    });
+  },
+
+  takeover(root, a) {
+    root.innerHTML = card('Pricing a takeover',
+      slider('price', 'Target\'s share price before the bid', { min: 1, max: 20, step: 0.1, value: a.price ?? 3 })
+      + slider('premium', 'Bid premium', { min: 0, max: 80, step: 1, value: a.premium ?? 30 })
+      + slider('shares', 'Target\'s shares, millions', { min: 10, max: 1000, step: 10, value: a.shares ?? 100 })
+      + slider('debt', 'Target\'s net debt, £m', { min: 0, max: 500, step: 10, value: a.debt ?? 70 })
+      + slider('ebitda', 'Target\'s EBITDA, £m', { min: 5, max: 200, step: 1, value: a.ebitda ?? 40 })
+      + `<div class="stats">${stat('Offer per share', 'offer', 'good')}${stat('Equity value (deal size)', 'eq')}${stat('Enterprise value', 'ev')}</div>`
+      + `<div class="stats">${stat('EV / EBITDA paid', 'mult', 'good')}${stat('Before the bid', 'before')}</div>`,
+      'Buyers usually pay a premium over the share price to win control. Enterprise value adds the target\'s debt the buyer takes on (module 22). Advisers compare the multiple paid with similar past deals.');
+    wire(root, { price: v => gbp(v, 2), premium: v => `${v}%`, shares: v => `${v}m`, debt: v => `£${v}m`, ebitda: v => `£${v}m` }, (v, set) => {
+      const offer = v.price * (1 + v.premium / 100), eq = offer * v.shares, ev = eq + v.debt;
+      set('offer', gbp(offer, 2)); set('eq', `£${Math.round(eq)}m`); set('ev', `£${Math.round(ev)}m`);
+      set('mult', `${(ev / v.ebitda).toFixed(1)}×`); set('before', `${((v.price * v.shares + v.debt) / v.ebitda).toFixed(1)}×`);
     });
   },
 

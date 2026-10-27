@@ -1,0 +1,152 @@
+{
+  "module": "12",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "12-raise-effect",
+      "type": "mcq",
+      "topic": "the transmission mechanism",
+      "q": "Inflation is well above 2%. What does the MPC usually do, and why?",
+      "options": [
+        "Raise (or keep high) Bank Rate to cool spending and bring inflation down over time",
+        "Cut Bank Rate so people spend more",
+        "Print banknotes to pay for higher prices",
+        "Nothing: inflation always fixes itself overnight"
+      ],
+      "answer": 0,
+      "why": "Higher rates make borrowing dearer and saving more rewarding, slowing spending and easing price pressure, with a delay."
+    },
+    {
+      "id": "12-chain-order",
+      "type": "order",
+      "topic": "the transmission mechanism",
+      "q": "Put the effects of a Bank Rate rise in order.",
+      "items": [
+        "The MPC votes to raise Bank Rate",
+        "Banks raise mortgage and loan rates",
+        "Households and firms borrow and spend less",
+        "Inflation eases towards 2%"
+      ],
+      "why": "Rate → bank rates → spending → inflation. The last step can take a year or two."
+    },
+    {
+      "id": "12-mortgage",
+      "type": "number",
+      "topic": "rates and your money",
+      "q": "A £200,000 repayment mortgage over 25 years costs £1,111.66 a month at 4.5%. At 5.5% it costs £1,228.17. How much more is that a year?",
+      "answer": "(1228.17-1111.66)*12",
+      "tol": 1,
+      "unit": "£",
+      "dp": 2,
+      "why": "£116.51 a month × 12 = £1,398.12 a year: money that's no longer spent elsewhere."
+    },
+    {
+      "id": "12-mpc-facts",
+      "type": "mcq",
+      "topic": "the MPC",
+      "q": "Which is true about the Monetary Policy Committee?",
+      "options": [
+        "Nine members vote eight times a year, and the votes are published",
+        "The Prime Minister sets Bank Rate each month",
+        "It meets once a year in secret",
+        "Each bank sets its own Bank Rate"
+      ],
+      "answer": 0,
+      "why": "The Bank is operationally independent; its nine-member MPC votes eight times a year and publishes minutes."
+    },
+    {
+      "id": "12-qe",
+      "type": "match",
+      "topic": "QE",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["Bank Rate", "The Bank of England's main interest rate"],
+        ["Quantitative easing", "Creating money to buy gilts and push down long-term rates"],
+        ["Quantitative tightening", "Shrinking the Bank's holdings of gilts"],
+        ["Inflation target", "2% CPI, set by the government"]
+      ],
+      "why": "Bank Rate is the main tool; QE was used when rates were near zero, and QT now reverses it."
+    },
+    {
+      "id": "12-sets-rates",
+      "type": "tf",
+      "topic": "Bank Rate",
+      "q": "The Bank of England directly sets the interest rate on your savings account.",
+      "answer": false,
+      "why": "It sets Bank Rate. Banks set their own savings and mortgage rates, influenced by it, by expectations and by competition."
+    },
+    {
+      "id": "12-why-2",
+      "type": "mcq",
+      "topic": "inflation target",
+      "q": "Why is the target 2% rather than 0%?",
+      "options": [
+        "Falling prices can be harmful, and a little inflation leaves room to cut rates in a downturn",
+        "Because 0% is impossible to measure",
+        "So that savers always lose money",
+        "Because the law forbids 0%"
+      ],
+      "answer": 0,
+      "why": "Deflation can make people delay spending and makes debts heavier; 2% gives a buffer."
+    },
+    {
+      "id": "12-lag",
+      "type": "tf",
+      "topic": "the transmission mechanism",
+      "q": "A Bank Rate rise brings inflation down within a week or two.",
+      "answer": false,
+      "why": "The effects are long and variable: the main impact on prices often comes a year or two later."
+    },
+    {
+      "id": "12-fixed",
+      "type": "mcq",
+      "topic": "rates and your money",
+      "q": "Why do many UK households not feel a Bank Rate rise straight away?",
+      "options": [
+        "Most mortgages are fixed for two to five years and only change when the fix ends",
+        "Banks ignore Bank Rate",
+        "Rate rises only affect businesses",
+        "Mortgages are paid annually"
+      ],
+      "answer": 0,
+      "why": "Fixed-rate deals delay the effect until people remortgage, which is one reason policy works slowly."
+    },
+    {
+      "id": "12-independence-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "the Bank of England",
+      "q": "Explain why the Bank of England, not the government, sets Bank Rate.",
+      "ideas": [
+        { "label": "Politicians might cut rates to win votes, storing up inflation", "any": ["election", "politicians", "votes", "short term", "short-term", "popular", "tempted", "government might"] },
+        { "label": "An independent bank with a clear target is more credible, keeping inflation expectations steady", "any": ["credible", "credibility", "trust", "believe", "expectations", "independent", "target", "steady", "stable"] }
+      ],
+      "model": "Politicians might be tempted to cut rates before an election to boost the economy, storing up inflation for later. An independent Bank with a clear 2% target is more credible, and if people believe inflation will stay near 2%, it's easier to keep it there.",
+      "why": "Independence buys credibility.",
+      "tests": [
+        { "answer": "Politicians might cut rates to win elections, and an independent bank with a target is more credible so expectations stay steady.", "marks": 2 },
+        { "answer": "So politicians can't use it to win votes.", "marks": 1 },
+        { "answer": "Because the bank has more money.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "12-qe-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "QE",
+      "q": "Explain how quantitative easing was meant to help the economy when Bank Rate was already near zero.",
+      "ideas": [
+        { "label": "The Bank created money to buy gilts (government bonds)", "any": ["buy gilts", "buy bonds", "buying bonds", "buying gilts", "government bonds", "create money", "created money", "new money", "purchases"] },
+        { "label": "This pushed down long-term interest rates / yields, making borrowing cheaper", "any": ["long-term rates", "long term rates", "yields", "lower rates", "cheaper borrowing", "borrowing cheaper", "interest rates fall", "push down"] },
+        { "label": "Encouraging spending and investment (and lifting asset prices)", "any": ["spending", "invest*", "asset prices", "boost", "demand", "growth", "economy"] }
+      ],
+      "model": "The Bank created new money to buy gilts in huge amounts. That pushed gilt prices up and yields down, so long-term borrowing got cheaper for firms and households, and sellers moved money into other assets, encouraging spending and investment.",
+      "why": "QE works on long-term rates when short-term rates can't go lower.",
+      "tests": [
+        { "answer": "The Bank created money to buy government bonds, which pushed down long-term rates and encouraged spending and investment.", "marks": 3 },
+        { "answer": "The Bank bought lots of government bonds.", "marks": 1 },
+        { "answer": "It raised taxes.", "marks": 0 }
+      ]
+    }
+  ]
+}

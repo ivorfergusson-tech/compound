@@ -1,0 +1,157 @@
+{
+  "module": "16",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "16-premium",
+      "type": "number",
+      "topic": "takeover premiums",
+      "q": "A company's shares traded at £{p} before a bid. The offer is £{o} a share. What's the premium, in %?",
+      "vars": {
+        "p": { "choices": [2, 3, 4, 5], "default": 3, "fmt": "money2" },
+        "o": { "choices": [2.6, 3.9, 5.2, 6], "default": 3.9, "fmt": "money2" }
+      },
+      "answer": "(o/p-1)*100",
+      "tol": 0.1,
+      "unit": "%",
+      "dp": 1,
+      "why": "Premium = offer ÷ old price − 1 = {answer}%."
+    },
+    {
+      "id": "16-deal-ev",
+      "type": "number",
+      "topic": "valuation in deals",
+      "q": "A buyer pays £{e}m for all the shares of a company with £{d}m of net debt and EBITDA of £{b}m. What EV/EBITDA multiple did it pay? (One decimal place.)",
+      "vars": {
+        "e": { "choices": [300, 390, 500], "default": 390 },
+        "d": { "choices": [50, 70, 100], "default": 70 },
+        "b": { "choices": [40, 50, 60], "default": 40 }
+      },
+      "answer": "(e+d)/b",
+      "tol": 0.05,
+      "unit": "×",
+      "dp": 1,
+      "why": "EV = equity £{e}m + debt £{d}m; divided by EBITDA £{b}m gives {answer}×."
+    },
+    {
+      "id": "16-teams-match",
+      "type": "match",
+      "topic": "the two big jobs",
+      "q": "Match each team to what it does.",
+      "pairs": [
+        ["M&A advisory", "Advises on buying, selling and merging companies"],
+        ["ECM", "Helps companies issue shares, such as IPOs"],
+        ["DCM", "Helps companies issue bonds and raise debt"],
+        ["Sales and trading", "Buys and sells securities for investors"]
+      ],
+      "why": "Corporate finance advises companies and raises money; sales and trading serves investors."
+    },
+    {
+      "id": "16-why-premium",
+      "type": "mcq",
+      "topic": "takeover premiums",
+      "q": "Why does a bidder usually offer more than the current share price?",
+      "options": [
+        "To persuade shareholders to sell and to gain control, which it expects to be worth more",
+        "Because the law sets a 30% minimum",
+        "Because share prices are always too low",
+        "To pay the advisers"
+      ],
+      "answer": 0,
+      "why": "Control and expected synergies justify a premium in the buyer's eyes, if it isn't overpaying."
+    },
+    {
+      "id": "16-sale-order",
+      "type": "order",
+      "topic": "how a deal happens",
+      "q": "Put the stages of selling a company in order.",
+      "items": [
+        "Prepare: analysis, valuation and an information memorandum",
+        "Contact likely buyers under confidentiality",
+        "Receive bids and run due diligence",
+        "Negotiate, sign and complete"
+      ],
+      "why": "Prepare, market, bid and check, then negotiate and close."
+    },
+    {
+      "id": "16-boutique",
+      "type": "mcq",
+      "topic": "boutiques",
+      "q": "What usually makes an advisory boutique different from a big investment bank?",
+      "options": [
+        "It focuses on advice, without big lending or trading businesses, so it has fewer conflicts",
+        "It only works for individuals",
+        "It isn't regulated",
+        "It only trades shares"
+      ],
+      "answer": 0,
+      "why": "Boutiques sell independent, senior-led advice; big banks can also lend and trade."
+    },
+    {
+      "id": "16-success-fee",
+      "type": "tf",
+      "topic": "pitch books and fees",
+      "q": "M&A advisers are usually paid mostly the same fee whether or not the deal goes ahead.",
+      "answer": false,
+      "why": "Most of the fee is usually a success fee, paid only if the deal completes."
+    },
+    {
+      "id": "16-valuation-match",
+      "type": "match",
+      "topic": "valuation in deals",
+      "q": "Match each valuation method to what it relies on.",
+      "pairs": [
+        ["Trading comparables", "Multiples of similar listed companies"],
+        ["Precedent transactions", "Prices paid in similar past deals"],
+        ["DCF", "Present value of future cash flows"],
+        ["Football field chart", "Shows the ranges from each method side by side"]
+      ],
+      "why": "Advisers triangulate value from several methods."
+    },
+    {
+      "id": "16-insider",
+      "type": "tf",
+      "topic": "staying legal",
+      "q": "Buying shares because a friend at a bank told you about a takeover before it was announced is legal if you don't tell anyone.",
+      "answer": false,
+      "why": "That's insider dealing, a criminal offence in the UK."
+    },
+    {
+      "id": "16-why-buy-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "M&A",
+      "q": "Explain two reasons a company might buy another company rather than grow on its own.",
+      "ideas": [
+        { "label": "Faster growth: customers, products or new markets straight away", "any": ["faster", "quicker", "customers", "new markets", "products", "grow", "expand", "market share", "country"] },
+        { "label": "Synergies: cost savings or extra sales from combining", "any": ["synerg*", "cost savings", "save costs", "cut costs", "combine", "efficien*", "economies of scale"] },
+        { "label": "Capabilities, technology, brands, or keeping rivals out", "any": ["technology", "skills", "brand", "talent", "team", "capabilit*", "rival", "competitor", "defend"] }
+      ],
+      "model": "To grow faster by buying customers, products or a new market straight away; to get synergies such as cost savings from combining; and to gain technology, brands or talent, or to stop a rival getting them first.",
+      "why": "Buying can be quicker than building, if the price is right.",
+      "tests": [
+        { "answer": "It's faster than building customers themselves, they get cost synergies, and they gain a rival's technology.", "marks": 3 },
+        { "answer": "To grow faster.", "marks": 1 },
+        { "answer": "Because the government tells them to.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "16-fail-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "M&A",
+      "q": "Explain why many acquisitions don't create value for the buyer's shareholders.",
+      "ideas": [
+        { "label": "They overpay (big premiums, bidding wars)", "any": ["overpay*", "pay too much", "too high", "premium", "bidding war", "winner's curse", "expensive"] },
+        { "label": "Synergies don't arrive or combining the businesses is hard", "any": ["synerg*", "integrat*", "combining", "culture", "harder than expected", "don't arrive", "overestimate", "costs more"] }
+      ],
+      "model": "Buyers often overpay, especially with big premiums in competitive auctions, and they overestimate synergies. Combining two companies and their cultures is usually harder and costlier than planned, so the expected benefits don't arrive.",
+      "why": "Paying for benefits that don't show up destroys value.",
+      "tests": [
+        { "answer": "They overpay with a big premium and the synergies don't arrive because integrating the companies is hard.", "marks": 2 },
+        { "answer": "They pay too much.", "marks": 1 },
+        { "answer": "Because shares always fall.", "marks": 0 }
+      ]
+    }
+  ]
+}

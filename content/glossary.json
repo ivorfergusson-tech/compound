@@ -9,6 +9,11 @@
     "def": "A version of a fund that reinvests dividends automatically. Income units pay them out instead.",
     "module": "14"
   },
+  "advisory": {
+    "term": "Advisory",
+    "def": "Investment banking work advising companies on deals such as M&A, paid mostly by success fees.",
+    "module": "16"
+  },
   "aer": {
     "term": "AER",
     "def": "Annual Equivalent Rate: a savings rate including compounding over a year, so you can compare accounts fairly.",
@@ -71,7 +76,7 @@
   },
   "bank rate": {
     "term": "Bank Rate",
-    "def": "The Bank of England's main interest rate. Savings and borrowing rates across the UK tend to follow it.",
+    "def": "The Bank of England's main interest rate, set by the MPC. Savings, mortgage and loan rates tend to follow it.",
     "module": "12"
   },
   "bank run": {
@@ -103,6 +108,11 @@
     "term": "Bond",
     "def": "A loan to a government or company that pays a fixed coupon and returns the face value at maturity.",
     "module": "02"
+  },
+  "boutique": {
+    "term": "Boutique",
+    "def": "An independent advisory firm focused on M&A advice, without big lending or trading businesses.",
+    "module": "16"
   },
   "breakout": {
     "term": "Breakout",
@@ -199,6 +209,11 @@
     "def": "Discounted cash flow: valuing a company by adding up the present value of all its future free cash flow.",
     "module": "22"
   },
+  "dcm": {
+    "term": "DCM",
+    "def": "Debt capital markets: helping companies and governments raise money by issuing bonds or arranging loans.",
+    "module": "16"
+  },
   "deflation": {
     "term": "Deflation",
     "def": "Prices in general falling over time.",
@@ -243,6 +258,11 @@
     "term": "Easy-access account",
     "def": "A savings account you can pay into and take money from at any time. The rate is usually variable.",
     "module": "09"
+  },
+  "ecm": {
+    "term": "ECM",
+    "def": "Equity capital markets: helping companies raise money by issuing shares, such as IPOs.",
+    "module": "16"
   },
   "edge": {
     "term": "Edge",
@@ -349,6 +369,11 @@
     "def": "The rate at which prices in general rise over time, so the same £1 buys less.",
     "module": "01"
   },
+  "inflation target": {
+    "term": "Inflation target",
+    "def": "The 2% CPI inflation rate the government asks the Bank of England to aim for.",
+    "module": "12"
+  },
   "interest": {
     "term": "Interest",
     "def": "The price of using money. Savers earn it and borrowers pay it.",
@@ -424,6 +449,11 @@
     "def": "Feeling losses about twice as strongly as equal gains, which leads to panic selling and holding losers too long.",
     "module": "26"
   },
+  "m&a": {
+    "term": "M&A",
+    "def": "Mergers and acquisitions: companies buying, selling or joining with other companies.",
+    "module": "16"
+  },
   "macd": {
     "term": "MACD",
     "def": "Moving Average Convergence Divergence: a fast moving average minus a slow one, with a signal line, to show momentum.",
@@ -468,6 +498,11 @@
     "term": "Moving average",
     "def": "The average closing price over the last N periods, recalculated each period. Smooths noise but lags.",
     "module": "19"
+  },
+  "mpc": {
+    "term": "MPC",
+    "def": "The Monetary Policy Committee: nine people at the Bank of England who vote on Bank Rate eight times a year.",
+    "module": "12"
   },
   "national insurance": {
     "term": "National Insurance",
@@ -534,6 +569,11 @@
     "def": "The income you can have each tax year before paying income tax: £12,570 for most people in 2026/27.",
     "module": "05"
   },
+  "pitch book": {
+    "term": "Pitch book",
+    "def": "A slide deck bankers use to win work: market analysis, ideas, valuation ranges and track record.",
+    "module": "16"
+  },
   "platform fee": {
     "term": "Platform fee",
     "def": "What an investment app or website charges to hold your investments: a % of your pot or a flat fee.",
@@ -563,6 +603,11 @@
     "term": "Profit",
     "def": "What's left from revenue after costs. Gross, operating and net profit take off more costs at each step.",
     "module": "18"
+  },
+  "qe": {
+    "term": "QE",
+    "def": "Quantitative easing: the central bank creating money to buy government bonds, pushing down long-term interest rates.",
+    "module": "12"
   },
   "r-multiple": {
     "term": "R-multiple",
@@ -714,6 +759,11 @@
     "def": "A price level where falls have repeatedly stopped, because buyers stepped in.",
     "module": "15"
   },
+  "synergies": {
+    "term": "Synergies",
+    "def": "Cost savings or extra sales a buyer expects from combining two companies.",
+    "module": "16"
+  },
   "tax code": {
     "term": "Tax code",
     "def": "Tells your employer how much tax-free pay you get. 1257L means £12,570 a year, the standard Personal Allowance.",
@@ -758,6 +808,11 @@
     "term": "Trading journal",
     "def": "A record of every trade: the plan, entry, stop, target, size, result in R and whether you followed your rules.",
     "module": "11"
+  },
+  "transmission mechanism": {
+    "term": "Transmission mechanism",
+    "def": "The chain from a Bank Rate change to bank rates, spending, demand and finally inflation.",
+    "module": "12"
   },
   "trend": {
     "term": "Trend",
