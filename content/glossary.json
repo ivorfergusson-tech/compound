@@ -74,6 +74,11 @@
     "def": "The Bank of England's main interest rate. Savings and borrowing rates across the UK tend to follow it.",
     "module": "12"
   },
+  "bank run": {
+    "term": "Bank run",
+    "def": "Many depositors rushing to withdraw at once, which can break even a healthy bank.",
+    "module": "08"
+  },
   "behaviour gap": {
     "term": "Behaviour gap",
     "def": "The difference between what funds return and what their investors earn, lost to badly timed buying and selling.",
@@ -123,6 +128,11 @@
     "term": "Candlestick",
     "def": "A chart symbol showing one period's open, high, low and close: a body from open to close, wicks to the high and low.",
     "module": "15"
+  },
+  "capital": {
+    "term": "Capital",
+    "def": "A bank's own money (from shareholders and kept profits) that absorbs losses before depositors are hit.",
+    "module": "08"
   },
   "capital gain": {
     "term": "Capital gain",
@@ -193,6 +203,11 @@
     "term": "Deflation",
     "def": "Prices in general falling over time.",
     "module": "01"
+  },
+  "deposit": {
+    "term": "Deposit",
+    "def": "Money held in a bank account: really a promise from the bank to pay you, recorded in its books.",
+    "module": "08"
   },
   "discipline": {
     "term": "Discipline",
@@ -273,6 +288,11 @@
     "term": "Fixed-rate saver",
     "def": "A savings account (often called a bond) that locks your money away for a set time at a fixed rate.",
     "module": "09"
+  },
+  "fractional reserve": {
+    "term": "Fractional reserve",
+    "def": "The textbook idea that banks lend out a multiple of their reserves. The Bank of England calls it misleading today.",
+    "module": "08"
   },
   "free cash flow": {
     "term": "Free cash flow",
@@ -374,6 +394,11 @@
     "def": "An indicator calculated from past prices, so it reacts after moves have happened.",
     "module": "19"
   },
+  "lending": {
+    "term": "Lending",
+    "def": "Banks making loans. In the modern economy each new loan creates a new deposit, which is new money.",
+    "module": "08"
+  },
   "leverage": {
     "term": "Leverage",
     "def": "Controlling a bigger position than your deposit, which multiplies gains and losses.",
@@ -448,6 +473,11 @@
     "term": "National Insurance",
     "def": "A deduction from pay over a threshold that builds your record for the State Pension and some benefits.",
     "module": "05"
+  },
+  "net interest margin": {
+    "term": "Net interest margin",
+    "def": "The gap between the interest a bank earns on loans and pays on deposits, as a share of its lending.",
+    "module": "08"
   },
   "net pay": {
     "term": "Net pay",

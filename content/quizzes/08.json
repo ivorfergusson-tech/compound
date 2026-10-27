@@ -1,0 +1,155 @@
+{
+  "module": "08",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "08-nii",
+      "type": "number",
+      "topic": "net interest margin",
+      "q": "A bank lends £{d}m at {l}% and pays savers {s}% on £{d}m of deposits. What's its net interest income, in £m?",
+      "vars": {
+        "d": { "choices": [500, 1000, 2000], "default": 1000 },
+        "l": { "choices": [5, 6, 7], "default": 6 },
+        "s": { "choices": [2, 2.5, 3], "default": 2.5 }
+      },
+      "answer": "d*(l-s)/100",
+      "tol": 0.05,
+      "unit": "£m",
+      "dp": 1,
+      "why": "Interest earned minus interest paid: £{d}m × ({l}% − {s}%) = £{answer}m."
+    },
+    {
+      "id": "08-money-creation",
+      "type": "mcq",
+      "topic": "money creation",
+      "q": "According to the Bank of England, what usually happens when a bank makes a loan?",
+      "options": [
+        "It creates a new deposit in the borrower's account: new money",
+        "It hands over another customer's savings",
+        "It prints banknotes",
+        "It borrows the money from the government"
+      ],
+      "answer": 0,
+      "why": "Most money in the modern economy is created by banks lending. Repaying loans destroys it again."
+    },
+    {
+      "id": "08-limits",
+      "type": "mcq",
+      "topic": "what limits lending",
+      "q": "Which of these really limits how much UK banks lend?",
+      "options": [
+        "Profit and risk, capital rules, and the Bank of England's interest rate",
+        "A fixed share of the notes in their vaults",
+        "The number of branches they have",
+        "Nothing at all"
+      ],
+      "answer": 0,
+      "why": "Banks lend when it's profitable and safe, within capital and liquidity rules, at a cost set by Bank Rate."
+    },
+    {
+      "id": "08-solvency",
+      "type": "match",
+      "topic": "capital and liquidity",
+      "q": "Match each term to its meaning.",
+      "pairs": [
+        ["Capital", "The bank's own money that absorbs losses"],
+        ["Insolvent", "Losses have wiped out its capital"],
+        ["Illiquid", "Can't get enough cash to meet withdrawals now"],
+        ["Bank run", "Many depositors rushing to withdraw at once"]
+      ],
+      "why": "Banks can fail by losing too much (insolvency) or running short of cash (illiquidity)."
+    },
+    {
+      "id": "08-fscs",
+      "type": "number",
+      "topic": "FSCS protection",
+      "q": "You have £{s} in one bank, which fails. How much does the FSCS pay back? (Limit £120,000 per person per banking licence.)",
+      "vars": { "s": { "choices": [5000, 80000, 150000, 200000], "default": 150000, "fmt": "money0" } },
+      "answer": "Math.min(s,120000)",
+      "tol": 0.5,
+      "unit": "£",
+      "dp": 0,
+      "why": "Up to £120,000 per person per banking licence: {answer}."
+    },
+    {
+      "id": "08-fractional",
+      "type": "tf",
+      "topic": "fractional reserve",
+      "q": "The Bank of England says the textbook 'money multiplier' is an accurate description of how UK banks lend today.",
+      "answer": false,
+      "why": "It calls that story misleading: banks don't wait for deposits, and reserves don't mechanically limit lending."
+    },
+    {
+      "id": "08-northern-rock",
+      "type": "mcq",
+      "topic": "bank runs",
+      "q": "What happened at Northern Rock in September 2007?",
+      "options": [
+        "Savers queued to withdraw money; the government guaranteed its deposits and later nationalised it",
+        "It became the UK's biggest bank",
+        "It was bought by a hedge fund",
+        "It cut its savings rates to zero"
+      ],
+      "answer": 0,
+      "why": "It relied on short-term borrowing that dried up, causing a run. Deposits were guaranteed on 17 September 2007."
+    },
+    {
+      "id": "08-rates-up",
+      "type": "tf",
+      "topic": "net interest margin",
+      "q": "Banks often earn a wider margin when Bank Rate rises, because loan rates can rise faster than savings rates.",
+      "answer": true,
+      "why": "Many savers don't switch, so banks can be slow to pass on higher rates to them."
+    },
+    {
+      "id": "08-mismatch",
+      "type": "mcq",
+      "topic": "capital and liquidity",
+      "q": "Why can even a healthy bank be hit by a run?",
+      "options": [
+        "It lends long (like 25-year mortgages) but owes deposits that can be withdrawn today",
+        "Banks keep no records",
+        "Deposits are always invested in shares",
+        "Runs only hit banks with no customers"
+      ],
+      "answer": 0,
+      "why": "This maturity mismatch means a bank can't instantly turn long loans into cash for everyone at once."
+    },
+    {
+      "id": "08-model-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "net interest margin",
+      "q": "Explain how a retail bank makes most of its money.",
+      "ideas": [
+        { "label": "It charges borrowers more interest than it pays savers (the margin)", "any": ["charge more", "more interest", "margin", "gap", "difference", "lend at a higher", "pays savers less", "spread", "net interest"] },
+        { "label": "It also earns fees, and must cover costs and bad loans from this", "any": ["fees", "account charges", "costs", "bad debt", "bad loans", "defaults", "staff", "overheads"] }
+      ],
+      "model": "It charges borrowers a higher interest rate than it pays savers, and keeps the difference: the net interest margin. It also earns fees on accounts, cards and overdrafts, and out of that income it has to cover staff, systems and loans that aren't repaid.",
+      "why": "The gap between lending and deposit rates is the core of banking.",
+      "tests": [
+        { "answer": "It charges borrowers more interest than it pays savers and keeps the margin, plus fees, minus bad debts and costs.", "marks": 2 },
+        { "answer": "It charges more on loans than it pays on savings.", "marks": 1 },
+        { "answer": "It invests your money in shares.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "08-fscs-run-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "FSCS protection",
+      "q": "Explain how deposit protection (the FSCS) makes bank runs less likely.",
+      "ideas": [
+        { "label": "Savers know their money is safe up to the limit even if the bank fails", "any": ["safe", "protected", "paid back", "guaranteed", "won't lose", "compensation", "120,000", "covered"] },
+        { "label": "So they have less reason to panic and rush to withdraw", "any": ["panic", "rush", "withdraw", "queue", "no reason", "less reason", "don't need to", "calm"] }
+      ],
+      "model": "Savers know they'll be paid back up to £120,000 even if the bank fails, so they have little reason to panic and rush to withdraw. Fewer rushed withdrawals means a temporary scare is less likely to turn into a run.",
+      "why": "Protection removes the incentive to be first in the queue.",
+      "tests": [
+        { "answer": "People know their savings are protected up to £120,000, so they don't panic and rush to withdraw.", "marks": 2 },
+        { "answer": "Your money is protected.", "marks": 1 },
+        { "answer": "Banks close on weekends.", "marks": 0 }
+      ]
+    }
+  ]
+}
