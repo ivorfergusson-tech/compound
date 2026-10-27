@@ -44,10 +44,20 @@
     "def": "Splitting a purchase into a few payments, often interest-free. It's still debt, and missed payments can hurt your credit file.",
     "module": "13"
   },
+  "bond": {
+    "term": "Bond",
+    "def": "A loan to a government or company that pays a fixed coupon and returns the face value at maturity.",
+    "module": "02"
+  },
   "budget": {
     "term": "Budget",
     "def": "A plan for your money: what comes in, what goes out on needs and wants, and what's left to save.",
     "module": "09"
+  },
+  "capital gain": {
+    "term": "Capital gain",
+    "def": "The profit when you sell an investment for more than you paid.",
+    "module": "02"
   },
   "cash isa": {
     "term": "Cash ISA",
@@ -59,10 +69,20 @@
     "def": "Interest that's added to your balance, so next time you earn interest on the interest too.",
     "module": "01"
   },
+  "correlation": {
+    "term": "Correlation",
+    "def": "How closely two investments move together, from −1 (opposite) to 1 (in lockstep).",
+    "module": "10"
+  },
   "council tax": {
     "term": "Council tax",
     "def": "A yearly charge per home paid to the local council. 25% off if you live alone; full-time students are usually exempt.",
     "module": "25"
+  },
+  "coupon": {
+    "term": "Coupon",
+    "def": "The fixed interest a bond pays each year, usually as an amount per £100 of face value.",
+    "module": "02"
   },
   "cpi": {
     "term": "CPI",
@@ -89,6 +109,21 @@
     "def": "Prices in general falling over time.",
     "module": "01"
   },
+  "diversification": {
+    "term": "Diversification",
+    "def": "Spreading money across many investments so one bad result hurts less. Cuts risk without cutting expected return.",
+    "module": "10"
+  },
+  "dividend": {
+    "term": "Dividend",
+    "def": "Part of a company's profit paid out to its shareholders. Not guaranteed.",
+    "module": "02"
+  },
+  "drawdown": {
+    "term": "Drawdown",
+    "def": "A fall from a previous high to a low, such as the FTSE 100 losing about half in 2007–2009.",
+    "module": "10"
+  },
   "easy-access account": {
     "term": "Easy-access account",
     "def": "A savings account you can pay into and take money from at any time. The rate is usually variable.",
@@ -114,10 +149,30 @@
     "def": "The Financial Services Compensation Scheme: pays back savers up to £120,000 per person per banking licence if a UK bank fails.",
     "module": "08"
   },
+  "ftse 100": {
+    "term": "FTSE 100",
+    "def": "An index of the 100 largest companies on the London Stock Exchange's main market, by market cap.",
+    "module": "06"
+  },
+  "fund": {
+    "term": "Fund",
+    "def": "A pot of many investors' money that buys lots of investments at once, run for a yearly fee.",
+    "module": "02"
+  },
+  "gilt": {
+    "term": "Gilt",
+    "def": "A bond issued by the UK government.",
+    "module": "24"
+  },
   "gross pay": {
     "term": "Gross pay",
     "def": "What you earn before anything is taken off: your salary or hourly rate times hours.",
     "module": "05"
+  },
+  "index": {
+    "term": "Index",
+    "def": "A number that tracks the value of a group of shares, such as the FTSE 100, to show how a market is doing.",
+    "module": "06"
   },
   "inflation": {
     "term": "Inflation",
@@ -133,6 +188,11 @@
     "term": "Interest rate",
     "def": "Interest as a percentage of the principal. Nearly always quoted per year.",
     "module": "01"
+  },
+  "ipo": {
+    "term": "IPO",
+    "def": "Initial Public Offering: when a private company first sells shares to the public and lists on a stock exchange.",
+    "module": "06"
   },
   "isa": {
     "term": "ISA",
@@ -163,6 +223,11 @@
     "term": "Market",
     "def": "Anywhere buyers and sellers meet to agree a price.",
     "module": "00"
+  },
+  "market cap": {
+    "term": "Market cap",
+    "def": "A company's total stock market value: share price × number of shares.",
+    "module": "06"
   },
   "minimum payment trap": {
     "term": "Minimum payment trap",
@@ -224,6 +289,11 @@
     "def": "What you pay a landlord to live in a home. In England, deposits are capped at five weeks' rent and must be protected.",
     "module": "25"
   },
+  "risk premium": {
+    "term": "Risk premium",
+    "def": "The extra expected return investors demand for taking more risk, such as shares over cash.",
+    "module": "10"
+  },
   "rule of 72": {
     "term": "Rule of 72",
     "def": "A shortcut: 72 ÷ the yearly rate ≈ how many years it takes money to double. At 6%, about 12 years.",
@@ -233,6 +303,11 @@
     "term": "Self Assessment",
     "def": "The yearly tax return for income HMRC doesn't already tax through PAYE, such as self-employed profit over £1,000.",
     "module": "05"
+  },
+  "share": {
+    "term": "Share",
+    "def": "A small piece of ownership in a company, also called a stock or equity.",
+    "module": "02"
   },
   "simple interest": {
     "term": "Simple interest",
@@ -248,6 +323,11 @@
     "term": "State Pension",
     "def": "A regular payment from the government from State Pension age, based on your National Insurance record.",
     "module": "21"
+  },
+  "stock exchange": {
+    "term": "Stock exchange",
+    "def": "A regulated marketplace where shares are bought and sold, such as the London Stock Exchange.",
+    "module": "06"
   },
   "stocks and shares isa": {
     "term": "Stocks and Shares ISA",
@@ -269,6 +349,11 @@
     "def": "Income tax given back on pension contributions, so each £1 in your pot costs a basic-rate taxpayer about 80p.",
     "module": "21"
   },
+  "total return": {
+    "term": "Total return",
+    "def": "An investment's price change plus dividends or interest, as if reinvested. The fair way to compare investments.",
+    "module": "06"
+  },
   "trading allowance": {
     "term": "Trading allowance",
     "def": "Up to £1,000 a year of income from self-employment or side hustles that you don't need to declare or pay tax on.",
@@ -278,6 +363,11 @@
     "term": "Variable rate",
     "def": "An interest rate the bank can change at any time. Most easy-access savings accounts have one.",
     "module": "01"
+  },
+  "volatility": {
+    "term": "Volatility",
+    "def": "How much an investment's price swings up and down. A common way to measure risk.",
+    "module": "10"
   },
   "workplace pension": {
     "term": "Workplace pension",

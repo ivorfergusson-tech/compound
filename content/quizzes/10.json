@@ -1,0 +1,137 @@
+{
+  "module": "10",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "10-recovery",
+      "type": "number",
+      "topic": "drawdowns and recovery",
+      "q": "An investment falls by {f}. What percentage gain does it need to get back to where it started? (Nearest whole %.)",
+      "vars": { "f": { "choices": [20, 25, 40, 50, 60], "default": 50, "fmt": "pct" } },
+      "answer": "(1/(1-f/100)-1)*100",
+      "tol": 0.6,
+      "unit": "%",
+      "dp": 0,
+      "why": "After a {f} fall you have (1 − {f}) left; you need {answer}% on that to recover. Losses hurt more than equal gains help."
+    },
+    {
+      "id": "10-free-lunch",
+      "type": "mcq",
+      "topic": "diversification",
+      "q": "Why is diversification called the \"free lunch\" of investing?",
+      "options": [
+        "It cuts risk without cutting expected return",
+        "It guarantees you won't lose money",
+        "It's free to buy shares",
+        "It always beats the market"
+      ],
+      "answer": 0,
+      "why": "Company risk largely cancels out across many holdings, and investors aren't paid for taking it, so removing it costs nothing in expected return."
+    },
+    {
+      "id": "10-company-vs-market",
+      "type": "match",
+      "topic": "company risk vs market risk",
+      "q": "Match each event to the kind of risk it is.",
+      "pairs": [
+        ["A company's new product flops", "Company risk"],
+        ["A global recession", "Market risk"],
+        ["A scandal at one firm", "Company risk"],
+        ["Interest rates jump everywhere", "Market risk"]
+      ],
+      "why": "Company risk hits one firm and can be diversified away; market risk hits nearly everything."
+    },
+    {
+      "id": "10-correlation",
+      "type": "mcq",
+      "topic": "correlation",
+      "q": "Two investments have a correlation of 1. What does spreading money between them do to risk?",
+      "options": ["Nothing: they move in lockstep", "Halves it", "Removes it", "Doubles it"],
+      "answer": 0,
+      "why": "With correlation 1 they always move together, so combining them doesn't smooth anything. Lower correlation means more benefit."
+    },
+    {
+      "id": "10-one-share",
+      "type": "tf",
+      "topic": "diversification",
+      "q": "Investors are paid a higher expected return for holding one company's shares instead of a fund of many similar companies.",
+      "answer": false,
+      "why": "Company risk can be removed cheaply by diversifying, so the market doesn't reward it. One share is riskier for the same expected return."
+    },
+    {
+      "id": "10-risk-premium",
+      "type": "mcq",
+      "topic": "risk premium",
+      "q": "What is the equity risk premium?",
+      "options": [
+        "The extra expected return from shares over safe assets, as payment for their risk",
+        "A fee charged by brokers",
+        "Insurance against share prices falling",
+        "The dividend on a share"
+      ],
+      "answer": 0,
+      "why": "It's the reward investors demand for living with the swings of shares rather than holding cash."
+    },
+    {
+      "id": "10-timeframe",
+      "type": "order",
+      "topic": "risk and timeframe",
+      "q": "Put these goals in order, from the one that suits the least risk to the one that can take the most.",
+      "items": ["Emergency fund", "House deposit in 3 years", "Saving for a child's university in 12 years", "Retirement in 40 years"],
+      "why": "The longer until you need the money, the more time to recover from falls, so the more risk you can usually afford."
+    },
+    {
+      "id": "10-volatility",
+      "type": "mcq",
+      "topic": "volatility",
+      "q": "What does volatility measure?",
+      "options": ["How much a price swings up and down", "How much a company earns", "How many shares are traded", "How old an investment is"],
+      "answer": 0,
+      "why": "Volatility is the size of the swings. Higher volatility means a wider range of possible results."
+    },
+    {
+      "id": "10-drawdown-tf",
+      "type": "tf",
+      "topic": "drawdowns and recovery",
+      "q": "Big falls in share markets, like about half in 2008, are rare one-offs that long-term investors are unlikely to see again.",
+      "answer": false,
+      "why": "Big falls happen regularly: 2008, the 2020 Covid crash and others. Long-term investors should expect to live through several."
+    },
+    {
+      "id": "10-diversify-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "diversification",
+      "q": "Explain why holding 500 companies is less risky than holding one, without lowering the expected return.",
+      "ideas": [
+        { "label": "One company's bad luck is cancelled out by others doing well (company risk cancels)", "any": ["cancel", "balance", "offset", "others do well", "one bad", "spread", "won't all", "not all", "company risk", "specific risk"] },
+        { "label": "The market doesn't pay extra for company risk, so expected return stays about the same", "any": ["same expected return", "same return", "not paid", "no extra return", "doesn't lower", "same average", "without losing return", "expected return"] }
+      ],
+      "model": "With 500 companies, one company's bad news is balanced by others doing well, so company risk largely cancels out. Because anyone can remove that risk this way, the market doesn't pay extra for taking it, so the expected return of the 500 is about the same as one similar company, with far less risk.",
+      "why": "Diversification removes the risk you're not paid for.",
+      "tests": [
+        { "answer": "Bad news at one company is cancelled out by the others, and you aren't paid extra for company risk so the expected return stays the same.", "marks": 2 },
+        { "answer": "Because the risk is spread out.", "marks": 1 },
+        { "answer": "Because big companies never fail.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "10-tolerance-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "risk tolerance",
+      "q": "Explain why someone who would panic and sell after a 30% fall is taking too much risk, even if they're investing for 30 years.",
+      "ideas": [
+        { "label": "Selling after a fall locks in the loss (turns a temporary fall into a permanent one)", "any": ["lock in", "locks in", "permanent", "sell low", "selling at the bottom", "miss the recovery", "realise the loss", "crystallise", "never recover"] },
+        { "label": "Risk must match how you'll actually behave, not just the timeframe", "any": ["behave", "behaviour", "panic", "emotion", "tolerance", "can't handle", "comfortable", "nerves", "stick with", "how you react"] }
+      ],
+      "model": "Selling after a fall turns a temporary drop into a permanent loss and means missing the recovery. A long timeframe only helps if you stay invested, so the right level of risk depends on how you'll actually behave in a crash, not just how long you're investing for.",
+      "why": "Behaviour turns volatility into real losses.",
+      "tests": [
+        { "answer": "Selling locks in the loss and they miss the recovery, so risk has to match how they will actually behave.", "marks": 2 },
+        { "answer": "They would lose money by selling at the bottom.", "marks": 1 },
+        { "answer": "Because 30 years is too long.", "marks": 0 }
+      ]
+    }
+  ]
+}

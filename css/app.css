@@ -329,3 +329,12 @@ a.item:hover { border-color: var(--border-2); }
 .seg-net { background: var(--chart-a); } .seg-tax { background: var(--chart-b); } .seg-ni { background: var(--investing); }
 .seg-loan { background: var(--industry); } .seg-pension { background: var(--money); } .seg-needs { background: var(--investing); } .seg-wants { background: var(--chart-b); }
 .pre { white-space: pre-wrap; }
+
+/* risk ladder */
+.ladder-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 10px 0; border-top: 1px solid var(--border); }
+.ladder-name { display: flex; flex-direction: column; }
+.ladder-bars { display: grid; grid-template-columns: 56px 1fr; gap: 4px 8px; align-items: center; font-size: 13px; }
+.lb-bar { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; display: block; }
+.lb-bar i { display: block; height: 8px; border-radius: 4px; }
+.lb-risk { background: var(--chart-b); } .lb-ret { background: var(--chart-a); }
+@media (min-width: 720px) { .ladder-row { grid-template-columns: minmax(0, 1fr) 240px; align-items: center; } }

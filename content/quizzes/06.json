@@ -1,0 +1,150 @@
+{
+  "module": "06",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "06-market-cap",
+      "type": "number",
+      "topic": "market cap",
+      "q": "A company has {n} million shares priced at {p} each. What's its market cap, in £ millions?",
+      "vars": {
+        "n": { "choices": [200, 500, 800, 1500], "default": 500 },
+        "p": { "choices": [2, 3.5, 4, 12], "default": 4, "fmt": "money2" }
+      },
+      "answer": "n*p",
+      "tol": 0.5,
+      "unit": "£m",
+      "dp": 0,
+      "why": "Market cap = shares × price: {n} million × {p} = £{answer} million."
+    },
+    {
+      "id": "06-secondary",
+      "type": "tf",
+      "topic": "primary vs secondary market",
+      "q": "When you buy shares in a listed company through a platform, the company usually receives your money.",
+      "answer": false,
+      "why": "Most trading is on the secondary market, between investors. The company only gets money when it issues new shares, such as in an IPO."
+    },
+    {
+      "id": "06-ipo",
+      "type": "mcq",
+      "topic": "IPO",
+      "q": "What is an IPO?",
+      "options": [
+        "When a private company first sells shares to the public and lists on an exchange",
+        "A type of government bond",
+        "When a company pays its yearly dividend",
+        "When a share price falls 10% in a day"
+      ],
+      "answer": 0,
+      "why": "An Initial Public Offering is when a company floats: it raises money by selling shares and becomes listed."
+    },
+    {
+      "id": "06-expectations",
+      "type": "mcq",
+      "topic": "why prices move",
+      "q": "A company reports profits up 10%, but its share price falls. What's the most likely reason?",
+      "options": [
+        "Investors expected more, so the result was a disappointment",
+        "The exchange made a mistake",
+        "Share prices always fall after results",
+        "Profits don't affect share prices"
+      ],
+      "answer": 0,
+      "why": "Prices already reflect expectations. They move on the gap between what happened and what was expected."
+    },
+    {
+      "id": "06-ftse100",
+      "type": "mcq",
+      "topic": "FTSE 100",
+      "q": "What is the FTSE 100?",
+      "options": [
+        "An index of the 100 largest companies on the London Stock Exchange's main market",
+        "The 100 most profitable UK companies",
+        "A fund you can buy directly from the government",
+        "The 100 oldest companies in the UK"
+      ],
+      "answer": 0,
+      "why": "It's the 100 biggest by market cap, reviewed every quarter, started in 1984 at 1,000."
+    },
+    {
+      "id": "06-weighting",
+      "type": "tf",
+      "topic": "market-cap weighting",
+      "q": "In the FTSE 100, a company with a higher share price always has a bigger effect on the index.",
+      "answer": false,
+      "why": "The FTSE 100 is weighted by market cap (price × number of shares), not by share price alone."
+    },
+    {
+      "id": "06-total-return",
+      "type": "mcq",
+      "topic": "price index vs total return",
+      "q": "The FTSE 100 number on the news leaves out something important for investors. What?",
+      "options": ["Dividends", "Company names", "Trading hours", "Share prices"],
+      "answer": 0,
+      "why": "The headline index tracks prices only. Total return adds reinvested dividends, which can make a big difference."
+    },
+    {
+      "id": "06-index-match",
+      "type": "match",
+      "topic": "indices",
+      "q": "Match each index to what it covers.",
+      "pairs": [
+        ["FTSE 100", "The 100 largest UK-listed companies"],
+        ["FTSE 250", "The next 250 UK-listed companies"],
+        ["S&P 500", "About 500 large US companies"],
+        ["MSCI World", "Large and mid-sized companies in many developed countries"]
+      ],
+      "why": "Indices measure different slices of the market. Index funds track them (module 14)."
+    },
+    {
+      "id": "06-ipo-order",
+      "type": "order",
+      "topic": "IPO",
+      "q": "Put the life of a company going public in order.",
+      "items": [
+        "Founded and owned privately",
+        "Decides to raise money by floating",
+        "IPO: sells new shares to investors",
+        "Shares trade between investors on the exchange"
+      ],
+      "why": "Private, then the decision to float, then the IPO (primary market), then everyday trading (secondary market)."
+    },
+    {
+      "id": "06-cheap-share-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "market cap",
+      "q": "A friend says a £1 share is a better buy than a £50 share because it's cheaper. Explain why the share price alone doesn't tell you that.",
+      "ideas": [
+        { "label": "What matters is the company's total value (market cap = price × number of shares)", "any": ["market cap", "number of shares", "how many shares", "total value", "whole company", "price times", "price x", "shares in issue"] },
+        { "label": "You need to compare that value with profits and prospects to judge cheap or expensive", "any": ["profit", "earnings", "prospects", "what it earns", "valuation", "p/e", "worth", "compared to"] }
+      ],
+      "model": "The share price depends on how many shares the company has. What matters is its total value (market cap = price × number of shares) compared with its profits and prospects. A £1 share can be in a far more expensive company than a £50 share.",
+      "why": "Cheap or expensive depends on value versus profits, not the price per slice.",
+      "tests": [
+        { "answer": "It depends on how many shares there are, so you need the market cap, and compare that to the profits.", "marks": 2 },
+        { "answer": "You need to know the market cap.", "marks": 1 },
+        { "answer": "Because the £50 share is a better company.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "06-why-move-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "why prices move",
+      "q": "Explain what makes a share price go up or down from minute to minute.",
+      "ideas": [
+        { "label": "Buyers and sellers (supply and demand)", "any": ["buyers", "sellers", "demand", "supply", "more people want", "people buying", "people selling"] },
+        { "label": "Changing expectations about future profits, news or interest rates", "any": ["expect", "future", "profit", "news", "interest rate", "economy", "results", "earnings", "outlook"] }
+      ],
+      "model": "The price is wherever buyers and sellers agree to trade. When more want to buy than sell, it rises; when more want to sell, it falls. What drives them is changing expectations about the company's future profits, from news, results, interest rates and the economy.",
+      "why": "Supply and demand, driven by expectations.",
+      "tests": [
+        { "answer": "Supply and demand from buyers and sellers, which changes as news changes what people expect about future profits.", "marks": 2 },
+        { "answer": "More buyers than sellers pushes it up.", "marks": 1 },
+        { "answer": "The company sets the price each morning.", "marks": 0 }
+      ]
+    }
+  ]
+}

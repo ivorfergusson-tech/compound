@@ -1,0 +1,141 @@
+{
+  "module": "02",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "02-share-vs-bond",
+      "type": "match",
+      "topic": "shares vs bonds vs funds",
+      "q": "Match each investment to what it makes you.",
+      "pairs": [
+        ["Share", "A part-owner of a company"],
+        ["Bond", "A lender to a company or government"],
+        ["Fund", "One of many investors pooling money"],
+        ["Gilt", "A lender to the UK government"]
+      ],
+      "why": "Shares are ownership, bonds are loans (gilts are UK government bonds), funds pool money to buy many investments."
+    },
+    {
+      "id": "02-dividend-yield",
+      "type": "number",
+      "topic": "dividend yield",
+      "q": "A share costs {p} and pays a dividend of {d} a year. What's its dividend yield, in %?",
+      "vars": {
+        "p": { "choices": [2, 4, 5, 8, 10], "default": 5, "fmt": "money2" },
+        "d": { "choices": [0.1, 0.2, 0.25, 0.3, 0.4], "default": 0.25, "fmt": "money2" }
+      },
+      "answer": "d/p*100",
+      "tol": 0.05,
+      "unit": "%",
+      "dp": 2,
+      "why": "Yield = dividend ÷ price: {d} ÷ {p} = {answer}%."
+    },
+    {
+      "id": "02-bond-yield",
+      "type": "number",
+      "topic": "bond yield",
+      "q": "A bond pays a coupon of {c} a year on £100 face value. You buy it for {p}. What's its current yield, in %?",
+      "vars": {
+        "c": { "choices": [3, 4, 5], "default": 4, "fmt": "money0" },
+        "p": { "choices": [80, 90, 100, 110], "default": 80, "fmt": "money0" }
+      },
+      "answer": "c/p*100",
+      "tol": 0.05,
+      "unit": "%",
+      "dp": 2,
+      "why": "Current yield = coupon ÷ price paid: {c} ÷ {p} = {answer}%. Pay less, get a higher yield."
+    },
+    {
+      "id": "02-bust",
+      "type": "mcq",
+      "topic": "risk of shares",
+      "q": "A company goes bust. Who is usually paid back last?",
+      "options": ["Shareholders", "Bondholders", "Suppliers", "Banks that lent to it"],
+      "answer": 0,
+      "why": "Owners come last, after lenders and suppliers, and usually get nothing. That's part of why shares are riskier than bonds."
+    },
+    {
+      "id": "02-dividend-guarantee",
+      "type": "tf",
+      "topic": "dividends",
+      "q": "Once a company pays a dividend, it has to keep paying it every year.",
+      "answer": false,
+      "why": "Dividends aren't guaranteed. Companies can cut or stop them, especially in hard times."
+    },
+    {
+      "id": "02-risk-order",
+      "type": "order",
+      "topic": "risk and return",
+      "q": "Put these in order from usually least risky to most risky.",
+      "items": ["Savings account (FSCS-protected)", "UK government bond (gilt)", "Fund holding hundreds of companies' shares", "Shares in one small company"],
+      "why": "Protected cash can't fall; gilts are very safe lenders' claims; a spread of shares swings but rarely all fail; one small company can go to zero."
+    },
+    {
+      "id": "02-rates-up",
+      "type": "mcq",
+      "topic": "bond prices and interest rates",
+      "q": "Interest rates rise sharply. What usually happens to the price of existing bonds with low fixed coupons?",
+      "options": ["It falls", "It rises", "It stays at £100", "The coupon rises to match"],
+      "answer": 0,
+      "why": "New bonds pay more, so old low-coupon bonds are less attractive and their price falls until their yield competes."
+    },
+    {
+      "id": "02-five-years",
+      "type": "tf",
+      "topic": "saving vs investing",
+      "q": "Money you'll need in the next year is usually better invested in shares than kept in savings.",
+      "answer": false,
+      "why": "Shares can fall a lot in the short term. Money needed within about five years usually belongs in cash."
+    },
+    {
+      "id": "02-fund-why",
+      "type": "mcq",
+      "topic": "funds and diversification",
+      "q": "What's the main advantage of a fund over buying a few individual shares?",
+      "options": [
+        "It spreads your money over many investments, so one failure hurts less",
+        "It guarantees you won't lose money",
+        "It has no fees",
+        "It always beats the market"
+      ],
+      "answer": 0,
+      "why": "Funds give diversification in one purchase. They still charge fees and can still fall."
+    },
+    {
+      "id": "02-risk-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "risk and return",
+      "q": "Explain why shares have usually returned more than bonds over the long run.",
+      "ideas": [
+        { "label": "Shares are riskier: owners are paid last and prices swing", "any": ["risk", "riskier", "risky", "paid last", "last in line", "can lose", "go bust", "swing", "volatile", "go down", "fall"] },
+        { "label": "Investors need a higher expected return to accept that risk", "any": ["reward", "compensat", "higher return", "expect more", "more return", "extra return", "premium", "worth it", "for taking"] }
+      ],
+      "model": "Shares are riskier: shareholders are paid last, prices swing a lot and a company can go bust. Nobody would take that extra risk without the chance of a higher reward, so on average shares must offer a higher expected return than bonds.",
+      "why": "More risk has to come with more expected reward, or no one would take it.",
+      "tests": [
+        { "answer": "Shares are riskier because owners are paid last, so investors need a higher return to make it worth it.", "marks": 2 },
+        { "answer": "Because they are riskier.", "marks": 1 },
+        { "answer": "Because companies are bigger than governments.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "02-gamble-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "investing vs gambling",
+      "q": "A friend says investing in shares is \"just gambling\". Explain one key difference.",
+      "ideas": [
+        { "label": "Shares are part-ownership of real businesses that make profits and grow", "any": ["own", "ownership", "real business", "real companies", "profits", "company grows", "economy", "products", "earnings"] },
+        { "label": "Over the long term, investors share in that growth (gambling has a negative expected return)", "any": ["long term", "long-term", "over time", "years", "grow", "growth", "house wins", "lose on average", "negative", "expected return"] }
+      ],
+      "model": "Shares are part-ownership of real businesses that make products and profits. Over the long term, investors in a broad spread of companies share in that growth, whereas in gambling the house wins on average and money just changes hands.",
+      "why": "Owning productive businesses has a positive expected return; most bets don't.",
+      "tests": [
+        { "answer": "You own part of real companies that make profits, and over the long term you share in their growth.", "marks": 2 },
+        { "answer": "Because you own part of a company.", "marks": 1 },
+        { "answer": "Because it's legal.", "marks": 0 }
+      ]
+    }
+  ]
+}

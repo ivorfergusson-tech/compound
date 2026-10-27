@@ -494,6 +494,99 @@
       "url": "https://www.ajbell.co.uk/news/turning-55-2028-pension-access-questions-answered",
       "checked": "2026-10-27",
       "refresh": "rarely changes"
+    },
+    "dividendAllowance": {
+      "value": 500,
+      "display": "£500",
+      "label": "Dividend allowance",
+      "asOf": "2026/27; above it, dividends are taxed at 10.75% (basic rate), 35.75% (higher) or 39.35% (additional)",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/tax-on-dividends",
+      "checked": "2026-10-27",
+      "refresh": "each April",
+      "basic": 10.75,
+      "higher": 35.75
+    },
+    "cgtAllowance": {
+      "value": 3000,
+      "display": "£3,000",
+      "label": "Capital Gains Tax allowance",
+      "asOf": "2026/27; gains above it taxed at 18% (within the basic-rate band) or 24%",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/capital-gains-tax/rates",
+      "checked": "2026-10-27",
+      "refresh": "each April"
+    },
+    "stampDutyShares": {
+      "value": 0.5,
+      "display": "0.5%",
+      "label": "Stamp Duty on buying UK shares",
+      "asOf": "Stamp Duty Reserve Tax on most UK company shares; not charged on buying units in UK funds from the fund manager",
+      "source": "gov.uk",
+      "url": "https://www.gov.uk/tax-buy-shares",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "usLongRun": {
+      "value": 6.6,
+      "display": "about 6.6% a year above inflation (shares) against about 1.6% (government bonds)",
+      "label": "Long-run US real returns",
+      "asOf": "1900 to 2025; worked out from UBS's figures ($1 grew to $124,854 in shares and $284 in long bonds, with inflation averaging 2.9% a year)",
+      "source": "UBS Global Investment Returns Yearbook 2026 (summary); WealthBriefing",
+      "url": "https://www.ubs.com/global/en/media/display-page-ndp/en-20260303-global-investment-returns-yearbook-2026.html",
+      "checked": "2026-10-27",
+      "refresh": "each March (new Yearbook)"
+    },
+    "activeVsPassive": {
+      "value": 30,
+      "display": "only about 30%",
+      "label": "Active funds beating a tracker over 10 years",
+      "asOf": "across seven equity sectors, to mid-2025; S&P's SPIVA found 97% of European active equity funds lagged their benchmark over 10 years to end-2025",
+      "source": "AJ Bell Manager versus Machine (July 2025); S&P SPIVA Europe (via Indexology blog)",
+      "url": "https://www.ajbell.co.uk/sharesmagazine/2025-07-31/active-funds-break-records-in-2025-both-good-and-bad",
+      "checked": "2026-10-27",
+      "refresh": "each year"
+    },
+    "trackerOcf": {
+      "value": 0.1,
+      "display": "often about 0.05–0.25% a year",
+      "label": "Ongoing charge of index trackers",
+      "asOf": "examples include FTSE All-Share trackers at 0.06%; active funds average about 0.9–1%",
+      "source": "Money Observer and City AM (FE fund data)",
+      "url": "https://www.cityam.com/revealed-most-expensive-tracker-funds/",
+      "checked": "2026-10-27",
+      "refresh": "each year",
+      "active": 0.95
+    },
+    "ftse2008": {
+      "value": 3512,
+      "display": "about half",
+      "label": "FTSE 100 fall in the financial crisis",
+      "asOf": "from its 2007 high to 3,512 on 3 March 2009",
+      "source": "Investment Week; City Index",
+      "url": "https://investmentweek.co.uk/investment-week/news/2332660/-lows-funds-returned",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "ftse2020": {
+      "value": 27.3,
+      "display": "27.3%",
+      "label": "FTSE 100 fall, first quarter of 2020",
+      "asOf": "1 January to 31 March 2020 (Covid crash); the index ended 2020 down 14.3%",
+      "source": "interactive investor; Bullion By Post",
+      "url": "https://ii.co.uk/analysis-commentary/best-and-worst-ftse-100-shares-first-quarter-2020-ii511179",
+      "checked": "2026-10-27",
+      "refresh": "rarely changes"
+    },
+    "behaviourGap": {
+      "value": 1.2,
+      "display": "about 1.2 percentage points a year",
+      "label": "Investors' returns vs their funds' returns",
+      "asOf": "US funds, 10 years to end-2024 (funds 8.2% a year, investors 7.0%); the 2026 study found 9.9% vs 8.7%",
+      "source": "Morningstar Mind the Gap (reported by Boldin and WealthManagement.com)",
+      "url": "https://www.morningstar.com/funds/investors-still-need-mind-gap-their-funds-returns",
+      "checked": "2026-10-27",
+      "refresh": "each year"
     }
   }
 }
