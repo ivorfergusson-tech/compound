@@ -1,0 +1,249 @@
+{
+  "module": "32",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "32-systemic",
+      "type": "mcq",
+      "topic": "systemic risk",
+      "q": "Why do governments rescue big banks but not ordinary shops?",
+      "options": [
+        "A big bank's failure can spread through payments, savings and lending to the whole economy",
+        "Banks pay more tax",
+        "Shops are never important",
+        "The law requires every company to be rescued"
+      ],
+      "answer": 0,
+      "why": "That's systemic risk. Regulation tries to make such rescues unnecessary."
+    },
+    {
+      "id": "32-crisis-order",
+      "type": "order",
+      "topic": "2008: how it happened",
+      "q": "Put the steps towards the 2008 crisis in order.",
+      "items": [
+        "Cheap credit and risky mortgage lending",
+        "Mortgages packaged into highly rated bonds",
+        "House prices fall and borrowers default",
+        "Banks stop lending to each other and some fail"
+      ],
+      "why": "Easy lending, hidden risk, the housing turn, then the freeze and failures."
+    },
+    {
+      "id": "32-regulators",
+      "type": "match",
+      "topic": "UK regulators",
+      "q": "Match each regulator or rule to its job.",
+      "pairs": [
+        [
+          "PRA",
+          "Supervises the safety and soundness of banks and insurers"
+        ],
+        [
+          "FCA",
+          "Regulates how firms treat customers and how markets behave"
+        ],
+        [
+          "Ring-fencing",
+          "Separates everyday banking from investment banking in big banks"
+        ],
+        [
+          "Basel III",
+          "International rules for more and better bank capital"
+        ]
+      ],
+      "why": "Prudential safety, conduct, structure and capital: four lines of defence after 2008."
+    },
+    {
+      "id": "32-moral-hazard",
+      "type": "mcq",
+      "topic": "moral hazard",
+      "q": "What is moral hazard?",
+      "options": [
+        "Taking more risk because someone else will pay if it goes wrong",
+        "Breaking the law",
+        "A type of derivative",
+        "Paying too much tax"
+      ],
+      "answer": 0,
+      "why": "Expecting bailouts can encourage risk-taking. Bail-in and resolution rules push losses back onto banks' owners and lenders."
+    },
+    {
+      "id": "32-ringfence-threshold",
+      "type": "number",
+      "topic": "post-2008 reforms",
+      "q": "Ring-fencing has applied to the biggest UK banks since 2019. Today, banks with more than how many billion pounds of core deposits must ring-fence? (in £bn)",
+      "answer": "35",
+      "tol": 0.1,
+      "unit": "£bn",
+      "dp": 0,
+      "why": "More than £35 billion of core (retail and small business) deposits. The threshold started at £25 billion and was later raised."
+    },
+    {
+      "id": "32-cost",
+      "type": "mcq",
+      "topic": "2008: how it happened",
+      "q": "What did the OBR estimate (in 2021) as the final cost to UK taxpayers of the 2008 bank rescues?",
+      "options": [
+        "About £33 billion",
+        "About £850 billion",
+        "Nothing at all",
+        "About £5 trillion"
+      ],
+      "answer": 0,
+      "why": "About £33bn, mainly a £35.5bn loss on RBS (now NatWest). £850bn was the peak total support including guarantees."
+    },
+    {
+      "id": "32-pitch-order",
+      "type": "order",
+      "topic": "stock pitch",
+      "q": "Put the parts of a stock pitch in the usual order.",
+      "items": [
+        "Recommendation",
+        "The business",
+        "Thesis",
+        "Valuation",
+        "Risks",
+        "Catalysts"
+      ],
+      "why": "Lead with the answer, explain the business, make the case, value it, admit the risks, say what unlocks it."
+    },
+    {
+      "id": "32-thesis",
+      "type": "mcq",
+      "topic": "stock pitch",
+      "q": "Which is the strongest thesis point in a stock pitch?",
+      "options": [
+        "Margins should rise as its new factory cuts costs, which analysts' forecasts don't yet include",
+        "It's a great brand that everyone likes",
+        "The share price has gone up a lot recently",
+        "My friend works there"
+      ],
+      "answer": 0,
+      "why": "A good thesis is specific, testable and explains what the market is missing."
+    },
+    {
+      "id": "32-capital",
+      "type": "tf",
+      "topic": "post-2008 reforms",
+      "q": "After 2008, banks were required to hold less capital so they could lend more.",
+      "answer": false,
+      "why": "Basel III required more and better capital, plus liquidity buffers, so banks can absorb losses and survive runs."
+    },
+    {
+      "id": "32-why-regulate-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "systemic risk",
+      "q": "Explain why the failure of one big bank can harm people who never dealt with it.",
+      "ideas": [
+        {
+          "label": "Banks are linked: losses and fear spread to other banks (contagion, runs)",
+          "any": [
+            "other banks",
+            "spread",
+            "contagion",
+            "linked",
+            "owe each other",
+            "fear",
+            "panic",
+            "runs",
+            "domino",
+            "knock-on"
+          ]
+        },
+        {
+          "label": "Payments and lending freeze, so businesses and households suffer (recession, jobs)",
+          "any": [
+            "payments",
+            "lending",
+            "loans",
+            "credit",
+            "businesses",
+            "jobs",
+            "recession",
+            "wages",
+            "economy",
+            "mortgages"
+          ]
+        }
+      ],
+      "model": "Banks lend to each other, so one failure brings losses and fear to others, which can trigger runs. As banks stop lending and payments are disrupted, businesses can't borrow, jobs go and the economy shrinks, hurting people who never dealt with the failed bank.",
+      "why": "That's systemic risk.",
+      "tests": [
+        {
+          "answer": "Banks are linked so the losses and panic spread to other banks, and lending freezes so businesses cut jobs.",
+          "marks": 2
+        },
+        {
+          "answer": "Because it spreads to other banks.",
+          "marks": 1
+        },
+        {
+          "answer": "Because the bank's shops close.",
+          "marks": 0
+        }
+      ]
+    },
+    {
+      "id": "32-reforms-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "post-2008 reforms",
+      "q": "Explain two changes made after 2008 to make UK banks safer.",
+      "ideas": [
+        {
+          "label": "More capital and liquidity (Basel III)",
+          "any": [
+            "capital",
+            "basel",
+            "cushion",
+            "liquidity",
+            "liquid assets",
+            "own money"
+          ]
+        },
+        {
+          "label": "Ring-fencing everyday banking from investment banking",
+          "any": [
+            "ring-fenc*",
+            "ring fenc*",
+            "separate",
+            "separating"
+          ]
+        },
+        {
+          "label": "New regulators or failure plans: PRA/FCA, resolution, bail-in, accountability",
+          "any": [
+            "pra",
+            "fca",
+            "resolution",
+            "bail-in",
+            "bail in",
+            "senior managers",
+            "accountab*",
+            "regulator",
+            "consumer duty",
+            "supervis*"
+          ]
+        }
+      ],
+      "model": "Banks must hold more and better capital and liquid assets (Basel III); the biggest must ring-fence everyday banking from investment banking; and the PRA and FCA replaced the FSA, with plans so banks can fail without taxpayer bailouts.",
+      "why": "Several defences, each aimed at a 2008 weakness.",
+      "tests": [
+        {
+          "answer": "Banks have to hold more capital under Basel III, and big banks must ring-fence everyday banking; the PRA now supervises them.",
+          "marks": 3
+        },
+        {
+          "answer": "Banks must hold more capital.",
+          "marks": 1
+        },
+        {
+          "answer": "Banks closed more branches.",
+          "marks": 0
+        }
+      ]
+    }
+  ]
+}

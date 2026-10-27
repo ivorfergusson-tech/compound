@@ -718,12 +718,12 @@
       "refresh": "rarely changes"
     },
     "ringFencing": {
-      "value": 25,
-      "display": "more than £25 billion",
+      "value": 35,
+      "display": "more than £35 billion",
       "label": "Ring-fencing threshold for UK banks' core deposits",
-      "asOf": "in force since 1 January 2019: everyday banking kept separate from investment banking",
+      "asOf": "ring-fencing has applied since 1 January 2019 (the threshold started at £25 billion and has since been raised; banks in scope as of April 2026: Barclays, HSBC, Lloyds, NatWest and Santander UK; further changes are before Parliament)",
       "source": "Bank of England (PRA)",
-      "url": "https://www.bankofengland.co.uk/prudential-regulation/key-initiatives/structural-reform",
+      "url": "https://www.bankofengland.co.uk/prudential-regulation/key-initiatives/ring-fencing",
       "checked": "2026-10-27",
       "refresh": "rarely changes"
     }

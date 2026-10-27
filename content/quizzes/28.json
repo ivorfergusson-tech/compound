@@ -1,0 +1,148 @@
+{
+  "module": "28",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "28-call-pl",
+      "type": "number",
+      "topic": "options",
+      "q": "You buy a call option with a strike of £{k}, paying a premium of £{p}. At expiry the share is £{s}. What's your profit or loss per share? (Minus sign for a loss.)",
+      "vars": {
+        "k": { "choices": [100], "default": 100 },
+        "p": { "choices": [4, 5, 6], "default": 6 },
+        "s": { "choices": [90, 103, 110, 115], "default": 115 }
+      },
+      "answer": "Math.max(0,s-k)-p",
+      "tol": 0.01,
+      "unit": "£",
+      "dp": 2,
+      "why": "A call pays max(0, price − strike), minus the premium: {answer}."
+    },
+    {
+      "id": "28-put-pl",
+      "type": "number",
+      "topic": "options",
+      "q": "You buy a put option with a strike of £{k} for a premium of £{p}. At expiry the share is £{s}. What's your profit or loss per share? (Minus sign for a loss.)",
+      "vars": {
+        "k": { "choices": [100], "default": 100 },
+        "p": { "choices": [3, 5], "default": 5 },
+        "s": { "choices": [80, 92, 105], "default": 80 }
+      },
+      "answer": "Math.max(0,k-s)-p",
+      "tol": 0.01,
+      "unit": "£",
+      "dp": 2,
+      "why": "A put pays max(0, strike − price), minus the premium: {answer}."
+    },
+    {
+      "id": "28-types-match",
+      "type": "match",
+      "topic": "the three main types",
+      "q": "Match each derivative to what it does.",
+      "pairs": [
+        ["Future", "Agree now to buy or sell at a fixed price on a future date"],
+        ["Call option", "The right, not obligation, to buy at the strike"],
+        ["Put option", "The right, not obligation, to sell at the strike"],
+        ["Interest rate swap", "Exchange fixed-rate payments for floating-rate ones"]
+      ],
+      "why": "Futures lock in prices, options buy rights, swaps exchange payment streams."
+    },
+    {
+      "id": "28-airline",
+      "type": "mcq",
+      "topic": "hedging",
+      "q": "An airline buys fuel futures to fix next year's fuel cost. What is it doing?",
+      "options": ["Hedging: reducing a risk it already has", "Speculating on oil", "Gambling with customers' money", "Avoiding tax"],
+      "answer": 0,
+      "why": "It already faces fuel price risk; the futures offset it, swapping uncertainty for a known cost."
+    },
+    {
+      "id": "28-max-loss",
+      "type": "mcq",
+      "topic": "options",
+      "q": "What's the most the buyer of an option can lose?",
+      "options": ["The premium they paid", "Unlimited", "Twice the strike price", "Nothing"],
+      "answer": 0,
+      "why": "Buyers have a right, not an obligation, so the worst case is letting it expire and losing the premium."
+    },
+    {
+      "id": "28-seller",
+      "type": "tf",
+      "topic": "options",
+      "q": "Someone who sells a call option without owning the shares has a limited maximum loss.",
+      "answer": false,
+      "why": "If the price shoots up, they must deliver shares they don't own at the strike: losses have no upper limit."
+    },
+    {
+      "id": "28-swap",
+      "type": "mcq",
+      "topic": "swaps",
+      "q": "A company has a floating-rate loan and fears rates will rise. Which swap helps?",
+      "options": [
+        "Pay fixed and receive floating, effectively fixing its interest cost",
+        "Pay floating and receive fixed",
+        "Buy a call option on shares",
+        "Sell its loan to a hedge fund"
+      ],
+      "answer": 0,
+      "why": "The floating payments it receives cover its loan's floating interest, leaving it paying fixed."
+    },
+    {
+      "id": "28-disasters",
+      "type": "match",
+      "topic": "when derivatives blow up",
+      "q": "Match each event to what happened.",
+      "pairs": [
+        ["Barings, 1995", "One trader's hidden futures losses broke the bank"],
+        ["AIG, 2008", "Sold huge amounts of credit default swaps and needed a rescue"],
+        ["UK pensions, 2022", "LDI strategies forced to sell gilts as yields jumped"],
+        ["Clearing houses after 2008", "Stand between both sides and collect collateral daily"]
+      ],
+      "why": "Leverage, complexity and counterparty risk are the common threads; clearing was part of the fix."
+    },
+    {
+      "id": "28-cfd-is",
+      "type": "tf",
+      "topic": "derivatives and you",
+      "q": "A CFD on a trading app is a derivative.",
+      "answer": true,
+      "why": "Its value comes from the underlying price; you don't own the asset. Most retail CFD accounts lose money."
+    },
+    {
+      "id": "28-hedge-spec-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "hedging",
+      "q": "Explain the difference between using a derivative to hedge and using it to speculate.",
+      "ideas": [
+        { "label": "Hedging reduces a risk you already have (like a farmer or airline)", "any": ["reduce", "protect", "risk you already", "existing risk", "offset", "insurance", "airline", "farmer", "lock in"] },
+        { "label": "Speculating is betting on a price move to make a profit, adding risk", "any": ["bet", "betting", "profit from", "make money", "guess", "predict", "add risk", "take risk", "gamble"] }
+      ],
+      "model": "Hedging uses a derivative to reduce a risk you already face, like an airline fixing its fuel cost or a farmer locking in a wheat price. Speculating uses it to bet on a price move to make a profit, which adds risk rather than reducing it.",
+      "why": "Same tool, opposite purpose.",
+      "tests": [
+        { "answer": "Hedging reduces a risk you already have, like an airline fixing fuel prices; speculating is betting on a price move to make money.", "marks": 2 },
+        { "answer": "Speculating is betting on prices.", "marks": 1 },
+        { "answer": "They are the same thing.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "28-blowup-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "when derivatives blow up",
+      "q": "Explain why derivatives can lead to huge, sudden losses.",
+      "ideas": [
+        { "label": "They're often leveraged, so small price moves cause big losses", "any": ["leverage*", "small move", "magnif*", "borrowed", "margin", "multiply", "multiplies"] },
+        { "label": "They're complex or hidden, so risks are hard to see (and the other side may not pay)", "any": ["complex", "hidden", "hard to see", "nobody knew", "opaque", "counterparty", "can't pay", "web", "understand"] }
+      ],
+      "model": "They're often leveraged, so a small move in the underlying can mean a huge loss. They can also be complex and hidden, so risks build up unseen, and if the other side can't pay, losses spread from firm to firm.",
+      "why": "Leverage plus complexity is a dangerous mix.",
+      "tests": [
+        { "answer": "They're leveraged so small moves create big losses, and they're complex and hidden so nobody sees the risk building up.", "marks": 2 },
+        { "answer": "Because of leverage.", "marks": 1 },
+        { "answer": "Because they're illegal.", "marks": 0 }
+      ]
+    }
+  ]
+}

@@ -99,6 +99,11 @@
     "def": "Many depositors rushing to withdraw at once, which can break even a healthy bank.",
     "module": "08"
   },
+  "basel rules": {
+    "term": "Basel rules",
+    "def": "International standards for how much capital and liquidity banks must hold. Basel III was agreed after 2008.",
+    "module": "32"
+  },
   "behaviour gap": {
     "term": "Behaviour gap",
     "def": "The difference between what funds return and what their investors earn, lost to badly timed buying and selling.",
@@ -148,6 +153,11 @@
     "term": "Buy side",
     "def": "Firms that invest money, such as asset managers, pension funds, hedge funds and private equity.",
     "module": "04"
+  },
+  "call option": {
+    "term": "Call option",
+    "def": "The right to buy at the strike price. Gains if the price rises above the strike plus the premium.",
+    "module": "28"
   },
   "candlestick": {
     "term": "Candlestick",
@@ -244,6 +254,11 @@
     "def": "Money held in a bank account: really a promise from the bank to pay you, recorded in its books.",
     "module": "08"
   },
+  "derivative": {
+    "term": "Derivative",
+    "def": "A contract whose value comes from something else, such as a share, commodity, currency or interest rate.",
+    "module": "28"
+  },
   "discipline": {
     "term": "Discipline",
     "def": "Following your trading plan when your feelings say not to.",
@@ -329,6 +344,11 @@
     "def": "The average result per go over many repeats: chance of winning × win − chance of losing × loss.",
     "module": "03"
   },
+  "fca": {
+    "term": "FCA",
+    "def": "The Financial Conduct Authority: regulates how financial firms treat customers and how markets behave.",
+    "module": "32"
+  },
   "fixed-rate saver": {
     "term": "Fixed-rate saver",
     "def": "A savings account (often called a bond) that locks your money away for a set time at a fixed rate.",
@@ -359,6 +379,11 @@
     "def": "A pot of many investors' money that buys lots of investments at once, run for a yearly fee.",
     "module": "02"
   },
+  "future": {
+    "term": "Future",
+    "def": "An exchange-traded agreement to buy or sell something at a fixed price on a future date.",
+    "module": "28"
+  },
   "gilt": {
     "term": "Gilt",
     "def": "A bond issued by the UK government.",
@@ -373,6 +398,11 @@
     "term": "Hedge fund",
     "def": "A lightly restricted fund for professional investors that can short, borrow and use derivatives.",
     "module": "20"
+  },
+  "hedging": {
+    "term": "Hedging",
+    "def": "Using a derivative or other position to reduce a risk you already have.",
+    "module": "28"
   },
   "herding": {
     "term": "Herding",
@@ -534,6 +564,11 @@
     "def": "Anything people accept in exchange for goods and services. In the UK that's pounds, mostly held as numbers in bank accounts rather than notes and coins.",
     "module": "00"
   },
+  "moral hazard": {
+    "term": "Moral hazard",
+    "def": "Taking more risk because someone else will bear the cost if it goes wrong.",
+    "module": "32"
+  },
   "moving average": {
     "term": "Moving average",
     "def": "The average closing price over the last N periods, recalculated each period. Smooths noise but lags.",
@@ -568,6 +603,11 @@
     "term": "OCF",
     "def": "Ongoing charges figure: a fund's yearly running cost as a % of what you hold, taken automatically.",
     "module": "14"
+  },
+  "option": {
+    "term": "Option",
+    "def": "The right, but not the obligation, to buy or sell at a set price by a set date, bought for a premium.",
+    "module": "28"
   },
   "overconfidence": {
     "term": "Overconfidence",
@@ -634,6 +674,11 @@
     "def": "Investing a fixed amount regularly, so you buy more units when prices are low and fewer when high.",
     "module": "14"
   },
+  "pra": {
+    "term": "PRA",
+    "def": "The Prudential Regulation Authority, part of the Bank of England: supervises the safety of banks, building societies and insurers.",
+    "module": "32"
+  },
   "present value": {
     "term": "Present value",
     "def": "What future money is worth today: the future amount ÷ (1 + discount rate) for each year of waiting.",
@@ -653,6 +698,11 @@
     "term": "Profit",
     "def": "What's left from revenue after costs. Gross, operating and net profit take off more costs at each step.",
     "module": "18"
+  },
+  "put option": {
+    "term": "Put option",
+    "def": "The right to sell at the strike price. Gains if the price falls below the strike minus the premium.",
+    "module": "28"
   },
   "qe": {
     "term": "QE",
@@ -703,6 +753,11 @@
     "term": "Revenue",
     "def": "Money from sales before any costs are taken off. Also called turnover or the top line.",
     "module": "18"
+  },
+  "ring-fencing": {
+    "term": "Ring-fencing",
+    "def": "Keeping big UK banks' everyday banking separate from their investment banking, since 2019.",
+    "module": "32"
   },
   "risk premium": {
     "term": "Risk premium",
@@ -774,6 +829,11 @@
     "def": "A regulated marketplace where shares are bought and sold, such as the London Stock Exchange.",
     "module": "06"
   },
+  "stock pitch": {
+    "term": "Stock pitch",
+    "def": "A short argument for buying, selling or holding a company's shares: business, thesis, valuation, risks, catalysts.",
+    "module": "32"
+  },
   "stocks and shares isa": {
     "term": "Stocks and Shares ISA",
     "def": "An ISA that holds investments such as funds and shares. Gains and dividends are tax-free; the value can fall.",
@@ -809,10 +869,20 @@
     "def": "A price level where falls have repeatedly stopped, because buyers stepped in.",
     "module": "15"
   },
+  "swap": {
+    "term": "Swap",
+    "def": "An agreement to exchange streams of payments, such as fixed-rate for floating-rate interest.",
+    "module": "28"
+  },
   "synergies": {
     "term": "Synergies",
     "def": "Cost savings or extra sales a buyer expects from combining two companies.",
     "module": "16"
+  },
+  "systemic risk": {
+    "term": "Systemic risk",
+    "def": "The danger that trouble at one firm spreads to others and to the whole economy.",
+    "module": "32"
   },
   "tax code": {
     "term": "Tax code",
