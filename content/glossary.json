@@ -179,6 +179,11 @@
     "def": "Prices in general falling over time.",
     "module": "01"
   },
+  "discipline": {
+    "term": "Discipline",
+    "def": "Following your trading plan when your feelings say not to.",
+    "module": "31"
+  },
   "discount rate": {
     "term": "Discount rate",
     "def": "The yearly return you require for waiting and taking risk, used to turn future cash into today's value.",
@@ -333,6 +338,11 @@
     "term": "ISA allowance",
     "def": "The most you can pay into ISAs in a tax year: £20,000 in 2026/27, across all types. Use it or lose it.",
     "module": "17"
+  },
+  "journal review": {
+    "term": "Journal review",
+    "def": "Regularly going back through recorded trades to check results, rule-following and behaviour, then making one change.",
+    "module": "31"
   },
   "junior isa": {
     "term": "Junior ISA",
@@ -648,6 +658,11 @@
     "term": "Tax relief",
     "def": "Income tax given back on pension contributions, so each £1 in your pot costs a basic-rate taxpayer about 80p.",
     "module": "21"
+  },
+  "tilt": {
+    "term": "Tilt",
+    "def": "Frustration after losses that makes a trader abandon their rules: bigger, faster, revenge trades.",
+    "module": "31"
   },
   "time horizon": {
     "term": "Time horizon",

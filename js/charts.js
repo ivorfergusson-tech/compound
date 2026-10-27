@@ -4,10 +4,9 @@ import { esc } from './util.js';
 
 const W = 340, H = 210, PAD = { l: 54, r: 14, t: 14, b: 30 };
 
-function niceMax(v) {
-  if (v <= 0) return 1;
-  const mag = 10 ** Math.floor(Math.log10(v));
-  for (const m of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (m * mag >= v) return m * mag;
+function niceStep(raw) {
+  const mag = 10 ** Math.floor(Math.log10(raw));
+  for (const m of [1, 2, 2.5, 5, 10]) if (m * mag >= raw) return m * mag;
   return 10 * mag;
 }
 
@@ -16,13 +15,15 @@ export function lineChart({ series, yFmt = v => v, xFmt = v => v, label, yMin = 
   const xs = series.flatMap(s => s.points.map(p => p[0]));
   const ys = series.flatMap(s => s.points.map(p => p[1]));
   const x0 = Math.min(...xs), x1 = Math.max(...xs);
-  const y0 = yMin, y1 = niceMax(Math.max(...ys));
+  // Round-number gridlines: pick a step of 1, 2, 2.5 or 5 × 10^n and snap both ends to it.
+  const lo = Math.min(yMin, ...ys), hi = Math.max(...ys);
+  const step = niceStep((hi - lo) / 4 || 1);
+  const y0 = Math.floor(lo / step) * step, y1 = Math.max(y0 + step, Math.ceil(hi / step) * step);
   const px = x => PAD.l + ((x - x0) / (x1 - x0 || 1)) * (W - PAD.l - PAD.r);
   const py = y => H - PAD.b - ((y - y0) / (y1 - y0 || 1)) * (H - PAD.t - PAD.b);
 
   let grid = '';
-  for (let i = 0; i <= 4; i++) {
-    const v = y0 + ((y1 - y0) * i) / 4;
+  for (let v = y0; v <= y1 + step / 2; v += step) {
     grid += `<line x1="${PAD.l}" x2="${W - PAD.r}" y1="${py(v)}" y2="${py(v)}" class="ch-grid"/>`
       + `<text x="${PAD.l - 6}" y="${py(v) + 4}" text-anchor="end" class="ch-label">${esc(yFmt(v))}</text>`;
   }

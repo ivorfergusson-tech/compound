@@ -286,16 +286,25 @@ export const tradeCalculators = {
 
   review(root, a, { progress, moduleId }) {
     const key = `${moduleId}-trades`;
-    const saved = progress.state.guesses[key] || a.example || '';
+    const saved = progress.state.guesses[key] || '';
     root.innerHTML = card('Review your paper trades',
-      `<label class="field">Your results in R, one per trade, separated by commas (e.g. 2, -1, -1, 1.5)<textarea data-in="rs" rows="3">${esc(saved)}</textarea></label>`
+      `<label class="field">Your results in R, one per trade, separated by commas (e.g. 2, -1, -1, 1.5)<textarea data-in="rs" rows="3" placeholder="2, -1, -1, 1.5, ...">${esc(saved)}</textarea></label>`
+      + (a.example ? `<button type="button" class="btn ghost try-example">Try the example trades</button>` : '')
       + `<div class="stats">${stat('Trades', 'n')}${stat('Win rate', 'wr')}${stat('Expectancy', 'exp', 'good')}</div>`
       + `<div class="stats">${stat('Average win', 'aw')}${stat('Average loss', 'al')}${stat('Biggest drawdown', 'dd', 'warm')}${stat('Longest losing run', 'run')}</div><div data-chart></div>`,
       'Saved with your account. Expectancy is your average result per trade in R. Twenty trades is a small sample: treat the numbers as clues, not proof.');
-    let t;
-    wire(root, {}, v => {
+    let t, example = false;
+    const btn = root.querySelector('.try-example');
+    if (btn) btn.addEventListener('click', () => {
+      const ta = root.querySelector('textarea');
+      ta.value = a.example; example = true;
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    root.querySelector('textarea').addEventListener('keydown', () => { example = false; });
+    wire(root, {}, (v, set) => {
       const rs = String(v.rs).split(/[\s,;]+/).map(s => parseFloat(s.replace('−', '-'))).filter(Number.isFinite);
-      clearTimeout(t); t = setTimeout(() => progress.saveGuess(key, v.rs), 800);
+      clearTimeout(t);
+      if (!example) t = setTimeout(() => progress.saveGuess(key, v.rs), 800);
       if (!rs.length) { ['n', 'wr', 'exp', 'aw', 'al', 'dd', 'run'].forEach(id => set(id, '—')); root.querySelector('[data-chart]').innerHTML = ''; return; }
       const s = tradeStats(rs);
       set('n', `${s.n}`); set('wr', `${Math.round(s.winRate * 100)}%`); set('exp', `${s.expectancy >= 0 ? '+' : ''}${s.expectancy.toFixed(2)}R`);

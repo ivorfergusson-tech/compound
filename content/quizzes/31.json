@@ -1,0 +1,145 @@
+{
+  "module": "31",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "31-psych-match",
+      "type": "match",
+      "topic": "trading psychology",
+      "q": "Match each behaviour to its name.",
+      "pairs": [
+        ["Trading bigger and faster after losses to win it back", "Tilt"],
+        ["Jumping straight into a new trade to undo a loss", "Revenge trading"],
+        ["Chasing a move that's already happened", "FOMO"],
+        ["Following the plan when feelings say not to", "Discipline"]
+      ],
+      "why": "Naming the behaviour helps you spot it and stop it."
+    },
+    {
+      "id": "31-winrate",
+      "type": "number",
+      "topic": "reviewing trades",
+      "q": "In 20 paper trades you had {w} winners. What's your win rate, in %?",
+      "vars": { "w": { "choices": [6, 8, 9, 11, 12], "default": 8 } },
+      "answer": "w/20*100",
+      "tol": 0.05,
+      "unit": "%",
+      "dp": 0,
+      "why": "{w} ÷ 20 = {answer}%."
+    },
+    {
+      "id": "31-expectancy",
+      "type": "number",
+      "topic": "reviewing trades",
+      "q": "Your 20 trades add up to {t}R in total. What's your expectancy per trade, in R? (Minus sign if negative.)",
+      "vars": { "t": { "choices": [-4, -1, 1.5, 3, 5], "default": 1.5 } },
+      "answer": "t/20",
+      "tol": 0.005,
+      "unit": "R",
+      "dp": 3,
+      "why": "Expectancy = total ÷ number of trades = {t}R ÷ 20 = {answer}R."
+    },
+    {
+      "id": "31-sample",
+      "type": "tf",
+      "topic": "judging process vs outcome",
+      "q": "A profit over 20 paper trades is strong evidence of an edge.",
+      "answer": false,
+      "why": "Twenty trades is a small sample, easily swung by luck. Judge process, keep testing and compare with your backtest."
+    },
+    {
+      "id": "31-grade",
+      "type": "mcq",
+      "topic": "judging process vs outcome",
+      "q": "A trade followed every rule (valid setup, correct size, planned stop) but hit its stop for −1R. How should you grade its process?",
+      "options": ["A: good process, bad luck", "D: it lost money", "C: the stop was wrong", "Ungraded: losses don't count"],
+      "answer": 0,
+      "why": "Process and result are separate. Following the plan and losing 1R is exactly what the plan allows."
+    },
+    {
+      "id": "31-one-change",
+      "type": "mcq",
+      "topic": "making one change",
+      "q": "After a review, why change only one thing for the next 20 trades?",
+      "options": [
+        "So you can tell whether that change helped",
+        "Because changing things is bad",
+        "Because brokers only allow one change",
+        "So the review is shorter"
+      ],
+      "answer": 0,
+      "why": "Change several things at once and you can't tell which made the difference."
+    },
+    {
+      "id": "31-tilt-order",
+      "type": "order",
+      "topic": "beating tilt",
+      "q": "You've just taken your second loss of the day and feel the urge to win it back. Put these steps in order.",
+      "items": [
+        "Notice the urge: it's tilt",
+        "Check your daily loss limit",
+        "Step away from the screen",
+        "Review the trades later, calmly, in your journal"
+      ],
+      "why": "Recognise it, apply your hard limit, break the loop, then learn from it calmly."
+    },
+    {
+      "id": "31-real-money",
+      "type": "mcq",
+      "topic": "should you trade real money",
+      "q": "According to this course, what should come before ever trading real money?",
+      "options": [
+        "A long, honest paper record showing positive expectancy after costs and disciplined rule-following",
+        "One profitable week",
+        "A trading course certificate",
+        "Opening an account with high leverage"
+      ],
+      "answer": 0,
+      "why": "Many paper trades, honestly recorded, with an edge after costs and the discipline to follow rules. Even then, start tiny."
+    },
+    {
+      "id": "31-paper-habits",
+      "type": "tf",
+      "topic": "discipline",
+      "q": "People usually become more disciplined once real money is at stake.",
+      "answer": false,
+      "why": "Real money makes emotions stronger. Habits from paper trading tend to get worse, not better."
+    },
+    {
+      "id": "31-process-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "judging process vs outcome",
+      "q": "Explain why grading each trade's process separately from its result helps you improve.",
+      "ideas": [
+        { "label": "Over a few trades results are mostly luck, so good trades can lose and bad trades can win", "any": ["luck", "random", "chance", "good trade can lose", "bad trade can win", "noise", "small sample"] },
+        { "label": "Grading process shows which habits (rule-breaking) cost you, so you know what to fix", "any": ["rule", "rules", "habits", "mistakes", "what to fix", "cost you", "behaviour", "follow the plan", "discipline", "rule-breaking"] }
+      ],
+      "model": "Over a handful of trades, results are mostly luck: a good trade can lose and a bad trade can win. Grading the process shows whether you followed your rules, and comparing grades shows which habits (like moving stops or revenge trades) actually cost you, so you know what to fix.",
+      "why": "Process is in your control; short-run results aren't.",
+      "tests": [
+        { "answer": "Results are mostly luck over a few trades, so grading the process shows which rule-breaking habits cost me and what to fix.", "marks": 2 },
+        { "answer": "Because results are often luck.", "marks": 1 },
+        { "answer": "Because winning trades are always good.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "31-tilt-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "beating tilt",
+      "q": "Explain what tilt is and one rule that helps stop it.",
+      "ideas": [
+        { "label": "Tilt: after losses, frustration makes you abandon your rules (bigger, faster, revenge trades)", "any": ["frustrat*", "after losses", "angry", "emotional", "win it back", "revenge", "abandon", "break your rules", "bigger trades", "chasing"] },
+        { "label": "A hard rule such as a daily loss limit or a pause after a loss", "any": ["loss limit", "daily limit", "stop trading", "step away", "pause", "break", "walk away", "no trades for", "limit"] }
+      ],
+      "model": "Tilt is when frustration after losses makes you abandon your rules: trading bigger, faster and outside your plan to win it back. A hard rule like a daily loss limit (stop after 2R down) or a pause after any loss stops it before it does damage.",
+      "why": "Hard limits beat willpower when emotions run high.",
+      "tests": [
+        { "answer": "It's when you get frustrated after losses and break your rules to win it back; a daily loss limit stops it.", "marks": 2 },
+        { "answer": "Getting angry after losing.", "marks": 1 },
+        { "answer": "A type of chart pattern.", "marks": 0 }
+      ]
+    }
+  ]
+}
