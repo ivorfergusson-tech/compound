@@ -104,14 +104,14 @@ export const investCalculators = {
       ['Cash savings', 'Can\'t fall in pounds (FSCS-protected); usually only just beats inflation', 1, 1],
       ['Government bonds', 'Prices move with interest rates; small long-run return above inflation', 2, 2],
       ['Corporate bonds', 'Extra return for the chance a company doesn\'t pay', 3, 3],
-      ['Global shares (a fund)', 'Big swings, falls of a third or more happen; highest long-run return of the four', 4, 5],
-      ['One company\'s shares', 'All the swings of shares plus the chance of going to zero, with no extra expected return', 5, 4],
+      ['Global shares (a fund)', 'Big swings, falls of a third or more happen; the highest long-run return here', 4, 5],
+      ['One company\'s shares', 'All the swings of shares plus the chance of going to zero, with no extra expected return', 5, 5],
     ];
     root.innerHTML = `<div class="calc"><h3 class="calc-title">The risk ladder</h3>${rows.map(([n, t, risk, ret]) => `
       <div class="ladder-row"><div class="ladder-name"><strong>${esc(n)}</strong><span class="small muted">${esc(t)}</span></div>
       <div class="ladder-bars" aria-label="Risk ${risk} of 5, expected return ${ret} of 5"><span class="lb-label">Risk</span><span class="lb-bar"><i style="width:${risk * 20}%" class="lb-risk"></i></span>
       <span class="lb-label">Return</span><span class="lb-bar"><i style="width:${ret * 20}%" class="lb-ret"></i></span></div></div>`).join('')}
-      <p class="calc-note">A rough ranking, not exact numbers. Note the last row: more risk without more expected return, which is why spreading out beats picking one share.</p></div>`;
+      <p class="calc-note">A rough ranking, not exact numbers. Compare the last two rows: one company has more risk for the same expected return, which is why spreading out beats picking one share.</p></div>`;
   },
 
   fees(root, a) {
@@ -182,6 +182,23 @@ export const investCalculators = {
       const x = dcf({ cf: v.cf, g: v.g / 100, r: v.r / 100, tg: v.tg / 100 });
       const m = n => (n >= 1000 ? `£${(n / 1000).toFixed(2)}bn` : `£${Math.round(n)}m`);
       set('pv', m(x.pv)); set('tv', m(x.terminal)); set('total', m(x.total)); set('per', gbp(x.total / v.shares, 2));
+    });
+  },
+
+  rebalance(root, a) {
+    root.innerHTML = card('Rebalancing a 60/40 portfolio',
+      slider('target', 'Target in shares', { min: 10, max: 100, step: 5, value: a.target ?? 60 })
+      + slider('sh', 'Shares this year', { min: -40, max: 40, step: 5, value: a.sh ?? 30 })
+      + slider('bo', 'Bonds this year', { min: -20, max: 20, step: 1, value: a.bo ?? 2 })
+      + `<div class="stats">${stat('Now in shares', 'now', 'warm')}${stat('Pot', 'pot')}</div>`
+      + `<p class="small" data-v="action"></p>`,
+      'Starts with £10,000 split at your target. Rebalancing sells some of what rose and buys what fell, so the risk goes back to what you chose. Inside an ISA or pension, switching has no tax to pay.');
+    wire(root, { target: v => `${v}%`, sh: v => `${v > 0 ? '+' : ''}${v}%`, bo: v => `${v > 0 ? '+' : ''}${v}%` }, (v, set) => {
+      const s = 10000 * v.target / 100 * (1 + v.sh / 100), b = 10000 * (100 - v.target) / 100 * (1 + v.bo / 100);
+      const pot = s + b, w = s / pot * 100, move = s - pot * v.target / 100;
+      set('now', `${w.toFixed(1)}%`); set('pot', gbp(pot, 0));
+      set('action', Math.abs(move) < 1 ? 'Already on target: nothing to do.'
+        : move > 0 ? `To get back to ${v.target}%: sell ${gbp(move, 0)} of shares and buy bonds.` : `To get back to ${v.target}%: sell ${gbp(-move, 0)} of bonds and buy shares.`);
     });
   },
 

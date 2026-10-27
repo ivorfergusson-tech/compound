@@ -1,0 +1,159 @@
+{
+  "module": "30",
+  "pick": 8,
+  "questions": [
+    {
+      "id": "30-allocation-what",
+      "type": "mcq",
+      "topic": "asset allocation",
+      "q": "What is asset allocation?",
+      "options": [
+        "How you split money between shares, bonds and cash",
+        "Choosing which single share to buy",
+        "How often you check prices",
+        "The fee a platform charges"
+      ],
+      "answer": 0,
+      "why": "It's the split between asset types, and it drives most of a portfolio's risk and expected return."
+    },
+    {
+      "id": "30-drift",
+      "type": "number",
+      "topic": "rebalancing",
+      "q": "You start with £6,000 in shares and £4,000 in bonds (60/40). Shares rise {s} and bonds don't change. What % of the pot is now in shares? (One decimal place.)",
+      "vars": { "s": { "choices": [10, 20, 30, 50], "default": 30, "fmt": "pct" } },
+      "answer": "6000*(1+s/100)/(6000*(1+s/100)+4000)*100",
+      "tol": 0.15,
+      "unit": "%",
+      "dp": 1,
+      "why": "Shares become £6,000 × (1 + {s}); divided by the new total gives {answer}%. Your risk has drifted above 60%."
+    },
+    {
+      "id": "30-rebalance-action",
+      "type": "mcq",
+      "topic": "rebalancing",
+      "q": "Your 60/40 portfolio has drifted to 68/32 after a strong year for shares. What does rebalancing involve?",
+      "options": [
+        "Selling some shares and buying bonds to get back to 60/40",
+        "Buying more shares because they're doing well",
+        "Selling everything and holding cash",
+        "Changing the target to 68/32"
+      ],
+      "answer": 0,
+      "why": "Rebalancing sells what grew and buys what lagged, returning risk to the level you chose."
+    },
+    {
+      "id": "30-timeframe-match",
+      "type": "match",
+      "topic": "matching allocation to goals",
+      "q": "Match each goal to a mix that could suit it.",
+      "pairs": [
+        ["House deposit in 2 years", "Cash"],
+        ["Retirement in 40 years, strong nerves", "Mostly shares"],
+        ["Goal in 8 years, nervous of falls", "Balanced mix of shares and bonds"],
+        ["Emergency fund", "Easy-access savings"]
+      ],
+      "why": "Short timeframes need cash; long ones can take more in shares; nerves matter too."
+    },
+    {
+      "id": "30-too-many-funds",
+      "type": "tf",
+      "topic": "keeping it simple",
+      "q": "Holding ten different global index funds is much more diversified than holding one.",
+      "answer": false,
+      "why": "They'd largely hold the same companies. One broad fund already holds thousands; more funds add cost and complexity, not diversification."
+    },
+    {
+      "id": "30-wrapper-order",
+      "type": "order",
+      "topic": "where it lives",
+      "q": "Put these homes for long-term investing in the usual order of priority for an employee.",
+      "items": [
+        "Workplace pension up to the employer match",
+        "Stocks and Shares ISA",
+        "General (taxable) investment account"
+      ],
+      "why": "Take free employer money and tax relief first, then tax-free ISAs, then taxable accounts."
+    },
+    {
+      "id": "30-crash-news",
+      "type": "mcq",
+      "topic": "staying the course",
+      "q": "The news predicts a market crash. Your allocation fits your 30-year goal. What does your plan usually say to do?",
+      "options": [
+        "Nothing different: the allocation already expects falls",
+        "Sell all shares now",
+        "Move everything into the predicted winners",
+        "Stop your monthly investments"
+      ],
+      "answer": 0,
+      "why": "Crash forecasts are often wrong and badly timed. Acting on them is recency bias and herding."
+    },
+    {
+      "id": "30-mix-return",
+      "type": "number",
+      "topic": "asset allocation",
+      "q": "Assume shares return 5% a year above inflation, bonds 1.5% and cash 0.5%. What's the expected return of a {s}% shares, {b}% bonds, rest cash portfolio, in %?",
+      "vars": {
+        "s": { "choices": [40, 60, 80], "default": 60 },
+        "b": { "choices": [10, 20, 30], "default": 30 }
+      },
+      "answer": "(s*5+b*1.5+(100-s-b)*0.5)/100",
+      "tol": 0.05,
+      "unit": "%",
+      "dp": 2,
+      "why": "Weight each return by its share of the pot and add up: {answer}% a year (under these assumptions)."
+    },
+    {
+      "id": "30-multi-asset",
+      "type": "mcq",
+      "topic": "building blocks",
+      "q": "What does a multi-asset (e.g. 60/40) fund do for you?",
+      "options": [
+        "Holds shares and bonds in a set mix and rebalances automatically",
+        "Guarantees your money can't fall",
+        "Picks the best shares each week",
+        "Avoids all fees"
+      ],
+      "answer": 0,
+      "why": "It's an all-in-one fund: one decision, automatic rebalancing. It can still fall and still charges fees."
+    },
+    {
+      "id": "30-allocation-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "asset allocation",
+      "q": "Explain the three things that should decide how much of your portfolio goes into shares.",
+      "ideas": [
+        { "label": "Timeframe: when you'll need the money", "any": ["timeframe", "time frame", "when you need", "how long", "years", "time horizon", "long term", "short term"] },
+        { "label": "Need: how much growth the goal requires", "any": ["need", "goal", "how much growth", "target", "how much you need", "return you need", "what you're saving for"] },
+        { "label": "Nerve: how you'd really behave in a fall", "any": ["nerve", "behave", "panic", "risk tolerance", "comfortable", "react", "sleep", "emotion", "crash", "fall"] }
+      ],
+      "model": "Timeframe (money needed within about five years shouldn't be in shares), need (how much growth the goal actually requires, so you don't take more risk than necessary), and nerve (how you'd really behave in a crash, because a portfolio you abandon is worse than a duller one you keep).",
+      "why": "Allocation should fit the goal and the person.",
+      "tests": [
+        { "answer": "How long until I need the money, what return my goal needs, and how I'd react to a crash.", "marks": 3 },
+        { "answer": "How many years I'm investing for.", "marks": 1 },
+        { "answer": "Which shares are popular right now.", "marks": 0 }
+      ]
+    },
+    {
+      "id": "30-rebalance-explain",
+      "type": "explain",
+      "group": "explain",
+      "topic": "rebalancing",
+      "q": "Explain two benefits of rebalancing a portfolio once a year.",
+      "ideas": [
+        { "label": "Keeps your risk at the level you chose", "any": ["risk", "target", "back to", "level you chose", "original mix", "drift", "stay balanced", "same mix"] },
+        { "label": "Makes you sell high and buy low by rule, not emotion", "any": ["sell high", "buy low", "selling winners", "buy what fell", "by rule", "not emotion", "discipline", "automatic", "without emotion", "buying cheap"] }
+      ],
+      "model": "It keeps your risk at the level you chose instead of drifting higher after good years. And it makes you sell some of what's risen and buy what's fallen by rule, which means buying low and selling high without relying on emotion.",
+      "why": "Rebalancing is risk control plus built-in discipline.",
+      "tests": [
+        { "answer": "It brings the risk back to my target and makes me sell high and buy low by rule.", "marks": 2 },
+        { "answer": "It stops your portfolio drifting from the target.", "marks": 1 },
+        { "answer": "It makes the fees lower.", "marks": 0 }
+      ]
+    }
+  ]
+}

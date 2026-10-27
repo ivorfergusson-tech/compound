@@ -24,6 +24,11 @@
     "def": "Something you own that's worth money: savings, shares, a car, a house.",
     "module": "00"
   },
+  "asset allocation": {
+    "term": "Asset allocation",
+    "def": "How you split your money between shares, bonds and cash. It drives most of a portfolio's risk and return.",
+    "module": "30"
+  },
   "auto-enrolment": {
     "term": "Auto-enrolment",
     "def": "The law that makes employers put eligible staff (22+, earning over £10,000) into a workplace pension automatically.",
@@ -398,6 +403,11 @@
     "term": "Real return",
     "def": "What you gain in spending power after inflation. Roughly the nominal rate minus inflation; exactly (1 + nominal) ÷ (1 + inflation) − 1.",
     "module": "01"
+  },
+  "rebalancing": {
+    "term": "Rebalancing",
+    "def": "Selling some of what has grown and buying what has lagged, to return a portfolio to its target mix.",
+    "module": "30"
   },
   "recency bias": {
     "term": "Recency bias",
