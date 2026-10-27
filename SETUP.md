@@ -35,7 +35,7 @@ On by default. Supabase's built-in email only sends a few emails an hour, which 
 1. Top bar project picker → **New project** → name `Compound` → **Create**, then select it.
 2. Search bar → **Google Auth Platform** (or **APIs & Services → OAuth consent screen**) → **Get started**:
    App name `Compound`, support email yours → **Next** → Audience **External** → **Next** → contact email yours → **Next** → agree → **Create**.
-3. **Branding**: app name `Compound`, support email yours, **no logo** (a logo triggers a Google review), home page `https://ivorfergusson-tech.github.io/compound/`, privacy policy `https://ivorfergusson-tech.github.io/compound/privacy.html`, authorised domains `supabase.co` and `ivorfergusson-tech.github.io`, developer email yours → **Save**.
+3. **Branding**: app name `Compound`, support email yours, **no logo** (a logo triggers a Google review), home page `https://ivorfergusson-tech.github.io/compound/`, privacy policy `https://ivorfergusson-tech.github.io/compound/privacy.html`, authorised domains `zxmvhufnxdpzzabeuxkr.supabase.co` and `ivorfergusson-tech.github.io` (Google wants the full project address, not `supabase.co`), developer email yours → **Save**.
 4. **Clients** → **+ Create client** → type **Web application**, name `Compound web`.
    - **Authorised redirect URIs** → **+ Add URI** → `https://zxmvhufnxdpzzabeuxkr.supabase.co/auth/v1/callback`
    - **Create**. Copy the **Client ID** and **Client secret** (put them in `.env` as `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`).
