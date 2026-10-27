@@ -14,15 +14,11 @@ let cleanup = [];
 
 // ---------- theme ----------
 const THEME_KEY = 'compound.theme';
-function applyTheme(t) {
-  if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-  else delete document.documentElement.dataset.theme;
-}
-try { applyTheme(localStorage.getItem(THEME_KEY)); } catch { /* blocked */ }
+// Dark unless the learner has picked light.
+function applyTheme(t) { document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark'; }
+try { applyTheme(localStorage.getItem(THEME_KEY)); } catch { applyTheme('dark'); }
 function cycleTheme() {
-  const cur = document.documentElement.dataset.theme;
-  const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  const next = dark ? 'light' : 'dark';
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
   applyTheme(next);
   try { localStorage.setItem(THEME_KEY, next); } catch { /* blocked */ }
 }
