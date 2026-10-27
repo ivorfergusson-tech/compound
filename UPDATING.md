@@ -4,6 +4,12 @@ Every figure that changes lives in `content/figures.json`. Lessons show it with 
 
 After any edit: `node tests/run.js` (it checks every figure has a source, a link and a date).
 
+## After every Budget (next: Autumn Budget, 28 October 2026)
+Budgets often announce changes that start the next April or later. Check the gov.uk Budget documents, then update any figure whose `refresh` says "after each Budget", plus anything else announced:
+- `cashIsaCap2027`, `lisaReplacement`, `lisaHomeCap`, `salarySacrificeCap`, `psa` (savings tax rates from April 2027).
+- Income tax, NI, ISA and pension allowances if they change.
+- Add an "announced, starts <date>" note in the figure's `asOf` rather than changing today's value early.
+
 ## After every Bank of England decision (8 a year)
 Dates: bankofengland.co.uk → Monetary policy → "Upcoming MPC dates".
 - `bankRate`: new rate, date held or changed, next decision date.
