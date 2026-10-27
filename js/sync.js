@@ -129,6 +129,7 @@ export async function authPanel() {
   if (!enabled() || !sb) {
     return `<h2>Account</h2><p>Accounts aren't switched on yet. Your progress is saved in this browser.</p>`;
   }
+  if (syncing) await syncing; // just signed in: wait for the profile, or the nickname shows blank
   if (!session) {
     const err = authError ? `<p class="auth-error">Sign-in didn't work: ${esc(authError)}</p>` : '';
     authError = null;
