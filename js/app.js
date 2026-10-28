@@ -66,7 +66,7 @@ function shell(main, { title, wide } = {}) {
     <footer class="foot">
       <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
       <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
-      <p>Made by Ivor Fergusson · <a href="#/about">About and sources</a> · <a href="privacy.html">Privacy</a></p>
+      <p>Made by Ivor Fergusson · <a href="m/">All lessons</a> · <a href="#/about">About and sources</a> · <a href="privacy.html">Privacy</a></p>
     </footer>`;
   app.querySelector('.theme-btn').addEventListener('click', cycleTheme);
   window.scrollTo(0, 0);

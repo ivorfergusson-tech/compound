@@ -2,7 +2,7 @@
 
 Every figure that changes lives in `content/figures.json`. Lessons show it with `{{fig:key}}` (or `{{fig:key+}}` to add the "as of" note), so one edit updates every lesson. When you change a figure, update `value`, `display`, `asOf` and `checked` together, and keep `source` and `url` pointing at the primary source.
 
-After any edit: `node tests/run.js` (it checks every figure has a source, a link and a date).
+After any edit: `node tools/build_pages.mjs`, then `node tests/run.js` (it checks every figure has a source, a link and a date).
 
 ## After every Budget (last checked: Autumn Budget, 28 October 2026)
 Budgets often announce changes that start the next April or later. Check the gov.uk Budget documents, then update any figure whose `refresh` says "after each Budget", plus anything else announced:

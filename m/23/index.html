@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Risk management: position size, stops, R-multiples · Compound</title>
+  <meta name="description" content="The part that decides whether a trader survives. Module 23 of Compound, a free UK finance course with quizzes and calculators.">
+  <link rel="canonical" href="https://ivorfergusson-tech.github.io/compound/m/23/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Compound">
+  <meta property="og:title" content="Risk management: position size, stops, R-multiples · Compound">
+  <meta property="og:description" content="The part that decides whether a trader survives. Module 23 of Compound, a free UK finance course with quizzes and calculators.">
+  <meta property="og:url" content="https://ivorfergusson-tech.github.io/compound/m/23/">
+  <meta property="og:image" content="https://ivorfergusson-tech.github.io/compound/img/share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0E7C6B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E7C6B'/%3E%3Ctext x='16' y='23' font-size='20' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3E£%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="../../css/app.css">
+  <script>var t='dark';try{if(localStorage.getItem('compound.theme')==='light')t='light';}catch(e){}document.documentElement.dataset.theme=t;</script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="../../"><span class="logo" aria-hidden="true">£</span><span>Compound</span></a>
+    <nav class="top-nav static-nav" aria-label="Main"><a href="../../m/">All lessons</a><a href="../../#/glossary">Glossary</a></nav>
+  </header>
+  <main class="page">
+    <article class="lesson">
+      <header class="lesson-head">
+        <span class="pill strand-pill-trading">🕯️ Trading · Advanced</span>
+        <h1>Risk management: position size, stops, R-multiples</h1>
+        <p class="muted">Module 23 of 32 · about 24 minutes</p>
+        <aside class="callout callout-paper"><span class="eyebrow">Paper trading only</span><p>Education only, not financial advice. Practise with pretend money; most people who trade with real money lose it.</p></aside>
+        <aside class="callout"><span class="eyebrow">Reading version</span><p>This is the text of the lesson. The interactive version adds quick checks, calculators, the module quiz and XP, and saves your progress.</p><a class="btn" href="../../#/m/23">Open the interactive lesson</a></aside>
+      </header>
+      <section class="lesson-section"><h2>Recap</h2><p>Module 3 showed that trading only makes sense with an edge. Module 7 covered stop orders and leverage; module 15 showed how support and resistance give logical places for stops; module 19 showed that indicators can&#39;t predict. This module is about what decides whether a trader survives long enough for any edge to show: <strong>how much you risk on each trade</strong>.</p>
+</section>
+<section class="lesson-section"><h2>Before you read</h2><p>Two paper traders each start with £10,000 and hit a run of <strong>10 losing trades in a row</strong>, which happens to almost everyone sooner or later. One risks 1% of their account per trade, the other risks 10%.</p>
+<aside class="callout callout-idea"><span class="eyebrow">The idea in one sentence</span><p>You can&#39;t control whether a trade wins, but you can control how much you lose when it doesn&#39;t; risking a small, fixed slice of your account per trade, with a stop decided in advance, is what lets you survive the losing runs every trader goes through.</p>
+</aside>
+
+
+
+</section>
+<section class="lesson-section"><h2>Why survival comes first</h2><p>Every strategy has losing runs, even good ones (module 27 shows how long they can be). Big losses are also hard to recover from: module 10 showed that a 50% loss needs a 100% gain to get back to even.</p>
+<p>Back to the question at the start. After 10 losses in a row:</p>
+<table>
+<thead>
+<tr>
+<th>Risk per trade</th>
+<th>Account left</th>
+<th>Gain needed to recover</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1%</td>
+<td>about <strong>£9,040</strong></td>
+<td>about 11%</td>
+</tr>
+<tr>
+<td>2%</td>
+<td>about £8,170</td>
+<td>about 22%</td>
+</tr>
+<tr>
+<td>5%</td>
+<td>about £5,990</td>
+<td>about 67%</td>
+</tr>
+<tr>
+<td>10%</td>
+<td>about <strong>£3,490</strong></td>
+<td>about 187%</td>
+</tr>
+</tbody></table>
+<p>The 1% trader is bruised but fine. The 10% trader needs to nearly triple what&#39;s left to get back to where they started. Small risk per trade turns disasters into setbacks.</p>
+</section>
+<section class="lesson-section"><h2>The stop-loss: deciding where you&#39;re wrong</h2><p>A <strong>stop-loss</strong> is a pre-set exit that closes a trade if the price moves against you to a certain level. Decide it <strong>before</strong> you enter, based on where the trade idea is proved wrong, not on how much you&#39;d like to lose.</p>
+<ul>
+<li>For a long trade near support, the stop goes just below support (module 15).</li>
+<li>For a breakout trade, just back inside the old range.</li>
+<li>Never move a stop further away to &quot;give it room&quot; once you&#39;re in. That&#39;s how small losses become big ones.</li>
+</ul>
+<p>A stop isn&#39;t a guarantee: if the price gaps past it, you&#39;re filled at the next available price (module 7). That&#39;s another reason to keep risk per trade small.</p>
+</section>
+<section class="lesson-section"><h2>R: measuring risk in units</h2><p>Traders measure results in <strong>R</strong>, where <strong>1R is the amount you risk on a trade</strong>: the distance from entry to stop, times your position size.</p>
+<ul>
+<li>A trade that hits its stop loses <strong>1R</strong>.</li>
+<li>A trade that makes twice what you risked is <strong>+2R</strong>.</li>
+<li>If a gap fills you past your stop and you lose one and a half times your planned risk, that&#39;s <strong>−1.5R</strong>.</li>
+</ul>
+<p>Measuring in R lets you compare trades of different sizes and in different markets, and it&#39;s the language of the rest of this strand. Your result in R is your <strong>R-multiple</strong>.</p>
+</section>
+<section class="lesson-section"><h2>Position sizing: the 1% rule</h2><p><strong>Position sizing</strong> means working out how much to buy so that if your stop is hit, you lose exactly the amount you planned.</p>
+<blockquote>
+<p>position size = money you&#39;re willing to risk ÷ (entry price − stop price)</p>
+</blockquote>
+<p>Many traders use the <strong>1% rule</strong>: never risk more than 1% of the account on one trade (some use 0.5% or 2%).</p>
+<p>Example: a £10,000 paper account, 1% risk = <strong>£100</strong>. You want to buy at £50 with a stop at £48, so you risk £2 per share. Position size = £100 ÷ £2 = <strong>50 shares</strong> (costing £2,500).</p>
+<p>Notice what this does: a <strong>wider stop means fewer shares</strong>, a tighter stop more shares, but the money at risk stays £100 either way. You size the position to the stop, never the other way round.</p>
+<p class="static-interactive"><a href="../../#/m/23">Try the calculator in the interactive lesson →</a></p>
+
+
+
+</section>
+<section class="lesson-section"><h2>Reward to risk</h2><p><strong>Reward-to-risk</strong> compares the distance to your target with the distance to your stop. Buy at £50, stop £48 (risk £2), target £56 (reward £6): <strong>3 : 1</strong>.</p>
+<p>Reward-to-risk and win rate together decide whether you make money:</p>
+<ul>
+<li>At 1 : 1 you need to win <strong>more than half</strong> your trades to profit (before costs).</li>
+<li>At 2 : 1 you only need to win <strong>more than a third</strong>.</li>
+<li>At 3 : 1, <strong>more than a quarter</strong>.</li>
+</ul>
+<p>The calculator shows the win rate needed to break even. Chasing very high reward-to-risk isn&#39;t automatically better: far-off targets are hit less often. What matters is the combination, which module 27 calls <strong>expectancy</strong>.</p>
+</section>
+<section class="lesson-section"><h2>Risk rules beyond one trade</h2><p>Professional traders also cap risk across the whole account:</p>
+<ul>
+<li><strong>Total open risk:</strong> e.g. no more than 3–5% at risk across all open trades at once.</li>
+<li><strong>Correlated trades:</strong> three trades in similar shares are really one big bet (module 10).</li>
+<li><strong>Daily or weekly loss limits:</strong> e.g. stop trading for the day after losing 2R or 3R. This prevents &quot;revenge trading&quot; after losses (module 31).</li>
+<li><strong>No leverage you don&#39;t need.</strong> If the position-size calculation says you&#39;d need leverage to take the trade, the stop is probably too wide for the account. Skip it.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>The common mistake</h2><p><strong>&quot;This one&#39;s a sure thing, so I&#39;ll risk more on it.&quot;</strong></p>
+<p>Feeling sure is exactly when traders size up, and it&#39;s exactly how accounts get blown up. There are no sure things in trading; confidence just makes losses bigger when they come. Professionals keep risk the same on every trade, precisely because they can&#39;t tell in advance which trades will win.</p>
+</section>
+<section class="lesson-section"><h2>In real life</h2><ul>
+<li><strong>Decide the stop first</strong>, from the chart. Then calculate size. Then decide whether the reward is worth it.</li>
+<li><strong>Risk 1% (or less) per paper trade</strong>, every time.</li>
+<li><strong>Record every trade in R</strong> in your journal.</li>
+<li><strong>Set a daily loss limit</strong> and stick to it.</li>
+<li><strong>Red flag:</strong> anyone who says stops are for amateurs, or that you should &quot;average down&quot; (buy more) when a trade goes against you. That&#39;s how small losses become account-ending ones.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>Think about it</h2><details class="reveal"><summary>Why do some professional traders risk well under 1% per trade?</summary><div><p>Because they take many trades, sometimes at once, and know that long losing runs are inevitable. Smaller risk per trade keeps the worst run survivable, and their edge does the work over hundreds of trades.</p>
+</div></details>
+
+
+
+
+
+<details class="reveal"><summary>Why is moving your stop further away once you&#39;re in a trade so dangerous?</summary><div><p>You chose the stop as the point where your idea is wrong. Moving it means hoping instead of following the plan, and turns a 1R loss into 2R, 3R or worse. Repeated, it destroys the maths that makes any strategy work.</p>
+</div></details>
+
+
+
+</section>
+<section class="lesson-section"><h2>Try it</h2><ol>
+<li>Use the calculator: on a £5,000 paper account at 1% risk, how many shares can you buy at £20 with a stop at £19.20?</li>
+<li>Plan your next paper trade in full: stop from the chart, size from the calculator, target and reward-to-risk. Write it in your journal before entering.</li>
+</ol>
+</section>
+<section class="lesson-section"><h2>Go deeper</h2><ul>
+<li><a href="https://www.fca.org.uk/publications/policy-statements/ps19-18-restricting-contract-difference-products">CFD restrictions and risk warnings (FCA)</a></li>
+<li><a href="https://www.moneyhelper.org.uk/en/savings/investing/investing-beginners-guide">Investing beginner&#39;s guide (MoneyHelper)</a></li>
+</ul>
+</section>
+      <section class="card">
+        <h2>Take the quiz</h2>
+        <p>Pass the module 23 quiz to unlock the next module. Modules unlock one at a time as you go. It's free, and you don't need an account.</p>
+        <a class="btn" href="../../#/m/23">Open the interactive lesson</a>
+      </section>
+      <nav class="prev-next"><a class="nav-prev" href="../22/"><span class="muted">← Previous</span><span>Valuation basics</span></a><a class="nav-next" href="../24/"><span class="muted">Next →</span><span>Bonds and the yield curve</span></a></nav>
+    </article>
+  </main>
+  <footer class="foot">
+    <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
+    <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
+    <p>Made by Ivor Fergusson · <a href="../../#/about">About and sources</a> · <a href="../../privacy.html">Privacy</a></p>
+  </footer>
+</body>
+</html>

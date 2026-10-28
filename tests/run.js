@@ -9,6 +9,7 @@ import { nicknameProblem } from '../js/nickname.js';
 import { payslip } from '../js/calcs-money.js';
 import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-trade.js';
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
+import { build } from '../tools/build_pages.mjs';
 
 let pass = 0, fail = 0;
 function check(name, cond, extra = '') {
@@ -215,6 +216,16 @@ const l6 = lbo({ ebitda: 20, entryMult: 10, debtPct: 60, growth: 5, years: 5, ex
 check('LBO debt magnifies return', l6.moic > lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 5, years: 5, exitMult: 10, paydownPct: 40 }).moic, l6.moic);
 check('call payoff', optionPnl('call', 100, 5, 110) === 5 && optionPnl('call', 100, 5, 90) === -5);
 check('put payoff', optionPnl('put', 100, 5, 80) === 15 && optionPnl('put', 100, 5, 120) === -5);
+
+// --- reading pages (m/<id>/) and sitemap.xml match the content
+const built = await build();
+for (const [p, text] of Object.entries(built)) {
+  let disk = null;
+  try { disk = readFileSync(new URL(`../${p}`, import.meta.url), 'utf8'); } catch {}
+  const lf = s => s && s.replace(/\r\n/g, '\n');
+  check(`${p} up to date`, lf(disk) === lf(text), '(run node tools/build_pages.mjs)');
+}
+check('every lesson has a reading page', Object.keys(built).filter(p => p.endsWith('/index.html') && p !== 'm/index.html').length === course.items.filter(i => i.kind !== 'checkpoint' && course.ready.includes(i.id)).length);
 
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

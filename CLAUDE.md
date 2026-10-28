@@ -16,6 +16,8 @@ A static website that teaches personal finance, investing, paper trading and the
   - `quizzes/<id>.json`: the module's quiz pool.
   - `figures.json`: every figure that changes (rates, tax bands, allowances), each with value, source, URL and `checked` date. Lessons use `{{fig:key}}`, never a typed number for these.
   - `glossary.json`: every term, its definition and the module that teaches it.
+- `m/<id>/index.html`, `m/index.html`, `sitemap.xml`: generated reading versions of each lesson so search engines can index them (hash routes are invisible to Google). **After changing any lesson, figure, glossary entry or course.json, run `node tools/build_pages.mjs`**; `node tests/run.js` fails if they're out of date. Never edit them by hand.
+- `img/share.png`: link-preview card (`python tools/make_share_image.py`).
 - `workflows/`: written instructions (WAT). `tools/`: helper scripts.
 - `SETUP.md` (one-off Supabase and GitHub setup), `UPDATING.md` (what to refresh each April and after each Bank of England decision).
 

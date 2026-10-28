@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market mechanics: orders, spreads, leverage, CFDs · Compound</title>
+  <meta name="description" content="How a trade actually happens, and why leverage is dangerous. Module 7 of Compound, a free UK finance course with quizzes and calculators.">
+  <link rel="canonical" href="https://ivorfergusson-tech.github.io/compound/m/07/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Compound">
+  <meta property="og:title" content="Market mechanics: orders, spreads, leverage, CFDs · Compound">
+  <meta property="og:description" content="How a trade actually happens, and why leverage is dangerous. Module 7 of Compound, a free UK finance course with quizzes and calculators.">
+  <meta property="og:url" content="https://ivorfergusson-tech.github.io/compound/m/07/">
+  <meta property="og:image" content="https://ivorfergusson-tech.github.io/compound/img/share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0E7C6B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E7C6B'/%3E%3Ctext x='16' y='23' font-size='20' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3E£%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="../../css/app.css">
+  <script>var t='dark';try{if(localStorage.getItem('compound.theme')==='light')t='light';}catch(e){}document.documentElement.dataset.theme=t;</script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="../../"><span class="logo" aria-hidden="true">£</span><span>Compound</span></a>
+    <nav class="top-nav static-nav" aria-label="Main"><a href="../../m/">All lessons</a><a href="../../#/glossary">Glossary</a></nav>
+  </header>
+  <main class="page">
+    <article class="lesson">
+      <header class="lesson-head">
+        <span class="pill strand-pill-trading">🕯️ Trading · Beginner</span>
+        <h1>Market mechanics: orders, spreads, leverage, CFDs</h1>
+        <p class="muted">Module 7 of 32 · about 25 minutes · figures checked 27 October 2026</p>
+        <aside class="callout callout-paper"><span class="eyebrow">Paper trading only</span><p>Education only, not financial advice. Practise with pretend money; most people who trade with real money lose it.</p></aside>
+        <aside class="callout"><span class="eyebrow">Reading version</span><p>This is the text of the lesson. The interactive version adds quick checks, calculators, the module quiz and XP, and saves your progress.</p><a class="btn" href="../../#/m/07">Open the interactive lesson</a></aside>
+      </header>
+      <section class="lesson-section"><h2>Recap</h2><p>Module 3 showed that most retail traders lose money after costs, and that expected value decides what happens over many trades. Module 6 explained stock exchanges and why prices move. This module opens the bonnet: how a trade actually happens, what it costs, and how <strong>leverage</strong> turns small price moves into big wins and bigger losses.</p>
+</section>
+<section class="lesson-section"><h2>Before you read</h2><p>You put <strong>£500</strong> into a trade with <strong>20:1 leverage</strong>. The market moves <strong>2%</strong> against you.</p>
+<aside class="callout callout-idea"><span class="eyebrow">The idea in one sentence</span><p>Every trade starts slightly behind because of the spread, the type of order decides what price you actually get, and leverage multiplies every move, so a small move against you can wipe out most of your money.</p>
+</aside>
+
+
+
+</section>
+<section class="lesson-section"><h2>Two prices: bid and ask</h2><p>At any moment a market shows two prices:</p>
+<ul>
+<li><strong>The bid:</strong> the highest price a buyer is willing to pay right now. It&#39;s what <strong>you</strong> get if you sell.</li>
+<li><strong>The ask</strong> (or offer): the lowest price a seller will accept right now. It&#39;s what <strong>you</strong> pay if you buy.</li>
+</ul>
+<p>The gap between them is the <strong>spread</strong>. If a share is quoted 99.9p / 100.1p, the spread is 0.2p.</p>
+<p>The spread is a cost you pay on every round trip. Buy at the ask, then immediately sell at the bid, and you&#39;ve lost the spread. Every trade starts slightly in the red and needs the price to move in your favour by at least the spread just to break even.</p>
+<p class="static-interactive"><a href="../../#/m/07">Try the calculator in the interactive lesson →</a></p>
+
+
+
+</section>
+<section class="lesson-section"><h2>Liquidity</h2><p><strong>Liquidity</strong> is how easily you can buy or sell without moving the price. A liquid market has lots of buyers and sellers, like shares in big FTSE 100 companies or major currency pairs. Spreads are tight and orders fill instantly.</p>
+<p>An illiquid market, like shares in a tiny company, has few traders. Spreads are wide, and a big order can push the price against you. In a panic, liquidity can vanish just when you most want to get out.</p>
+</section>
+<section class="lesson-section"><h2>Order types</h2><p>When you place a trade you choose an <strong>order type</strong>. The three you need to know:</p>
+<ul>
+<li><strong>Market order:</strong> buy or sell <strong>now</strong>, at the best price available. Fast and almost certain to fill, but you don&#39;t control the exact price. In a fast or thin market you might get a worse price than you saw, called <strong>slippage</strong>.</li>
+<li><strong>Limit order:</strong> buy or sell only at <strong>your price or better</strong>. &quot;Buy at 95p or lower.&quot; You control the price but it might never fill if the market doesn&#39;t get there.</li>
+<li><strong>Stop order:</strong> becomes a market order <strong>once the price reaches a level you set</strong>. Its main use is the <strong>stop-loss</strong>: &quot;if the price falls to 90p, sell&quot;, to cap your loss (module 23).</li>
+</ul>
+<p>A stop-loss isn&#39;t a guarantee. If the price <strong>gaps</strong> (jumps past your level, say overnight on bad news), your order fills at the next available price, which can be much worse. Some providers offer <strong>guaranteed stops</strong> for an extra charge.</p>
+</section>
+<section class="lesson-section"><h2>Going long and going short</h2><ul>
+<li><strong>Going long:</strong> you buy, hoping the price rises.</li>
+<li><strong>Going short:</strong> you profit if the price <strong>falls</strong>. You effectively sell first and buy back later, hopefully cheaper.</li>
+</ul>
+<p>Shorting is riskier than it sounds. When you buy, the most you can lose is what you paid (the price can&#39;t go below zero). When you short, the price can in theory rise without limit, so your potential loss has no ceiling unless you use a stop.</p>
+</section>
+<section class="lesson-section"><h2>Leverage and margin</h2><p><strong>Leverage</strong> lets you control a big position with a small deposit. The deposit is called <strong>margin</strong>. With 20:1 leverage, £500 of margin controls a £10,000 position.</p>
+<p>Leverage multiplies <strong>everything</strong>:</p>
+<ul>
+<li>A 2% rise on £10,000 is <strong>+£200</strong>: 40% of your £500.</li>
+<li>A 2% fall is <strong>−£200</strong>: 40% of your £500 gone.</li>
+</ul>
+<p>Back to the question at the start: a 2% move against a 20:1 position loses <strong>£200</strong>, which is <strong>40%</strong> of your deposit. A 5% move would wipe out the whole £500.</p>
+<p>UK rules for retail customers limit leverage to <strong>between 30:1 and 2:1</strong> <span class="fig-asof">(FCA rules since 2019 (30:1 on major currency pairs down to 5:1 on individual shares); positions are closed when funds fall to 50% of the margin needed; you can&#39;t lose more than your account)</span>.</p>
+<p class="static-interactive"><a href="../../#/m/07">Try the calculator in the interactive lesson →</a></p>
+
+
+
+
+
+
+
+
+
+</section>
+<section class="lesson-section"><h2>CFDs and spread bets</h2><p>In the UK, most leveraged trading by individuals happens through two products. You never own the underlying share or currency; you take a position on its price.</p>
+<ul>
+<li><strong>CFD (contract for difference):</strong> you and the provider agree to settle the difference in price between opening and closing. Profits are usually taxed as capital gains.</li>
+<li><strong>spread bet:</strong> you bet a set amount per point the price moves (say £2 per point). Because HMRC treats it as gambling, profits are <strong>usually free of Capital Gains Tax</strong> <span class="fig-asof">(HMRC treats it as gambling, so losses can&#39;t offset gains; CFD profits are taxed as capital gains above the £3,000 allowance)</span>.</li>
+</ul>
+<p>Both are leveraged, both let you go long or short, and both charge for holding positions overnight (financing charges), on top of the spread. They&#39;re designed for short-term trading; holding for months gets expensive.</p>
+<p>Every UK provider must show a warning with the share of its clients who lose money: for big providers, <strong>about 68–82%</strong>. And crypto derivatives are <strong>banned for retail since 6 January 2021</strong> <span class="fig-asof">(crypto exchange-traded notes on UK exchanges allowed for retail from 8 October 2025, with no FSCS cover; buying crypto itself is mostly unregulated)</span>.</p>
+</section>
+<section class="lesson-section"><h2>What a trade really costs</h2><p>Adding it up, a short-term trade can cost:</p>
+<ul>
+<li><strong>The spread</strong>, every time.</li>
+<li><strong>Commission</strong> on some platforms.</li>
+<li><strong>Overnight financing</strong> on leveraged positions.</li>
+<li><strong>Stamp Duty</strong> on buying UK shares outright: <strong>0.5%</strong> (not on CFDs or spread bets).</li>
+<li><strong>Currency conversion</strong> fees on foreign markets.</li>
+</ul>
+<p>These are small per trade but huge for frequent traders. Ten trades a week, each costing 0.2% in spread, adds up to about <strong>100% of your trading money a year</strong> if your pot doesn&#39;t grow. That&#39;s the cost an edge has to beat before you make a penny.</p>
+</section>
+<section class="lesson-section"><h2>The common mistake</h2><p><strong>&quot;Leverage means I can make big profits from a small amount of money.&quot;</strong></p>
+<p>It does, in exactly the same way it lets you make big <strong>losses</strong> from a small amount. Leverage doesn&#39;t improve your chances; it just magnifies the result, including the costs. Most people who lose money trading CFDs lose it because leverage turns ordinary price wobbles into account-ending moves.</p>
+</section>
+<section class="lesson-section"><h2>In real life</h2><ul>
+<li><strong>Read the bid and ask</strong> before any trade, and treat the spread as a cost.</li>
+<li><strong>Use limit orders</strong> in thin or fast markets to avoid nasty fills.</li>
+<li><strong>Never trade with leverage</strong> until you&#39;ve proven an edge on paper over many trades, and even then, use a fraction of the maximum.</li>
+<li><strong>Check the provider is FCA-authorised</strong> and read its risk warning.</li>
+<li><strong>Red flag:</strong> offers of &quot;100:1 leverage&quot; or bonuses for depositing. UK-regulated firms can&#39;t offer them to retail customers, so it&#39;s an offshore, unregulated firm.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>Think about it</h2><details class="reveal"><summary>Why do market makers and brokers offer a spread instead of one price?</summary><div><p>They&#39;re providing a service: always being ready to buy or sell. The spread is their payment for taking the risk of holding positions and for providing liquidity. In busy markets competition squeezes it; in quiet ones they need more to cover the risk.</p>
+</div></details>
+
+
+
+
+
+<details class="reveal"><summary>Why did the FCA cap leverage instead of banning CFDs altogether?</summary><div><p>CFDs have legitimate uses, such as hedging and for experienced traders who understand the risks. The FCA judged that capping leverage, closing positions at 50% margin and preventing negative balances would cut the worst harm while keeping access. Many retail clients still lose money, which is why the warnings remain.</p>
+</div></details>
+
+
+
+</section>
+<section class="lesson-section"><h2>Try it</h2><ol>
+<li>Look up a share price on any finance site. Find the bid and ask. What&#39;s the spread as a percentage of the price?</li>
+<li>Use the leverage calculator: at 30:1, what market move wipes out half your margin?</li>
+</ol>
+</section>
+<section class="lesson-section"><h2>Go deeper</h2><ul>
+<li><a href="https://www.fca.org.uk/publications/policy-statements/ps19-18-restricting-contract-difference-products">CFD restrictions (FCA)</a></li>
+<li><a href="https://www.gov.uk/tax-buy-shares">Tax when you buy shares (gov.uk)</a></li>
+</ul>
+</section>
+      <section class="card">
+        <h2>Take the quiz</h2>
+        <p>Pass the module 7 quiz to unlock the next module. Modules unlock one at a time as you go. It's free, and you don't need an account.</p>
+        <a class="btn" href="../../#/m/07">Open the interactive lesson</a>
+      </section>
+      <nav class="prev-next"><a class="nav-prev" href="../06/"><span class="muted">← Previous</span><span>How stock markets work</span></a><a class="nav-next" href="../08/"><span class="muted">Next →</span><span>How banks make money</span></a></nav>
+    </article>
+  </main>
+  <footer class="foot">
+    <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
+    <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
+    <p>Made by Ivor Fergusson · <a href="../../#/about">About and sources</a> · <a href="../../privacy.html">Privacy</a></p>
+  </footer>
+</body>
+</html>

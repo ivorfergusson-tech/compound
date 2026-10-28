@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building and backtesting a strategy · Compound</title>
+  <meta name="description" content="Turning ideas into rules and testing them honestly. Module 27 of Compound, a free UK finance course with quizzes and calculators.">
+  <link rel="canonical" href="https://ivorfergusson-tech.github.io/compound/m/27/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Compound">
+  <meta property="og:title" content="Building and backtesting a strategy · Compound">
+  <meta property="og:description" content="Turning ideas into rules and testing them honestly. Module 27 of Compound, a free UK finance course with quizzes and calculators.">
+  <meta property="og:url" content="https://ivorfergusson-tech.github.io/compound/m/27/">
+  <meta property="og:image" content="https://ivorfergusson-tech.github.io/compound/img/share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0E7C6B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E7C6B'/%3E%3Ctext x='16' y='23' font-size='20' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3E£%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="../../css/app.css">
+  <script>var t='dark';try{if(localStorage.getItem('compound.theme')==='light')t='light';}catch(e){}document.documentElement.dataset.theme=t;</script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="../../"><span class="logo" aria-hidden="true">£</span><span>Compound</span></a>
+    <nav class="top-nav static-nav" aria-label="Main"><a href="../../m/">All lessons</a><a href="../../#/glossary">Glossary</a></nav>
+  </header>
+  <main class="page">
+    <article class="lesson">
+      <header class="lesson-head">
+        <span class="pill strand-pill-trading">🕯️ Trading · Advanced</span>
+        <h1>Building and backtesting a strategy</h1>
+        <p class="muted">Module 27 of 32 · about 24 minutes</p>
+        <aside class="callout callout-paper"><span class="eyebrow">Paper trading only</span><p>Education only, not financial advice. Practise with pretend money; most people who trade with real money lose it.</p></aside>
+        <aside class="callout"><span class="eyebrow">Reading version</span><p>This is the text of the lesson. The interactive version adds quick checks, calculators, the module quiz and XP, and saves your progress.</p><a class="btn" href="../../#/m/27">Open the interactive lesson</a></aside>
+      </header>
+      <section class="lesson-section"><h2>Recap</h2><p>Module 23 gave you position sizing, the stop-loss and results measured in R. Modules 15 and 19 gave you ideas from charts and indicators. But an idea isn&#39;t a strategy, and a few winning trades aren&#39;t proof. This module shows how to turn ideas into exact rules, test them honestly on past data, and judge whether they have an edge, without fooling yourself.</p>
+</section>
+<section class="lesson-section"><h2>Before you read</h2><p>A strategy wins <strong>40%</strong> of its trades. Each win makes <strong>2R</strong> and each loss costs <strong>1R</strong>.</p>
+<aside class="callout callout-idea"><span class="eyebrow">The idea in one sentence</span><p>A strategy is a set of rules exact enough that a computer could follow them; you judge it by expectancy over many trades after costs, and the biggest danger in testing is tuning the rules until they fit the past perfectly and then fail in the future.</p>
+</aside>
+
+
+
+</section>
+<section class="lesson-section"><h2>From idea to rules</h2><p>&quot;Buy when it looks strong&quot; isn&#39;t a strategy. A <strong>strategy</strong> is a set of rules so exact that two people following it would take the same trades. It needs:</p>
+<ol>
+<li><strong>The market and timeframe:</strong> e.g. a large US share ETF, daily candles.</li>
+<li><strong>Entry:</strong> e.g. buy at the close when price closes above the 20-day high and above its 50-day moving average.</li>
+<li><strong>Stop:</strong> e.g. just below the lowest low of the last 10 days.</li>
+<li><strong>Exit / target:</strong> e.g. sell at 2R, or when price closes below the 10-day moving average.</li>
+<li><strong>Position size:</strong> e.g. risk 1% of the account per trade (module 23).</li>
+<li><strong>Filters:</strong> e.g. no new trades in the week of company results.</li>
+</ol>
+<p>If any part needs a judgement call, it can&#39;t be tested properly, and you won&#39;t know whether results came from the rules or from your mood that day.</p>
+</section>
+<section class="lesson-section"><h2>Win rate and expectancy</h2><p>The <strong>win rate</strong> is the share of trades that make money. On its own, it tells you almost nothing: a strategy that wins 90% of the time but loses 20R on the other 10% is a disaster.</p>
+<p><strong>Expectancy</strong> combines win rate and the size of wins and losses into the average result per trade:</p>
+<blockquote>
+<p>expectancy = (win rate × average win) − (loss rate × average loss)</p>
+</blockquote>
+<p>Back to the question at the start: 0.4 × 2R − 0.6 × 1R = <strong>+0.2R per trade</strong>. Over 100 trades that&#39;s about +20R, or roughly +20% of the account if you risk 1% per trade (a bit less after compounding and costs). It loses more often than it wins, and still makes money.</p>
+<p>Costs come straight off expectancy. If spreads and fees cost 0.1R per trade, expectancy halves to +0.1R. A strategy with +0.05R expectancy before costs is probably a loser after them.</p>
+<p class="static-interactive"><a href="../../#/m/27">Try the calculator in the interactive lesson →</a></p>
+
+
+
+</section>
+<section class="lesson-section"><h2>Losing streaks are normal</h2><p>Even good strategies have long losing runs. With a 40% win rate, the chance of at least <strong>6 losses in a row</strong> somewhere in 100 trades is about <strong>87%</strong>, and the chance of 8 in a row is about <strong>49%</strong>. That&#39;s not the strategy breaking; it&#39;s arithmetic.</p>
+<p>This is why the 1% rule matters (module 23), and why you shouldn&#39;t abandon a tested strategy after a few losses, or trust a new one after a few wins.</p>
+</section>
+<section class="lesson-section"><h2>Backtesting</h2><p>A <strong>backtest</strong> applies your exact rules to past price data to see how they would have done. Done well, it tells you:</p>
+<ul>
+<li>the number of trades, win rate, average win and loss, and expectancy in R,</li>
+<li>the worst losing run and the biggest drawdown,</li>
+<li>whether results depend on one lucky period.</li>
+</ul>
+<p>How to do it honestly, even by hand on a chart:</p>
+<ol>
+<li><strong>Write the rules first</strong>, before looking at the results.</li>
+<li><strong>Use plenty of data:</strong> at least 30, ideally 100+ trades, across different market conditions (rising, falling, sideways).</li>
+<li><strong>Take every signal</strong> the rules give, including the ugly ones. Skipping trades you &quot;wouldn&#39;t really have taken&quot; is cheating.</li>
+<li><strong>Include costs:</strong> spreads, commission, slippage.</li>
+<li><strong>Hide some data:</strong> test on, say, 2015–2021, and keep 2022–2025 untouched. Then run the final rules once on the unseen part. This is <strong>out-of-sample</strong> testing.</li>
+</ol>
+<p>Then <strong>forward test</strong> on paper, live, for weeks or months. Real time is the toughest test.</p>
+</section>
+<section class="lesson-section"><h2>Overfitting: the biggest trap</h2><p><strong>Overfitting</strong> is tweaking rules until they fit the past perfectly. With enough tweaks, any random data can be made to look like a goldmine: a 17-day moving average, but only on Tuesdays, unless RSI is above 63. The rules end up describing past noise, not a real pattern, and they fall apart on new data.</p>
+<p>Warning signs:</p>
+<ul>
+<li><strong>Lots of rules and precise numbers</strong> (17 days, 63 RSI) that were chosen because they tested best.</li>
+<li><strong>Results that collapse</strong> when you nudge a setting slightly (a 16- or 18-day average does terribly).</li>
+<li><strong>Great in-sample, poor out-of-sample.</strong></li>
+<li><strong>Very few trades.</strong> Ten trades can look amazing by luck.</li>
+</ul>
+<p>Simple rules with a reason behind them (why should this work?) are more likely to hold up than complex rules found by searching.</p>
+</section>
+<section class="lesson-section"><h2>Other biases in testing</h2><ul>
+<li><strong>Survivorship bias:</strong> testing only on companies that exist today leaves out the ones that went bust, flattering results.</li>
+<li><strong>Look-ahead bias:</strong> using information you couldn&#39;t have had at the time, like a day&#39;s close to decide a trade at that day&#39;s open.</li>
+<li><strong>Cherry-picking:</strong> showing only the market or period where it worked.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>The common mistake</h2><p><strong>&quot;My backtest made 300% a year, so I&#39;ve found a goldmine.&quot;</strong></p>
+<p>Spectacular backtests are almost always a sign of overfitting, missing costs, look-ahead bias or too few trades. Real edges, when they exist, tend to be modest: a small positive expectancy, repeated many times, with tight risk control. If a result looks too good to be true, check it harder, not less.</p>
+</section>
+<section class="lesson-section"><h2>In real life</h2><ul>
+<li><strong>Write rules a stranger could follow.</strong></li>
+<li><strong>Judge by expectancy in R after costs</strong>, over at least 30–100 trades.</li>
+<li><strong>Expect losing runs</strong> and plan your risk for them.</li>
+<li><strong>Test on data you haven&#39;t seen</strong>, then forward test on paper.</li>
+<li><strong>Red flag:</strong> strategy sellers showing backtests without the full trade list, costs, or out-of-sample results.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>Think about it</h2><details class="reveal"><summary>Why might a strategy that worked for years suddenly stop working?</summary><div><p>Markets change: other traders discover the same pattern and trade it away, conditions shift from trending to ranging, or costs and rules change. Or it was overfitted luck all along. That&#39;s why traders keep monitoring live results against the backtest.</p>
+</div></details>
+
+
+
+
+
+<details class="reveal"><summary>Why is &quot;why should this work?&quot; such an important question?</summary><div><p>A rule with a sensible reason (for example, trends persist because news spreads slowly and people under-react) is more likely to keep working than a pattern found by trying thousands of combinations. Reason guards against overfitting.</p>
+</div></details>
+
+
+
+</section>
+<section class="lesson-section"><h2>Try it</h2><ol>
+<li>Write one strategy for your market, with all six parts above, in your journal.</li>
+<li>Scroll back through a year of daily charts and record every signal it would have given, with the result in R. Calculate win rate and expectancy with the calculator.</li>
+<li>Was the worst losing run longer than you&#39;d have stuck with?</li>
+</ol>
+</section>
+<section class="lesson-section"><h2>Go deeper</h2><ul>
+<li><a href="https://repositorio.fgv.br/items/e87d04fc-4b4c-4a56-ab5a-1c84c1afde1b/full">Day Trading for a Living? (Chague, De-Losso and Giovannetti)</a></li>
+<li><a href="https://www.fca.org.uk/publications/policy-statements/ps19-18-restricting-contract-difference-products">CFD restrictions and risk warnings (FCA)</a></li>
+</ul>
+</section>
+      <section class="card">
+        <h2>Take the quiz</h2>
+        <p>Pass the module 27 quiz to unlock the next module. Modules unlock one at a time as you go. It's free, and you don't need an account.</p>
+        <a class="btn" href="../../#/m/27">Open the interactive lesson</a>
+      </section>
+      <nav class="prev-next"><a class="nav-prev" href="../26/"><span class="muted">← Previous</span><span>Behavioural biases</span></a><a class="nav-next" href="../28/"><span class="muted">Next →</span><span>Derivatives</span></a></nav>
+    </article>
+  </main>
+  <footer class="foot">
+    <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
+    <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
+    <p>Made by Ivor Fergusson · <a href="../../#/about">About and sources</a> · <a href="../../privacy.html">Privacy</a></p>
+  </footer>
+</body>
+</html>

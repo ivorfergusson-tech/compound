@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bonds and the yield curve · Compound</title>
+  <meta name="description" content="How the bond market prices risk and time. Module 24 of Compound, a free UK finance course with quizzes and calculators.">
+  <link rel="canonical" href="https://ivorfergusson-tech.github.io/compound/m/24/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Compound">
+  <meta property="og:title" content="Bonds and the yield curve · Compound">
+  <meta property="og:description" content="How the bond market prices risk and time. Module 24 of Compound, a free UK finance course with quizzes and calculators.">
+  <meta property="og:url" content="https://ivorfergusson-tech.github.io/compound/m/24/">
+  <meta property="og:image" content="https://ivorfergusson-tech.github.io/compound/img/share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0E7C6B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E7C6B'/%3E%3Ctext x='16' y='23' font-size='20' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3E£%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="../../css/app.css">
+  <script>var t='dark';try{if(localStorage.getItem('compound.theme')==='light')t='light';}catch(e){}document.documentElement.dataset.theme=t;</script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="../../"><span class="logo" aria-hidden="true">£</span><span>Compound</span></a>
+    <nav class="top-nav static-nav" aria-label="Main"><a href="../../m/">All lessons</a><a href="../../#/glossary">Glossary</a></nav>
+  </header>
+  <main class="page">
+    <article class="lesson">
+      <header class="lesson-head">
+        <span class="pill strand-pill-industry">🏦 Industry · Advanced</span>
+        <h1>Bonds and the yield curve</h1>
+        <p class="muted">Module 24 of 32 · about 25 minutes · figures checked 27 October 2026</p>
+        
+        <aside class="callout"><span class="eyebrow">Reading version</span><p>This is the text of the lesson. The interactive version adds quick checks, calculators, the module quiz and XP, and saves your progress.</p><a class="btn" href="../../#/m/24">Open the interactive lesson</a></aside>
+      </header>
+      <section class="lesson-section"><h2>Recap</h2><p>Module 2 introduced bonds, with their coupons and face value, and warned that bond prices fall when interest rates rise. Module 12 showed how the Bank of England moves short-term rates and used QE to push down long-term ones. Module 22 taught present value. This module puts them together: how bond prices and yields really work, why longer bonds are riskier, and what the <strong>yield curve</strong> says about the economy.</p>
+</section>
+<section class="lesson-section"><h2>Before you read</h2><p>You own a UK government bond paying a 4% coupon, with 30 years left to run. Market interest rates jump by one percentage point.</p>
+<aside class="callout callout-idea"><span class="eyebrow">The idea in one sentence</span><p>A bond&#39;s price is the present value of its fixed payments, so when market yields rise its price falls, and the longer the bond the bigger the fall; the yield curve compares yields across lengths of loan and shows what markets expect for interest rates and the economy.</p>
+</aside>
+
+
+
+</section>
+<section class="lesson-section"><h2>Gilts and other bonds</h2><p>UK government bonds are <strong>gilts</strong>, named after the gilded edges of old paper certificates. The government sells them through the Debt Management Office to fund the gap between what it spends and what it raises in tax. They range from a year or two to more than 50 years. There are also <strong>index-linked gilts</strong>, whose payments rise with inflation.</p>
+<p>Companies issue <strong>corporate bonds</strong>, which usually pay more than gilts because there&#39;s more chance they won&#39;t pay (default risk).</p>
+</section>
+<section class="lesson-section"><h2>Price and yield</h2><p>A bond&#39;s <strong>yield</strong> is the yearly return you&#39;d get if you bought at today&#39;s price and held it to maturity, counting both the coupons and the difference between the price paid and the £100 you get back at the end.</p>
+<p>The key rule: <strong>price and yield move in opposite directions.</strong> A bond&#39;s coupon is fixed when it&#39;s issued. If market rates rise, new bonds pay more, so nobody will pay full price for an old bond paying less: its price falls until its yield matches the market. When rates fall, old bonds paying more become valuable, and their price rises.</p>
+<p>Mathematically, the price is the present value of all the future coupons plus the £100 at the end, discounted at the market yield (module 22). A 4% coupon bond with 10 years left:</p>
+<ul>
+<li>If the market wants a 4% yield, it&#39;s worth <strong>£100</strong> (&quot;at par&quot;).</li>
+<li>If the market wants 5%, it&#39;s worth about <strong>£92.28</strong>.</li>
+<li>If the market wants 6%, about <strong>£85.28</strong>.</li>
+</ul>
+<p class="static-interactive"><a href="../../#/m/24">Try the calculator in the interactive lesson →</a></p>
+
+
+
+
+
+
+
+
+
+</section>
+<section class="lesson-section"><h2>Duration: why longer bonds swing more</h2><p><strong>Duration</strong> measures how sensitive a bond&#39;s price is to changes in yields. The longer you wait for your money, the more each change in yield is compounded over those years, so long bonds are much more sensitive than short ones.</p>
+<p>Back to the question at the start. For a 4% bond, a rise in yields from 5% to 6% does this:</p>
+<ul>
+<li>2 years left: price falls from about £98.14 to £96.33, <strong>less than 2%</strong>.</li>
+<li>10 years left: from about £92.28 to £85.28, <strong>nearly 8%</strong>.</li>
+<li>30 years left: from about £84.63 to £72.47, <strong>over 14%</strong>.</li>
+</ul>
+<p>So the answer is closer to <strong>15%</strong>. &quot;Safe&quot; government bonds can lose a lot of value if you have to sell before maturity, especially long ones. If you hold to maturity, you still get the £100 back (unless the issuer defaults).</p>
+<p>This bit hard in <strong>September 2022</strong>. After the government&#39;s &quot;mini-budget&quot; of unfunded tax cuts, gilt yields jumped sharply. Many pension schemes used &quot;liability-driven investment&quot; (LDI) strategies with borrowed money backed by long gilts. As prices plunged, they had to sell gilts to raise cash, which pushed prices down further. The Bank of England stepped in to buy long gilts to stop the spiral. It showed how bond markets can become a financial stability problem.</p>
+</section>
+<section class="lesson-section"><h2>Credit ratings</h2><p>A <strong>credit rating</strong> is an agency&#39;s opinion of how likely a borrower is to pay its debts in full and on time. The best-known agencies are S&amp;P, Moody&#39;s and Fitch. Scales run from <strong>AAA</strong> (strongest) down through AA, A and BBB to C and D (in default).</p>
+<ul>
+<li>Bonds rated <strong>BBB−</strong> or above (on the S&amp;P and Fitch scale) are <strong>investment grade</strong>.</li>
+<li>Below that they&#39;re <strong>high yield</strong>, also called &quot;junk&quot;: higher risk, higher yields.</li>
+</ul>
+<p>The lower the rating, the higher the yield investors demand: that extra yield over a government bond is the <strong>credit spread</strong>. The UK government is rated in the AA range. Ratings aren&#39;t infallible: in 2007–08, many mortgage-linked bonds rated AAA collapsed (module 32).</p>
+</section>
+<section class="lesson-section"><h2>The yield curve</h2><p>The <strong>yield curve</strong> plots yields on bonds from the same issuer against how long they have to run, from short to long.</p>
+<p>Normally it slopes <strong>upwards</strong>: lenders want more for tying money up longer and taking more interest-rate and inflation risk. In October 2026, UK gilt auctions paid <strong>about 4.3% (2028 gilt), 4.8% (2031), 5.4% (2036) and 5.8% (2063)</strong> <span class="fig-asof">(Debt Management Office auctions, 7–20 October 2026: longer loans paying higher yields)</span>: a normal upward slope.</p>
+<p class="static-interactive"><a href="../../#/m/24">Try the calculator in the interactive lesson →</a></p>
+
+
+
+<p>What moves its shape:</p>
+<ul>
+<li><strong>Short yields</strong> follow Bank Rate and expectations of the next few moves (module 12).</li>
+<li><strong>Long yields</strong> reflect expected inflation and growth over decades, plus how much extra investors demand for the risk of lending for so long, including worries about government borrowing.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>Inversion</h2><p>Sometimes short-term yields rise <strong>above</strong> long-term ones: an inverted curve, called <strong>inversion</strong>. It usually happens when the central bank has pushed short rates up to fight inflation, while markets expect a slowdown that will force rate cuts later.</p>
+<p>In the US, inversions came before most recessions of recent decades, which is why people watch them. But it&#39;s not a reliable timer: the gap between inversion and recession has varied a lot, and some inversions haven&#39;t been followed by one.</p>
+</section>
+<section class="lesson-section"><h2>Why bonds matter to everyone</h2><ul>
+<li><strong>Mortgage rates:</strong> fixed-rate mortgages are priced off markets for 2- and 5-year rates, closely linked to gilt yields.</li>
+<li><strong>Pensions:</strong> annuity rates and many pension schemes depend on long gilt yields.</li>
+<li><strong>Government budgets:</strong> higher yields mean the government pays more interest on its debt, leaving less for public services.</li>
+<li><strong>Share prices:</strong> higher bond yields raise the discount rate for valuing companies (module 22).</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>The common mistake</h2><p><strong>&quot;Government bonds are risk-free.&quot;</strong></p>
+<p>A UK gilt held to maturity is extremely unlikely to default. But its <strong>price</strong> can fall a lot if yields rise, as 2022 showed, and inflation can eat into fixed payments. &quot;Safe from default&quot; isn&#39;t the same as &quot;safe from losses&quot;.</p>
+</section>
+<section class="lesson-section"><h2>In real life</h2><ul>
+<li><strong>Watch 2- and 5-year gilt yields</strong> if you&#39;re fixing a mortgage soon.</li>
+<li><strong>Match bond length to when you need the money</strong> if you buy bonds or bond funds: long bond funds swing a lot.</li>
+<li><strong>Check a bond fund&#39;s duration</strong> on its factsheet.</li>
+<li><strong>Red flag:</strong> &quot;high-yield bonds&quot; or &quot;mini-bonds&quot; sold to ordinary investors promising fixed high returns. High yield means high risk, and many mini-bonds have collapsed.</li>
+</ul>
+</section>
+<section class="lesson-section"><h2>Think about it</h2><details class="reveal"><summary>Why would anyone buy a 30-year gilt yielding less than a 2-year one?</summary><div><p>If they expect rates to fall a lot, locking in a yield for 30 years could be valuable, and the bond&#39;s price would rise as rates fall. Pension schemes and insurers also need long bonds to match long-term promises, whatever the curve looks like.</p>
+</div></details>
+
+
+
+
+
+<details class="reveal"><summary>How could rising government borrowing push up long gilt yields?</summary><div><p>More gilts must be sold, and investors may worry about inflation or the government&#39;s finances over the long term, so they demand higher yields to lend for decades. That then raises the government&#39;s interest bill, which is why markets watch Budgets closely.</p>
+</div></details>
+
+
+
+</section>
+<section class="lesson-section"><h2>Try it</h2><ol>
+<li>In the bond calculator, find the yield at which a 4% 10-year bond is worth exactly £100. Why that number?</li>
+<li>Look up today&#39;s 2-year and 10-year gilt yields. Is the curve upward-sloping, flat or inverted?</li>
+</ol>
+</section>
+<section class="lesson-section"><h2>Go deeper</h2><ul>
+<li><a href="https://www.dmo.gov.uk/">UK Debt Management Office: gilts</a></li>
+<li><a href="https://www.bankofengland.co.uk/monetary-policy/quantitative-easing">Quantitative easing (Bank of England)</a></li>
+</ul>
+</section>
+      <section class="card">
+        <h2>Take the quiz</h2>
+        <p>Pass the module 24 quiz to unlock the next module. Modules unlock one at a time as you go. It's free, and you don't need an account.</p>
+        <a class="btn" href="../../#/m/24">Open the interactive lesson</a>
+      </section>
+      <nav class="prev-next"><a class="nav-prev" href="../23/"><span class="muted">← Previous</span><span>Risk management</span></a><a class="nav-next" href="../25/"><span class="muted">Next →</span><span>Pay, loans and living costs</span></a></nav>
+    </article>
+  </main>
+  <footer class="foot">
+    <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
+    <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
+    <p>Made by Ivor Fergusson · <a href="../../#/about">About and sources</a> · <a href="../../privacy.html">Privacy</a></p>
+  </footer>
+</body>
+</html>
