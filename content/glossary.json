@@ -501,7 +501,7 @@
   },
   "lifetime isa": {
     "term": "Lifetime ISA",
-    "def": "An ISA for a first home or later life: open at 18–39, pay in up to £4,000 a year, get a 25% bonus. A 25% charge applies to other withdrawals.",
+    "def": "An ISA for a first home or later life: open at 18–39, pay in up to £4,000 a year, get a 25% bonus. Other withdrawals cost a 25% charge (20% for a first home over the price cap).",
     "module": "17"
   },
   "limit order": {

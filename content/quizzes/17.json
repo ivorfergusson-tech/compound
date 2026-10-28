@@ -66,7 +66,7 @@
       "id": "17-lisa-rules",
       "type": "mcq",
       "topic": "Lifetime ISA rules",
-      "q": "Which of these lets you take money out of a Lifetime ISA without the 25% charge?",
+      "q": "Which of these lets you take money out of a Lifetime ISA without a charge?",
       "options": [
         "Buying your first home for £450,000 or less, at least 12 months after opening",
         "Buying a car",
@@ -136,13 +136,13 @@
       "topic": "Lifetime ISA withdrawal charge",
       "q": "Explain the main risk of saving for a first home in a Lifetime ISA.",
       "ideas": [
-        { "label": "If you take the money out for anything else before 60, there's a 25% charge", "any": ["25%", "charge", "penalty", "lose", "withdrawal", "take it out", "fee"] },
+        { "label": "If you take the money out for anything else before 60, there's a charge (25%, or 20% for a home over the cap)", "any": ["25%", "charge", "penalty", "lose", "withdrawal", "take it out", "fee"] },
         { "label": "That happens if plans change or the home costs more than the £450,000 cap", "any": ["450", "cap", "price limit", "costs more", "expensive", "plans change", "change your mind", "don't buy", "something else", "not a first home", "need the money"] }
       ],
-      "model": "If you need the money for anything else, or your home costs more than the £450,000 cap, you pay a 25% withdrawal charge, which takes back the bonus and some of your own money too.",
+      "model": "If you need the money for anything else, you pay a 25% withdrawal charge, which takes back the bonus and some of your own money too. If your first home costs more than the £450,000 cap, the charge is 20%, so you lose the bonus.",
       "why": "The bonus comes with strings.",
       "tests": [
-        { "answer": "If plans change or the house costs more than the £450,000 cap you pay a 25% charge to take it out.", "marks": 2 },
+        { "answer": "If plans change or the house costs more than the £450,000 cap you pay a charge to take it out.", "marks": 2 },
         { "answer": "There's a penalty for taking money out.", "marks": 1 },
         { "answer": "Interest rates might be low.", "marks": 0 }
       ]

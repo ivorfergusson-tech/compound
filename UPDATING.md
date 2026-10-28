@@ -4,9 +4,10 @@ Every figure that changes lives in `content/figures.json`. Lessons show it with 
 
 After any edit: `node tests/run.js` (it checks every figure has a source, a link and a date).
 
-## After every Budget (next: Autumn Budget, 28 October 2026)
+## After every Budget (last checked: Autumn Budget, 28 October 2026)
 Budgets often announce changes that start the next April or later. Check the gov.uk Budget documents, then update any figure whose `refresh` says "after each Budget", plus anything else announced:
-- `cashIsaCap2027`, `lisaReplacement`, `lisaHomeCap`, `salarySacrificeCap`, `psa` (savings tax rates from April 2027).
+- `lisaReplacement` (First Time Buyer ISA, due April 2029), `lisaHomeCap` (20% charge above the cap), `salarySacrificeCap`, `psa` (savings tax 24/44/49% from April 2027), `tradingAllowance` (£3,000 from April 2027), `nlw` (£13.21 from April 2027).
+- Each April, move announced changes into the main value (e.g. trading allowance and NLW in April 2027).
 - Income tax, NI, ISA and pension allowances if they change.
 - Add an "announced, starts <date>" note in the figure's `asOf` rather than changing today's value early.
 

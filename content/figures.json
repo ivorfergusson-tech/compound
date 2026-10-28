@@ -149,10 +149,10 @@
       "value": 12.71,
       "display": "£12.71 an hour",
       "label": "National Living Wage (21 and over)",
-      "asOf": "from 1 April 2026",
+      "asOf": "from 1 April 2026; rising to £13.21 from 1 April 2027 (announced in the October 2026 Budget)",
       "source": "gov.uk",
       "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
-      "checked": "2026-10-27",
+      "checked": "2026-10-28",
       "refresh": "each April"
     },
     "nmw1820": {
@@ -189,20 +189,20 @@
       "value": 1000,
       "display": "£1,000",
       "label": "Trading allowance",
-      "asOf": "a year, unchanged since April 2017; the point you must report rises to £3,000 from 2027/28 (announced)",
-      "source": "HMRC (gov.uk); accountancy guides",
-      "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
-      "checked": "2026-10-27",
+      "asOf": "a year, unchanged since April 2017; rising to £3,000 from 6 April 2027 (announced in the October 2026 Budget)",
+      "source": "HMRC (gov.uk); HM Treasury, Budget 2026",
+      "url": "https://www.gov.uk/government/publications/budget-2026-overview-of-tax-legislation-and-rates-ootlar/budget-2026-overview-of-tax-legislation-and-rates-ootlar",
+      "checked": "2026-10-28",
       "refresh": "each April"
     },
     "psa": {
       "value": 1000,
       "display": "£1,000",
       "label": "Personal Savings Allowance",
-      "asOf": "2026/27, basic-rate taxpayers (£500 higher-rate, £0 additional-rate); savings tax rates rise 2 points from 6 April 2027 (announced in Budget 2025)",
-      "source": "gov.uk; LITRG",
+      "asOf": "2026/27, basic-rate taxpayers (£500 higher-rate, £0 additional-rate); from 6 April 2027 tax on savings above it rises to 24%, 44% and 49% (Budgets 2025 and 2026)",
+      "source": "gov.uk; LITRG; HM Treasury, Budget 2026",
       "url": "https://www.litrg.org.uk/savings-property/tax-savings-and-investments/tax-savings-income/personal-savings-allowance",
-      "checked": "2026-10-27",
+      "checked": "2026-10-28",
       "refresh": "each April",
       "higher": 500
     },
@@ -226,16 +226,6 @@
       "checked": "2026-10-27",
       "refresh": "each April"
     },
-    "cashIsaCap2027": {
-      "value": 12000,
-      "display": "£12,000",
-      "label": "Cash ISA limit for under-65s",
-      "asOf": "from 6 April 2027 (announced in Budget 2025; the £20,000 total stays; final rules still to be laid)",
-      "source": "providers' summaries (e.g. Close Brothers Savings); check gov.uk",
-      "url": "https://www.closesavings.co.uk/personal/news/cash-isas-how-they-work-and-whats-changing-in-april-2027",
-      "checked": "2026-10-27",
-      "refresh": "after each Budget"
-    },
     "lisaLimit": {
       "value": 4000,
       "display": "£4,000",
@@ -252,10 +242,10 @@
       "value": 450000,
       "display": "£450,000",
       "label": "Lifetime ISA first-home price limit",
-      "asOf": "October 2026; a 25% charge applies to other withdrawals before 60",
-      "source": "gov.uk; ownyourhome.gov.uk",
-      "url": "https://www.gov.uk/lifetime-isa/withdrawing-your-money",
-      "checked": "2026-10-27",
+      "asOf": "October 2026; buying a first home above it now costs a 20% charge (cut from 25% on 29 October 2026); other withdrawals before 60 still cost 25%",
+      "source": "gov.uk; HM Treasury, Budget 2026",
+      "url": "https://www.gov.uk/government/publications/budget-2026-overview-of-tax-legislation-and-rates-ootlar/budget-2026-overview-of-tax-legislation-and-rates-ootlar",
+      "checked": "2026-10-28",
       "refresh": "after each Budget",
       "charge": 25
     },
@@ -479,10 +469,10 @@
       "value": null,
       "display": "a new First Time Buyer ISA",
       "label": "Planned Lifetime ISA replacement",
-      "asOf": "consultation launched 23 June 2026; launch possibly April 2028 and not yet law; existing Lifetime ISA holders are expected to keep paying in",
-      "source": "L&C; Financial Reporter (reporting HM Treasury)",
-      "url": "https://www.landc.co.uk/insight/government-to-replace-lifetime-isa-with-new-first-time-buyer-isa",
-      "checked": "2026-10-27",
+      "asOf": "confirmed in the October 2026 Budget: it replaces the Lifetime ISA for new savers from April 2029; the details and the law are still to come; existing Lifetime ISA holders can keep using theirs",
+      "source": "HM Treasury, Budget 2026 (overview of tax legislation)",
+      "url": "https://www.gov.uk/government/publications/budget-2026-overview-of-tax-legislation-and-rates-ootlar/budget-2026-overview-of-tax-legislation-and-rates-ootlar",
+      "checked": "2026-10-28",
       "refresh": "after each Budget"
     },
     "pensionAccessAge": {
