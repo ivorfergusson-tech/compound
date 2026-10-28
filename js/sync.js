@@ -180,9 +180,20 @@ export function wireAuthPanel(box, rerender, onSaved = rerender) {
   box.querySelector('.google')?.addEventListener('click', () => sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back } }));
   box.querySelector('.magic')?.addEventListener('submit', async e => {
     e.preventDefault();
+    const btn = e.target.querySelector('button');
+    if (btn.disabled) return; // one request at a time: each extra click counts against the rate limits
     const email = e.target.email.value.trim();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    msg('');
     const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: back } });
-    msg(error ? `Couldn't send the link: ${error.message}` : `Check ${email} for your sign-in link.`);
+    btn.textContent = 'Email me a sign-in link';
+    if (error) {
+      btn.disabled = false;
+      return msg(error.status === 429 ? 'Too many tries. Wait a few minutes, then try once.' : `Couldn't send the link: ${error.message}`);
+    }
+    msg(`Check ${email} for your sign-in link (and your spam folder). It can take a minute.`);
+    setTimeout(() => { btn.disabled = false; }, 60000); // matches Supabase's 60-second gap per address
   });
   box.querySelector('.nick')?.addEventListener('submit', async e => {
     e.preventDefault();
