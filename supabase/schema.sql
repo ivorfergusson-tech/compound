@@ -136,9 +136,9 @@ language sql stable security definer set search_path = public as $$
   )
   select ((select xp from reading) + (select xp from marks) + (select xp from recall) + (select xp from streak))::int
 $$;
--- Not callable from the site (it would read anyone's XP by uuid). The leaderboard view runs as its owner, so it still works.
-revoke execute on function public.xp_for(uuid) from public, anon, authenticated;
-grant execute on function public.xp_for(uuid) to service_role;
+-- Must stay callable by anon and authenticated: a view checks function rights as the viewer, so the leaderboard needs it.
+-- It only gives XP for a known user id, and ids are never shown on the site.
+grant execute on function public.xp_for(uuid) to anon, authenticated, service_role;
 
 -- Level L starts at 50·L·(L−1) XP.
 create or replace function public.level_for(xp int) returns int
