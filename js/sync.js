@@ -8,6 +8,9 @@ import { esc } from './util.js';
 const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
 let sb = null, session = null, progress = null, notify = () => {};
 let nickname = null, rank = null, syncing = null, pushTimer = null, authError = null, admin = false;
+// Gap between sign-in emails. Supabase → Auth → Rate Limits → "Minimum interval per user" must not be longer.
+const LINK_COOLDOWN_MS = 30000;
+let cooldownUntil = 0, cooldownTimer = null;
 
 export const enabled = () => Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 export const signedIn = () => Boolean(session);
@@ -178,22 +181,42 @@ export function wireAuthPanel(box, rerender, onSaved = rerender) {
   const msg = text => { const m = box.querySelector('.auth-msg'); if (m) m.textContent = text; };
   const back = location.origin + location.pathname;
   box.querySelector('.google')?.addEventListener('click', () => sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back } }));
-  box.querySelector('.magic')?.addEventListener('submit', async e => {
+  const magic = box.querySelector('.magic');
+  const linkBtn = magic?.querySelector('button');
+  // Greyed out with a countdown until another link can be sent. Kept across re-renders of the panel.
+  const countdown = () => {
+    clearInterval(cooldownTimer);
+    const tick = () => {
+      const left = Math.ceil((cooldownUntil - Date.now()) / 1000);
+      if (!linkBtn.isConnected || left <= 0) {
+        clearInterval(cooldownTimer);
+        linkBtn.disabled = false;
+        linkBtn.textContent = cooldownUntil ? 'Send another link' : 'Email me a sign-in link';
+        return;
+      }
+      linkBtn.disabled = true;
+      linkBtn.textContent = `Send another link in ${left}s`;
+    };
+    tick();
+    cooldownTimer = setInterval(tick, 1000);
+  };
+  if (linkBtn && Date.now() < cooldownUntil) countdown();
+  magic?.addEventListener('submit', async e => {
     e.preventDefault();
-    const btn = e.target.querySelector('button');
-    if (btn.disabled) return; // one request at a time: each extra click counts against the rate limits
+    if (linkBtn.disabled) return; // one request at a time: each extra click counts against the rate limits
     const email = e.target.email.value.trim();
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
+    linkBtn.disabled = true;
+    linkBtn.textContent = 'Sending…';
     msg('');
     const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: back } });
-    btn.textContent = 'Email me a sign-in link';
-    if (error) {
-      btn.disabled = false;
-      return msg(error.status === 429 ? 'Too many tries. Wait a few minutes, then try once.' : `Couldn't send the link: ${error.message}`);
+    if (error && error.status !== 429) {
+      linkBtn.disabled = false;
+      linkBtn.textContent = 'Email me a sign-in link';
+      return msg(`Couldn't send the link: ${error.message}`);
     }
-    msg(`Check ${email} for your sign-in link (and your spam folder). It can take a minute.`);
-    setTimeout(() => { btn.disabled = false; }, 60000); // matches Supabase's 60-second gap per address
+    msg(error ? 'Too many tries. Wait for the timer, then try once.' : `Check ${email} for your sign-in link (and your spam folder). It can take a minute.`);
+    cooldownUntil = Date.now() + LINK_COOLDOWN_MS;
+    countdown();
   });
   box.querySelector('.nick')?.addEventListener('submit', async e => {
     e.preventDefault();
