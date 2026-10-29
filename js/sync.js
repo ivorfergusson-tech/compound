@@ -90,6 +90,7 @@ async function pull() {
   s.attempts = attempts.map(a => ({
     uid: a.id, at: a.at, day: a.day, kind: a.kind, id: a.item_id, auto: a.auto, claimed: a.claimed, outOf: a.out_of,
     passed: a.passed, autoPassed: a.auto_passed, missed: a.missed, wrong: a.wrong, right: a.right,
+    ...(a.recall_out_of ? { recall: { auto: a.recall_auto, claimed: a.recall_claimed, outOf: a.recall_out_of } } : {}),
   }));
   for (const r of srs) s.srs[r.qid] = { box: r.box, due: r.due, module: r.module, misses: r.misses, at: r.at };
   for (const n of notes) s.notes[n.item_id] = { text: n.text, at: n.updated_at };
@@ -112,6 +113,7 @@ async function push() {
     up('attempts', st.attempts.filter(a => a.uid).map(a => ({
       id: a.uid, user_id: uid, kind: a.kind, item_id: a.id, auto: a.auto, claimed: a.claimed || 0, out_of: a.outOf,
       passed: a.passed, auto_passed: a.autoPassed, missed: a.missed || [], wrong: a.wrong || [], right: a.right || [], day: a.day, at: a.at,
+      recall_auto: a.recall?.auto || 0, recall_claimed: a.recall?.claimed || 0, recall_out_of: a.recall?.outOf || 0,
     })), { onConflict: 'id', ignoreDuplicates: true }),
     up('srs', Object.entries(st.srs).map(([qid, s]) => ({ user_id: uid, qid, box: s.box, due: s.due, module: s.module ?? null, misses: s.misses || 0, at: s.at || new Date().toISOString() }))),
     up('notes', Object.entries(st.notes).map(([item_id, n]) => ({ user_id: uid, item_id, text: n.text, updated_at: n.at }))),

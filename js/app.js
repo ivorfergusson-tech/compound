@@ -1,7 +1,8 @@
-// Router and views. Hash routes: #/, #/m/<id>, #/cp/<n>, #/glossary, #/leaderboard, #/account, #/about
+// Router and views. Hash routes: #/, #/c/<course>, #/c/<course>/m/<id>, #/c/<course>/cp/<n>, #/c/<course>/glossary,
+// #/leaderboard, #/account, #/about. The old Money routes (#/m/<id>, #/cp/<n>, #/glossary) redirect to #/c/money/….
 import { esc, el, niceDate } from './util.js';
-import { loadCourse, loadFigures, loadGlossary, loadLesson, loadQuiz, loadPools } from './content.js';
-import { Progress, courseStatus, levelFor, pickRecall, XP_RULES } from './progress.js';
+import { loadRegistry, loadFigures, courseFiles } from './content.js';
+import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES } from './progress.js';
 import { buildAttempt, buildCheckpoint, instantiate } from './quiz.js';
 import { runQuiz } from './quizui.js';
 import { parseLesson, hydrateBlocks } from './lesson.js';
@@ -9,8 +10,27 @@ import * as sync from './sync.js';
 
 const progress = new Progress();
 const app = document.getElementById('app');
-let course, figures, glossary;
+// The course being shown: its registry entry, file loaders, course.json and glossary.
+let registry, figures, entry, files, course, glossary;
 let cleanup = [];
+const loaded = new Map();
+
+function loadCourseById(id) {
+  const e = registry.courses.find(c => c.id === id && c.live);
+  if (!e) return Promise.resolve(null);
+  if (!loaded.has(id)) {
+    const f = courseFiles(e);
+    loaded.set(id, Promise.all([f.course(), f.glossary()]).then(([c, g]) => ({ entry: e, files: f, course: c, glossary: g })));
+  }
+  return loaded.get(id);
+}
+
+async function useCourse(id) {
+  const c = await loadCourseById(id);
+  if (!c) return false;
+  ({ entry, files, course, glossary } = c);
+  return true;
+}
 
 // ---------- theme ----------
 const THEME_KEY = 'compound.theme';
@@ -26,8 +46,11 @@ function cycleTheme() {
 // ---------- shared bits ----------
 const strandOf = item => (item.strand ? course.strands[item.strand] : null);
 const itemById = id => course.items.find(i => i.id === id);
+const K = id => itemKey(course, id); // progress key for an item of this course
+const base = () => `#/c/${course.id}`;
+const hrefItem = it => (it.kind === 'checkpoint' ? `${base()}/cp/${it.num}` : `${base()}/m/${it.id}`);
 
-function statusMap() { return courseStatus(course.items, progress, course.ready, { unlockAll: sync.isAdmin() }); }
+function statusMap() { return courseStatus(course.items, progress, course.ready, { unlockAll: sync.isAdmin(), key: K }); }
 
 function gameStrip() {
   const xp = progress.xp().total;
@@ -55,7 +78,7 @@ function shell(main, { title, wide } = {}) {
     <header class="top">
       <a class="brand" href="#/"><span class="logo" aria-hidden="true">£</span><span>Compound</span></a>
       <nav class="top-nav" aria-label="Main">
-        <a href="#/glossary" class="icon-link" aria-label="Glossary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M6.5 17A2.5 2.5 0 0 0 4 19.5 2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></a>
+        <a href="${base()}/glossary" class="icon-link" aria-label="Glossary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M6.5 17A2.5 2.5 0 0 0 4 19.5 2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></a>
         <button type="button" class="icon-link theme-btn" aria-label="Switch light or dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
         <a href="#/account" class="icon-link" aria-label="Account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></a>
       </nav>
@@ -66,7 +89,7 @@ function shell(main, { title, wide } = {}) {
     <footer class="foot">
       <p><strong>Education only, not financial advice.</strong> Trading in this course is paper only.</p>
       <p>UK rules (England, Wales and Northern Ireland; Scotland flagged where income tax differs). Every changing figure shows when it was checked.</p>
-      <p>Made by Ivor Fergusson · <a href="m/">All lessons</a> · <a href="#/about">About and sources</a> · <a href="privacy.html">Privacy</a></p>
+      <p>Made by Ivor Fergusson · <a href="${esc(entry.pages)}">All lessons</a> · <a href="#/about">About and sources</a> · <a href="privacy.html">Privacy</a></p>
     </footer>`;
   app.querySelector('.theme-btn').addEventListener('click', cycleTheme);
   window.scrollTo(0, 0);
@@ -79,7 +102,7 @@ function lockIcon() {
 function itemCard(item, s) {
   const strand = strandOf(item);
   const locked = s.state === 'locked' || s.state === 'soon';
-  const href = item.kind === 'checkpoint' ? `#/cp/${item.num}` : `#/m/${item.id}`;
+  const href = hrefItem(item);
   const icon = item.kind === 'checkpoint' ? '✏️' : item.kind === 'intro' ? '👋' : strand.emoji;
   const kicker = item.kind === 'checkpoint' ? `Checkpoint · modules ${item.covers[0]}–${item.covers[1]}`
     : item.kind === 'intro' ? 'Start here' : `${item.num} · ${strand.name}${item.strand === 'trading' ? ' (paper only)' : ''}`;
@@ -101,7 +124,7 @@ function viewHome(params) {
   const filter = params.get('strand') || 'all';
   const modules = course.items.filter(i => i.kind === 'module');
   const passedCount = modules.filter(i => st[i.id].state === 'passed').length;
-  const fresh = !progress.state.attempts.length && !Object.keys(progress.state.read).length;
+  const fresh = !course.items.some(i => progress.state.read[K(i.id)] || progress.attemptsFor(K(i.id)).length);
   const next = (fresh && course.items[0]) || course.items.find(i => i.kind !== 'intro' && st[i.id].state === 'open') || course.items[0];
   const nextStrand = strandOf(next);
   const ns = st[next.id];
@@ -121,22 +144,22 @@ function viewHome(params) {
   }
 
   const chips = [['all', 'All', '']].concat(Object.entries(course.strands).map(([k, s]) => [k, s.name, s.emoji]))
-    .map(([k, name, emoji]) => `<a class="chip strand-chip-${k} ${filter === k ? 'on' : ''}" href="#/${k === 'all' ? '' : '?strand=' + k}" ${filter === k ? 'aria-current="true"' : ''}>${emoji ? emoji + ' ' : ''}${esc(name)}</a>`).join('');
+    .map(([k, name, emoji]) => `<a class="chip strand-chip-${k} ${filter === k ? 'on' : ''}" href="${base()}${k === 'all' ? '' : '?strand=' + k}" ${filter === k ? 'aria-current="true"' : ''}>${emoji ? emoji + ' ' : ''}${esc(name)}</a>`).join('');
 
   const strandTotals = Object.entries(course.strands).map(([k, s]) => {
     const mine = modules.filter(m => m.strand === k);
     const done = mine.filter(m => st[m.id].state === 'passed').length;
-    return `<a class="strand-tile strand-${k}" href="#/?strand=${k}"><span aria-hidden="true">${s.emoji}</span><span>${esc(s.name)}</span><strong>${done} / ${mine.length}</strong></a>`;
+    return `<a class="strand-tile strand-${k}" href="${base()}?strand=${k}"><span aria-hidden="true">${s.emoji}</span><span>${esc(s.name)}</span><strong>${done} / ${mine.length}</strong></a>`;
   }).join('');
 
   shell(`<div class="home">
     <section class="card hero">
-      <span class="eyebrow">${progress.state.attempts.length || Object.keys(progress.state.read).length ? 'Pick up where you left off' : 'Welcome'}</span>
+      <span class="eyebrow">${fresh ? 'Welcome' : 'Pick up where you left off'}</span>
       ${nextStrand ? `<span class="pill strand-pill-${next.strand}">${nextStrand.emoji} ${esc(nextStrand.name)} · module ${next.num}</span>` : ''}
       <h1>${esc(next.title)}</h1>
       <p class="muted">${esc(next.summary)}</p>
-      ${ns.best != null ? `<p>Best quiz score <strong>${ns.best}%</strong>. Score ${Math.round(course.passMark * 100)}% to unlock the next module.</p>` : ''}
-      <a class="btn wide" href="${next.kind === 'checkpoint' ? `#/cp/${next.num}` : `#/m/${next.id}`}">${ns.best != null ? 'Carry on' : next.kind === 'intro' ? 'Start the course' : 'Start'}</a>
+      ${ns.best != null ? `<p>Best score <strong>${ns.best}%</strong>. Score ${Math.round(course.passMark * 100)}%${next.kind === 'module' && next.num > 1 ? ' across the recall check and the quiz' : ''} to unlock the next one.</p>` : ''}
+      <a class="btn wide" href="${hrefItem(next)}">${ns.best != null ? 'Carry on' : next.kind === 'intro' ? 'Start the course' : 'Start'}</a>
     </section>
     <section class="overall">
       <div class="row-between"><h2>Your course</h2><span class="muted">${passedCount} of ${modules.length} passed</span></div>
@@ -172,7 +195,7 @@ async function viewModule(id) {
   const st = statusMap()[id];
   if (st.state === 'locked' || st.state === 'soon') return viewLocked(item, st);
   const strand = strandOf(item);
-  const [md, quiz] = await Promise.all([loadLesson(id), item.kind === 'module' ? loadQuiz(id) : null]);
+  const [md, quiz] = await Promise.all([files.lesson(id), item.kind === 'module' ? files.quiz(id) : null]);
   const { sections, blocks } = parseLesson(md, { figures, glossary });
   const minutes = Math.max(5, Math.round(md.split(/\s+/).length / 200) + (quiz ? 10 : 0) + blocks.length);
 
@@ -191,20 +214,19 @@ async function viewModule(id) {
       <section class="card own-words" id="own-words">
         <h2>In my own words</h2>
         <p class="muted">Explain it as if to a friend. Note anything that confused you. ${sync.signedIn() ? 'Saved to your account.' : 'Saved in this browser; make an account to keep it.'}</p>
-        <textarea rows="6" aria-label="In my own words">${esc(progress.state.notes[id]?.text || '')}</textarea>
+        <textarea rows="6" aria-label="In my own words">${esc(progress.state.notes[K(id)]?.text || '')}</textarea>
         <span class="saved-note" aria-live="polite"></span>
       </section>
-      ${quiz ? `<section class="quiz-wrap" id="quiz"><h2>Module quiz</h2><p class="muted">${quiz.pick} questions. Score ${Math.round(course.passMark * 100)}% to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.</p><div class="quiz"></div></section>` : ''}
+      ${quiz ? `<section class="quiz-wrap" id="quiz"><h2>Module quiz</h2><p class="muted quiz-rule">${quiz.pick} questions. Score ${Math.round(course.passMark * 100)}% to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.</p><div class="quiz"></div></section>` : ''}
       ${nav(item)}
     </article>`, { title: item.short || item.title });
 
   const article = app.querySelector('.lesson');
-  hydrateBlocks(article, blocks, { progress, moduleId: id, figures, glossary });
+  hydrateBlocks(article, blocks, { progress, moduleId: K(id), figures, glossary });
   wireTerms(article);
-  wireOwnWords(article, id);
-  wireReading(article, id);
-  if (item.num > 1) mountRecall(article.querySelector('#recall'), item);
-  if (quiz) mountModuleQuiz(article.querySelector('.quiz'), item, quiz);
+  wireOwnWords(article, K(id));
+  wireReading(article, K(id));
+  if (item.kind === 'module') await mountModuleTest(article, item, quiz);
 }
 
 function nextItemLabel(item) {
@@ -217,7 +239,7 @@ function nextItemLabel(item) {
 function nav(item) {
   const idx = course.items.indexOf(item);
   const prev = course.items[idx - 1], next = course.items[idx + 1];
-  const link = (it, dir) => it ? `<a class="nav-${dir}" href="${it.kind === 'checkpoint' ? `#/cp/${it.num}` : `#/m/${it.id}`}"><span class="muted">${dir === 'prev' ? '← Previous' : 'Next →'}</span><span>${esc(it.short || it.title)}</span></a>` : '<span></span>';
+  const link = (it, dir) => it ? `<a class="nav-${dir}" href="${hrefItem(it)}"><span class="muted">${dir === 'prev' ? '← Previous' : 'Next →'}</span><span>${esc(it.short || it.title)}</span></a>` : '<span></span>';
   return `<nav class="prev-next">${link(prev, 'prev')}${link(next, 'next')}</nav>`;
 }
 
@@ -248,54 +270,104 @@ function wireReading(root, id) {
   onScroll();
 }
 
-async function mountRecall(box, item) {
-  const pools = await loadPools(course, item.num - 1);
-  const picked = pickRecall(progress, pools, item.num, 4);
-  if (!picked.length) { box.remove(); return; }
-  box.innerHTML = `<div class="recall-intro card"><span class="eyebrow">Recall check · ${picked.length} quick questions</span><p>Questions from earlier modules, starting with ones you've missed before. Recalling beats rereading.</p><button type="button" class="btn">Start recall check</button><button type="button" class="btn ghost skip">Skip for now</button></div>`;
-  box.querySelector('.skip').addEventListener('click', () => box.remove());
-  box.querySelector('.btn:not(.skip)').addEventListener('click', () => {
-    const qs = picked.map(q => ({ ...instantiate(q, { randomise: true }), module: q.module }));
-    runQuiz(box, qs, {
+// The recall check (questions from earlier modules) and the module quiz are marked together: the pass
+// is worked out from both parts' marks. Each quiz attempt needs a fresh recall check first.
+// Module 1 has nothing earlier to recall, so its pass is from the quiz alone.
+async function mountModuleTest(article, item, quiz) {
+  const key = K(item.id);
+  const top = article.querySelector('#recall');
+  const box = article.querySelector('#quiz .quiz');
+  const pools = item.num > 1 ? await files.pools(course, item.num - 1) : {};
+  const recallSize = pickRecall(progress, pools, item.num, 4).length;
+  const hasRecall = recallSize > 0;
+  if (!hasRecall) top?.remove();
+  if (!box) return;
+  if (hasRecall) {
+    article.querySelector('.quiz-rule').textContent = `A ${recallSize}-question recall check from earlier modules, then ${quiz.pick} quiz questions. Score ${Math.round(course.passMark * 100)}% across both parts to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.`;
+  }
+
+  const recallPart = () => {
+    const r = hasRecall && progress.pendingRecall(key);
+    return r ? { title: 'Recall check', auto: r.auto, claimed: r.claimed || 0, outOf: r.outOf } : null;
+  };
+
+  // Runs a fresh recall check in container. nextHtml shows under its result; then(container) wires it.
+  function runRecall(container, nextHtml, then) {
+    const qs = pickRecall(progress, pools, item.num, 4).map(q => ({ ...instantiate(q, { randomise: true }), module: q.module }));
+    runQuiz(container, qs, {
       kind: 'recall', title: 'Recall check', passMark: 0,
       onFinish: s => {
-        progress.recordAttempt({ kind: 'recall', id: item.id, auto: s.auto, outOf: s.outOf, results: s.results });
+        progress.recordAttempt({ kind: 'recall', id: key, auto: s.auto, claimed: s.claimed, outOf: s.outOf, results: s.results });
         refreshStrip(); sync.pushSoon();
-        return `<p class="muted">Now on to the lesson.</p>`;
+        return nextHtml;
       },
+      afterRender: c => { if (then) then(c); if (c !== top) renderTop(); renderQuizIntro(); },
     });
-  });
-}
+  }
 
-function mountModuleQuiz(box, item, quiz) {
-  const start = () => {
-    const tries = progress.attemptsFor(item.id).length;
+  // "Before you read": the recall check at the top of the lesson.
+  function renderTop() {
+    if (!top || !top.isConnected || top.querySelector('.question')) return; // mid-check: leave it
+    const done = recallPart();
+    top.innerHTML = done
+      ? `<div class="card recall-done"><span aria-hidden="true">✓</span><p><strong>Recall check done: ${done.auto + done.claimed} of ${done.outOf}.</strong> It counts towards this module's pass, with the quiz.</p></div>`
+      : `<div class="recall-intro card"><span class="eyebrow">Before you read · Recall check · ${recallSize} quick questions</span><p>Questions from earlier modules, starting with ones you've missed before. Recalling beats rereading. Your marks count towards this module's pass, with the quiz.</p><button type="button" class="btn start-recall">Start recall check</button><button type="button" class="btn ghost skip">Later</button></div>`;
+    top.querySelector('.skip')?.addEventListener('click', () => { top.innerHTML = `<p class="small muted">You'll do the recall check just before the quiz.</p>`; });
+    top.querySelector('.start-recall')?.addEventListener('click', () => runRecall(top, '<p class="muted">Now on to the lesson. These marks count with your quiz.</p>'));
+  }
+
+  function startQuiz() {
+    const carry = recallPart();
+    if (hasRecall && !carry) return begin();
+    const tries = progress.attemptsFor(key).length;
     const qs = buildAttempt(quiz.questions, quiz.pick, { randomise: tries > 0 }).map(q => ({ ...q, module: item.num }));
     const xpBefore = progress.xp().total;
-    const wasPassed = progress.passed(item.id);
+    const wasPassed = progress.passed(key);
     runQuiz(box, qs, {
-      kind: 'quiz', title: `Module ${item.num} quiz`, passMark: course.passMark,
-      onRetry: start,
+      kind: 'quiz', title: `Module ${item.num} quiz`, passMark: course.passMark, carry,
+      onRetry: begin,
       onFinish: s => {
-        progress.recordAttempt({ kind: 'quiz', id: item.id, ...s });
+        progress.recordAttempt({
+          kind: 'quiz', id: key, auto: s.part.auto, claimed: s.part.claimed, outOf: s.part.outOf,
+          passed: s.passed, autoPassed: s.autoPassed, recall: carry, results: s.results,
+        });
         sync.pushSoon();
         const gained = progress.xp().total - xpBefore;
         refreshStrip();
-        const idx = course.items.indexOf(item);
-        const next = course.items[idx + 1];
+        const next = course.items[course.items.indexOf(item) + 1];
         let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>`;
         if (s.passed && !wasPassed && next) {
-          html += `<a class="btn wide" href="${next.kind === 'checkpoint' ? `#/cp/${next.num}` : `#/m/${next.id}`}">Unlocked: ${esc(next.short || next.title)} →</a>`;
+          html += `<a class="btn wide" href="${hrefItem(next)}">Unlocked: ${esc(next.short || next.title)} →</a>`;
         } else if (!s.passed && next) {
-          html += `<p>${esc(next.kind === 'checkpoint' ? next.title : `Module ${next.num}`)} stays locked until you pass. Retries use new questions and new numbers.</p>`;
+          html += `<p>${esc(next.kind === 'checkpoint' ? next.title : `Module ${next.num}`)} stays locked until you pass. Retries use ${hasRecall ? 'a new recall check, ' : ''}new questions and new numbers.</p>`;
         }
         return html;
       },
+      afterRender: renderTop,
     });
-  };
-  const best = progress.best(item.id);
-  box.innerHTML = `<div class="card"><p>${best ? `Your best: <strong>${Math.round(((best.auto + best.claimed) / best.outOf) * 100)}%</strong>. ` : ''}Ready when you are. Each question shows the right answer and why straight after you answer.</p><button type="button" class="btn wide">${best ? 'Retake the quiz' : 'Start the quiz'}</button></div>`;
-  box.querySelector('button').addEventListener('click', start);
+  }
+
+  // Start (or retry): a fresh recall check first if this module has one, then the quiz.
+  function begin() {
+    if (hasRecall && !recallPart()) {
+      runRecall(box, '<button type="button" class="btn wide go-quiz">Part 2: the quiz →</button>',
+        c => c.querySelector('.go-quiz').addEventListener('click', startQuiz));
+    } else startQuiz();
+  }
+
+  function renderQuizIntro() {
+    if (box.querySelector('.question, .result')) return; // mid-quiz or showing a result: leave it
+    const best = progress.best(key);
+    const done = recallPart();
+    const steps = !hasRecall ? 'Each question shows the right answer and why straight after you answer.'
+      : done ? `Recall check done (${done.auto + done.claimed} of ${done.outOf}); it counts with the quiz.`
+      : 'Part 1 is a quick recall check from earlier modules, part 2 is the quiz. Both count towards your pass.';
+    box.innerHTML = `<div class="card"><p>${best ? `Your best: <strong>${Math.round(attemptPct(best) * 100)}%</strong>. ` : ''}${steps}</p><button type="button" class="btn wide">${hasRecall && !done ? 'Start the recall check' : best ? 'Retake the quiz' : 'Start the quiz'}</button></div>`;
+    box.querySelector('button').addEventListener('click', begin);
+  }
+
+  renderTop();
+  renderQuizIntro();
 }
 
 async function viewCheckpoint(num) {
@@ -303,24 +375,25 @@ async function viewCheckpoint(num) {
   if (!item) return viewNotFound();
   const st = statusMap()[item.id];
   if (st.state === 'locked' || st.state === 'soon') return viewLocked(item, st);
+  const key = K(item.id);
   shell(`<article class="lesson"><header class="lesson-head"><span class="pill">✏️ Checkpoint ${item.num}</span><h1>${esc(item.title)}</h1>
     <p class="muted">${esc(item.summary)} About 20 minutes. Pass mark ${Math.round(course.passMark * 100)}%.</p></header><div class="quiz"></div>${nav(item)}</article>`, { title: item.title });
   const box = app.querySelector('.quiz');
-  const pools = await loadPools(course, item.covers[1]);
+  const pools = await files.pools(course, item.covers[1]);
   const start = () => {
     const xpBefore = progress.xp().total;
-    const wasPassed = progress.passed(item.id);
+    const wasPassed = progress.passed(key);
     const qs = buildCheckpoint(pools, item.covers, { size: item.num === 4 ? 20 : 18 });
     runQuiz(box, qs, {
       kind: 'checkpoint', title: item.title, passMark: course.passMark, onRetry: start,
       onFinish: s => {
-        progress.recordAttempt({ kind: 'checkpoint', id: item.id, ...s });
+        progress.recordAttempt({ kind: 'checkpoint', id: key, ...s });
         sync.pushSoon(); refreshStrip();
         const gained = progress.xp().total - xpBefore;
         const next = course.items[course.items.indexOf(item) + 1];
         let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>`;
         if (s.passed && !wasPassed) {
-          html += next ? `<a class="btn wide" href="#/m/${next.id}">Unlocked: ${esc(next.short || next.title)} →</a>`
+          html += next ? `<a class="btn wide" href="${hrefItem(next)}">Unlocked: ${esc(next.short || next.title)} →</a>`
             : `<p><strong>That's the whole course done.</strong> Retake any quiz to keep it fresh.</p>`;
         } else if (!s.passed && next) {
           html += `<p>Module ${next.num} stays locked until you pass. Retries use new questions and new numbers.</p>`;
@@ -335,7 +408,7 @@ async function viewCheckpoint(num) {
 
 function viewLocked(item, st) {
   shell(`<section class="card locked-view">${lockIcon()}<h1>${esc(item.title)}</h1><p>${esc(st.reason)}.</p>
-    <p class="muted">${esc(item.summary || '')}</p><a class="btn" href="#/">Back to the course</a></section>`, { title: item.title });
+    <p class="muted">${esc(item.summary || '')}</p><a class="btn" href="${base()}">Back to the course</a></section>`, { title: item.title });
 }
 
 function viewNotFound() {
@@ -348,7 +421,7 @@ function viewGlossary(params) {
   shell(`<h1>Glossary</h1><label class="search"><span class="sr">Search terms</span><input type="search" placeholder="Search ${terms.length} terms" value="${esc(focus ? glossary[focus]?.term || '' : '')}"></label>
     <dl class="glossary">${terms.map(([k, g]) => {
       const m = itemById(g.module);
-      return `<div class="g-item" id="t-${esc(k.replace(/\W+/g, '-'))}" data-k="${esc((g.term + ' ' + g.def).toLowerCase())}"><dt>${esc(g.term)}</dt><dd>${esc(g.def)}<a class="small" href="#/m/${m.id}">${m.kind === 'intro' ? 'Introduction' : `Module ${m.num}: ${esc(m.short)}`}</a></dd></div>`;
+      return `<div class="g-item" id="t-${esc(k.replace(/\W+/g, '-'))}" data-k="${esc((g.term + ' ' + g.def).toLowerCase())}"><dt>${esc(g.term)}</dt><dd>${esc(g.def)}<a class="small" href="${hrefItem(m)}">${m.kind === 'intro' ? 'Introduction' : `Module ${m.num}: ${esc(m.short)}`}</a></dd></div>`;
     }).join('')}</dl>`, { title: 'Glossary' });
   const input = app.querySelector('.search input');
   const filterList = () => {
@@ -373,13 +446,26 @@ async function viewLeaderboard() {
   box.innerHTML = invite + `<ol class="lb-list">${rows.map(r => `<li class="${r.is_me ? 'me' : ''}"><strong class="pos">${r.pos}</strong><span class="nick">${esc(r.nickname)}${r.is_me ? ' (you)' : ''}</span><span class="muted">Lv ${r.level}</span><strong>${r.xp}</strong></li>`).join('')}</ol>`;
 }
 
+// Which course and item a progress key belongs to (see itemKey).
+async function itemForKey(key) {
+  const i = key.indexOf(':');
+  const c = await loadCourseById(i < 0 ? registry.default : key.slice(0, i));
+  const item = c && c.course.items.find(it => it.id === (i < 0 ? key : key.slice(i + 1)));
+  return item ? { c, item } : null;
+}
+
 async function viewAccount() {
-  const notes = Object.entries(progress.state.notes).filter(([, n]) => n.text.trim());
+  const notes = [];
+  for (const [key, n] of Object.entries(progress.state.notes)) {
+    const found = n.text.trim() && await itemForKey(key);
+    if (found) notes.push({ ...found, n });
+  }
+  const many = new Set(notes.map(x => x.c.course.id)).size > 1;
   shell(`<h1>Your account</h1>
     <section class="card" id="auth-box">${await sync.authPanel()}</section>
-    <section class="card"><h2>My notes</h2>${notes.length ? notes.map(([id, n]) => {
-      const m = itemById(id);
-      return `<div class="note"><a href="#/m/${id}">${m.kind === 'intro' ? 'Introduction' : `Module ${m.num}: ${esc(m.short)}`}</a><p>${esc(n.text)}</p><span class="small muted">${esc(niceDate(n.at))}</span></div>`;
+    <section class="card"><h2>My notes</h2>${notes.length ? notes.map(({ c, item: m, n }) => {
+      const label = `${many ? `${c.entry.title} · ` : ''}${m.kind === 'intro' ? 'Introduction' : `Module ${m.num}: ${m.short || m.title}`}`;
+      return `<div class="note"><a href="#/c/${c.course.id}/m/${m.id}">${esc(label)}</a><p>${esc(n.text)}</p><span class="small muted">${esc(niceDate(n.at))}</span></div>`;
     }).join('') : '<p class="muted">Your "In my own words" notes will show here.</p>'}</section>
     <section class="card"><h2>Your data</h2>
       <p>Download everything this course holds about you, as a JSON file.</p>
@@ -428,7 +514,8 @@ function viewAbout() {
     <ul>
       <li><strong>${R.read} XP</strong> for reading a module to the end.</li>
       <li><strong>${R.perMark} XP per mark</strong> on each quiz and checkpoint, using your best auto-marked score. Retrying can only raise it, never double it.</li>
-      <li><strong>${R.firstPassModule} XP</strong> the first time you pass a module quiz, and <strong>${R.firstPassCheckpoint} XP</strong> for a checkpoint. The pass needs ${Math.round(course.passMark * 100)}% from auto-marked answers.</li>
+      <li><strong>Passing a module:</strong> every module from 2 on starts with a short recall check of questions from earlier modules, then the quiz. You need ${Math.round(course.passMark * 100)}% across both parts together, and each retry starts with a fresh recall check. Module 1 has no recall check, so its pass is from the quiz alone. Modules you passed before this rule came in stay passed.</li>
+      <li><strong>${R.firstPassModule} XP</strong> the first time you pass a module, and <strong>${R.firstPassCheckpoint} XP</strong> for a checkpoint. This bonus needs ${Math.round(course.passMark * 100)}% from auto-marked answers alone (recall check and quiz together).</li>
       <li><strong>${R.perRecall} XP</strong> per right answer in a module's first recall check each day.</li>
       <li><strong>${R.perDay} XP</strong> for each day you do something, and <strong>${R.streakWeek} XP</strong> for every 7 days in a row.</li>
       <li><strong>Claimed marks</strong> ("I had this") help you pass and unlock the next module, but never earn XP. That keeps the leaderboard fair.</li>
@@ -452,7 +539,7 @@ function wireTerms(root) {
     if (t.classList.contains('term')) {
       const g = glossary[t.dataset.term];
       const m = g && itemById(g.module);
-      html = g ? `<strong>${esc(g.term)}</strong><p>${esc(g.def)}</p><a href="#/glossary?t=${encodeURIComponent(t.dataset.term)}">Open in glossary</a>${m && m.kind === 'module' ? ` · <span>Module ${m.num}</span>` : ''}` : 'Not in the glossary yet.';
+      html = g ? `<strong>${esc(g.term)}</strong><p>${esc(g.def)}</p><a href="${base()}/glossary?t=${encodeURIComponent(t.dataset.term)}">Open in glossary</a>${m && m.kind === 'module' ? ` · <span>Module ${m.num}</span>` : ''}` : 'Not in the glossary yet.';
     } else {
       const f = figures.figures[t.dataset.fig];
       html = `<strong>${esc(f.label)}: ${esc(f.display)}</strong><p>${esc(f.asOf)}.</p><p>Source: <a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.source)}</a>. Checked ${esc(niceDate(f.checked))}.</p>`;
@@ -491,11 +578,22 @@ async function route() {
   const [path, query] = (raw.startsWith('/') ? raw : '/').split('?');
   const params = new URLSearchParams(query || '');
   const parts = path.split('/').filter(Boolean);
+  // Old Money links (#/m/01, #/cp/1, #/glossary?t=…) keep working.
+  if (['m', 'cp', 'glossary'].includes(parts[0])) {
+    location.replace(`#/c/${registry.default}${path}${query ? `?${query}` : ''}`);
+    return;
+  }
   try {
-    if (!parts.length) viewHome(params);
-    else if (parts[0] === 'm') await viewModule(parts[1]);
-    else if (parts[0] === 'cp') await viewCheckpoint(parts[1]);
-    else if (parts[0] === 'glossary') viewGlossary(params);
+    if (!parts.length) { await useCourse(registry.default); viewHome(params); }
+    else if (parts[0] === 'c') {
+      if (!(await useCourse(parts[1]))) return viewNotFound();
+      const sub = parts[2];
+      if (!sub) viewHome(params);
+      else if (sub === 'm') await viewModule(parts[3]);
+      else if (sub === 'cp') await viewCheckpoint(parts[3]);
+      else if (sub === 'glossary') viewGlossary(params);
+      else viewNotFound();
+    }
     else if (parts[0] === 'leaderboard') await viewLeaderboard();
     else if (parts[0] === 'account') await viewAccount();
     else if (parts[0] === 'about') viewAbout();
@@ -507,7 +605,8 @@ async function route() {
 }
 
 async function start() {
-  [course, figures, glossary] = await Promise.all([loadCourse(), loadFigures(), loadGlossary()]);
+  [registry, figures] = await Promise.all([loadRegistry(), loadFigures()]);
+  await useCourse(registry.default);
   let wasAdmin = false;
   await sync.init(progress, () => {
     if (sync.isAdmin() !== wasAdmin) { wasAdmin = sync.isAdmin(); route(); } else refreshStrip();

@@ -1,4 +1,5 @@
 // Loads the course data from content/. Everything is cached after the first fetch.
+// content/courses.json lists every course; each course lives in its own folder (content/courses/<id>/).
 const cache = new Map();
 
 async function get(path, type = 'json') {
@@ -11,17 +12,25 @@ async function get(path, type = 'json') {
   return cache.get(path);
 }
 
-export const loadCourse = () => get('content/course.json');
+export const loadRegistry = () => get('content/courses.json');
 export const loadFigures = () => get('content/figures.json');
-export const loadGlossary = () => get('content/glossary.json');
-export const loadLesson = id => get(`content/modules/${id}.md`, 'text');
-export const loadQuiz = id => get(`content/quizzes/${id}.json`).catch(() => null);
 
-// Quiz pools for every ready module, keyed by module number.
-export async function loadPools(course, upTo = 99) {
-  const ids = course.items.filter(i => i.kind === 'module' && i.num <= upTo && course.ready.includes(i.id));
-  const quizzes = await Promise.all(ids.map(i => loadQuiz(i.id)));
-  const pools = {};
-  ids.forEach((item, k) => { if (quizzes[k]) pools[item.num] = quizzes[k].questions; });
-  return pools;
+// Everything for one course, from its registry entry.
+export function courseFiles(entry) {
+  const dir = entry.path;
+  const files = {
+    course: () => get(`${dir}course.json`),
+    glossary: () => get(`${dir}glossary.json`),
+    lesson: id => get(`${dir}modules/${id}.md`, 'text'),
+    quiz: id => get(`${dir}quizzes/${id}.json`).catch(() => null),
+    // Quiz pools for every ready module, keyed by module number.
+    async pools(course, upTo = 99) {
+      const ids = course.items.filter(i => i.kind === 'module' && i.num <= upTo && course.ready.includes(i.id));
+      const quizzes = await Promise.all(ids.map(i => files.quiz(i.id)));
+      const pools = {};
+      ids.forEach((item, k) => { if (quizzes[k]) pools[item.num] = quizzes[k].questions; });
+      return pools;
+    },
+  };
+  return files;
 }

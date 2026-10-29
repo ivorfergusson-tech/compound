@@ -1,6 +1,8 @@
 // Builds a plain, readable page for every lesson (m/<id>/index.html), a lesson list (m/index.html)
-// and sitemap.xml, so search engines can find each lesson. The interactive course stays at #/m/<id>.
-// Run after changing any lesson, figure or course.json: node tools/build_pages.mjs
+// and sitemap.xml, so search engines can find each lesson. The interactive course stays at #/c/<course>/m/<id>.
+// Courses come from content/courses.json; each live course with a "pages" folder gets reading pages
+// (the page text is written for the Money course; A-level reading pages come with their content).
+// Run after changing any lesson, figure, glossary or course.json: node tools/build_pages.mjs
 // (node tests/run.js fails if the pages are out of date.)
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
@@ -54,9 +56,9 @@ function staticBlock(name, arg, body, ctx) {
 }
 
 function lessonPage(item, ctx) {
-  const { course, figures, glossary, marked, quiz } = ctx;
-  const md = read(`content/modules/${item.id}.md`);
-  const href = `../../#/m/${item.id}`;
+  const { entry, course, figures, glossary, marked, quiz } = ctx;
+  const md = read(`${entry.path}modules/${item.id}.md`);
+  const href = `../../#/c/${course.id}/m/${item.id}`;
   let blocks = 0;
   const body = md.replace(BLOCK, (m, name, arg, inner) => { blocks++; return `\n\n${staticBlock(name, arg.trim(), inner, { ...ctx, href })}\n\n`; });
   const parts = inline(body, figures, glossary).split(/^## +(.+)$/m);
@@ -76,7 +78,7 @@ function lessonPage(item, ctx) {
   const description = `${item.summary} ${label} of Compound, a free UK finance course with quizzes and calculators.`;
 
   return pageShell({
-    title: `${title} · Compound`, description, path: `m/${item.id}/`, up: '../../',
+    title: `${title} · Compound`, description, path: `${entry.pages}${item.id}/`, up: '../../', course,
     main: `<article class="lesson">
       <header class="lesson-head">
         <span class="pill${strand ? ` strand-pill-${item.strand}` : ''}">${strand ? `${strand.emoji} ${esc(strand.name)} · ${esc(item.level)}` : 'Start here'}</span>
@@ -96,14 +98,14 @@ function lessonPage(item, ctx) {
   });
 }
 
-function listPage({ course }) {
+function listPage({ entry, course }) {
   const pages = course.items.filter(i => i.kind !== 'checkpoint' && course.ready.includes(i.id));
   const groups = Object.entries(course.strands).map(([k, s]) => {
     const mine = pages.filter(i => i.strand === k);
     return `<section class="card"><h2>${s.emoji} ${esc(s.name)}</h2><p class="muted">${esc(s.blurb)}</p><ol class="lesson-list">${mine.map(i => `<li value="${i.num}"><a href="${i.id}/">${esc(i.title)}</a> <span class="muted small">${esc(i.level)}</span></li>`).join('')}</ol></section>`;
   }).join('\n');
   return pageShell({
-    title: 'All lessons · Compound', path: 'm/', up: '../',
+    title: 'All lessons · Compound', path: entry.pages, up: '../', course,
     description: 'Every lesson in Compound, a free UK finance course: money, investing, trading and the finance industry, from beginner to advanced.',
     main: `<h1>All lessons</h1>
       <p>32 modules in four strands, plus an <a href="00/">introduction</a>. These are the reading versions. For quizzes, calculators, XP and the leaderboard, <a href="../">open the course</a>.</p>
@@ -111,7 +113,7 @@ function listPage({ course }) {
   });
 }
 
-function pageShell({ title, description, path, up, main }) {
+function pageShell({ title, description, path, up, main, course }) {
   const url = SITE + path;
   return `<!doctype html>
 <html lang="en-GB">
@@ -142,7 +144,7 @@ function pageShell({ title, description, path, up, main }) {
 <body>
   <header class="top">
     <a class="brand" href="${up}"><span class="logo" aria-hidden="true">£</span><span>Compound</span></a>
-    <nav class="top-nav static-nav" aria-label="Main"><a href="${up}m/">All lessons</a><a href="${up}#/glossary">Glossary</a></nav>
+    <nav class="top-nav static-nav" aria-label="Main"><a href="${up}m/">All lessons</a><a href="${up}#/c/${course.id}/glossary">Glossary</a></nav>
   </header>
   <main class="page">
     ${main}
@@ -161,22 +163,30 @@ function niceDate(iso) {
   return new Date(iso + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
-function sitemap(course) {
-  const pages = course.items.filter(i => i.kind !== 'checkpoint' && course.ready.includes(i.id));
-  const urls = ['', 'm/', ...pages.map(i => `m/${i.id}/`), 'privacy.html'];
+function sitemap(courses) {
+  const urls = [''];
+  for (const { entry, course } of courses) {
+    const pages = course.items.filter(i => i.kind !== 'checkpoint' && course.ready.includes(i.id));
+    urls.push(entry.pages, ...pages.map(i => `${entry.pages}${i.id}/`));
+  }
+  urls.push('privacy.html');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')}\n</urlset>\n`;
 }
 
 // Every generated file, as { path: contents }.
 export async function build() {
   const marked = await loadMarked();
-  const course = json('content/course.json'), figures = json('content/figures.json'), glossary = json('content/glossary.json');
-  const out = { 'm/index.html': listPage({ course }), 'sitemap.xml': sitemap(course) };
-  for (const item of course.items) {
-    if (item.kind === 'checkpoint' || !course.ready.includes(item.id)) continue;
-    const quizFile = new URL(`content/quizzes/${item.id}.json`, ROOT);
-    const quiz = existsSync(quizFile);
-    out[`m/${item.id}/index.html`] = lessonPage(item, { course, figures, glossary, marked, quiz });
+  const figures = json('content/figures.json');
+  const courses = json('content/courses.json').courses.filter(e => e.live && e.pages)
+    .map(entry => ({ entry, course: json(`${entry.path}course.json`), glossary: json(`${entry.path}glossary.json`) }));
+  const out = { 'sitemap.xml': sitemap(courses) };
+  for (const { entry, course, glossary } of courses) {
+    out[`${entry.pages}index.html`] = listPage({ entry, course });
+    for (const item of course.items) {
+      if (item.kind === 'checkpoint' || !course.ready.includes(item.id)) continue;
+      const quiz = existsSync(new URL(`${entry.path}quizzes/${item.id}.json`, ROOT));
+      out[`${entry.pages}${item.id}/index.html`] = lessonPage(item, { entry, course, figures, glossary, marked, quiz });
+    }
   }
   return out;
 }

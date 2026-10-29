@@ -16,7 +16,7 @@ create unique index if not exists profiles_nickname_lower on public.profiles (lo
 
 create table if not exists public.module_reads (
   user_id   uuid not null references auth.users (id) on delete cascade,
-  item_id   text not null check (item_id ~ '^[0-9a-z]{2,4}$'),
+  item_id   text not null,
   read_at   timestamptz not null default now(),
   primary key (user_id, item_id)
 );
@@ -25,7 +25,7 @@ create table if not exists public.attempts (
   id          uuid primary key,
   user_id     uuid not null references auth.users (id) on delete cascade,
   kind        text not null check (kind in ('quiz', 'checkpoint', 'recall')),
-  item_id     text not null check (item_id ~ '^[0-9a-z]{2,4}$'),
+  item_id     text not null,
   auto        int  not null check (auto >= 0),
   claimed     int  not null default 0 check (claimed >= 0),
   out_of      int  not null check (out_of between 1 and 60 and auto + claimed <= out_of),
@@ -38,6 +38,26 @@ create table if not exists public.attempts (
   at          timestamptz not null default now()
 );
 create index if not exists attempts_user on public.attempts (user_id);
+
+-- Item ids: Money's are bare ('01', 'cp1'); other courses prefix the course id ('econ-aqa:4.1.5').
+alter table public.module_reads drop constraint if exists module_reads_item_id_check;
+alter table public.module_reads drop constraint if exists module_reads_item_id_ok;
+alter table public.module_reads add constraint module_reads_item_id_ok
+  check (item_id ~ '^([0-9a-z]{2,4}|[a-z0-9-]{2,30}:[0-9a-z.-]{1,40})$');
+alter table public.attempts drop constraint if exists attempts_item_id_check;
+alter table public.attempts drop constraint if exists attempts_item_id_ok;
+alter table public.attempts add constraint attempts_item_id_ok
+  check (item_id ~ '^([0-9a-z]{2,4}|[a-z0-9-]{2,30}:[0-9a-z.-]{1,40})$');
+
+-- A module quiz's recall check part (added 29 Oct 2026). auto/claimed/out_of stay the quiz part only,
+-- so XP is unchanged; passed and auto_passed count both parts together. 0 out of 0 = no recall part.
+alter table public.attempts add column if not exists recall_auto    int not null default 0;
+alter table public.attempts add column if not exists recall_claimed int not null default 0;
+alter table public.attempts add column if not exists recall_out_of  int not null default 0;
+alter table public.attempts drop constraint if exists attempts_recall_ok;
+alter table public.attempts add constraint attempts_recall_ok
+  check (recall_auto >= 0 and recall_claimed >= 0 and recall_out_of between 0 and 20
+         and recall_auto + recall_claimed <= recall_out_of);
 
 create table if not exists public.srs (
   user_id uuid not null references auth.users (id) on delete cascade,

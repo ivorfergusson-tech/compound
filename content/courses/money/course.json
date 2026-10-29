@@ -1,6 +1,18 @@
 {
+  "id": "money",
   "name": "Compound",
   "tagline": "A free course on money, investing, trading and the finance industry, for anyone in the UK.",
+  "subject": "money",
+  "board": null,
+  "spec": null,
+  "specVersion": null,
+  "legacyIds": true,
+  "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-29"
+  },
   "passMark": 0.6,
   "ready": [
     "00",

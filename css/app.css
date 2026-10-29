@@ -267,6 +267,10 @@ a.item:hover { border-color: var(--border-2); }
 .pass-bar div { height: 10px; border-radius: 5px; background: var(--warm); }
 .pass .pass-bar div { background: var(--good); }
 .pass-bar i { position: absolute; top: -4px; width: 2px; height: 18px; background: var(--text); }
+.score-parts { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 4px; }
+.score-parts li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px solid var(--border); }
+.score-parts li.total { border-bottom: 0; font-weight: 700; }
+.recall-done { display: flex; align-items: center; gap: 8px; }
 .review-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
 .review-item { border-radius: 12px; padding: 12px; background: var(--surface-2); }
 .review-item.wrong { background: var(--bad-soft); }

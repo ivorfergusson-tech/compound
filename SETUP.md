@@ -16,6 +16,9 @@ Secrets go in `.env` in this folder (gitignored). The site itself only ever hold
 
 What it makes: 7 tables (profiles, module_reads, attempts, srs, notes, guesses, active_days), Row Level Security on all of them (each person sees only their own rows), the nickname filter, the XP and level functions, the public `leaderboard` view (nickname, level, XP only) and `delete_my_account()`.
 
+**Run it again whenever `schema.sql` changes, before the site is pushed.** The site sends every column the file defines, so pushing first makes syncing fail until the SQL is run (progress stays safe in each browser meanwhile). Changes so far:
+- 29 Oct 2026 (platform P0): `attempts` gets `recall_auto`, `recall_claimed`, `recall_out_of` (the recall check part of a module quiz), and item ids may be course-prefixed (`econ-aqa:4.1.5`). Existing rows are untouched.
+
 ## 3. Sign-in links point at the right site
 Left sidebar → **Authentication** → **URL Configuration**:
 - **Site URL:** `https://ivorfergusson-tech.github.io/compound/` (once GitHub Pages is on; until then `http://127.0.0.1:8765/`).

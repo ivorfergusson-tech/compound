@@ -12,7 +12,7 @@ from playwright.sync_api import sync_playwright
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8765/"
 SHOTS = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".tmp/shots")
 SHOTS.mkdir(parents=True, exist_ok=True)
-course = json.loads((Path(__file__).parent.parent / "content" / "course.json").read_text(encoding="utf-8"))
+course = json.loads((Path(__file__).parent.parent / "content" / "courses" / "money" / "course.json").read_text(encoding="utf-8"))
 errors, fails = [], []
 
 
@@ -131,7 +131,7 @@ with sync_playwright() as p:
     res = page.locator(".result").inner_text()
     check("pass shows Passed", "Passed" in res)
     check("pass gives XP", "XP" in res)
-    check("pass links to module 9", page.locator('.quiz a.btn[href="#/m/09"]').count() == 1)
+    check("pass links to module 9", page.locator('.quiz a.btn[href="#/c/money/m/09"]').count() == 1)
     page.locator(".result").screenshot(path=str(SHOTS / "cp1-pass.png"))
     page.goto(BASE)
     page.wait_for_selector(".item")

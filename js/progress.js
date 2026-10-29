@@ -45,6 +45,18 @@ export function mergeStates(a, b) {
 
 const KEY = 'compound.progress.v1';
 
+// Progress key for an item. One progress state covers every course. Money keeps its bare ids
+// ('01', 'cp1') so progress saved before courses existed needs no migration; other courses
+// prefix theirs with the course id ('econ-aqa:4.1.5').
+export function itemKey(course, id) { return course.legacyIds ? id : `${course.id}:${id}`; }
+
+// Score of a quiz attempt as a fraction, counting its recall check part (if it had one).
+export function attemptPct(a) {
+  const r = a.recall || {};
+  const outOf = a.outOf + (r.outOf || 0);
+  return outOf ? (a.auto + (a.claimed || 0) + (r.auto || 0) + (r.claimed || 0)) / outOf : 0;
+}
+
 export function emptyState() {
   return { v: 1, nickname: null, read: {}, attempts: [], srs: {}, notes: {}, guesses: {}, days: [] };
 }
@@ -114,7 +126,9 @@ export class Progress {
   setNickname(name) { this.state.nickname = name; this.save(); }
 
   // a: { kind: 'quiz'|'checkpoint'|'recall', id, module?, auto, claimed, outOf, passed, autoPassed,
-  //      results: [{ qid, module, topic, correct }] }
+  //      recall?: { auto, claimed, outOf }, results: [{ qid, module, topic, correct }] }
+  // A module quiz's auto/claimed/outOf are the quiz part only (XP counts those); passed and
+  // autoPassed are worked out from the recall part and the quiz together.
   recordAttempt(a) {
     const today = this.today();
     const missed = [...new Set(a.results.filter(r => !r.correct).map(r => r.topic).filter(Boolean))];
@@ -122,6 +136,7 @@ export class Progress {
       uid: newId(), at: new Date().toISOString(), day: today, kind: a.kind, id: a.id,
       auto: a.auto, claimed: a.claimed || 0, outOf: a.outOf,
       passed: Boolean(a.passed), autoPassed: Boolean(a.autoPassed), missed,
+      ...(a.recall ? { recall: { auto: a.recall.auto, claimed: a.recall.claimed || 0, outOf: a.recall.outOf } } : {}),
       wrong: a.results.filter(r => !r.correct).map(r => r.qid),
       right: a.results.filter(r => r.correct).map(r => r.qid),
     };
@@ -148,10 +163,19 @@ export class Progress {
   best(id) {
     const list = this.attemptsFor(id);
     if (!list.length) return null;
-    return list.reduce((b, a) => ((a.auto + a.claimed) / a.outOf > (b.auto + b.claimed) / b.outOf ? a : b));
+    return list.reduce((b, a) => (attemptPct(a) > attemptPct(b) ? a : b));
   }
 
   passed(id) { return this.attemptsFor(id).some(a => a.passed); }
+
+  // The recall check done for this module since its last quiz attempt, waiting to be counted
+  // with the next quiz. Each quiz attempt needs a fresh one.
+  pendingRecall(id) {
+    // Date.parse: times synced from the account are written '+00:00', local ones 'Z'.
+    const lastQuiz = this.attemptsFor(id).reduce((t, a) => Math.max(t, Date.parse(a.at)), 0);
+    const recalls = this.state.attempts.filter(a => a.kind === 'recall' && a.id === id && Date.parse(a.at) > lastQuiz);
+    return recalls.length ? recalls[recalls.length - 1] : null;
+  }
 
   // Streak: days in a row up to today (or yesterday, so it doesn't vanish at midnight).
   streak() {
@@ -214,27 +238,28 @@ export function levelFor(xp) {
 }
 
 // Status of every item on the course map.
-export function courseStatus(items, progress, ready, { unlockAll = false } = {}) {
+// key(id) turns an item id into its progress key (see itemKey); Money's are the ids themselves.
+export function courseStatus(items, progress, ready, { unlockAll = false, key = id => id } = {}) {
   const out = {};
   let gate = null;
   for (const item of items) {
     if (item.kind === 'intro') {
-      out[item.id] = { state: progress.state.read[item.id] ? 'done' : 'open' };
+      out[item.id] = { state: progress.state.read[key(item.id)] ? 'done' : 'open' };
       continue;
     }
-    const unlocked = unlockAll || !gate || progress.passed(gate.id);
-    const best = progress.best(item.id);
+    const unlocked = unlockAll || !gate || progress.passed(key(gate.id));
+    const best = progress.best(key(item.id));
     let s;
     if (!unlocked) {
       s = { state: 'locked', reason: gate.kind === 'checkpoint' ? `Pass ${gate.title.toLowerCase()} to unlock` : `Pass module ${gate.num}'s quiz to unlock` };
     } else if (!ready.includes(item.id)) {
       s = { state: 'soon', reason: 'Coming soon' };
-    } else if (progress.passed(item.id)) {
+    } else if (progress.passed(key(item.id))) {
       s = { state: 'passed' };
     } else {
       s = { state: 'open' };
     }
-    s.best = best ? Math.round(((best.auto + best.claimed) / best.outOf) * 100) : null;
+    s.best = best ? Math.round(attemptPct(best) * 100) : null;
     out[item.id] = s;
     gate = item;
   }

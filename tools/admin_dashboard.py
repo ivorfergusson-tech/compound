@@ -22,7 +22,7 @@ ENV = dict(
 )
 URL = ENV["SUPABASE_URL"].strip().rstrip("/")
 SECRET = ENV["SUPABASE_SERVICE_ROLE_KEY"].strip()
-COURSE = json.loads((ROOT / "content" / "course.json").read_text(encoding="utf-8"))
+COURSE = json.loads((ROOT / "content" / "courses" / "money" / "course.json").read_text(encoding="utf-8"))
 ITEMS = [i for i in COURSE["items"] if i["kind"] != "intro"]
 ORDER = {i["id"]: n for n, i in enumerate(ITEMS)}
 

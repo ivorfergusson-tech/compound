@@ -37,6 +37,11 @@ Check gov.uk "Rates and thresholds for employers" and HMRC for the new tax year,
 - `cardApr` (average credit card APR, Moneyfacts).
 - Any figure whose `refresh` field says so.
 
+## Each September (A-level specifications)
+Exam boards sometimes update a specification. For each A-level course in `content/courses.json`:
+- Open the board's spec page (AQA Economics 7136, AQA Business 7132) and compare the version and date with `spec` and `specVersion` in the course's `course.json`.
+- If the version changed, read the summary of changes, update the spec map and any affected lessons and questions, then update `specVersion`. Changed lessons go back through review.
+
 ## Don't forget
 - Never type a changing figure into a lesson as plain text. Add it to `figures.json`.
 - Worked examples may use round example numbers ("say inflation is 3.5%"). Say they're examples.

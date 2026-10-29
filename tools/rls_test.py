@@ -124,6 +124,14 @@ def main():
         # validation
         bad = {**att, "auto": 9, "out_of": 7, "id": str(uuid.uuid4())}
         check("impossible score rejected", post(a, "attempts", bad)[0] == 400)
+        with_recall = {**att, "item_id": "02", "auto": 0, "claimed": 0, "passed": False, "recall_auto": 4, "recall_out_of": 4}
+        check("quiz attempt with a recall part saves", post(a, "attempts", {**with_recall, "id": str(uuid.uuid4())})[0] == 201)
+        s, lb = call("GET", f"/rest/v1/leaderboard?select=xp&nickname=eq.{nick_a}")
+        check("recall part adds no mark XP (still 70)", lb and lb[0]["xp"] == 70, lb)
+        check("impossible recall part rejected", post(a, "attempts", {**with_recall, "recall_auto": 5, "id": str(uuid.uuid4())})[0] == 400)
+        other = {**att, "item_id": "econ-aqa:4.1.5", "auto": 0, "claimed": 0, "passed": False, "id": str(uuid.uuid4())}
+        check("other course's item id accepted", post(a, "attempts", other)[0] == 201)
+        check("junk item id rejected", post(a, "attempts", {**other, "item_id": "drop table", "id": str(uuid.uuid4())})[0] == 400)
         s, _ = call("PATCH", f"/rest/v1/profiles?user_id=eq.{b['id']}", {"nickname": "big sex"}, token=b["token"])
         check("rude nickname rejected", s == 400, s)
         s, _ = call("PATCH", f"/rest/v1/profiles?user_id=eq.{b['id']}", {"nickname": nick_a.upper()}, token=b["token"])

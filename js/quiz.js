@@ -166,6 +166,16 @@ export function score(results, passMark = 0.6) {
   const auto = results.reduce((s, r) => s + r.marks, 0);
   const claimed = results.reduce((s, r) => s + (r.claimed || 0), 0);
   const outOf = results.reduce((s, r) => s + r.outOf, 0);
+  return verdict(auto, claimed, outOf, passMark);
+}
+
+// Several parts marked as one (a module's recall check + its quiz): raw marks pooled, same rules as score().
+export function combineScores(parts, passMark = 0.6) {
+  const sum = k => parts.reduce((s, p) => s + (p ? p[k] || 0 : 0), 0);
+  return verdict(sum('auto'), sum('claimed'), sum('outOf'), passMark);
+}
+
+function verdict(auto, claimed, outOf, passMark) {
   const pct = outOf ? (auto + claimed) / outOf : 0;
   return { auto, claimed, outOf, pct, passed: pct >= passMark - 1e-9, autoPassed: outOf ? auto / outOf >= passMark - 1e-9 : false };
 }

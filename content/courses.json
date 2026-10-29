@@ -1,0 +1,18 @@
+{
+  "default": "money",
+  "subjects": {
+    "money": { "name": "Money", "blurb": "Personal finance, investing, paper trading and the finance industry, for anyone in the UK." }
+  },
+  "courses": [
+    {
+      "id": "money",
+      "subject": "money",
+      "board": null,
+      "title": "Money",
+      "path": "content/courses/money/",
+      "pages": "m/",
+      "needsAccount": false,
+      "live": true
+    }
+  ]
+}

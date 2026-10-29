@@ -1,6 +1,6 @@
 // Question cards and the quiz runner (module quizzes, recall checks, checkpoints, quick checks).
 import { esc, el } from './util.js';
-import { mark, score } from './quiz.js';
+import { mark, score, combineScores } from './quiz.js';
 
 const TYPE_LABEL = { mcq: 'Pick one', tf: 'True or false', number: 'Number', order: 'Put in order', match: 'Match up', explain: 'Explain' };
 
@@ -170,7 +170,9 @@ function feedbackHtml(q, m) {
 }
 
 // Runs a list of questions one at a time, then shows the result.
-// opts: { kind, title, passMark, onFinish(summary) -> extra html, onRetry }
+// opts: { kind, title, passMark, onFinish(summary) -> extra html, onRetry, carry, afterRender(container) }
+// carry: an earlier part marked with this one ({ title, auto, claimed, outOf }, e.g. the module's recall
+// check). The pass is then worked out from both; summary.part is this quiz's own score.
 export function runQuiz(container, questions, opts) {
   const results = new Array(questions.length).fill(null);
   let i = 0;
@@ -207,16 +209,20 @@ export function runQuiz(container, questions, opts) {
   }
 
   function finish() {
-    const s = score(results, opts.passMark);
+    const part = score(results, opts.passMark);
+    const c = opts.carry;
+    const s = c ? combineScores([c, part], opts.passMark) : part;
     const pct = Math.round(s.pct * 100);
     const missed = [...new Set(results.filter(r => !r.correct).map(r => r.topic).filter(Boolean))];
-    const extra = opts.onFinish({ ...s, results, missed }) || '';
+    const extra = opts.onFinish({ ...s, part, results, missed }) || '';
+    const marks = x => `${x.auto + x.claimed} of ${x.outOf}${x.claimed ? ` (${x.claimed} claimed)` : ''}`;
+    const parts = c ? `<ul class="score-parts"><li><span>${esc(c.title)}</span><strong>${marks(c)}</strong></li><li><span>${esc(opts.title)}</span><strong>${marks(part)}</strong></li><li class="total"><span>Together</span><strong>${marks(s)} · ${pct}%</strong></li></ul>` : '';
     const verdict = !graded ? `${s.auto} of ${s.outOf} right`
       : s.passed ? (s.claimed && !s.autoPassed ? 'Passed, with claimed marks' : 'Passed') : `Not yet: you need ${Math.round(opts.passMark * 100)}%`;
     container.innerHTML = `<div class="card result ${graded ? (s.passed ? 'pass' : 'fail') : ''}">
       <span class="eyebrow">${esc(opts.title)}</span>
       ${graded ? `<div class="big-score"><strong>${pct}%</strong><span class="muted">${s.auto + s.claimed} of ${s.outOf}${s.claimed ? ` (${s.claimed} claimed)` : ''}</span></div>
-      <div class="pass-bar"><div style="width:${pct}%"></div><i style="left:${opts.passMark * 100}%"></i></div>` : ''}
+      <div class="pass-bar"><div style="width:${pct}%"></div><i style="left:${opts.passMark * 100}%"></i></div>${parts}` : ''}
       <p class="verdict">${verdict}</p>
       ${missed.length ? `<p class="muted">To go over: ${missed.map(esc).join(' · ')}. ${graded ? 'These come back in your recall checks.' : ''}</p>` : ''}
       ${extra}
@@ -225,6 +231,7 @@ export function runQuiz(container, questions, opts) {
     </div>`;
     const retry = container.querySelector('.retry');
     if (retry) retry.addEventListener('click', opts.onRetry);
+    if (opts.afterRender) opts.afterRender(container);
     container.querySelector('.review').addEventListener('click', () => {
       const list = container.querySelector('.review-list');
       list.hidden = !list.hidden;

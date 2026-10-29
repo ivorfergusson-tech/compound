@@ -4,7 +4,7 @@ import json
 import sys
 from pathlib import Path
 
-p = Path(__file__).parent.parent / "content" / "glossary.json"
+p = Path(__file__).parent.parent / "content" / "courses" / "money" / "glossary.json"
 g = json.loads(p.read_text(encoding="utf-8"))
 new = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 g.update({k.lower(): v for k, v in new.items()})

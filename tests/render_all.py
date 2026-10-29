@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8765/"
 SHOTS = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".tmp/shots")
 SHOTS.mkdir(parents=True, exist_ok=True)
-course = json.loads((Path(__file__).parent.parent / "content" / "course.json").read_text(encoding="utf-8"))
+course = json.loads((Path(__file__).parent.parent / "content" / "courses" / "money" / "course.json").read_text(encoding="utf-8"))
 
 # Every module and checkpoint passed, so nothing is locked.
 unlock = {"v": 1, "nickname": None, "read": {}, "srs": {}, "notes": {}, "guesses": {}, "days": [], "attempts": [

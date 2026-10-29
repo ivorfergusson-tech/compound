@@ -1,10 +1,10 @@
 // Run: node tests/run.js
-// Checks marking, the quiz engine, XP, locks and recall. Explain questions in every quiz file
+// Checks marking, the quiz engine, XP, locks, recall, the course registry and progress keys. Explain questions in every quiz file
 // can carry "tests": [{ "answer": "...", "marks": n }] and are all checked here.
 import { readFileSync, readdirSync } from 'node:fs';
 import { markExplain, parseNumber } from '../js/marking.js';
-import { instantiate, mark, buildAttempt, buildCheckpoint, score, seededRng } from '../js/quiz.js';
-import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState } from '../js/progress.js';
+import { instantiate, mark, buildAttempt, buildCheckpoint, score, combineScores, seededRng } from '../js/quiz.js';
+import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState, itemKey, attemptPct } from '../js/progress.js';
 import { nicknameProblem } from '../js/nickname.js';
 import { payslip } from '../js/calcs-money.js';
 import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-trade.js';
@@ -17,7 +17,9 @@ function check(name, cond, extra = '') {
   else { fail++; console.log(`FAIL ${name} ${extra}`); }
 }
 
-const root = new URL('../content/', import.meta.url);
+const contentRoot = new URL('../content/', import.meta.url);
+const registry = JSON.parse(readFileSync(new URL('courses.json', contentRoot)));
+const root = new URL('courses/money/', contentRoot);
 const course = JSON.parse(readFileSync(new URL('course.json', root)));
 const quizzes = {};
 for (const f of readdirSync(new URL('quizzes/', root))) {
@@ -152,7 +154,7 @@ check('checkpoint builds', cp.length === 5);
 
 // --- content integrity
 const glossary = JSON.parse(readFileSync(new URL('glossary.json', root)));
-const figures = JSON.parse(readFileSync(new URL('figures.json', root))).figures;
+const figures = JSON.parse(readFileSync(new URL('figures.json', contentRoot))).figures;
 for (const f of readdirSync(new URL('modules/', root))) {
   const md = readFileSync(new URL(`modules/${f}`, root), 'utf8');
   for (const [, key] of md.matchAll(/\[\[([^\]|]+)/g)) check(`${f}: glossary has "${key}"`, key.toLowerCase() in glossary);
@@ -169,6 +171,100 @@ check('merge keeps both reads, earliest time', Object.keys(mg.read).length === 2
 check('merge dedupes attempts', mg.attempts.length === 2);
 check('merge keeps newest note', mg.notes['01'].text === 'new');
 check('merge days and nickname', mg.days.length === 2 && mg.nickname === 'saver');
+
+// --- course registry: every live course has its folder, and its course.json says who it is
+const BOARDS = ['aqa', 'edexcel', 'ocr', 'wjec', 'cie'];
+const REVIEW = ['ai-draft', 'reviewed-by-owner', 'reviewed-by-teacher'];
+check('registry default is a live course', registry.courses.some(c => c.id === registry.default && c.live));
+check('registry ids unique', new Set(registry.courses.map(c => c.id)).size === registry.courses.length);
+for (const e of registry.courses) {
+  check(`${e.id}: subject listed`, e.subject in registry.subjects);
+  check(`${e.id}: board known`, e.board === null || BOARDS.includes(e.board));
+  check(`${e.id}: path is content/courses/<id>/`, e.path === `content/courses/${e.id}/`);
+  if (!e.live) continue;
+  const c = JSON.parse(readFileSync(new URL(`courses/${e.id}/course.json`, contentRoot)));
+  check(`${e.id}: course.json id matches`, c.id === e.id);
+  check(`${e.id}: board, spec, specVersion fields`, 'board' in c && 'spec' in c && 'specVersion' in c && c.board === e.board);
+  check(`${e.id}: A-level course names its spec and version`, c.board === null || (c.spec && c.specVersion));
+  check(`${e.id}: only Money keeps bare ids`, Boolean(c.legacyIds) === (e.id === 'money'));
+  check(`${e.id}: pass mark`, c.passMark > 0 && c.passMark <= 1);
+  // nothing below reviewed-by-owner reaches students
+  for (const id of c.ready) {
+    const item = c.items.find(i => i.id === id);
+    const review = (item && item.review) || c.review || {};
+    check(`${e.id}/${id}: review status known`, REVIEW.includes(review.status), review.status);
+    check(`${e.id}/${id}: reviewed before it's published`, review.status !== 'ai-draft' && review.by && /^\d{4}-\d{2}-\d{2}$/.test(review.date || ''));
+  }
+}
+
+// --- progress keys: Money's are unchanged, other courses are prefixed, and the database accepts both
+const econ = { id: 'econ-aqa', items: [], ready: [] };
+check('Money keys unchanged', itemKey(course, '01') === '01' && itemKey(course, 'cp1') === 'cp1');
+check('other courses prefixed', itemKey(econ, '4.1.5') === 'econ-aqa:4.1.5');
+const sql = readFileSync(new URL('../supabase/schema.sql', import.meta.url), 'utf8');
+const idRule = sql.match(/attempts_item_id_ok\s+check \(item_id ~ '([^']+)'\)/);
+check('schema has the item id rule', Boolean(idRule));
+if (idRule) {
+  const re = new RegExp(idRule[1]);
+  for (const k of ['00', '01', '32', 'cp1', 'cp4', 'econ-aqa:4.1.5', 'econ-aqa:4.1.5.4', 'bus-aqa:3.2']) check(`schema accepts ${k}`, re.test(k));
+  for (const k of ['', 'x', 'drop table', 'econ-aqa:', ':4.1', 'ECON:1']) check(`schema rejects "${k}"`, !re.test(k));
+}
+
+// --- Money progress saved before courses existed loads and counts exactly as before
+const oldStore = mem();
+const oldState = { v: 1, nickname: 'saver', read: { '00': '2026-10-20T10:00:00Z', '01': '2026-10-20T10:05:00Z' }, srs: {}, notes: { '01': { text: 'mine', at: '2026-10-20T10:06:00Z' } }, guesses: {}, days: ['2026-10-20'],
+  attempts: [{ uid: 'old1', at: '2026-10-20T10:10:00Z', day: '2026-10-20', kind: 'quiz', id: '01', auto: 5, claimed: 0, outOf: 7, passed: true, autoPassed: true, missed: [], wrong: [], right: [] },
+             { uid: 'old2', at: '2026-10-20T10:20:00Z', day: '2026-10-20', kind: 'quiz', id: '02', auto: 3, claimed: 2, outOf: 8, passed: true, autoPassed: false, missed: [], wrong: [], right: [] }] };
+oldStore.setItem('compound.progress.v1', JSON.stringify(oldState));
+const po = new Progress({ storage: oldStore, today: () => '2026-10-29' });
+check('old progress loads', po.state.attempts.length === 2 && po.state.notes['01'].text === 'mine' && po.state.nickname === 'saver');
+check('old XP unchanged', po.xp().total === xpFromState(oldState).total);
+const sto = courseStatus(course.items, po, course.items.map(i => i.id), { key: id => itemKey(course, id) });
+check('old passes stay passed', sto['01'].state === 'passed' && sto['02'].state === 'passed');
+check('old pass with claims kept (no recall part)', sto['02'].best === 63);
+check('module after old passes is open', sto['03'].state === 'open');
+
+// --- one progress state, courses kept apart
+const pm = new Progress({ storage: mem(), today: () => '2026-10-29' });
+pm.recordAttempt({ kind: 'quiz', id: '01', auto: 7, outOf: 7, passed: true, autoPassed: true, results: [] });
+pm.recordAttempt({ kind: 'quiz', id: 'econ-aqa:01', auto: 0, outOf: 7, passed: false, autoPassed: false, results: [] });
+check('Money pass does not pass another course', pm.passed('01') && !pm.passed('econ-aqa:01'));
+const econItems = [{ id: '01', kind: 'module', num: 1 }, { id: '02', kind: 'module', num: 2 }];
+const ste = courseStatus(econItems, pm, ['01', '02'], { key: id => itemKey(econ, id) });
+check('other course locks follow its own progress', ste['01'].state === 'open' && ste['01'].best === 0 && ste['02'].state === 'locked');
+const mgc = mergeStates(
+  { ...emptyState(), read: { '01': '2026-10-29T09:00:00Z' }, attempts: [{ uid: 'm1', id: '01', at: '2026-10-29T09:00:00Z' }] },
+  { ...emptyState(), read: { 'econ-aqa:01': '2026-10-29T10:00:00Z' }, attempts: [{ uid: 'e1', id: 'econ-aqa:01', at: '2026-10-29T10:00:00Z' }] });
+check('merge keeps every course', mgc.read['01'] && mgc.read['econ-aqa:01'] && mgc.attempts.length === 2);
+
+// --- the recall check counts towards the module pass
+const parts = combineScores([{ auto: 1, claimed: 0, outOf: 4 }, { auto: 6, claimed: 1, outOf: 9 }], 0.6);
+check('recall + quiz marks pooled', parts.auto === 7 && parts.claimed === 1 && parts.outOf === 13 && Math.abs(parts.pct - 8 / 13) < 1e-9 && parts.passed && !parts.autoPassed);
+check('quiz alone would pass, weak recall pulls it under', score([{ marks: 6, outOf: 9 }]).passed && !combineScores([{ auto: 0, outOf: 4 }, { auto: 6, outOf: 9 }]).passed);
+check('strong recall lifts a weak quiz', !score([{ marks: 5, outOf: 9 }]).passed && combineScores([{ auto: 4, outOf: 4 }, { auto: 5, outOf: 9 }]).passed);
+check('no recall part = quiz alone (module 1)', JSON.stringify(combineScores([null, { auto: 5, claimed: 0, outOf: 7 }])) === JSON.stringify(score([{ marks: 5, outOf: 7 }])));
+check('module 1 has nothing to recall', pickRecall(new Progress({ storage: mem() }), {}, 1, 4).length === 0);
+
+const pq = new Progress({ storage: mem(), today: () => '2026-10-29' });
+check('no recall check yet', pq.pendingRecall('05') === null);
+pq.recordAttempt({ kind: 'recall', id: '05', auto: 3, claimed: 0, outOf: 4, results: [] });
+check('recall check waits for the quiz', pq.pendingRecall('05')?.auto === 3);
+check('recall for another module does not count', pq.pendingRecall('06') === null);
+const before = pq.xp().parts.marks;
+pq.recordAttempt({ kind: 'quiz', id: '05', auto: 4, claimed: 0, outOf: 9, passed: true, autoPassed: true, recall: { title: 'Recall check', auto: 3, claimed: 0, outOf: 4 }, results: [] });
+const qa = pq.attemptsFor('05')[0];
+check('quiz attempt stores the recall part', qa.recall && qa.recall.auto === 3 && qa.recall.outOf === 4 && !('title' in qa.recall));
+check('combined score', Math.abs(attemptPct(qa) - 7 / 13) < 1e-9);
+check('XP marks count the quiz part only', pq.xp().parts.marks - before === 4 * 10);
+check('each quiz attempt needs a fresh recall check', pq.pendingRecall('05') === null);
+pq.recordAttempt({ kind: 'recall', id: '05', auto: 4, claimed: 0, outOf: 4, results: [] });
+pq.recordAttempt({ kind: 'quiz', id: '05', auto: 5, claimed: 0, outOf: 9, passed: true, autoPassed: true, recall: { auto: 4, claimed: 0, outOf: 4 }, results: [] });
+check('best combined attempt counts', Math.abs(attemptPct(pq.best('05')) - 9 / 13) < 1e-9);
+check('legacy attempt score is quiz alone', attemptPct({ auto: 3, claimed: 2, outOf: 8 }) === 5 / 8);
+const pt = new Progress({ storage: mem(), today: () => '2026-10-29' });
+pt.state.attempts.push({ kind: 'quiz', id: '07', at: '2026-10-29T10:00:00.000+00:00', auto: 1, outOf: 9, results: [] });
+pt.state.attempts.push({ kind: 'recall', id: '07', at: '2026-10-29T09:59:00.000Z', auto: 1, outOf: 4 });
+check('synced time formats compare as times', pt.pendingRecall('07') === null);
 
 // --- nicknames
 for (const ok of ['Essex_lad', 'Dickens fan', 'grapefruit', 'Scunthorpe', 'money-wise 99']) check(`nickname ok: ${ok}`, nicknameProblem(ok) === null);
