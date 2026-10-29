@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
   <link rel="stylesheet" href="../../css/app.css">
-  <script>var t='dark';try{if(localStorage.getItem('compound.theme')==='light')t='light';}catch(e){}document.documentElement.dataset.theme=t;</script>
+  <script>(function(){var r=document.documentElement,d={};try{d=JSON.parse(localStorage.getItem('compound.display')||'{}')||{};if(!d.theme)d.theme=localStorage.getItem('compound.theme');}catch(e){}r.dataset.theme=d.theme==='light'?'light':'dark';['font','size','letters','lines','contrast'].forEach(function(k){if(d[k])r.dataset[k]=d[k];});var f={lexend:'Lexend:wght@400;600;700',atkinson:'Atkinson+Hyperlegible:wght@400;700'}[d.font];if(f){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f+'&display=swap';l.setAttribute('data-font',d.font);document.head.appendChild(l);}})();</script>
 </head>
 <body>
   <header class="top">

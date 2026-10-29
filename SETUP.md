@@ -18,6 +18,7 @@ What it makes: 7 tables (profiles, module_reads, attempts, srs, notes, guesses, 
 
 **Run it again whenever `schema.sql` changes, before the site is pushed.** The site sends every column the file defines, so pushing first makes syncing fail until the SQL is run (progress stays safe in each browser meanwhile). Changes so far:
 - 29 Oct 2026 (platform P0): `attempts` gets `recall_auto`, `recall_claimed`, `recall_out_of` (the recall check part of a module quiz), and item ids may be course-prefixed (`econ-aqa:4.1.5`). Existing rows are untouched.
+- 29 Oct 2026 (platform P1): the nickname lock (`nickname_changed_at`, `nickname_must_change` on profiles, and the `nickname_lock` trigger: 7 days between changes, enforced by the database), and a `settings` table for display settings. Existing nicknames start unlocked.
 
 ## 3. Sign-in links point at the right site
 Left sidebar → **Authentication** → **URL Configuration**:
@@ -28,8 +29,15 @@ Left sidebar → **Authentication** → **URL Configuration**:
   - `https://ivorfergusson-tech.github.io/compound/**`
 - **Save**.
 
-## 4. Email sign-in (magic link)
-On by default. Supabase's built-in email only sends a few emails an hour, which is fine for testing. Before sharing widely, send them through Brevo (free, 300 a day):
+## 4. Email and password sign-in
+People sign up with an email and a password (and confirm their email by link), or with Google or Microsoft. "Forgot password?" emails a reset link. The old email sign-in link is gone from the site; anyone who used it chooses "Forgot password?" to set a password.
+
+In Supabase → **Authentication**:
+- **Sign In / Providers** → **Email**: **Enable email provider** on, **Confirm email** on (it is: checked 29 Oct 2026).
+- **Sign In / Providers** → **Email** (or **Policies / Passwords**, depending on the dashboard version): **Minimum password length** `8`. If **Leaked password protection** is offered on your plan, turn it on; at the time of writing Supabase lists it for paid plans, so on the free plan the site's own checks (8+ characters, no common passwords) are what applies.
+- **URL Configuration**: the redirect URLs from step 3 already cover the reset link (`…/compound/?reset=1`).
+
+Emails: Supabase's built-in email only sends a few emails an hour, which is fine for testing. Before sharing widely, send them through Brevo (free, 300 a day):
 - Brevo → **SMTP & API** → **SMTP** tab → note the server, port, login and generate an SMTP key.
 - Supabase → **Authentication** → **Emails** → **SMTP Settings** → turn on **Enable custom SMTP**: host `smtp-relay.brevo.com`, port `587`, your Brevo login and SMTP key, sender name `Compound`, sender email one you've verified in Brevo → **Save**.
 
@@ -45,6 +53,19 @@ On by default. Supabase's built-in email only sends a few emails an hour, which 
 5. **Audience** → **Publish app** (so anyone can sign in, not just test users). Basic sign-in (email, profile) doesn't need Google verification.
 
 **In Supabase:** **Authentication** → **Sign In / Providers** → **Google** → turn on → paste the Client ID and Client secret → **Save**.
+
+## 5b. Microsoft sign-in (many schools use Microsoft 365 and Teams)
+The "Continue with Microsoft" button appears on the site by itself once this is switched on. Free; a personal Microsoft account is enough to set it up.
+
+**In Azure** (portal.azure.com, signed in with your Microsoft account):
+1. Search bar → **Microsoft Entra ID** → **App registrations** → **+ New registration**.
+2. Name `Compound`. Supported account types: **Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts**. Redirect URI: platform **Web**, `https://zxmvhufnxdpzzabeuxkr.supabase.co/auth/v1/callback` → **Register**.
+3. On the app's **Overview**, copy the **Application (client) ID** → `.env` as `AZURE_CLIENT_ID`.
+4. **Certificates & secrets** → **+ New client secret** → description `Supabase`, expiry 24 months → **Add**. Copy the **Value** straight away (it's shown once; not the "Secret ID") → `.env` as `AZURE_CLIENT_SECRET`. Note the expiry date: sign-in with Microsoft stops when it runs out, so make a new one before then.
+
+**In Supabase:** **Authentication** → **Sign In / Providers** → **Azure** → turn on → paste the client ID and secret, leave **Azure Tenant URL** empty (so any school or personal account works) → **Save**.
+
+Some schools only let pupils use apps their IT team has approved. If a student sees "Need admin approval", their school's IT admin has to approve Compound once for the whole school; until then the student can use email and password.
 
 ## 6. GitHub repo and Pages (done 27 Oct 2026)
 Done by Claude with `gh`, after asking:

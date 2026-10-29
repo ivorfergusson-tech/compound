@@ -85,6 +85,7 @@ def is_locked(page, item_id):
 
 def new_page(browser, progress):
     ctx = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, is_mobile=True, has_touch=True)
+    ctx.add_init_script("if (!localStorage.getItem('compound.signup')) localStorage.setItem('compound.signup', 'dismissed')")  # sign-up pop-up already seen
     ctx.add_init_script(f"if (!localStorage.getItem('compound.progress.v1')) localStorage.setItem('compound.progress.v1', {json.dumps(json.dumps(progress))})")
     page = ctx.new_page()
     page.on("console", lambda m: m.type == "error" and "supabase" not in m.text.lower() and errors.append(m.text))

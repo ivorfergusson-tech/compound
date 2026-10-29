@@ -25,7 +25,7 @@ ENV = dict(
 URL = ENV["SUPABASE_URL"].strip().rstrip("/")
 ANON = ENV["SUPABASE_ANON_KEY"].strip()
 SECRET = ENV.get("SUPABASE_SERVICE_ROLE_KEY", "").strip()
-TABLES = ["profiles", "module_reads", "attempts", "srs", "notes", "guesses", "active_days"]
+TABLES = ["profiles", "module_reads", "attempts", "srs", "notes", "guesses", "active_days", "settings"]
 fails = []
 
 
@@ -85,7 +85,12 @@ def main():
         post = lambda user, table, body, prefer=None: call("POST", f"/rest/v1/{table}", body, token=user["token"], prefer=prefer)
 
         check("A saves a profile", post(a, "profiles", {"user_id": a["id"], "nickname": nick_a})[0] == 201)
+        s, _ = post(b, "profiles", {"user_id": b["id"], "nickname": "big sex"})
+        check("rude nickname rejected", s == 400, s)
+        s, _ = post(b, "profiles", {"user_id": b["id"], "nickname": nick_a.upper()})
+        check("duplicate nickname rejected (any case)", s == 409, s)
         check("B saves a profile", post(b, "profiles", {"user_id": b["id"], "nickname": nick_b})[0] == 201)
+        check("A saves display settings", post(a, "settings", {"user_id": a["id"], "display": {"size": "l", "contrast": "high"}})[0] == 201)
         check("A saves a note", post(a, "notes", {"user_id": a["id"], "item_id": "01", "text": "A's private note"})[0] == 201)
         check("A records a read", post(a, "module_reads", {"user_id": a["id"], "item_id": "01"})[0] == 201)
         check("A records a day", post(a, "active_days", {"user_id": a["id"], "day": "2026-10-27"})[0] == 201)
@@ -132,10 +137,17 @@ def main():
         other = {**att, "item_id": "econ-aqa:4.1.5", "auto": 0, "claimed": 0, "passed": False, "id": str(uuid.uuid4())}
         check("other course's item id accepted", post(a, "attempts", other)[0] == 201)
         check("junk item id rejected", post(a, "attempts", {**other, "item_id": "drop table", "id": str(uuid.uuid4())})[0] == 400)
-        s, _ = call("PATCH", f"/rest/v1/profiles?user_id=eq.{b['id']}", {"nickname": "big sex"}, token=b["token"])
-        check("rude nickname rejected", s == 400, s)
-        s, _ = call("PATCH", f"/rest/v1/profiles?user_id=eq.{b['id']}", {"nickname": nick_a.upper()}, token=b["token"])
-        check("duplicate nickname rejected (any case)", s == 409, s)
+        # nickname lock: 7 days after it's set, enforced by the database
+        patch = lambda body: call("PATCH", f"/rest/v1/profiles?user_id=eq.{b['id']}", body, token=b["token"], prefer="return=representation")
+        s, err = patch({"nickname": nick_b + "x"})
+        check("nickname locked right after it's set", s == 400 and isinstance(err, dict) and err.get("code") == "CN001", f"{s} {err}")
+        patch({"nickname_changed_at": "2000-01-01T00:00:00Z", "nickname_must_change": True})
+        s, me = rows("profiles", b)
+        check("lock date and teacher-reset flag can't be set by the user", me and me[0]["nickname_must_change"] is False and me[0]["nickname_changed_at"] > "2026", me)
+        s, err = patch({"nickname": nick_b + "y"})
+        check("still locked after trying to move the date", s == 400 and isinstance(err, dict) and err.get("code") == "CN001", f"{s} {err}")
+        s, data = rows("settings", b, a["id"])
+        check("B can't see A's display settings", s == 200 and data == [], f"{s} {data}")
 
         # delete account
         s, _ = call("POST", "/rest/v1/rpc/delete_my_account", {}, token=a["token"])

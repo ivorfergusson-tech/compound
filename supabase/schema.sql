@@ -91,11 +91,18 @@ create table if not exists public.active_days (
   primary key (user_id, day)
 );
 
+-- Display settings (font, spacing, text size, contrast, theme), so they follow the account to any device.
+create table if not exists public.settings (
+  user_id    uuid primary key references auth.users (id) on delete cascade,
+  display    jsonb not null default '{}' check (jsonb_typeof(display) = 'object' and octet_length(display::text) <= 2000),
+  updated_at timestamptz not null default now()
+);
+
 -- ---------- row level security: own rows only ----------
 do $$
 declare t text;
 begin
-  foreach t in array array['profiles', 'module_reads', 'attempts', 'srs', 'notes', 'guesses', 'active_days'] loop
+  foreach t in array array['profiles', 'module_reads', 'attempts', 'srs', 'notes', 'guesses', 'active_days', 'settings'] loop
     execute format('alter table public.%I enable row level security', t);
     execute format('drop policy if exists "own rows" on public.%I', t);
     execute format('create policy "own rows" on public.%I for all to authenticated
@@ -128,6 +135,48 @@ end $$;
 
 alter table public.profiles drop constraint if exists profiles_nickname_ok;
 alter table public.profiles add constraint profiles_nickname_ok check (public.nickname_ok(nickname));
+
+-- ---------- nickname lock: 7 days after it's set or changed (also shown in the browser: js/nickname.js) ----------
+-- nickname_changed_at: when the lock started (null = free to change; rows from before the lock start free).
+-- nickname_must_change: set when a teacher resets an unsuitable nickname (classes, P4). The student must then
+-- pick a new one straight away, and that forced pick doesn't restart the lock. Only the teacher reset function
+-- (added with classes) may set the flag, by turning on compound.nickname_reset for its own transaction;
+-- whatever a user sends for these two columns is ignored.
+alter table public.profiles add column if not exists nickname_changed_at  timestamptz;
+alter table public.profiles add column if not exists nickname_must_change boolean not null default false;
+
+create or replace function public.nickname_lock() returns trigger
+language plpgsql as $$
+declare
+  free_at timestamptz;
+  by_teacher boolean := coalesce(current_setting('compound.nickname_reset', true), '') = 'on';
+begin
+  if tg_op = 'INSERT' then
+    new.nickname_changed_at := now();
+    new.nickname_must_change := false;
+    return new;
+  end if;
+  if by_teacher then return new; end if;
+  new.nickname_must_change := old.nickname_must_change;
+  new.nickname_changed_at := old.nickname_changed_at;
+  if new.nickname is distinct from old.nickname then
+    if old.nickname_must_change then
+      new.nickname_must_change := false; -- forced pick: the lock clock is left as it was
+    else
+      free_at := old.nickname_changed_at + interval '7 days';
+      if free_at > now() then
+        raise exception 'nickname locked until %', to_char(free_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"')
+          using errcode = 'CN001', hint = 'Nicknames can change once every 7 days.';
+      end if;
+      new.nickname_changed_at := now();
+    end if;
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists profiles_nickname_lock on public.profiles;
+create trigger profiles_nickname_lock before insert or update on public.profiles
+  for each row execute function public.nickname_lock();
 
 -- ---------- XP (same rules as js/progress.js XP_RULES) ----------
 create or replace function public.xp_for(uid uuid) returns int

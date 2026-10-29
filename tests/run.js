@@ -5,7 +5,8 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { markExplain, parseNumber } from '../js/marking.js';
 import { instantiate, mark, buildAttempt, buildCheckpoint, score, combineScores, seededRng } from '../js/quiz.js';
 import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState, itemKey, attemptPct } from '../js/progress.js';
-import { nicknameProblem } from '../js/nickname.js';
+import { nicknameProblem, nicknameLock, lockMessage, passwordProblem } from '../js/nickname.js';
+import { clean as cleanDisplay, newer as newerDisplay, load as loadDisplay, save as saveDisplay, DEFAULTS as DISPLAY_DEFAULTS } from '../js/display.js';
 import { payslip } from '../js/calcs-money.js';
 import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-trade.js';
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
@@ -269,6 +270,36 @@ check('synced time formats compare as times', pt.pendingRecall('07') === null);
 // --- nicknames
 for (const ok of ['Essex_lad', 'Dickens fan', 'grapefruit', 'Scunthorpe', 'money-wise 99']) check(`nickname ok: ${ok}`, nicknameProblem(ok) === null);
 for (const bad of ['ab', 'f.u.c.k', 'sh1tlord', 'big sex', 'a'.repeat(21), 'emoji😀']) check(`nickname blocked: ${bad}`, nicknameProblem(bad) !== null);
+
+// --- nickname lock: 7 days after it's set or changed
+const NOW = Date.parse('2026-10-29T12:00:00Z');
+check('never set: free', !nicknameLock(null, false, NOW).locked);
+const l2 = nicknameLock('2026-10-27T12:00:00Z', false, NOW);
+check('changed 2 days ago: 5 days left', l2.locked && l2.daysLeft === 5, JSON.stringify(l2));
+check('lock message', lockMessage(l2) === 'You can change your nickname in 5 days.');
+check('one day left says day', lockMessage(nicknameLock('2026-10-22T13:00:00Z', false, NOW)) === 'You can change your nickname in 1 day.');
+check('changed 7 days ago: free', !nicknameLock('2026-10-22T12:00:00Z', false, NOW).locked);
+check('changed just now: 7 days', nicknameLock('2026-10-29T12:00:00Z', false, NOW + 1000).daysLeft === 7);
+check('teacher reset: free to pick now', !nicknameLock('2026-10-29T11:00:00Z', true, NOW).locked);
+check('schema locks nicknames in SQL', /create trigger profiles_nickname_lock/.test(sql) && /interval '7 days'/.test(sql) && /errcode = 'CN001'/.test(sql));
+check('schema: forced pick keeps the lock clock', /old\.nickname_must_change then\s+new\.nickname_must_change := false;/.test(sql));
+check('schema: settings table has row level security', /'active_days', 'settings'\] loop/.test(sql));
+
+// --- passwords
+for (const ok of ['correct horse', 'Tr1cky-pass', 'a'.repeat(8) + 'b']) check(`password ok: ${ok}`, passwordProblem(ok) === null);
+for (const bad of ['', 'short', '1234567', 'password', 'aaaaaaaaaa', 'x'.repeat(73)]) check(`password blocked: "${bad.slice(0, 12)}"`, passwordProblem(bad) !== null);
+check('password not the email', passwordProblem('me@school.uk', 'ME@school.uk') !== null);
+
+// --- display settings
+check('display defaults', JSON.stringify(cleanDisplay({})) === JSON.stringify({ ...DISPLAY_DEFAULTS, updatedAt: '' }));
+check('display drops unknown values', cleanDisplay({ size: 'huge', font: 'lexend', evil: '<b>' }).size === 'm' && cleanDisplay({ font: 'lexend' }).font === 'lexend' && !('evil' in cleanDisplay({ evil: 1 })));
+check('newer display wins', newerDisplay({ size: 'l', updatedAt: '2026-10-29T10:00:00Z' }, { size: 'xl', updatedAt: '2026-10-29T11:00:00Z' }).size === 'xl'
+  && newerDisplay({ size: 'l', updatedAt: '2026-10-29T12:00:00Z' }, { size: 'xl', updatedAt: '2026-10-29T11:00:00Z' }).size === 'l');
+const ds = mem();
+ds.setItem('compound.theme', 'light');
+check('old theme setting carries over', loadDisplay(ds).theme === 'light');
+saveDisplay({ ...loadDisplay(ds), contrast: 'high', theme: 'dark' }, ds);
+check('display saved, theme kept for reading pages', loadDisplay(ds).contrast === 'high' && ds.getItem('compound.theme') === 'dark');
 
 // --- take-home pay matches hand-worked 2026/27 figures
 const near = (a, b) => Math.abs(a - b) < 0.02;

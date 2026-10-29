@@ -57,6 +57,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch()
     for scheme in ("light", "dark"):
         ctx = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, color_scheme=scheme, is_mobile=True, has_touch=True)
+        ctx.add_init_script("if (!localStorage.getItem('compound.signup')) localStorage.setItem('compound.signup', 'dismissed')")  # sign-up pop-up already seen
         page = ctx.new_page()
         page.on("console", lambda m: m.type == "error" and errors.append(m.text))
         page.on("pageerror", lambda e: errors.append(str(e)))

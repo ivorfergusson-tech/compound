@@ -23,6 +23,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch()
     for scheme in ("light", "dark"):
         ctx = browser.new_context(viewport={"width": 390, "height": 844}, color_scheme=scheme)
+        ctx.add_init_script("if (!localStorage.getItem('compound.signup')) localStorage.setItem('compound.signup', 'dismissed')")  # sign-up pop-up already seen
         ctx.add_init_script(f"localStorage.setItem('compound.progress.v1', {json.dumps(json.dumps(unlock))})")
         ctx.add_init_script(f"localStorage.setItem('compound.theme', '{scheme}')")  # the site ignores the system setting
         page = ctx.new_page()

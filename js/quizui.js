@@ -1,6 +1,7 @@
 // Question cards and the quiz runner (module quizzes, recall checks, checkpoints, quick checks).
 import { esc, el } from './util.js';
 import { mark, score, combineScores } from './quiz.js';
+import { canSpeak, speak } from './speech.js';
 
 const TYPE_LABEL = { mcq: 'Pick one', tf: 'True or false', number: 'Number', order: 'Put in order', match: 'Match up', explain: 'Explain' };
 
@@ -40,13 +41,17 @@ function readResponse(card, q) {
 // One question. onResult(result) fires when marked, and again if marks are claimed.
 export function questionCard(q, { label, onResult, number } = {}) {
   const card = el(`<div class="card question" data-type="${q.type}">
-    <span class="eyebrow">${esc(label || `${number ? `Question ${number} · ` : ''}${TYPE_LABEL[q.type]}${q.marks > 1 ? ` · ${q.marks} marks` : ''}`)}</span>
+    <div class="q-head"><span class="eyebrow">${esc(label || `${number ? `Question ${number} · ` : ''}${TYPE_LABEL[q.type]}${q.marks > 1 ? ` · ${q.marks} marks` : ''}`)}</span>${canSpeak() ? '<button type="button" class="icon-btn speak-btn" aria-label="Read the question aloud">🔊</button>' : ''}</div>
     <p class="q">${esc(q.text)}</p>
     <div class="answer">${inputFor(q)}</div>
     <button type="button" class="btn check-btn">Check</button>
     <div class="feedback" aria-live="polite"></div>
   </div>`);
 
+  card.querySelector('.speak-btn')?.addEventListener('click', () => {
+    const opts = q.type === 'mcq' ? q.options.map((o, i) => `Option ${i + 1}: ${o}.`).join(' ') : q.type === 'tf' ? 'True or false?' : '';
+    speak([{ text: `${q.text} ${opts}` }]);
+  });
   card.addEventListener('click', e => {
     const opt = e.target.closest('.option');
     if (opt && !card.classList.contains('marked')) {

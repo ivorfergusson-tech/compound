@@ -7,6 +7,9 @@ import { buildAttempt, buildCheckpoint, instantiate } from './quiz.js';
 import { runQuiz } from './quizui.js';
 import { parseLesson, hydrateBlocks } from './lesson.js';
 import * as sync from './sync.js';
+import * as display from './display.js';
+import { openModal } from './modal.js';
+import { canSpeak, speak, pause, resume, stop as stopSpeaking, textOf } from './speech.js';
 
 const progress = new Progress();
 const app = document.getElementById('app');
@@ -32,15 +35,56 @@ async function useCourse(id) {
   return true;
 }
 
-// ---------- theme ----------
-const THEME_KEY = 'compound.theme';
-// Dark unless the learner has picked light.
-function applyTheme(t) { document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark'; }
-try { applyTheme(localStorage.getItem(THEME_KEY)); } catch { applyTheme('dark'); }
+// ---------- theme and display settings (js/display.js) ----------
+display.apply(display.get());
 function cycleTheme() {
-  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  try { localStorage.setItem(THEME_KEY, next); } catch { /* blocked */ }
+  display.set({ theme: display.get().theme === 'dark' ? 'light' : 'dark' });
+  const form = app.querySelector('.settings-grid');
+  if (form) form.querySelector(`input[name=theme][value=${display.get().theme}]`).checked = true;
+}
+
+// ---------- sign-up pop-up ----------
+// First visit: a "Create an account" pop-up that can be closed. If closed, one banner after the first
+// quiz, then never again. compound.signup: '' (not shown yet) | 'dismissed' | 'bannered' | 'done'.
+const SIGNUP_KEY = 'compound.signup';
+const signupFlag = () => { try { return localStorage.getItem(SIGNUP_KEY) || ''; } catch { return 'done'; } };
+const setSignupFlag = v => { try { localStorage.setItem(SIGNUP_KEY, v); } catch { /* blocked */ } };
+let modal = null;
+const hasDoneAnything = () => progress.state.attempts.length > 0 || Object.keys(progress.state.read).length > 0;
+
+// required: the A-level courses, which need an account (no "continue without" button).
+async function showSignup({ required = false } = {}) {
+  if (modal && modal.isOpen()) return;
+  const lead = required
+    ? '<p>This course needs a free account with a nickname, so your progress and marks are kept safe.</p>'
+    : '<p>Track your progress from the start. Free, and it works on any device.</p>';
+  const html = await sync.authForm('signup', { lead })
+    + (required ? '' : '<button type="button" class="btn ghost wide continue">Continue without an account</button>');
+  modal = openModal(html, {
+    label: 'Create an account',
+    onClose: why => {
+      if (why === 'signed-in') return;
+      if (required) { if (location.hash.startsWith('#/c/')) location.hash = '#/'; return; }
+      if (!signupFlag()) setSignupFlag('dismissed');
+    },
+  });
+  sync.wireAuthForm(modal.box, {
+    lead,
+    onSignedIn: () => { setSignupFlag('done'); modal.close('signed-in'); route(); },
+  });
+  modal.box.querySelector('.continue')?.addEventListener('click', () => modal.close('continue'));
+}
+
+function maybeShowSignup(parts) {
+  if (!sync.available() || sync.signedIn() || parts[0] === 'account' || signupFlag() || hasDoneAnything()) return;
+  showSignup();
+}
+
+// The one gentle reminder, after the first quiz once the pop-up has been closed.
+function saveBanner() {
+  if (!sync.available() || sync.signedIn() || signupFlag() !== 'dismissed') return '';
+  setSignupFlag('bannered');
+  return '<div class="save-banner"><p><strong>Save your progress?</strong> Make a free account and keep it on any device.</p><a class="btn" href="#/account">Make a free account</a></div>';
 }
 
 // ---------- shared bits ----------
@@ -206,6 +250,7 @@ async function viewModule(id) {
       <header class="lesson-head">
         ${strand ? `<span class="pill strand-pill-${item.strand}">${strand.emoji} ${esc(strand.name)} · ${esc(item.level)}</span>` : '<span class="pill">Start here</span>'}
         <h1>${esc(item.title)}</h1>
+        ${canSpeak() ? '<div class="read-aloud" data-no-speak><button type="button" class="btn ghost listen" aria-label="Listen to this lesson">🔊 Listen</button><button type="button" class="btn ghost pause-read" hidden>Pause</button><button type="button" class="btn ghost stop-read" hidden>Stop</button></div>' : ''}
         <p class="muted">About ${minutes} minutes${item.buildsOn.length ? ` · builds on ${item.buildsOn.map(n => n === 0 ? 'the introduction' : `module ${n}`).join(', ')}` : ''}</p>
         ${isTrading ? `<aside class="callout callout-paper"><span class="eyebrow">Paper trading only</span><p>Education only, not financial advice. Practise with pretend money; most people who trade with real money lose it.</p></aside>` : ''}
       </header>
@@ -226,7 +271,29 @@ async function viewModule(id) {
   wireTerms(article);
   wireOwnWords(article, K(id));
   wireReading(article, K(id));
+  wireListen(article);
   if (item.kind === 'module') await mountModuleTest(article, item, quiz);
+}
+
+// Read aloud: the title, then each paragraph, heading, list and callout of the lesson, one at a time.
+function wireListen(article) {
+  const bar = article.querySelector('.read-aloud');
+  if (!bar) return;
+  const [listen, pauseBtn, stopBtn] = bar.querySelectorAll('button');
+  const show = state => {
+    listen.hidden = state !== 'stopped';
+    pauseBtn.hidden = stopBtn.hidden = state === 'stopped';
+    pauseBtn.textContent = state === 'paused' ? 'Resume' : 'Pause';
+  };
+  listen.addEventListener('click', () => {
+    const blocks = [article.querySelector('h1'), ...article.querySelectorAll('.lesson-section > :is(h2, h3, p, ul, ol, aside, blockquote, table, details)')];
+    speak(blocks.map(b => ({ el: b, text: textOf(b) })), { onState: show });
+  });
+  pauseBtn.addEventListener('click', () => {
+    if (pauseBtn.textContent === 'Pause') { pause(); show('paused'); } else { resume(); show('playing'); }
+  });
+  stopBtn.addEventListener('click', () => stopSpeaking());
+  cleanup.push(() => stopSpeaking());
 }
 
 function nextItemLabel(item) {
@@ -335,7 +402,7 @@ async function mountModuleTest(article, item, quiz) {
         const gained = progress.xp().total - xpBefore;
         refreshStrip();
         const next = course.items[course.items.indexOf(item) + 1];
-        let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>`;
+        let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>${saveBanner()}`;
         if (s.passed && !wasPassed && next) {
           html += `<a class="btn wide" href="${hrefItem(next)}">Unlocked: ${esc(next.short || next.title)} →</a>`;
         } else if (!s.passed && next) {
@@ -391,7 +458,7 @@ async function viewCheckpoint(num) {
         sync.pushSoon(); refreshStrip();
         const gained = progress.xp().total - xpBefore;
         const next = course.items[course.items.indexOf(item) + 1];
-        let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>`;
+        let html = `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: XP counts your best auto-marked score once.'}</p>${saveBanner()}`;
         if (s.passed && !wasPassed) {
           html += next ? `<a class="btn wide" href="${hrefItem(next)}">Unlocked: ${esc(next.short || next.title)} →</a>`
             : `<p><strong>That's the whole course done.</strong> Retake any quiz to keep it fresh.</p>`;
@@ -474,12 +541,12 @@ async function viewAccount() {
       <p>${sync.signedIn() ? 'Deletes your account and every row of your data, for good.' : 'Clears your progress from this browser.'}</p>
       <button type="button" class="btn danger delete">${sync.signedIn() ? 'Delete my account' : 'Clear my progress'}</button>
     </section>
-    <section class="card"><h2>Appearance</h2><button type="button" class="btn ghost theme2">Switch light or dark mode</button></section>`, { title: 'Account' });
+    ${displaySettings()}`, { title: 'Account' });
   sync.wireAuthPanel(app.querySelector('#auth-box'), () => route(), name => {
     location.hash = '#/';
     toast(`Saved. You're on the leaderboard as ${name}`);
   });
-  app.querySelector('.theme2').addEventListener('click', cycleTheme);
+  app.querySelector('.settings-grid').addEventListener('change', e => display.set({ [e.target.name]: e.target.value }));
   app.querySelector('.export').addEventListener('click', async () => {
     const data = await sync.exportAll(progress.state);
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -498,6 +565,23 @@ async function viewAccount() {
     toast('Deleted');
     location.hash = '#/';
   });
+}
+
+function displaySettings() {
+  const d = display.get();
+  const groups = Object.entries(display.OPTIONS).map(([k, o]) => `<fieldset><legend>${esc(o.label)}</legend><div class="seg">${Object.entries(o.choices).map(([v, label]) => `<label><input type="radio" name="${k}" value="${v}"${d[k] === v ? ' checked' : ''}><span>${esc(label)}</span></label>`).join('')}</div></fieldset>`).join('');
+  return `<section class="card" id="display"><h2>Display and reading</h2>
+    <p class="muted">Changes apply straight away. Saved in this browser${sync.signedIn() ? ' and to your account, so they follow you to any device' : ''}.${canSpeak() ? ' Lessons have a 🔊 Listen button that reads them aloud.' : ''}</p>
+    <form class="settings-grid" onsubmit="return false">${groups}</form></section>`;
+}
+
+// A-level courses need an account with a nickname.
+async function viewNeedsAccount() {
+  const signedIn = sync.signedIn();
+  shell(`<section class="card locked-view">${lockIcon()}<h1>${esc(entry.title)}</h1>
+    <p>${signedIn ? 'Pick a nickname on your account page to start this course.' : 'This course needs a free account with a nickname.'}</p>
+    <a class="btn" href="#/account">${signedIn ? 'Pick a nickname' : 'Make an account or sign in'}</a></section>`, { title: entry.title });
+  if (!signedIn && sync.available()) showSignup({ required: true });
 }
 
 function viewAbout() {
@@ -587,6 +671,8 @@ async function route() {
     if (!parts.length) { await useCourse(registry.default); viewHome(params); }
     else if (parts[0] === 'c') {
       if (!(await useCourse(parts[1]))) return viewNotFound();
+      if (entry.needsAccount && sync.signedIn()) await sync.settled();
+      if (entry.needsAccount && !sync.hasNickname() && !sync.isAdmin()) return viewNeedsAccount();
       const sub = parts[2];
       if (!sub) viewHome(params);
       else if (sub === 'm') await viewModule(parts[3]);
@@ -598,6 +684,7 @@ async function route() {
     else if (parts[0] === 'account') await viewAccount();
     else if (parts[0] === 'about') viewAbout();
     else viewNotFound();
+    maybeShowSignup(parts);
   } catch (e) {
     console.error(e);
     app.innerHTML = `<main class="page"><div class="card"><h1>Something went wrong</h1><p>${esc(e.message)}</p><a class="btn" href="#/">Home</a></div></main>`;
