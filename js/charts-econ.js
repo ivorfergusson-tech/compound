@@ -631,7 +631,7 @@ export const econCharts = {
       root.querySelector('[data-chart]').innerHTML = lineChart({
         label: `Average rate of income tax rising with income. At £${i.toLocaleString('en-GB')}, it is ${r.average.toFixed(1)} percent.`,
         series: [{ name: 'Average tax rate', tone: 'a', points: Array.from({ length: 19 }, (_, k) => { const x = 10000 + k * 5000; return [x / 1000, +ukIncomeTax(x).average.toFixed(1)]; }) }],
-        yFmt: v => `${v}%`, xFmt: v => `£${v}k`, xTicks: [10, 40, 70, 100],
+        yFmt: v => `${v}%`, xFmt: v => `£${v}k`, xTicks: [10, 50, 90],
       });
       root.querySelector('[data-desc]').textContent = 'The average rate rises with income, so income tax is progressive. This is income tax only, for England, Wales and Northern Ireland, and it leaves out National Insurance.';
     });
