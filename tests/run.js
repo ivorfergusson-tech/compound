@@ -12,6 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
+import { econCharts, ppfY, ppfCost } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -497,6 +498,65 @@ for (const e of registry.courses) {
   check(`${e.id} spec map: checkpoints cover modules in order`, sm.checkpoints.every(c => moduleIds.indexOf(c.covers[0]) >= 0 && moduleIds.indexOf(c.covers[1]) >= moduleIds.indexOf(c.covers[0])));
 }
 check('Economics spec map has all 79 section 4 points', existsSync(new URL('courses/econ-aqa/specmap.json', contentRoot)) && JSON.parse(readFileSync(new URL('courses/econ-aqa/specmap.json', contentRoot))).points.length === 79);
+
+// --- A-level content (every course with a spec map and a course.json, live or draft): lessons follow the map,
+// every question is tagged and marks its own right answer, at least N_BANK questions per spec point
+check('PPF: ends of the curve', ppfY(0, 100) === 100 && ppfY(100, 100) === 0);
+check('PPF: opportunity cost rises along the curve', ppfCost(10, 100) < ppfCost(50, 100) && ppfCost(50, 100) < ppfCost(80, 100) && Math.abs(ppfCost(100 * Math.SQRT1_2, 100) - 1) < 1e-9);
+const N_BANK = 6, AOS = ['AO1', 'AO2', 'AO3', 'AO4'];
+for (const e of registry.courses.filter(c => c.board)) {
+  const dir = new URL(`courses/${e.id}/`, contentRoot);
+  if (!existsSync(new URL('course.json', dir)) || !existsSync(new URL('specmap.json', dir))) continue;
+  const c = JSON.parse(readFileSync(new URL('course.json', dir)));
+  const sm = JSON.parse(readFileSync(new URL('specmap.json', dir)));
+  const gl = JSON.parse(readFileSync(new URL('glossary.json', dir)));
+  const mapLessons = sm.modules.flatMap(m => m.lessons.map(l => ({ ...l, module: m.id })));
+  check(`${e.id}: course.json matches the registry and spec map`, c.id === e.id && c.board === e.board && c.spec === e.spec && c.specVersion === sm.specVersion);
+  const lessons = c.items.filter(i => i.kind === 'module');
+  const order = lessons.map(i => mapLessons.findIndex(l => l.id === i.id));
+  check(`${e.id}: lessons are spec map lessons, in map order`, order.every((k, n) => k >= 0 && (n === 0 || k > order[n - 1])), order.join(','));
+  if (e.live) check(`${e.id}: live course teaches every spec map lesson`, lessons.length === mapLessons.length);
+  const perPoint = {};
+  for (const item of lessons) {
+    const ml = mapLessons.find(l => l.id === item.id);
+    if (!ml) continue;
+    check(`${e.id}/${item.id}: spec points match the map`, JSON.stringify(item.spec) === JSON.stringify(ml.points));
+    check(`${e.id}/${item.id}: strand is its module`, item.strand === ml.module && c.strands[item.strand]);
+    const md = readFileSync(new URL(`modules/${item.id}.md`, dir), 'utf8');
+    for (const [, key] of md.matchAll(/\[\[(?!")([^\]|]+)/g)) check(`${e.id}/${item.id}: glossary has "${key}"`, key.toLowerCase() in gl);
+    for (const sec of ['## Guess first', ':::callout idea', ':::callout exam', '## Key terms']) check(`${e.id}/${item.id}: has ${sec}`, md.includes(sec));
+    for (const [, body] of md.matchAll(/:::check\n([\s\S]*?)\n:::/g)) {
+      const q = instantiate(JSON.parse(body));
+      check(`${e.id}/${item.id}: quick check marks its answer right`, mark(q, { mcq: q.answer, tf: q.answer, match: Object.fromEntries((q.pairs || []).map(([l, r]) => [l, r])) }[q.type]).correct);
+    }
+    for (const [, name] of md.matchAll(/^:::chart (\w+)/gm)) check(`${e.id}/${item.id}: chart ${name} exists`, name in econCharts);
+    const qz = JSON.parse(readFileSync(new URL(`quizzes/${item.id}.json`, dir)));
+    check(`${e.id}/${item.id}: quiz file names its lesson`, qz.module === item.id && qz.pick >= 4 && qz.pick <= qz.questions.length);
+    for (const src of qz.questions) {
+      check(`${src.id}: starts ${e.id}:<its spec point>-`, src.id.startsWith(`${e.id}:${src.spec}-`));
+      check(`${src.id}: tagged spec, ao, command, marks, paper, difficulty`, item.spec.includes(src.spec) && AOS.includes(src.ao) && src.command
+        && Number.isInteger(src.marks) && [1, 2, 3].includes(src.paper) && [1, 2, 3].includes(src.difficulty));
+      if (src.type === 'explain') {
+        check(`${src.id}: marks = ideas`, src.marks === src.ideas.length);
+        check(`${src.id} has 3 tests`, (src.tests || []).length >= 3);
+        for (const t of src.tests || []) {
+          const r = markExplain(t.answer, src.ideas);
+          check(`${src.id}: "${t.answer.slice(0, 50)}"`, r.marks === t.marks, `got ${r.marks}, want ${t.marks}`);
+        }
+      }
+      for (const randomise of [false, true]) {
+        const q = instantiate(src, { rng, randomise });
+        const right = { mcq: q.answer, tf: q.answer, number: String(q.answerValue), order: q.items, match: Object.fromEntries((q.pairs || []).map(([l, r]) => [l, r])), explain: q.model }[q.type];
+        check(`${src.id} right answer correct (randomise=${randomise})`, mark(q, right).correct);
+        check(`${src.id} text filled`, !/\{\w+\}/.test(q.text + q.whyText), q.text);
+      }
+      perPoint[src.spec] = (perPoint[src.spec] || 0) + 1;
+    }
+  }
+  for (const pt of lessons.flatMap(i => i.spec)) check(`${e.id}: spec point ${pt} has at least ${N_BANK} questions`, (perPoint[pt] || 0) >= N_BANK, perPoint[pt] || 0);
+  for (const [k, g] of Object.entries(gl)) check(`${e.id} glossary ${k}: lesson exists`, lessons.some(i => i.id === g.module));
+  for (const id of c.ready) check(`${e.id}/${id}: ready lesson exists`, lessons.some(i => i.id === id));
+}
 
 // --- reading pages (m/<id>/) and sitemap.xml match the content
 const built = await build();

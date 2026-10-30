@@ -1,0 +1,231 @@
+{
+ "module": "4.1.1.5",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.1.5-oc-calc",
+   "type": "number",
+   "topic": "opportunity cost from a PPF",
+   "q": "An economy on its production possibility frontier moves from making 100 cars and 20 tractors to making {c2} cars and {t2} tractors. What is the opportunity cost of each extra tractor, in cars?",
+   "vars": {
+    "dt": {
+     "choices": [
+      2,
+      4,
+      5,
+      10
+     ],
+     "default": 5
+    },
+    "k": {
+     "choices": [
+      2,
+      3,
+      4
+     ],
+     "default": 2
+    }
+   },
+   "calc": {
+    "c2": "100 - dt*k",
+    "t2": "20 + dt"
+   },
+   "calcFmt": {},
+   "dp": 0,
+   "answer": "k",
+   "tol": 0.01,
+   "unit": "cars",
+   "why": "Cars given up ÷ tractors gained = {answer} cars per tractor.",
+   "spec": "4.1.1.5",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-inside",
+   "type": "mcq",
+   "topic": "points inside the PPF",
+   "q": "What does a point inside an economy's production possibility frontier show?",
+   "options": [
+    "The economy is growing",
+    "Some resources are unemployed or used inefficiently",
+    "The economy is allocatively efficient",
+    "Output is impossible with current resources"
+   ],
+   "answer": 1,
+   "why": "Inside the boundary, the economy could make more of both goods by using idle resources.",
+   "spec": "4.1.1.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-shift",
+   "type": "mcq",
+   "topic": "economic growth on a PPF",
+   "q": "Which of these would shift an economy's production possibility frontier outwards?",
+   "options": [
+    "A fall in unemployment",
+    "An improvement in technology",
+    "Moving resources from consumer goods to capital goods",
+    "A rise in the price of consumer goods"
+   ],
+   "answer": 1,
+   "why": "Better technology raises productive capacity, so the whole boundary shifts out. A fall in unemployment moves the economy towards the existing boundary.",
+   "spec": "4.1.1.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-allocative",
+   "type": "tf",
+   "topic": "productive vs allocative efficiency",
+   "q": "Every point on a production possibility frontier is allocatively efficient.",
+   "answer": false,
+   "why": "Every point on the boundary is productively efficient (nothing is wasted), but usually only one combination matches what people value most, so only one is allocatively efficient.",
+   "spec": "4.1.1.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-bowed",
+   "type": "mcq",
+   "topic": "increasing opportunity cost",
+   "q": "Why is a production possibility frontier usually drawn bowed out (concave to the origin)?",
+   "options": [
+    "Because prices rise as output rises",
+    "Because resources are not equally suited to producing both goods, so opportunity cost rises",
+    "Because the economy is growing",
+    "Because some resources are unemployed"
+   ],
+   "answer": 1,
+   "why": "As more resources move into one good, the ones moved are less and less suited to it, so each extra unit costs more of the other good.",
+   "spec": "4.1.1.5",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-outside",
+   "type": "mcq",
+   "topic": "points outside the PPF",
+   "q": "A point outside the production possibility frontier is:",
+   "options": [
+    "Attainable if resources are used efficiently",
+    "Unattainable with current resources and technology",
+    "Productively efficient",
+    "A sign of unemployment"
+   ],
+   "answer": 1,
+   "why": "The frontier is the maximum the economy can produce now, so points beyond it are unattainable until the economy grows.",
+   "spec": "4.1.1.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-capital",
+   "type": "mcq",
+   "topic": "capital goods and future growth",
+   "q": "Country X makes more capital goods and fewer consumer goods than country Y, with the same resources. What is most likely?",
+   "options": [
+    "Country X has higher living standards today",
+    "Country X's PPF is likely to shift out faster in future",
+    "Country X is allocatively inefficient",
+    "Country X has more unemployment"
+   ],
+   "answer": 1,
+   "why": "More capital today adds to future productive capacity, so X's boundary should grow faster. The opportunity cost is fewer consumer goods now.",
+   "spec": "4.1.1.5",
+   "ao": "AO3",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.1.5-efficiency",
+   "type": "explain",
+   "topic": "productive vs allocative efficiency",
+   "q": "Explain why a point on a production possibility frontier can be productively efficient but not allocatively efficient.",
+   "ideas": [
+    {
+     "label": "On the frontier, resources are fully used with no waste: you can't make more of one good without less of the other",
+     "any": [
+      "no waste",
+      "not wasted",
+      "nothing wasted",
+      "fully used",
+      "full use",
+      "all resources",
+      "fully employ*",
+      "maximum output",
+      "max output",
+      "most output",
+      "can't make more",
+      "cannot make more",
+      "without less",
+      "without making less",
+      "on the frontier",
+      "on the boundary",
+      "on the curve",
+      "on the ppf"
+     ]
+    },
+    {
+     "label": "But the mix of goods may not be the one people value or want most",
+     "any": [
+      "want*",
+      "value*",
+      "prefer*",
+      "demand*",
+      "best mix",
+      "right mix",
+      "wrong mix",
+      "mix",
+      "society",
+      "consumers",
+      "welfare",
+      "satisf*"
+     ]
+    }
+   ],
+   "model": "Every point on the frontier is productively efficient, because all resources are used with no waste, so more of one good means less of the other. But only one combination matches what consumers value most. A point on the frontier making mainly weapons and little food wastes nothing, yet is not what people want, so it is not allocatively efficient.",
+   "why": "Productive efficiency is about no waste; allocative efficiency is about making the mix people value most.",
+   "tests": [
+    {
+     "answer": "On the frontier all resources are fully used so there is no waste, but the economy might be making a mix of goods that consumers do not want.",
+     "marks": 2
+    },
+    {
+     "answer": "It is on the boundary so it is producing the maximum output.",
+     "marks": 1
+    },
+    {
+     "answer": "Because it is inside the curve.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.1.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -1,0 +1,188 @@
+"""The A-level Economics draft lessons, in the browser. Serve the site first:
+    python -m http.server 8765 --bind 127.0.0.1
+then: python tests/econ_test.py [base_url] [screenshot_dir]
+The course isn't live yet, so the registry and course.json are answered as if it were published
+(live, every written lesson ready, no account needed). Checks every lesson renders with its parts,
+the PPF diagram responds, quizzes and the recall check run, and axe-core finds no serious issues.
+"""
+import json
+import sys
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8765/"
+SHOTS = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".tmp/shots")
+SHOTS.mkdir(parents=True, exist_ok=True)
+AXE = "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js"
+ROOT = Path(__file__).parent.parent / "content"
+errors, fails = [], []
+
+
+def check(name, cond):
+    print(("ok   " if cond else "FAIL ") + name)
+    if not cond:
+        fails.append(name)
+
+
+def axe(page, label):
+    page.add_script_tag(url=AXE)
+    res = page.evaluate("""async () => {
+      const r = await axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] });
+      return r.violations.filter(v => ['serious', 'critical'].includes(v.impact)).map(v => v.id + ' (' + v.impact + '): ' + v.nodes.slice(0, 3).map(n => n.target.join(' ')).join(' | '));
+    }""")
+    check(f"axe: no serious issues on {label}", not res)
+    for r in res:
+        print("     " + r)
+
+
+def answer_all(page, box, right):
+    """Answers every question in the quiz runner inside box (a CSS selector). Returns how many."""
+    for n in range(1, 40):
+        card = page.locator(f"{box} .question").last
+        q = page.evaluate("sel => { const b = document.querySelector(sel); const i = [...b.querySelectorAll('.dots span')].findIndex(s => s.classList.contains('now')); return b._questions[i]; }", box)
+        t = q["type"]
+        if t == "mcq":
+            card.locator(f'.option[data-v="{q["answer"] if right else (q["answer"] + 1) % len(q["options"])}"]').click()
+        elif t == "tf":
+            card.locator(f'.option[data-v="{str(q["answer"] if right else not q["answer"]).lower()}"]').click()
+        elif t == "number":
+            card.locator("input").fill(str(q["answerValue"] if right else q["answerValue"] + 1000))
+        elif t == "match":
+            for left, r in q["pairs"]:
+                sel = card.locator(f'select[data-left="{left}"]')
+                sel.select_option(label=r) if right else sel.select_option(index=1)
+        elif t == "explain":
+            card.locator("textarea").fill(q["model"] if right else "I am not sure")
+        card.locator(".check-btn").click()
+        nxt = card.locator(".next-btn")
+        label = nxt.inner_text()
+        nxt.click()
+        if "result" in label:
+            return n
+    return -1
+
+
+reg = json.loads((ROOT / "courses.json").read_text(encoding="utf-8"))
+for c in reg["courses"]:
+    if c["id"] == "econ-aqa":
+        c.update(live=True, needsAccount=False)
+course = json.loads((ROOT / "courses" / "econ-aqa" / "course.json").read_text(encoding="utf-8"))
+course["ready"] = [i["id"] for i in course["items"]]
+course["review"] = {"status": "reviewed-by-owner", "by": "Test", "role": "Owner", "date": "2026-10-30"}
+lessons = [i["id"] for i in course["items"] if i["kind"] == "module"]
+
+
+def passed_all():
+    at = [{"uid": f"t{i}", "at": "2026-10-20T10:00:00Z", "day": "2026-10-20", "kind": "quiz", "id": f"econ-aqa:{i}", "auto": 6, "claimed": 0,
+           "outOf": 6, "passed": True, "autoPassed": True, "missed": [], "wrong": [], "right": []} for i in lessons]
+    return {"v": 1, "nickname": None, "read": {}, "srs": {}, "notes": {}, "guesses": {}, "days": [], "attempts": at}
+
+
+def new_page(browser, width=390, dark=False, progress=None):
+    ctx = browser.new_context(viewport={"width": width, "height": 844}, device_scale_factor=2, is_mobile=width < 600, has_touch=width < 600,
+                              color_scheme="dark" if dark else "light")
+    ctx.add_init_script("localStorage.setItem('compound.signup', 'done')")
+    if progress:
+        ctx.add_init_script(f"if (!localStorage.getItem('compound.progress.v1')) localStorage.setItem('compound.progress.v1', {json.dumps(json.dumps(progress))})")
+    page = ctx.new_page()
+    page.on("console", lambda m: m.type == "error" and "supabase" not in m.text.lower() and errors.append(m.text))
+    page.on("pageerror", lambda e: errors.append(str(e)))
+    page.route("**/content/courses.json", lambda r: r.fulfill(status=200, content_type="application/json", body=json.dumps(reg)))
+    page.route("**/content/courses/econ-aqa/course.json", lambda r: r.fulfill(status=200, content_type="application/json", body=json.dumps(course)))
+    return ctx, page
+
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+
+    ctx, page = new_page(browser)
+    page.goto(BASE + "#/c/econ-aqa")
+    page.wait_for_selector(".item")
+    check("course map lists every written lesson", page.locator(".item").count() == len(lessons))
+    check("only the first lesson is open to a new learner", page.locator(f'.item[href="#/c/econ-aqa/m/{lessons[0]}"]').count() == 1 and page.locator(".item:not([href])").count() == len(lessons) - 1)
+    ctx.close()
+
+    ctx, page = new_page(browser, progress=passed_all())
+    page.goto(BASE + "#/c/econ-aqa")
+    page.wait_for_selector(".item")
+    check("map links to every lesson once passed", all(page.locator(f'.item[href="#/c/econ-aqa/m/{i}"]').count() == 1 for i in lessons))
+    page.screenshot(path=str(SHOTS / "econ-map.png"), full_page=True)
+
+    # Every lesson renders with the A-level parts
+    for i in lessons:
+        page.goto(BASE + f"#/c/econ-aqa/m/{i}")
+        page.wait_for_selector(".lesson-section")
+        text = page.locator(".lesson").inner_text()
+        check(f"{i}: one-sentence idea, worked exam answer, key terms", "The idea in one sentence".lower() in text.lower() and "Worked exam answer".lower() in text.lower() and "Key terms" in text)
+        check(f"{i}: glossary terms are tappable", page.locator(".lesson [data-term]").count() >= 4)
+        check(f"{i}: no block failed", page.locator("text=This part didn't load").count() == 0)
+        check(f"{i}: no sideways scroll", page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"))
+
+    # The PPF diagram: inside the boundary, on it, and growth
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.1.5")
+    page.wait_for_selector(".chart svg")
+    desc = page.locator("[data-desc]")
+    check("PPF starts on the boundary", "on the boundary" in desc.inner_text())
+    cost_mid = page.locator('[data-v="oc"]').inner_text()
+    page.locator('[data-in="mix"]').fill("80")
+    check("opportunity cost rises further along the curve", float(page.locator('[data-v="oc"]').inner_text().split()[0]) > float(cost_mid.split()[0]))
+    page.locator('[data-in="use"]').fill("60")
+    check("unused resources put the point inside", "inside the boundary" in desc.inner_text() and "40%" in desc.inner_text())
+    page.locator('[data-in="grow"]').fill("20")
+    check("growth shifts the boundary out", "shifted out by 20%" in desc.inner_text() and page.locator(".chart svg path.ch-dash").count() == 1)
+    check("the diagram has a text label", bool(page.locator(".chart svg").get_attribute("aria-label")))
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-ppf.png"))
+    axe(page, "the PPF lesson (light)")
+
+    ctx.close()
+
+    # Lesson 1's quiz on its own; it should pass when everything is right
+    ctx, page = new_page(browser)
+    page.goto(BASE + f"#/c/econ-aqa/m/{lessons[0]}")
+    page.wait_for_selector("#quiz .btn")
+    check("first lesson has no recall check", page.locator("#recall").count() == 0)
+    page.locator("#quiz .btn").click()
+    page.wait_for_selector("#quiz .question")
+    n = answer_all(page, "#quiz .quiz", right=True)
+    check("first lesson's quiz runs to the end", n > 0 and "Passed" in page.locator("#quiz .result").inner_text())
+    saved = page.evaluate("JSON.parse(localStorage.getItem('compound.progress.v1'))")
+    check("progress key is prefixed with the course", any(a["id"] == f"econ-aqa:{lessons[0]}" and a["passed"] for a in saved["attempts"]))
+
+    # Lesson 2 now opens, with a recall check from lesson 1
+    page.goto(BASE + f"#/c/econ-aqa/m/{lessons[1]}")
+    page.wait_for_selector("#quiz .quiz .btn")
+    page.locator("#quiz .quiz .btn").click()
+    page.wait_for_selector("#quiz .question")
+    rq = page.evaluate("document.querySelector('#quiz .quiz')._questions")
+    check("recall questions come from lesson 1", rq and all(q["id"].startswith(f"econ-aqa:{lessons[0]}-") for q in rq))
+    answer_all(page, "#quiz .quiz", right=True)
+    page.locator("#quiz .go-quiz").click()
+    page.wait_for_selector("#quiz .question")
+    answer_all(page, "#quiz .quiz", right=True)
+    check("lesson 2 passes across recall and quiz", "Passed" in page.locator("#quiz .result").inner_text())
+    ctx.close()
+
+    # Dark mode and a desktop screen
+    ctx, page = new_page(browser, width=1280, dark=True, progress=passed_all())
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.1.5")
+    page.wait_for_selector(".chart svg")
+    page.screenshot(path=str(SHOTS / "econ-ppf-dark-desktop.png"), full_page=False)
+    axe(page, "the PPF lesson (dark, desktop)")
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.1.2")
+    page.wait_for_selector(".lesson-section")
+    axe(page, "the resources lesson with its table (dark)")
+    ctx.close()
+
+    # Not live: nobody but an admin can open it
+    ctx = browser.new_context()
+    page = ctx.new_page()
+    page.goto(BASE + "#/c/econ-aqa")
+    page.wait_for_selector("main h1")
+    check("the draft course is hidden from learners", "not found" in page.locator("main h1").inner_text().lower())
+    ctx.close()
+    browser.close()
+
+for e in errors:
+    print("console:", e)
+print(f"\n{'PASS' if not fails and not errors else 'FAIL'}: {len(fails)} failed checks, {len(errors)} console errors")
+sys.exit(1 if fails or errors else 0)

@@ -1,6 +1,6 @@
 # AQA A-level Economics (7136): spec map
 
-**Status: draft for Ivor to check.** Built from the official specification, version 1.3 (2022-06-29), downloaded and checked 2026-10-30: <https://filestore.aqa.org.uk/resources/economics/specifications/AQA-7135-7136-SP-2015.PDF>. Section 4 (the full A-level) only; spec point numbers and headings are AQA's.
+**Status: approved by Ivor Fergusson, 30 Oct 2026.** Built from the official specification, version 1.3 (2022-06-29), downloaded and checked 2026-10-30: <https://filestore.aqa.org.uk/resources/economics/specifications/AQA-7135-7136-SP-2015.PDF>. Section 4 (the full A-level) only; spec point numbers and headings are AQA's.
 
 79 spec points → **88 lessons in 16 modules**, with 4 checkpoints. At 6 bank questions per spec point that's about 474 questions, plus 25-markers per section.
 

@@ -1,0 +1,189 @@
+{
+ "module": "4.1.1.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.1.4-problem",
+   "type": "mcq",
+   "topic": "the fundamental economic problem",
+   "q": "What is the fundamental economic problem?",
+   "options": [
+    "Unemployment",
+    "Inflation",
+    "Scarcity: limited resources and unlimited wants",
+    "Government debt"
+   ],
+   "answer": 2,
+   "why": "Every economy faces scarcity: resources are limited, wants are not, so choices must be made.",
+   "spec": "4.1.1.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.4-rich",
+   "type": "tf",
+   "topic": "scarcity affects everyone",
+   "q": "Scarcity is only a problem for poor countries and poor households.",
+   "answer": false,
+   "why": "Scarcity comes from limited resources and unlimited wants. Rich people and rich countries still have to choose, for example with their time and their budgets.",
+   "spec": "4.1.1.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.4-oc-choice",
+   "type": "mcq",
+   "topic": "opportunity cost",
+   "q": "Amira has a free evening. She could revise for a mock, work a £45 shift or go to the cinema. She ranks them: 1 cinema, 2 revising, 3 the shift. She goes to the cinema. What is the opportunity cost?",
+   "options": [
+    "£45",
+    "The revision she could have done",
+    "The revision and the £45",
+    "The price of the cinema ticket"
+   ],
+   "answer": 1,
+   "why": "Opportunity cost is the next best alternative given up: her second choice, revising. Not every alternative, and not just money.",
+   "spec": "4.1.1.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.4-free-good",
+   "type": "mcq",
+   "topic": "free goods and economic goods",
+   "q": "Which of these is closest to being a free good?",
+   "options": [
+    "Bottled water in a shop",
+    "Air in an open field",
+    "A free school meal",
+    "Free NHS treatment"
+   ],
+   "answer": 1,
+   "why": "There is enough air for everyone, so using it has no opportunity cost. A free school meal or NHS care is free to the user but uses scarce resources paid for by taxes.",
+   "spec": "4.1.1.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.4-oc-calc",
+   "type": "number",
+   "topic": "opportunity cost in money terms",
+   "q": "A student who could work a shift paying {w} an hour decides to spend {h} hours revising instead. If working was her next best option, what is the opportunity cost of the revision in money terms?",
+   "vars": {
+    "w": {
+     "min": 10,
+     "max": 14,
+     "step": 0.5,
+     "default": 11.5,
+     "fmt": "money0"
+    },
+    "h": {
+     "min": 2,
+     "max": 6,
+     "step": 1,
+     "default": 4
+    }
+   },
+   "answer": "w*h",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "{w} × {h} hours = {answer}: the wages she gave up by not working.",
+   "spec": "4.1.1.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.4-all-alternatives",
+   "type": "tf",
+   "topic": "opportunity cost",
+   "q": "The opportunity cost of a decision is the value of all the alternatives that were given up.",
+   "answer": false,
+   "why": "It is only the next best alternative, the single most valuable option not chosen.",
+   "spec": "4.1.1.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.4-nhs",
+   "type": "explain",
+   "topic": "\"free\" goods still have an opportunity cost",
+   "q": "NHS appointments are free to patients. Explain why they still have an opportunity cost.",
+   "ideas": [
+    {
+     "label": "They use scarce resources (doctors' time, buildings, tax money)",
+     "any": [
+      "scarce",
+      "resources",
+      "doctor*",
+      "nurse*",
+      "tax*",
+      "taxpayer*",
+      "staff",
+      "time",
+      "funded",
+      "paid for",
+      "money"
+     ]
+    },
+    {
+     "label": "Those resources could have been used for something else (the next best alternative is given up)",
+     "any": [
+      "something else",
+      "else",
+      "other use*",
+      "alternative*",
+      "instead",
+      "elsewhere",
+      "given up",
+      "give up",
+      "forgone",
+      "foregone",
+      "could have been",
+      "next best"
+     ]
+    }
+   ],
+   "model": "Each appointment uses scarce resources, such as a doctor's time and equipment paid for by taxes. Those resources could have been used for something else, for example another patient or another public service, so the next best alternative is given up.",
+   "why": "Free at the point of use is not free to society: the resources have other uses.",
+   "tests": [
+    {
+     "answer": "It uses the doctor's time and tax money, which could have been used elsewhere, like on schools.",
+     "marks": 2
+    },
+    {
+     "answer": "It is paid for by taxes.",
+     "marks": 1
+    },
+    {
+     "answer": "It is free so there is no cost.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.1.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -27,6 +27,7 @@
       "pages": null,
       "needsAccount": true,
       "live": false,
+      "preview": true,
       "exams": []
     },
     {

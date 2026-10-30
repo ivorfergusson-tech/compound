@@ -22,7 +22,7 @@ let cleanup = [];
 const loaded = new Map();
 
 function loadCourseById(id) {
-  const e = registry.courses.find(c => c.id === id && c.live);
+  const e = registry.courses.find(c => c.id === id && (c.live || (c.preview && sync.isAdmin())));
   if (!e) return Promise.resolve(null);
   if (!loaded.has(id)) {
     const f = courseFiles(e);
@@ -148,7 +148,7 @@ function lockIcon() {
 
 function itemCard(item, s) {
   const strand = strandOf(item);
-  const locked = s.state === 'locked' || s.state === 'soon';
+  const locked = s.state === 'locked' || (s.state === 'soon' && !sync.isAdmin());
   const href = hrefItem(item);
   const icon = item.kind === 'checkpoint' ? '✏️' : item.kind === 'intro' ? '👋' : strand.emoji;
   const kicker = item.kind === 'checkpoint' ? `Checkpoint · modules ${item.covers[0]}–${item.covers[1]}`
@@ -295,7 +295,7 @@ async function viewDashboard() {
     const board = e.board ? `${e.board.toUpperCase()}${e.spec ? ` · ${esc(e.spec)}` : ''}` : 'Any age · UK';
     if (!c) {
       return `<div class="course-card soon"><span class="eyebrow">${board}</span><strong class="cc-title">${esc(e.title)}</strong>
-        <span class="muted small">${esc(registry.subjects[e.subject]?.blurb || '')}</span><span class="tag">Coming soon</span></div>`;
+        <span class="muted small">${esc(registry.subjects[e.subject]?.blurb || '')}</span><span class="tag">Coming soon</span>${e.preview && sync.isAdmin() ? `<a class="small" href="#/c/${esc(e.id)}">Preview the draft</a>` : ''}</div>`;
     }
     const p = coursePercent(c.course, c.st);
     const locked = e.needsAccount && !sync.hasNickname() && !sync.isAdmin();
@@ -439,7 +439,7 @@ async function viewModule(id) {
   const item = itemById(id);
   if (!item || item.kind === 'checkpoint') return viewNotFound();
   const st = statusMap()[id];
-  if (st.state === 'locked' || st.state === 'soon') return viewLocked(item, st);
+  if (st.state === 'locked' || (st.state === 'soon' && !sync.isAdmin())) return viewLocked(item, st);
   const strand = strandOf(item);
   const [md, quiz] = await Promise.all([files.lesson(id), item.kind === 'module' ? files.quiz(id) : null]);
   const { sections, blocks } = parseLesson(md, { figures, glossary });
@@ -643,7 +643,7 @@ async function viewCheckpoint(num) {
   const item = course.items.find(i => i.kind === 'checkpoint' && i.num === +num);
   if (!item) return viewNotFound();
   const st = statusMap()[item.id];
-  if (st.state === 'locked' || st.state === 'soon') return viewLocked(item, st);
+  if (st.state === 'locked' || (st.state === 'soon' && !sync.isAdmin())) return viewLocked(item, st);
   const key = K(item.id);
   shell(`<article class="lesson"><header class="lesson-head"><span class="pill">✏️ Checkpoint ${item.num}</span><h1>${esc(item.title)}</h1>
     <p class="muted">${esc(item.summary)} About 20 minutes. Pass mark ${Math.round(course.passMark * 100)}%.</p></header><div class="quiz"></div>${nav(item)}</article>`, { title: item.title });

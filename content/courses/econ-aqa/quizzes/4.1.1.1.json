@@ -1,0 +1,193 @@
+{
+ "module": "4.1.1.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.1.1-positive",
+   "type": "mcq",
+   "topic": "positive statements",
+   "q": "Which of these is a positive statement?",
+   "options": [
+    "The UK should cut income tax",
+    "Inflation is the most serious problem the UK faces",
+    "An increase in the price of bus fares will reduce the number of bus journeys",
+    "It is unfair that some people earn so much more than others"
+   ],
+   "answer": 2,
+   "why": "It makes a claim about cause and effect that could be checked against data. The others contain value judgements (should, most serious, unfair).",
+   "spec": "4.1.1.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.1-normative",
+   "type": "mcq",
+   "topic": "normative statements",
+   "q": "Which of these is a normative statement?",
+   "options": [
+    "UK unemployment fell last year",
+    "The Bank of England ought to lower interest rates",
+    "A tax on cigarettes raises their price",
+    "Wages in London are higher than in Wales"
+   ],
+   "answer": 1,
+   "why": "\"Ought to\" shows a value judgement about what should happen. The others could be tested against evidence.",
+   "spec": "4.1.1.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.1-false-positive",
+   "type": "tf",
+   "topic": "positive statements can be false",
+   "q": "\"A rise in the minimum wage will put 5 million people out of work\" is a normative statement, because it is almost certainly untrue.",
+   "answer": false,
+   "why": "It is a positive statement. Positive means testable, not true: this claim could be checked against evidence, and would probably be shown to be wrong.",
+   "spec": "4.1.1.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.1-terms",
+   "type": "match",
+   "topic": "methodology terms",
+   "q": "Match each term to its meaning.",
+   "pairs": [
+    [
+     "Positive statement",
+     "Can be tested against evidence"
+    ],
+    [
+     "Normative statement",
+     "Contains a value judgement"
+    ],
+    [
+     "Ceteris paribus",
+     "All other things stay the same"
+    ],
+    [
+     "Economic model",
+     "A simplified picture of how the economy works"
+    ]
+   ],
+   "why": "Positive statements are testable; normative ones rest on values. Ceteris paribus holds other factors fixed so a model can focus on one change.",
+   "spec": "4.1.1.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.1-science",
+   "type": "mcq",
+   "topic": "economics vs natural sciences",
+   "q": "Why is economics called a social science rather than a natural science like chemistry?",
+   "options": [
+    "It never uses data",
+    "It studies human behaviour and usually cannot run controlled experiments",
+    "Its theories are never tested",
+    "It only deals with money"
+   ],
+   "answer": 1,
+   "why": "Economists use the scientific method, but they study people, who react and change, and they cannot hold a whole economy still to experiment on it.",
+   "spec": "4.1.1.1",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.1-ceteris",
+   "type": "mcq",
+   "topic": "ceteris paribus",
+   "q": "An economist predicts that a rise in the price of coffee will reduce the amount bought, ceteris paribus. What does \"ceteris paribus\" add to the prediction?",
+   "options": [
+    "It means the prediction is certain",
+    "It assumes other things, such as incomes and tastes, do not change at the same time",
+    "It means the prediction is normative",
+    "It means the price rise is caused by the government"
+   ],
+   "answer": 1,
+   "why": "Ceteris paribus holds everything else constant, so the model can isolate the effect of the price change. In the real world other things often do change.",
+   "spec": "4.1.1.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.1-disagree",
+   "type": "explain",
+   "topic": "value judgements and policy",
+   "q": "Two economists agree on what a sugar tax would do to sugar consumption and tax revenue, but one supports it and one opposes it. Explain how this can happen.",
+   "ideas": [
+    {
+     "label": "Policy choices involve value judgements (opinions), not just evidence",
+     "any": [
+      "value judgement*",
+      "normative",
+      "opinion*",
+      "views",
+      "values",
+      "moral*",
+      "political*",
+      "beliefs",
+      "judgement*",
+      "think differently"
+     ]
+    },
+    {
+     "label": "They weigh the outcomes differently, e.g. health against freedom or fairness to poorer households",
+     "any": [
+      "health",
+      "freedom",
+      "choice",
+      "fair*",
+      "poor*",
+      "low income",
+      "low-income",
+      "weigh*",
+      "prioriti*",
+      "more important",
+      "care more",
+      "nanny"
+     ]
+    }
+   ],
+   "model": "The evidence (the positive part) only shows what is likely to happen. Deciding whether that is worth it needs value judgements: one economist may put more weight on better health, the other on personal freedom or on the tax hitting poorer households hardest.",
+   "why": "Agreeing on the positive economics still leaves the normative choice: how much each outcome matters is a value judgement.",
+   "tests": [
+    {
+     "answer": "Because whether to have the tax is a value judgement. One cares more about health, the other thinks it is unfair on poor households.",
+     "marks": 2
+    },
+    {
+     "answer": "They have different opinions about it.",
+     "marks": 1
+    },
+    {
+     "answer": "One of them has worked out the numbers wrong.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.1.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

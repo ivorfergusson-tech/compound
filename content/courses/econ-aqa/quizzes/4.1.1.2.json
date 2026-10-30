@@ -1,0 +1,359 @@
+{
+ "module": "4.1.1.2",
+ "pick": 8,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.1.2-purpose",
+   "type": "mcq",
+   "topic": "purpose of economic activity",
+   "q": "What is the central purpose of economic activity?",
+   "options": [
+    "To make as much money as possible",
+    "To produce goods and services that satisfy needs and wants",
+    "To reduce unemployment",
+    "To collect taxes for the government"
+   ],
+   "answer": 1,
+   "why": "Economic activity exists to produce goods and services that satisfy people's needs and wants. Profit, jobs and taxes follow from it.",
+   "spec": "4.1.1.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.2-how",
+   "type": "mcq",
+   "topic": "the three key questions",
+   "q": "A car maker decides to replace some workers on its production line with robots. Which key economic question is it answering?",
+   "options": [
+    "What to produce",
+    "How to produce",
+    "Who benefits from production",
+    "Whether to produce"
+   ],
+   "answer": 1,
+   "why": "Choosing between workers and robots is a choice of method: how to produce.",
+   "spec": "4.1.1.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.2-questions",
+   "type": "match",
+   "topic": "the three key questions",
+   "q": "Match each decision to the key economic question it answers.",
+   "pairs": [
+    [
+     "Building more hospitals instead of more roads",
+     "What to produce"
+    ],
+    [
+     "Using robots instead of workers on a car line",
+     "How to produce"
+    ],
+    [
+     "Making prescriptions free for everyone over 60",
+     "Who benefits"
+    ]
+   ],
+   "why": "What = which goods; how = which method and resources; who = who gets the output.",
+   "spec": "4.1.1.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.2-wants",
+   "type": "tf",
+   "topic": "needs and wants",
+   "q": "Economists assume that people's wants are limited: once they have enough, they stop wanting more.",
+   "answer": false,
+   "why": "Economists treat wants as unlimited: when one want is met, people find another. That is why resources are scarce.",
+   "spec": "4.1.1.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.2-service",
+   "type": "mcq",
+   "topic": "goods and services",
+   "q": "Which of these is a service rather than a good?",
+   "options": [
+    "A loaf of bread",
+    "A bicycle",
+    "A train journey",
+    "A textbook"
+   ],
+   "answer": 2,
+   "why": "A train journey is something done for you, not a physical product you keep.",
+   "spec": "4.1.1.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.2-needs-wants",
+   "type": "explain",
+   "topic": "needs and wants",
+   "q": "Explain the difference between a need and a want, with an example of each.",
+   "ideas": [
+    {
+     "label": "A need is essential for survival, e.g. food, water, shelter",
+     "any": [
+      "surviv*",
+      "essential",
+      "must have",
+      "need to live",
+      "to live",
+      "necessit*",
+      "food",
+      "water",
+      "shelter"
+     ]
+    },
+    {
+     "label": "A want is desirable but not essential, e.g. a phone or holiday",
+     "any": [
+      "not essential",
+      "non-essential",
+      "would like",
+      "like to have",
+      "desire*",
+      "luxur*",
+      "could live without",
+      "can live without",
+      "phone",
+      "holiday",
+      "not needed",
+      "don't need",
+      "do not need"
+     ]
+    }
+   ],
+   "model": "A need is something essential for survival, such as food or shelter. A want is something we would like but could live without, such as a new phone.",
+   "why": "Needs are essentials for survival; wants are things we desire beyond that, and they are unlimited.",
+   "tests": [
+    {
+     "answer": "A need is something you must have to survive like water. A want is something you would like but could live without like a holiday.",
+     "marks": 2
+    },
+    {
+     "answer": "A need is something like food that you need to survive.",
+     "marks": 1
+    },
+    {
+     "answer": "They are basically the same thing.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.1.2",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-factors",
+   "type": "match",
+   "topic": "factors of production",
+   "q": "Match each resource to its factor of production.",
+   "pairs": [
+    [
+     "A field used to grow wheat",
+     "Land"
+    ],
+    [
+     "A nurse's time and skills",
+     "Labour"
+    ],
+    [
+     "A factory's machinery",
+     "Capital"
+    ],
+    [
+     "Setting up a new business and risking your savings",
+     "Enterprise"
+    ]
+   ],
+   "why": "Natural resources are land, human effort is labour, man-made tools are capital, and organising plus risk-taking is enterprise.",
+   "spec": "4.1.1.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-rewards",
+   "type": "mcq",
+   "topic": "rewards to factors",
+   "q": "What is the reward to enterprise?",
+   "options": [
+    "Rent",
+    "Wages",
+    "Interest",
+    "Profit"
+   ],
+   "answer": 3,
+   "why": "Land earns rent, labour earns wages, capital earns interest, and enterprise earns profit as the reward for taking risk.",
+   "spec": "4.1.1.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-money",
+   "type": "tf",
+   "topic": "capital is not money",
+   "q": "Money saved in a firm's bank account counts as capital as a factor of production.",
+   "answer": false,
+   "why": "Capital means man-made goods used in production, like machines and buildings. Money can buy capital but does not produce anything itself.",
+   "spec": "4.1.1.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-capital-good",
+   "type": "mcq",
+   "topic": "capital and consumer goods",
+   "q": "Which of these is a capital good?",
+   "options": [
+    "A pizza bought for dinner",
+    "A tractor used on a farm",
+    "A family's television",
+    "A pair of trainers bought by a student"
+   ],
+   "answer": 1,
+   "why": "The tractor is used to produce other goods (crops). The others are consumer goods used up by households.",
+   "spec": "4.1.1.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-non-renewable",
+   "type": "mcq",
+   "topic": "renewable and non-renewable resources",
+   "q": "Which of these is a non-renewable resource?",
+   "options": [
+    "Wind",
+    "Fish stocks",
+    "Natural gas",
+    "Timber from managed forests"
+   ],
+   "answer": 2,
+   "why": "Natural gas is used up and not replaced. Fish and timber are renewable if they are not used faster than they recover.",
+   "spec": "4.1.1.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-enterprise",
+   "type": "mcq",
+   "topic": "the role of the entrepreneur",
+   "q": "What makes enterprise different from labour?",
+   "options": [
+    "Enterprise is always done by a large company",
+    "Enterprise means organising the other factors and taking the risk of failure",
+    "Enterprise is unpaid",
+    "Enterprise is only found in manufacturing"
+   ],
+   "answer": 1,
+   "why": "An entrepreneur brings land, labour and capital together and bears the risk. Profit rewards that risk.",
+   "spec": "4.1.1.3",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.1.3-environment",
+   "type": "explain",
+   "topic": "the environment is a scarce resource",
+   "q": "Explain why the environment is described as a scarce resource.",
+   "ideas": [
+    {
+     "label": "It is limited or can be used up or damaged (e.g. pollution, finite oil, over-fishing)",
+     "any": [
+      "limited",
+      "finite",
+      "run out",
+      "used up",
+      "use up",
+      "deplet*",
+      "damag*",
+      "pollut*",
+      "destroy*",
+      "over-fish*",
+      "overfish*",
+      "non-renewable",
+      "not unlimited"
+     ]
+    },
+    {
+     "label": "It has alternative uses, so using it one way has an opportunity cost",
+     "any": [
+      "opportunity cost",
+      "alternative use*",
+      "other use*",
+      "can't also",
+      "cannot also",
+      "can not also",
+      "instead",
+      "given up",
+      "give up",
+      "trade-off",
+      "trade off",
+      "one way"
+     ]
+    }
+   ],
+   "model": "The environment is limited: oil runs out, forests can be cut down faster than they grow, and pollution damages air and rivers. Because it has alternative uses, using it one way (for example, a river to carry waste) means giving up another use (fishing or drinking water), so it has an opportunity cost.",
+   "why": "Scarce means limited relative to the uses people want, so using it has an opportunity cost.",
+   "tests": [
+    {
+     "answer": "Because resources like oil are finite and will run out, and if a river is used to dump waste it cannot also be used for fishing, so there is an opportunity cost.",
+     "marks": 2
+    },
+    {
+     "answer": "Pollution is damaging the environment.",
+     "marks": 1
+    },
+    {
+     "answer": "Because it is important to look after the planet.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.1.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

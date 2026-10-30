@@ -1,0 +1,157 @@
+{
+ "allocation of resources": {
+  "term": "allocation of resources",
+  "def": "How an economy's scarce resources are shared out between the different goods and services it could produce.",
+  "module": "4.1.1.4"
+ },
+ "allocative efficiency": {
+  "term": "allocative efficiency",
+  "def": "Allocating resources to produce the combination of goods and services people value most.",
+  "module": "4.1.1.5"
+ },
+ "capital": {
+  "term": "capital",
+  "def": "Man-made goods used to produce other goods and services, such as machines, tools and buildings. Not money. Its reward is interest.",
+  "module": "4.1.1.2"
+ },
+ "capital goods": {
+  "term": "capital goods",
+  "def": "Goods used to make other goods and services, such as machinery and factories.",
+  "module": "4.1.1.2"
+ },
+ "ceteris paribus": {
+  "term": "ceteris paribus",
+  "def": "Latin for 'all other things being equal': the assumption that only one thing changes while you look at its effect.",
+  "module": "4.1.1.1"
+ },
+ "consumer goods": {
+  "term": "consumer goods",
+  "def": "Goods bought by households to use up for their own satisfaction, such as food and clothes.",
+  "module": "4.1.1.2"
+ },
+ "economic good": {
+  "term": "economic good",
+  "def": "A good that uses scarce resources, so producing it has an opportunity cost.",
+  "module": "4.1.1.4"
+ },
+ "economic growth": {
+  "term": "economic growth",
+  "def": "An increase in an economy's productive capacity, shown by an outward shift of the production possibility frontier.",
+  "module": "4.1.1.5"
+ },
+ "economic model": {
+  "term": "economic model",
+  "def": "A simplified picture of how part of the economy works, used to explain and predict.",
+  "module": "4.1.1.1"
+ },
+ "economic problem": {
+  "term": "economic problem",
+  "def": "How to allocate scarce resources between unlimited wants. Also called the fundamental economic problem.",
+  "module": "4.1.1.4"
+ },
+ "enterprise": {
+  "term": "enterprise",
+  "def": "Organising land, labour and capital to produce something, and taking the risk that it fails. Its reward is profit.",
+  "module": "4.1.1.2"
+ },
+ "entrepreneur": {
+  "term": "entrepreneur",
+  "def": "A person who supplies enterprise: they spot an opportunity, organise the resources and take the risk.",
+  "module": "4.1.1.2"
+ },
+ "factors of production": {
+  "term": "factors of production",
+  "def": "The four kinds of resources used to produce goods and services: land, labour, capital and enterprise.",
+  "module": "4.1.1.2"
+ },
+ "free good": {
+  "term": "free good",
+  "def": "A good with no opportunity cost, because there's enough for everyone without anyone going short, such as air.",
+  "module": "4.1.1.4"
+ },
+ "goods": {
+  "term": "goods",
+  "def": "Physical products that can be touched, such as food, cars and phones.",
+  "module": "4.1.1.2"
+ },
+ "labour": {
+  "term": "labour",
+  "def": "The physical and mental work people put into production. Its reward is wages.",
+  "module": "4.1.1.2"
+ },
+ "land": {
+  "term": "land",
+  "def": "Natural resources used in production, such as the ground, minerals, water, oil and fish. Its reward is rent.",
+  "module": "4.1.1.2"
+ },
+ "needs": {
+  "term": "needs",
+  "def": "Things people must have to survive, such as food, water and shelter.",
+  "module": "4.1.1.2"
+ },
+ "non-renewable resource": {
+  "term": "non-renewable resource",
+  "def": "A natural resource that can't be replaced once used, such as oil, gas or coal.",
+  "module": "4.1.1.2"
+ },
+ "normative statement": {
+  "term": "normative statement",
+  "def": "A statement about what ought to be. It contains a value judgement, so it can't be proved true or false.",
+  "module": "4.1.1.1"
+ },
+ "opportunity cost": {
+  "term": "opportunity cost",
+  "def": "The value of the next best alternative given up when a choice is made.",
+  "module": "4.1.1.4"
+ },
+ "positive statement": {
+  "term": "positive statement",
+  "def": "A statement about what is, was or will be, which can be tested against evidence (even if it turns out to be false).",
+  "module": "4.1.1.1"
+ },
+ "production possibility frontier": {
+  "term": "production possibility frontier",
+  "def": "A curve showing the maximum combinations of two goods an economy can produce with all its resources fully and efficiently used. Also called a production possibility boundary.",
+  "module": "4.1.1.5"
+ },
+ "productive efficiency": {
+  "term": "productive efficiency",
+  "def": "Producing the most output possible from the resources available, with nothing wasted. Every point on the PPF is productively efficient.",
+  "module": "4.1.1.5"
+ },
+ "renewable resource": {
+  "term": "renewable resource",
+  "def": "A natural resource that can be replaced over time, such as fish or forests, though it can still run out if used too fast.",
+  "module": "4.1.1.2"
+ },
+ "scarcity": {
+  "term": "scarcity",
+  "def": "The fundamental economic problem: resources are limited but wants are unlimited.",
+  "module": "4.1.1.4"
+ },
+ "services": {
+  "term": "services",
+  "def": "Things done for people rather than physical products, such as haircuts, transport and teaching.",
+  "module": "4.1.1.2"
+ },
+ "social science": {
+  "term": "social science",
+  "def": "A subject that studies how people and societies behave. Economics is one, because it studies people's choices.",
+  "module": "4.1.1.1"
+ },
+ "trade-off": {
+  "term": "trade-off",
+  "def": "Accepting less of one thing to get more of another.",
+  "module": "4.1.1.4"
+ },
+ "value judgement": {
+  "term": "value judgement",
+  "def": "An opinion about what is good, bad, fair or important, based on moral or political views rather than evidence.",
+  "module": "4.1.1.1"
+ },
+ "wants": {
+  "term": "wants",
+  "def": "Things people would like to have but could live without. Economists treat wants as unlimited.",
+  "module": "4.1.1.2"
+ }
+}

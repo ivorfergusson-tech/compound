@@ -79,7 +79,7 @@ function mountBlock(holder, b, ctx) {
     }
     case 'callout': {
       const kind = b.arg || 'note';
-      const titles = { idea: 'The idea in one sentence', note: 'Note', warn: 'Watch out', paper: 'Paper trading only' };
+      const titles = { idea: 'The idea in one sentence', note: 'Note', warn: 'Watch out', paper: 'Paper trading only', exam: 'Worked exam answer', technique: 'Exam technique' };
       holder.outerHTML = `<aside class="callout callout-${esc(kind)}"><span class="eyebrow">${titles[kind] || esc(kind)}</span>${marked.parse(inline(b.body, ctx))}</aside>`;
       break;
     }

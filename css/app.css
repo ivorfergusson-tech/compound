@@ -166,6 +166,8 @@ a.item:hover { border-color: var(--border-2); }
 .callout-idea p { font: 700 1.1875rem/1.45 Manrope, sans-serif; }
 .callout-paper, .callout-warn { background: var(--warm-soft); }
 .callout-paper .eyebrow, .callout-warn .eyebrow { color: var(--warm); }
+.callout-exam { border-left: 4px solid var(--accent); }
+.callout-exam strong { color: var(--accent-text); }
 .reveal { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
 .reveal summary { cursor: pointer; padding: 14px 16px; font-weight: 600; min-height: 48px; }
 .reveal > div { padding: 0 16px 6px; }
@@ -197,6 +199,7 @@ a.item:hover { border-color: var(--border-2); }
 .chart { margin: 0; }
 .chart svg { width: 100%; height: auto; display: block; }
 .ch-grid { stroke: var(--grid); stroke-width: 1; }
+.ch-axis { stroke: var(--text-2); stroke-width: 1.5; }
 .ch-label { font: 0.6875rem Inter, sans-serif; fill: var(--muted); }
 .ch-line { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
 .ch-a { stroke: var(--chart-a); } .ch-b { stroke: var(--chart-b); } .ch-c { stroke: var(--chart-c); }

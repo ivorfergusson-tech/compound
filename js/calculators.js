@@ -6,6 +6,7 @@ import { moneyCalculators } from './calcs-money.js';
 import { investCalculators } from './calcs-invest.js';
 import { tradeCalculators } from './calcs-trade.js';
 import { industryCalculators } from './calcs-industry.js';
+import { econCharts } from './charts-econ.js';
 
 function slider(id, label, { min, max, step, value, fmt }) {
   return `<label class="slider"><span class="slider-top"><span>${esc(label)}</span><output data-out="${id}">${esc(fmt(value))}</output></span>`
@@ -99,6 +100,8 @@ export const calculators = {
 };
 
 export const charts = {
+  ...econCharts,
+
   inflation(root, a) {
     const specs = {
       cpi: { min: 0, max: 10, step: 0.5, value: a.cpi ?? 3.5, fmt: pct },
