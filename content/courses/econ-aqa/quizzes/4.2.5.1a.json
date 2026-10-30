@@ -1,0 +1,163 @@
+{
+ "module": "4.2.5.1a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.5.1-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "Fiscal policy involves changes to:",
+   "options": [
+    "Government spending, taxation and the budget balance",
+    "Interest rates and the money supply",
+    "The exchange rate only",
+    "Tariffs only"
+   ],
+   "answer": 0,
+   "why": "Interest rates are a matter for monetary policy.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-exp",
+   "type": "mcq",
+   "topic": "AD",
+   "q": "Which is expansionary fiscal policy?",
+   "options": [
+    "A cut in income tax",
+    "A rise in VAT",
+    "A cut in government spending",
+    "A rise in Bank Rate"
+   ],
+   "answer": 0,
+   "why": "People have more to spend, so AD rises.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-spend",
+   "type": "match",
+   "topic": "public expenditure",
+   "q": "Match each item to its type of spending.",
+   "pairs": [
+    [
+     "Doctors' pay",
+     "Current spending"
+    ],
+    [
+     "A new motorway",
+     "Capital spending"
+    ],
+    [
+     "Universal Credit",
+     "Transfer payment"
+    ]
+   ],
+   "why": "Transfers aren't part of G in AD.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-auto",
+   "type": "mcq",
+   "topic": "automatic stabilisers",
+   "q": "Which is an automatic stabiliser in a recession?",
+   "options": [
+    "Tax revenue falls as incomes fall",
+    "A new building programme",
+    "A cut in VAT",
+    "A rise in Bank Rate"
+   ],
+   "answer": 0,
+   "why": "It happens with no new decision.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-supply",
+   "type": "tf",
+   "topic": "AS",
+   "q": "Fiscal policy can influence aggregate supply as well as aggregate demand.",
+   "answer": true,
+   "why": "Spending on skills and lower taxes can both raise capacity.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-g",
+   "type": "explain",
+   "topic": "AD",
+   "q": "Explain why a rise in government spending may have a bigger effect on AD than a tax cut of the same size.",
+   "ideas": [
+    {
+     "label": "Government spending adds to AD directly",
+     "any": [
+      "directly",
+      "part of ad",
+      "part of aggregate demand",
+      "component of ad",
+      "component of aggregate demand",
+      "all of it",
+      "whole amount",
+      "full amount",
+      "injection"
+     ]
+    },
+    {
+     "label": "Some of a tax cut is saved, or spent on imports",
+     "any": [
+      "saved",
+      "save",
+      "saving",
+      "imports",
+      "not all",
+      "not spent",
+      "some of"
+     ]
+    }
+   ],
+   "model": "Government spending adds to AD directly, while some of a tax cut is saved or spent on imports. So less of a tax cut enters AD at first.",
+   "why": "Who actually spends the money?",
+   "tests": [
+    {
+     "answer": "Government spending is a direct part of AD, but some of a tax cut is saved.",
+     "marks": 2
+    },
+    {
+     "answer": "Some of a tax cut is saved.",
+     "marks": 1
+    },
+    {
+     "answer": "Governments are bigger.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.5.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

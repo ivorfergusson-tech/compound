@@ -49,6 +49,11 @@
   "def": "When one party to a deal has more information than the other.",
   "module": "4.1.2.2"
  },
+ "automatic stabilisers": {
+  "term": "automatic stabilisers",
+  "def": "Changes in tax revenue and benefit spending that support the economy in a downturn, with no new decision.",
+  "module": "4.2.5.1a"
+ },
  "availability bias": {
   "term": "availability bias",
   "def": "Judging how likely something is by how easily examples come to mind.",
@@ -108,6 +113,11 @@
   "term": "broad money",
   "def": "Narrow money plus bank and building society deposits.",
   "module": "4.2.4.1"
+ },
+ "budget deficit": {
+  "term": "budget deficit",
+  "def": "When government spending is greater than tax revenue in a year.",
+  "module": "4.2.5.1c"
  },
  "capital": {
   "term": "capital",
@@ -244,6 +254,16 @@
   "def": "How responsive demand for one good is to a change in the price of another.",
   "module": "4.1.3.2"
  },
+ "crowding out": {
+  "term": "crowding out",
+  "def": "When government borrowing or spending reduces private spending, such as by raising interest rates.",
+  "module": "4.2.5.1c"
+ },
+ "cyclical deficit": {
+  "term": "cyclical deficit",
+  "def": "The part of a budget deficit caused by the economic cycle.",
+  "module": "4.2.5.1c"
+ },
  "cyclical unemployment": {
   "term": "cyclical unemployment",
   "def": "Unemployment caused by too little aggregate demand. Also called demand-deficient unemployment.",
@@ -303,6 +323,11 @@
   "term": "diminishing marginal utility",
   "def": "The idea that as more of a good is consumed in a given period, the extra satisfaction from each additional unit eventually falls.",
   "module": "4.1.2.1"
+ },
+ "direct tax": {
+  "term": "direct tax",
+  "def": "A tax taken directly from income or wealth, such as income tax.",
+  "module": "4.2.5.1b"
  },
  "diseconomies of scale": {
   "term": "diseconomies of scale",
@@ -453,6 +478,11 @@
   "term": "financial policy committee",
   "def": "The Bank of England committee that looks at risks to the whole financial system. Known as the FPC.",
   "module": "4.2.4.4"
+ },
+ "fiscal policy": {
+  "term": "fiscal policy",
+  "def": "The manipulation of government spending, taxation and the budget balance.",
+  "module": "4.2.5.1a"
  },
  "fixed costs": {
   "term": "fixed costs",
@@ -819,6 +849,11 @@
   "def": "Notes, coins and balances that banks hold at the central bank.",
   "module": "4.2.4.1"
  },
+ "national debt": {
+  "term": "national debt",
+  "def": "The total of all past government borrowing that hasn't been repaid.",
+  "module": "4.2.5.1c"
+ },
  "national income": {
   "term": "national income",
   "def": "The total income or output of an economy, measured by figures such as GDP.",
@@ -883,6 +918,11 @@
   "term": "occupational crowding",
   "def": "When a group of workers is pushed into a small range of jobs, which pushes down wages in those jobs.",
   "module": "4.1.6.7"
+ },
+ "office for budget responsibility": {
+  "term": "office for budget responsibility",
+  "def": "The independent UK body that produces official forecasts of the economy and public finances. Known as the OBR.",
+  "module": "4.2.5.1c"
  },
  "oligopoly": {
   "term": "oligopoly",
@@ -1024,6 +1064,11 @@
   "def": "Legal rights to own and control a resource, and to be paid for its use.",
   "module": "4.1.8.4"
  },
+ "proportional tax": {
+  "term": "proportional tax",
+  "def": "A tax that takes the same share of income at all income levels.",
+  "module": "4.2.5.1b"
+ },
  "prudential regulation authority": {
   "term": "prudential regulation authority",
   "def": "The part of the Bank of England that supervises individual banks and insurers. Known as the PRA.",
@@ -1083,6 +1128,11 @@
   "term": "recession",
   "def": "A fall in real GDP, usually defined as two quarters in a row of negative growth.",
   "module": "4.2.3.1b"
+ },
+ "regressive tax": {
+  "term": "regressive tax",
+  "def": "A tax that takes a smaller share of income as income rises.",
+  "module": "4.2.5.1b"
  },
  "regulation": {
   "term": "regulation",
@@ -1199,6 +1249,11 @@
   "def": "Efficiency at a point in time, covering productive and allocative efficiency.",
   "module": "4.1.5.10"
  },
+ "structural deficit": {
+  "term": "structural deficit",
+  "def": "The part of a budget deficit that would remain with no output gap.",
+  "module": "4.2.5.1c"
+ },
  "structural unemployment": {
   "term": "structural unemployment",
   "def": "Unemployment caused by long-term changes in the economy, when skills or location don't match the jobs.",
@@ -1228,6 +1283,16 @@
   "term": "supply curve",
   "def": "A curve showing the relationship between price and quantity supplied.",
   "module": "4.1.3.3"
+ },
+ "supply-side improvements": {
+  "term": "supply-side improvements",
+  "def": "Any changes that raise productive capacity, whether or not they come from the government.",
+  "module": "4.2.5.2"
+ },
+ "supply-side policies": {
+  "term": "supply-side policies",
+  "def": "Government measures designed to raise the productive capacity of the economy.",
+  "module": "4.2.5.2"
  },
  "sustainable growth": {
   "term": "sustainable growth",
@@ -1263,6 +1328,11 @@
   "term": "tragedy of the commons",
   "def": "The overuse of a shared resource that nobody owns, since each user gains the full benefit and shares the cost.",
   "module": "4.1.8.3"
+ },
+ "transfer payments": {
+  "term": "transfer payments",
+  "def": "Money moved from taxpayers to others, such as benefits and pensions, with nothing produced in return.",
+  "module": "4.2.5.1a"
  },
  "transmission mechanism": {
   "term": "transmission mechanism",

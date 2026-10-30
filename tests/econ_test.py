@@ -308,6 +308,19 @@ with sync_playwright() as p:
     check("a higher bond price means a lower yield", page.locator('[data-v="y"]').inner_text() == "4.00%")
     page.locator(".calc").screenshot(path=str(SHOTS / "econ-bond.png"))
     axe(page, "the financial markets lesson")
+    # Fiscal calculators
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.5.1b")
+    page.wait_for_selector(".chart svg")
+    check("£30,000 pays £3,486 in income tax", page.locator('[data-v="t"]').inner_text() == "£3,486" and page.locator('[data-v="mg"]').inner_text() == "20%")
+    page.locator('[data-in="i"]').fill("60000")
+    check("£60,000 pays 40% at the margin", page.locator('[data-v="mg"]').inner_text() == "40%")
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-tax-calc.png"))
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.5.1c")
+    page.wait_for_selector("[data-in='s']")
+    check("a negative gap adds to the deficit", page.locator('[data-v="t"]').inner_text() == "4.0%")
+    page.locator('[data-in="g"]').fill("4")
+    check("a boom can hide a structural deficit", page.locator('[data-v="t"]').inner_text() == "0.0%")
+    axe(page, "the budget lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

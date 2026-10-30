@@ -1,0 +1,168 @@
+{
+ "module": "4.2.5.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.5.2-diff",
+   "type": "mcq",
+   "topic": "policies and improvements",
+   "q": "Which is a supply-side improvement that did NOT come from a government policy?",
+   "options": [
+    "A private firm invents a faster way of making goods",
+    "A state training scheme",
+    "A cut in income tax",
+    "Privatising a railway"
+   ],
+   "answer": 0,
+   "why": "Improvements often come from the private sector.",
+   "spec": "4.2.5.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.2-sort",
+   "type": "match",
+   "topic": "types",
+   "q": "Sort each policy into free market or interventionist.",
+   "pairs": [
+    [
+     "Privatisation",
+     "Free market"
+    ],
+    [
+     "Spending on education",
+     "Interventionist"
+    ],
+    [
+     "Deregulation",
+     "Free market"
+    ],
+    [
+     "Industrial policy",
+     "Interventionist"
+    ]
+   ],
+   "why": "Are they freeing markets, or stepping in where they fall short?",
+   "spec": "4.2.5.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.2-lras",
+   "type": "mcq",
+   "topic": "effects",
+   "q": "On an AD/AS diagram, successful supply-side policies shift:",
+   "options": [
+    "LRAS to the right",
+    "AD to the left",
+    "LRAS to the left",
+    "Nothing"
+   ],
+   "answer": 0,
+   "why": "Productive capacity rises.",
+   "spec": "4.2.5.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.2-short",
+   "type": "tf",
+   "topic": "market failure",
+   "q": "Short-termism is a market failure that supply-side policy can help to address.",
+   "answer": true,
+   "why": "Firms and banks may not fund long-term projects.",
+   "spec": "4.2.5.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.2-limit",
+   "type": "mcq",
+   "topic": "limits",
+   "q": "Which is a limit of supply-side policies?",
+   "options": [
+    "They take a long time to work",
+    "They always cause inflation",
+    "They can't affect growth",
+    "They only affect AD"
+   ],
+   "answer": 0,
+   "why": "Skills and research take years to pay off.",
+   "spec": "4.2.5.2",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.2-explain",
+   "type": "explain",
+   "topic": "effects",
+   "q": "Explain how a cut in income tax could increase the productive potential of the economy.",
+   "ideas": [
+    {
+     "label": "People keep more of what they earn, so the incentive to work rises",
+     "any": [
+      "incentive*",
+      "keep more",
+      "keep a larger",
+      "take-home",
+      "reward",
+      "encourage*",
+      "work more",
+      "more hours",
+      "enter the labour"
+     ]
+    },
+    {
+     "label": "So labour supply rises, which raises capacity or LRAS",
+     "any": [
+      "labour supply",
+      "supply of labour",
+      "more workers",
+      "more hours",
+      "capacity",
+      "lras",
+      "potential output",
+      "productive potential"
+     ]
+    }
+   ],
+   "model": "People keep more of what they earn, so the incentive to work rises. Labour supply rises, which raises productive capacity and shifts LRAS right.",
+   "why": "This works through incentives, not spending.",
+   "tests": [
+    {
+     "answer": "People keep more of what they earn, so labour supply rises and LRAS shifts right.",
+     "marks": 2
+    },
+    {
+     "answer": "It raises the incentive to work.",
+     "marks": 1
+    },
+    {
+     "answer": "People have more money for holidays.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.5.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

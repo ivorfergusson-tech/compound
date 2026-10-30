@@ -1,0 +1,156 @@
+{
+ "module": "4.2.5.1c",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.5.1-flow",
+   "type": "mcq",
+   "topic": "deficit and debt",
+   "q": "What is the difference between a budget deficit and the national debt?",
+   "options": [
+    "The deficit is a yearly flow, and the debt is the total stock",
+    "They are the same",
+    "The debt is yearly, and the deficit is the total",
+    "The deficit only applies to trade"
+   ],
+   "answer": 0,
+   "why": "Each deficit adds to the debt.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-struct",
+   "type": "mcq",
+   "topic": "cyclical and structural",
+   "q": "Which deficit goes away as an economy recovers?",
+   "options": [
+    "Cyclical",
+    "Structural",
+    "Both",
+    "Neither"
+   ],
+   "answer": 0,
+   "why": "It's caused by the downturn.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-crowd",
+   "type": "mcq",
+   "topic": "consequences",
+   "q": "What is crowding out?",
+   "options": [
+    "Government borrowing that reduces private investment",
+    "Too many people in a shop",
+    "Exports replacing imports",
+    "A fall in the deficit"
+   ],
+   "answer": 0,
+   "why": "Higher interest rates can make firms invest less.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-obr",
+   "type": "tf",
+   "topic": "OBR",
+   "q": "The Office for Budget Responsibility decides the government's tax rates.",
+   "answer": false,
+   "why": "It produces forecasts, and it doesn't set policy.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-matter",
+   "type": "mcq",
+   "topic": "national debt",
+   "q": "Which makes a given national debt easier to manage?",
+   "options": [
+    "Economic growth above the interest rate on the debt",
+    "Rising interest rates",
+    "Falling GDP",
+    "A loss of market confidence"
+   ],
+   "answer": 0,
+   "why": "Debt then falls as a share of GDP.",
+   "spec": "4.2.5.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-defgood",
+   "type": "explain",
+   "topic": "consequences",
+   "q": "Explain why a budget deficit may be good for an economy in a recession.",
+   "ideas": [
+    {
+     "label": "It supports AD, as spending is above taxes",
+     "any": [
+      "aggregate demand",
+      "ad ",
+      "supports demand",
+      "support demand",
+      "raise* demand",
+      "boost* demand",
+      "spending",
+      "injection"
+     ]
+    },
+    {
+     "label": "So output and jobs are higher than they'd be otherwise",
+     "any": [
+      "jobs",
+      "employment",
+      "unemployment",
+      "output",
+      "growth",
+      "recovery",
+      "gdp",
+      "multiplier"
+     ]
+    }
+   ],
+   "model": "The deficit supports AD at a time when private spending is weak. Through the multiplier, this protects output and jobs.",
+   "why": "When others stop spending, the government can keep going.",
+   "tests": [
+    {
+     "answer": "It supports aggregate demand, which protects jobs and output.",
+     "marks": 2
+    },
+    {
+     "answer": "It supports aggregate demand.",
+     "marks": 1
+    },
+    {
+     "answer": "It is a large number.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.5.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

@@ -1,0 +1,182 @@
+{
+ "module": "4.2.5.1b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.5.1-direct",
+   "type": "mcq",
+   "topic": "direct and indirect",
+   "q": "Which is a direct tax?",
+   "options": [
+    "Income tax",
+    "VAT",
+    "Fuel duty",
+    "Tobacco duty"
+   ],
+   "answer": 0,
+   "why": "It's taken from income, not spending.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-avg",
+   "type": "number",
+   "topic": "average rate",
+   "q": "Someone earns £{i} and pays £{t} in tax. What is their average tax rate, in %?",
+   "vars": {
+    "i": {
+     "choices": [
+      20000,
+      40000,
+      50000
+     ],
+     "default": 40000
+    },
+    "t": {
+     "choices": [
+      3000,
+      4000,
+      5000
+     ],
+     "default": 4000
+    }
+   },
+   "answer": "t/i*100",
+   "tol": 0.05,
+   "unit": "%",
+   "dp": 1,
+   "why": "£{t} ÷ £{i} × 100 = {answer}%.",
+   "spec": "4.2.5.1",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-types",
+   "type": "match",
+   "topic": "progressive and regressive",
+   "q": "Match each description to the type of tax.",
+   "pairs": [
+    [
+     "The share of income paid rises with income",
+     "Progressive"
+    ],
+    [
+     "The share of income paid is the same for all",
+     "Proportional"
+    ],
+    [
+     "The share of income paid falls as income rises",
+     "Regressive"
+    ]
+   ],
+   "why": "Always compare the share of income, not the amount.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-prin",
+   "type": "mcq",
+   "topic": "principles",
+   "q": "A tax that people find easy to pay meets which principle?",
+   "options": [
+    "Convenience",
+    "Equity",
+    "Certainty",
+    "Economy"
+   ],
+   "answer": 0,
+   "why": "Economy means that it's cheap to collect.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-vat",
+   "type": "tf",
+   "topic": "UK taxes",
+   "q": "VAT is generally regressive.",
+   "answer": true,
+   "why": "Poorer households spend a larger share of their income.",
+   "spec": "4.2.5.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.5.1-tax",
+   "type": "explain",
+   "topic": "why tax",
+   "q": "Explain why a government might tax a good, other than to raise revenue.",
+   "ideas": [
+    {
+     "label": "To reduce consumption of a good with external costs, or a demerit good",
+     "any": [
+      "externalit*",
+      "external cost*",
+      "demerit",
+      "reduce consumption",
+      "discourage",
+      "pollution",
+      "cut consumption",
+      "lower consumption",
+      "harmful",
+      "over-consum*"
+     ]
+    },
+    {
+     "label": "A higher price makes people buy less, or the tax makes them pay the social cost",
+     "any": [
+      "price rises",
+      "higher price",
+      "raise* the price",
+      "buy less",
+      "consume less",
+      "demand falls",
+      "quantity falls",
+      "social cost",
+      "internalis*",
+      "incentive"
+     ]
+    }
+   ],
+   "model": "A tax can discourage a good with external costs. It raises the price, so people buy less, and they pay nearer the full social cost.",
+   "why": "Tax can change behaviour as well as raise money.",
+   "tests": [
+    {
+     "answer": "To discourage a demerit good, because a higher price means people buy less.",
+     "marks": 2
+    },
+    {
+     "answer": "To discourage a demerit good.",
+     "marks": 1
+    },
+    {
+     "answer": "To make people angry.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.5.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

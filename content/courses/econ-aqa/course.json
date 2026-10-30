@@ -95,6 +95,11 @@
    "name": "Financial markets and monetary policy",
    "emoji": "🏦",
    "blurb": "Money, banks, the Bank of England and how the financial system is kept safe."
+  },
+  "4.2.5": {
+   "name": "Fiscal policy and supply-side policies",
+   "emoji": "🧾",
+   "blurb": "How governments use spending, tax and reform to shape the economy."
   }
  },
  "items": [
@@ -1775,6 +1780,92 @@
     "financial conduct authority"
    ],
    "summary": "Why banks fail, and who keeps the system safe."
+  },
+  {
+   "id": "4.2.5.1a",
+   "kind": "module",
+   "num": 77,
+   "strand": "4.2.5",
+   "title": "Fiscal policy: aggregate demand, aggregate supply and public spending",
+   "short": "Fiscal policy",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.5.1"
+   ],
+   "buildsOn": [
+    76
+   ],
+   "introduces": [
+    "fiscal policy",
+    "automatic stabilisers",
+    "transfer payments"
+   ],
+   "summary": "Using spending and tax to change AD, AS and the pattern of activity."
+  },
+  {
+   "id": "4.2.5.1b",
+   "kind": "module",
+   "num": 78,
+   "strand": "4.2.5",
+   "title": "Taxation: types, principles and UK taxes",
+   "short": "Taxation",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.5.1"
+   ],
+   "buildsOn": [
+    77
+   ],
+   "introduces": [
+    "direct tax",
+    "proportional tax",
+    "regressive tax"
+   ],
+   "summary": "Direct and indirect taxes, fairness and the main UK taxes."
+  },
+  {
+   "id": "4.2.5.1c",
+   "kind": "module",
+   "num": 79,
+   "strand": "4.2.5",
+   "title": "The budget balance, national debt and the OBR",
+   "short": "The budget and national debt",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.5.1"
+   ],
+   "buildsOn": [
+    78
+   ],
+   "introduces": [
+    "budget deficit",
+    "national debt",
+    "cyclical deficit",
+    "structural deficit",
+    "crowding out",
+    "office for budget responsibility"
+   ],
+   "summary": "Deficits, debt, and whether they matter."
+  },
+  {
+   "id": "4.2.5.2",
+   "kind": "module",
+   "num": 80,
+   "strand": "4.2.5",
+   "title": "Supply-side policies",
+   "short": "Supply-side policies",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.5.2"
+   ],
+   "buildsOn": [
+    79
+   ],
+   "introduces": [
+    "supply-side policies",
+    "supply-side improvements"
+   ],
+   "summary": "Free market and interventionist ways to raise capacity."
   }
  ]
 }

@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield, ukIncomeTax, budgetDeficit } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -559,6 +559,12 @@ check('fisher: MV = PQ', fisherP(100, 3, 150) === 2);
 check('fisher: M doubles, P doubles', fisherP(200, 3, 150) === 2 * fisherP(100, 3, 150));
 check('bond: yield at face value equals the coupon', bondYield(5, 100) === 5);
 check('bond: a higher price means a lower yield', bondYield(5, 125) === 4 && bondYield(5, 80) === 6.25);
+check('income tax: none under the allowance', ukIncomeTax(12570).tax === 0);
+check('income tax: £30,000 pays £3,486', Math.abs(ukIncomeTax(30000).tax - 3486) < 1e-6);
+check('income tax: £60,000 pays £11,432', Math.abs(ukIncomeTax(60000).tax - 11432) < 1e-6 && ukIncomeTax(60000).marginal === 40);
+check('income tax: the average rate rises with income', ukIncomeTax(100000).average > ukIncomeTax(60000).average && ukIncomeTax(60000).average > ukIncomeTax(30000).average);
+check('budget: a negative gap adds a cyclical deficit', budgetDeficit(2, -4).cyclical === 2 && budgetDeficit(2, -4).total === 4);
+check('budget: a positive gap hides the structural deficit', budgetDeficit(2, 4).total === 0);
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

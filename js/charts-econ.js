@@ -155,6 +155,14 @@ export const phillips = (u, expected) => expected + 30 / u - 6;
 export const fisherP = (m, v, q) => (m * v) / q;
 // A bond's yield: the fixed coupon as a percentage of its market price.
 export const bondYield = (coupon, price) => (coupon / price) * 100;
+// UK income tax for 2026 to 2027 (England, Wales and NI), up to £100,000, where the personal allowance starts to taper.
+export function ukIncomeTax(income) {
+  const basic = Math.max(0, Math.min(income, 50270) - 12570), higher = Math.max(0, income - 50270);
+  const tax = basic * 0.2 + higher * 0.4;
+  return { tax, average: income ? (tax / income) * 100 : 0, marginal: income > 50270 ? 40 : income > 12570 ? 20 : 0 };
+}
+// The budget deficit, as % of GDP: the structural part stays at any point in the cycle, and the cyclical part moves with the output gap.
+export const budgetDeficit = (structural, gap) => ({ cyclical: -0.5 * gap, total: structural - 0.5 * gap });
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -610,6 +618,39 @@ export const econCharts = {
         yFmt: v => `${v}%`, xFmt: v => `£${v}`, xTicks: [60, 100, 140],
       });
       root.querySelector('[data-desc]').textContent = `The coupon stays at £${c}, so paying more for the bond means a lower return. Price up, yield down.`;
+    });
+  },
+  incometax(root, a) {
+    const specs = { i: { min: 10000, max: 100000, step: 5000, value: a.i ?? 30000, fmt: v => `£${v.toLocaleString('en-GB')}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">UK income tax, 2026 to 2027</h3>${slider('i', 'Yearly income', specs.i)}`
+      + `<div class="stats">${stat('Tax to pay', 't', 'warm')}${stat('Average rate', 'av', 'good')}${stat('Marginal rate', 'mg')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ i }, set) => {
+      const r = ukIncomeTax(i);
+      set('t', `£${Math.round(r.tax).toLocaleString('en-GB')}`); set('av', `${r.average.toFixed(1)}%`); set('mg', `${r.marginal}%`);
+      root.querySelector('[data-chart]').innerHTML = lineChart({
+        label: `Average rate of income tax rising with income. At £${i.toLocaleString('en-GB')}, it is ${r.average.toFixed(1)} percent.`,
+        series: [{ name: 'Average tax rate', tone: 'a', points: Array.from({ length: 19 }, (_, k) => { const x = 10000 + k * 5000; return [x / 1000, +ukIncomeTax(x).average.toFixed(1)]; }) }],
+        yFmt: v => `${v}%`, xFmt: v => `£${v}k`, xTicks: [10, 40, 70, 100],
+      });
+      root.querySelector('[data-desc]').textContent = 'The average rate rises with income, so income tax is progressive. This is income tax only, for England, Wales and Northern Ireland, and it leaves out National Insurance.';
+    });
+  },
+  budget(root, a) {
+    const specs = {
+      s: { min: 0, max: 6, step: 1, value: a.s ?? 2, fmt: v => `${v}%` },
+      g: { min: -6, max: 6, step: 2, value: a.g ?? -4, fmt: v => `${v > 0 ? '+' : ''}${v}%` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Cyclical and structural deficits</h3>${slider('s', 'Structural deficit (% of GDP)', specs.s)}${slider('g', 'Output gap (% of GDP)', specs.g)}`
+      + `<div class="stats">${stat('Cyclical part', 'c')}${stat('Total deficit', 't', 'warm')}</div>`
+      + `<p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ s, g }, set) => {
+      const r = budgetDeficit(s, g);
+      set('c', `${r.cyclical >= 0 ? '' : '−'}${Math.abs(r.cyclical).toFixed(1)}%`); set('t', `${r.total >= 0 ? '' : '−'}${Math.abs(r.total).toFixed(1)}%`);
+      root.querySelector('[data-desc]').textContent = g < 0
+        ? 'A negative output gap adds to the deficit, as tax revenue falls and benefit spending rises. This part goes away as the economy recovers. The structural part does not.'
+        : g > 0 ? 'A positive output gap reduces the deficit, as tax revenue rises and benefit spending falls. The structural part stays, and a boom can hide it.'
+          : 'With no output gap, the whole deficit is structural.';
     });
   },
   costs(root, a) {
