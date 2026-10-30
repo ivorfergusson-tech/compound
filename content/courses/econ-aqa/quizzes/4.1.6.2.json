@@ -1,0 +1,179 @@
+{
+ "module": "4.1.6.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.2-nonmon",
+   "type": "mcq",
+   "topic": "non-monetary considerations",
+   "q": "Which is a non-monetary consideration in choosing a job?",
+   "options": [
+    "Overtime pay",
+    "Job satisfaction",
+    "An annual bonus",
+    "Basic pay"
+   ],
+   "answer": 1,
+   "why": "Satisfaction, conditions and hours are not paid in money.",
+   "spec": "4.1.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.2-move",
+   "type": "mcq",
+   "topic": "supply curve",
+   "q": "A rise in the wage for a job causes:",
+   "options": [
+    "A movement along the supply curve of labour",
+    "A shift of the supply curve to the right",
+    "A shift of the supply curve to the left",
+    "A shift of the demand curve"
+   ],
+   "answer": 0,
+   "why": "A change in the job's own wage is a movement along its curve.",
+   "spec": "4.1.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.2-shifts",
+   "type": "match",
+   "topic": "shifts",
+   "q": "Match each change to its effect on the supply of labour to nursing.",
+   "pairs": [
+    [
+     "Better shift patterns",
+     "Shifts right"
+    ],
+    [
+     "Higher pay in other jobs",
+     "Shifts left"
+    ],
+    [
+     "Cheaper nursing degrees",
+     "Shifts right"
+    ],
+    [
+     "More stress at work",
+     "Shifts left"
+    ]
+   ],
+   "why": "Anything other than the job's own wage shifts the curve.",
+   "spec": "4.1.6.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.2-slope",
+   "type": "tf",
+   "topic": "supply curve",
+   "q": "The supply curve of labour to an occupation slopes upwards.",
+   "answer": true,
+   "why": "Higher pay attracts more workers to the job.",
+   "spec": "4.1.6.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.2-compensate",
+   "type": "mcq",
+   "topic": "non-monetary considerations",
+   "q": "Why might a dangerous job pay more than a safe one with the same skills?",
+   "options": [
+    "The supply of labour to it is lower",
+    "Demand for it is always lower",
+    "The law requires it",
+    "Its workers are less productive"
+   ],
+   "answer": 0,
+   "why": "Fewer are willing to do it at any given wage, so the wage is pushed up.",
+   "spec": "4.1.6.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.2-explain",
+   "type": "explain",
+   "topic": "shifts",
+   "q": "Explain how better working conditions could affect the wage in an occupation.",
+   "ideas": [
+    {
+     "label": "More people are willing to do the job, so supply shifts right",
+     "any": [
+      "supply shift*",
+      "supply rises",
+      "supply increases",
+      "increase* supply",
+      "more people",
+      "more workers",
+      "more willing",
+      "shift* right",
+      "shifts to the right",
+      "higher supply",
+      "greater supply"
+     ]
+    },
+    {
+     "label": "This puts downward pressure on the wage",
+     "any": [
+      "wage falls",
+      "wages fall",
+      "lower wage*",
+      "lowers the wage",
+      "lower the wage",
+      "wage may fall",
+      "wages may fall",
+      "wage will fall",
+      "wages will fall",
+      "reduce* wage*",
+      "reduce* the wage",
+      "downward pressure",
+      "fall in wage*",
+      "pushes the wage down",
+      "push the wage down",
+      "pushes wages down",
+      "push wages down"
+     ]
+    }
+   ],
+   "model": "Better conditions make the job more attractive, so more people are willing to do it and supply shifts right. With no change in demand, this pushes the wage down.",
+   "why": "Conditions are part of the reward, so they can replace some pay.",
+   "tests": [
+    {
+     "answer": "More people want to do the job so supply shifts right, and the wage falls.",
+     "marks": 2
+    },
+    {
+     "answer": "Supply shifts right.",
+     "marks": 1
+    },
+    {
+     "answer": "Workers get happier.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

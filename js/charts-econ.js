@@ -43,9 +43,9 @@ const seg = (x1, y1, x2, y2, cls) => `<line x1="${mx(x1).toFixed(1)}" y1="${my(y
 const tag = (x, y, text) => `<text x="${mx(x).toFixed(1)}" y="${my(y).toFixed(1)}" class="ch-label ch-tag">${esc(text)}</text>`;
 const demandLine = (d, cls) => seg(Math.max(0, d - 30), Math.min(MAX, 100 + d), 100 + d, 0, cls);
 const supplyLine = (s, cls) => { const end = Math.min(MAX, 110 + s); return seg(Math.max(0, s - 20), Math.max(0, 20 - s), end, end + 20 - s, cls); };
-const axes = () => `<line x1="${PAD.l}" y1="${PAD.t}" x2="${PAD.l}" y2="${my(0)}" class="ch-axis"/><line x1="${PAD.l}" y1="${my(0)}" x2="${W - PAD.r}" y2="${my(0)}" class="ch-axis"/>`
-  + `<text x="${W - PAD.r}" y="${H - 10}" text-anchor="end" class="ch-label">Quantity</text>`
-  + `<text x="12" y="${PAD.t + 4}" class="ch-label" transform="rotate(-90 12 ${PAD.t + 4})" text-anchor="end">Price</text>`;
+const axes = (xName = 'Quantity', yName = 'Price') => `<line x1="${PAD.l}" y1="${PAD.t}" x2="${PAD.l}" y2="${my(0)}" class="ch-axis"/><line x1="${PAD.l}" y1="${my(0)}" x2="${W - PAD.r}" y2="${my(0)}" class="ch-axis"/>`
+  + `<text x="${W - PAD.r}" y="${H - 10}" text-anchor="end" class="ch-label">${esc(xName)}</text>`
+  + `<text x="12" y="${PAD.t + 4}" class="ch-label" transform="rotate(-90 12 ${PAD.t + 4})" text-anchor="end">${esc(yName)}</text>`;
 const legend = (items, dot) => `<figcaption class="legend">${items.map(([cls, name]) => `<span><i class="key ${cls}"></i>${esc(name)}</span>`).join('')}${dot ? `<span><i class="key ch-b"></i>${esc(dot)}</span>` : ''}</figcaption>`;
 
 // Short-run costs for output q: fixed cost fc, and variable cost scaled by w (the price of the variable factor).
@@ -90,6 +90,19 @@ export function discrim(c) {
   const single = (200 + 3 * c) / 6, both = (single - c) * (200 - 3 * single), onlyA = (pA - c) * qA;
   return { pA, qA, pB, qB, profit: (pA - c) * qA + (pB - c) * qB, singleProfit: Math.max(both, onlyA), singlePrice: both >= onlyA ? single : pA };
 }
+// Labour market: MRP (demand) W = 110 - L, labour supply W = 20 + L, so the competitive outcome is £65 and 45 workers.
+export function labourFloor(w) {
+  const floor = Math.max(w, 65), employed = 110 - floor, willing = floor - 20;
+  return { wage: floor, employed, willing, unemployed: willing - employed };
+}
+// Monopsony: supply is the average cost of labour, and MCL = 20 + 2L, so it hires where MCL = MRP: 30 workers at £50.
+// A wage floor f (minimum wage or union) up to £65 raises pay AND jobs; above £65 jobs fall along MRP.
+export function monopsony(f = 0) {
+  const wage = Math.max(f, 50);
+  return { wage, employed: wage <= 65 ? wage - 20 : 110 - wage };
+}
+// Lorenz curve y = x^k has Gini (k - 1) / (k + 1), so a Gini g gives k = (1 + g) / (1 - g).
+export const lorenzShare = (x, g) => x ** ((1 + g) / (1 - g));
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -304,6 +317,42 @@ export const econCharts = {
       set('pa', `£${r.pA.toFixed(0)}`); set('pb', `£${r.pB.toFixed(0)}`); set('gain', money(r.profit - r.singleProfit));
       root.querySelector('[data-chart]').innerHTML = `<figure class="chart"><div class="ch-pair"><div><strong>Market A</strong>${panel('A', 100, 1, r.qA, r.pA, c)}</div><div><strong>Market B</strong>${panel('B', 50, 0.5, r.qB, r.pB, c)}</div></div>${legend([['ch-b', 'AR'], ['ch-b dash', 'MR'], ['ch-c', 'MC']], '')}</figure>`;
       root.querySelector('[data-desc]').textContent = `Where MR = MC in each market, the firm sells ${r.qA} units at £${r.pA} in A and ${r.qB} units at £${r.pB} in B. Profit is ${money(r.profit)}, against ${money(r.singleProfit)} with one price (£${r.singlePrice.toFixed(2)}).`;
+    });
+  },
+  labour(root, a) {
+    const mono = a.model === 'monopsony';
+    const specs = { w: { min: mono ? 50 : 65, max: mono ? 80 : 85, step: 5, value: a.w ?? (mono ? 50 : 65), fmt: v => `£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">${mono ? 'A monopsony labour market' : 'A competitive labour market'}</h3>${slider('w', 'Wage floor (minimum wage or union)', specs.w)}`
+      + `<div class="stats">${stat('Wage', 'wage')}${stat('Workers employed', 'emp', 'good')}${stat(mono ? 'Change in jobs' : 'Unemployed', 'gap', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ w }, set) => {
+      const r = mono ? monopsony(w) : labourFloor(w), gap = mono ? r.employed - 30 : r.unemployed;
+      set('wage', `£${r.wage}`); set('emp', r.employed); set('gap', mono ? `${gap > 0 ? '+' : ''}${gap}` : gap);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Labour market diagram with wage on the vertical axis. At a wage of £${r.wage}, ${r.employed} workers are employed.">${axes('Workers', 'Wage')}`
+        + seg(0, 110, 110, 0, 'ch-line ch-a') + seg(0, 20, 110, 130, 'ch-line ch-b')
+        + (mono ? seg(0, 20, 55, 130, 'ch-line ch-b ch-dash') : '')
+        + seg(0, r.wage, 125, r.wage, 'ch-line ch-c') + `<circle cx="${mx(r.employed)}" cy="${my(r.wage)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'Demand (MRP)'], ['ch-b', mono ? 'Supply (ACL)' : 'Supply'], ...(mono ? [['ch-b dash', 'MCL']] : []), ['ch-c', 'Wage']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = mono
+        ? (w === 50 ? 'The monopsonist hires where MCL = MRP: 30 workers, and it pays only £50, the wage on the supply curve. A competitive market would give £65 and 45 workers.'
+          : w <= 65 ? `A floor of £${w} raises pay AND employment, to ${r.employed} workers, because hiring one more no longer pushes up the wage of everyone else.`
+            : `At £${w} the floor is above the competitive wage, so employment falls back along MRP to ${r.employed}.`)
+        : (w === 65 ? 'Equilibrium: £65 and 45 workers. Everyone who wants to work at this wage has a job.'
+          : `A floor of £${w} is above equilibrium. Firms hire ${r.employed}, while ${r.willing} want to work, so ${r.unemployed} are unemployed.`);
+    });
+  },
+  lorenz(root, a) {
+    const specs = { g: { min: 0.1, max: 0.7, step: 0.05, value: a.g ?? 0.3, fmt: v => v.toFixed(2) } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The Lorenz curve</h3>${slider('g', 'Gini coefficient', specs.g)}`
+      + `<div class="stats">${stat('Share held by the poorest half', 'low', 'good')}${stat('Share held by the richest tenth', 'top', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ g }, set) => {
+      const low = lorenzShare(0.5, g) * 100, top = (1 - lorenzShare(0.9, g)) * 100;
+      set('low', `${low.toFixed(0)}%`); set('top', `${top.toFixed(0)}%`);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Lorenz curve below the 45 degree line of equality. With a Gini of ${g.toFixed(2)}, the poorest half have ${low.toFixed(0)} percent.">${axes('Share of people', 'Share of income')}`
+        + seg(0, 0, 125, 125, 'ch-line ch-c ch-dash') + curve(q => lorenzShare(q / 125, g) * 125, 0, 125, 'ch-line ch-a') + `</svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-c dash', 'Line of perfect equality'], ['ch-a', 'Lorenz curve']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = `The further the curve bows away from the line of equality, the higher the Gini and the more unequal the distribution. This is a smooth model curve, so the shares are illustrative.`;
     });
   },
   costs(root, a) {

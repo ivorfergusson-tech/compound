@@ -1,0 +1,161 @@
+{
+ "module": "4.1.7.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.7.2-abs",
+   "type": "mcq",
+   "topic": "absolute poverty",
+   "q": "Absolute poverty means:",
+   "options": [
+    "Too little income to afford basic needs",
+    "Income below the average",
+    "Having less than your neighbours",
+    "Paying no tax"
+   ],
+   "answer": 0,
+   "why": "It doesn't depend on the incomes of others.",
+   "spec": "4.1.7.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.2-line",
+   "type": "number",
+   "topic": "relative poverty",
+   "q": "Median household income is £{m}. What is the relative poverty line, at 60% of the median, in £?",
+   "vars": {
+    "m": {
+     "choices": [
+      30000,
+      35000,
+      40000
+     ],
+     "default": 35000
+    }
+   },
+   "answer": "m*0.6",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "60% of £{m} = £{answer}.",
+   "spec": "4.1.7.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.2-growth",
+   "type": "tf",
+   "topic": "relative poverty",
+   "q": "Relative poverty can rise even when the incomes of the poorest are rising.",
+   "answer": true,
+   "why": "It rises if the median grows faster than their incomes.",
+   "spec": "4.1.7.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.2-cause",
+   "type": "mcq",
+   "topic": "causes",
+   "q": "Which is a cause of poverty?",
+   "options": [
+    "Low-paid, insecure work",
+    "High inflation-linked benefits",
+    "Falling housing costs",
+    "A rise in skills"
+   ],
+   "answer": 0,
+   "why": "Many people in poverty live in working households.",
+   "spec": "4.1.7.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.2-cycle",
+   "type": "mcq",
+   "topic": "effects",
+   "q": "What is meant by the cycle of poverty?",
+   "options": [
+    "Children in poverty are more likely to be poor as adults",
+    "Poverty rises every year",
+    "Poverty moves between regions",
+    "Poverty falls in a boom"
+   ],
+   "answer": 0,
+   "why": "Poor health and education limit later earnings.",
+   "spec": "4.1.7.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.2-explain",
+   "type": "explain",
+   "topic": "effects",
+   "q": "Explain how poverty can reduce the productive potential of an economy.",
+   "ideas": [
+    {
+     "label": "Poverty leads to poorer health or education",
+     "any": [
+      "health",
+      "education",
+      "school*",
+      "skills",
+      "human capital",
+      "ill"
+     ]
+    },
+    {
+     "label": "So productivity is lower, or fewer people can work",
+     "any": [
+      "productiv*",
+      "less able to work",
+      "fewer workers",
+      "unable to work",
+      "labour force",
+      "potential",
+      "lras",
+      "output"
+     ]
+    }
+   ],
+   "model": "Poverty leads to poorer health and education, which reduces human capital. Workers are less productive, so the productive potential of the economy is lower.",
+   "why": "Poverty today is less human capital tomorrow.",
+   "tests": [
+    {
+     "answer": "Poverty leads to poor education, so workers have lower productivity.",
+     "marks": 2
+    },
+    {
+     "answer": "Poor people have worse health.",
+     "marks": 1
+    },
+    {
+     "answer": "Prices go up.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.7.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

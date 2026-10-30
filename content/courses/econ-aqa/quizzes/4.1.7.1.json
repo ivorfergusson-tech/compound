@@ -1,0 +1,186 @@
+{
+ "module": "4.1.7.1",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.7.1-flow",
+   "type": "match",
+   "topic": "income and wealth",
+   "q": "Sort each of these into income or wealth.",
+   "pairs": [
+    [
+     "A monthly salary",
+     "Income"
+    ],
+    [
+     "A house",
+     "Wealth"
+    ],
+    [
+     "Rent received",
+     "Income"
+    ],
+    [
+     "A pension pot",
+     "Wealth"
+    ]
+   ],
+   "why": "Income is a flow over time. Wealth is a stock at a point in time.",
+   "spec": "4.1.7.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.1-gini",
+   "type": "mcq",
+   "topic": "Gini coefficient",
+   "q": "A Gini coefficient of 0 means:",
+   "options": [
+    "Perfect equality",
+    "Perfect inequality",
+    "Everyone has no income",
+    "Half of people are poor"
+   ],
+   "answer": 0,
+   "why": "0 is perfect equality and 1 is perfect inequality.",
+   "spec": "4.1.7.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.1-lorenz",
+   "type": "mcq",
+   "topic": "Lorenz curve",
+   "q": "If a country's Lorenz curve moves further from the line of equality, then:",
+   "options": [
+    "Inequality has risen",
+    "Inequality has fallen",
+    "Average income has risen",
+    "Average income has fallen"
+   ],
+   "answer": 0,
+   "why": "A curve further from the line means a higher Gini.",
+   "spec": "4.1.7.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.1-equity",
+   "type": "tf",
+   "topic": "equality and equity",
+   "q": "A more equal distribution of income must be a more equitable one.",
+   "answer": false,
+   "why": "Equity is about fairness, which is a value judgement.",
+   "spec": "4.1.7.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.1-uk",
+   "type": "mcq",
+   "topic": "UK distribution",
+   "q": "In the UK, which is true?",
+   "options": [
+    "Wealth is distributed less equally than income",
+    "Income is distributed less equally than wealth",
+    "They are equally distributed",
+    "The Gini for income is about 0.9"
+   ],
+   "answer": 0,
+   "why": "The wealth Gini is well above the income Gini.",
+   "spec": "4.1.7.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.1-benefit",
+   "type": "mcq",
+   "topic": "benefits and costs",
+   "q": "Which is a likely benefit of some inequality?",
+   "options": [
+    "A stronger incentive to work and take risks",
+    "More poverty",
+    "More social tension",
+    "Less human capital"
+   ],
+   "answer": 0,
+   "why": "Higher rewards can encourage effort and enterprise.",
+   "spec": "4.1.7.1",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.1-explain",
+   "type": "explain",
+   "topic": "market failure",
+   "q": "Explain how inequality can be both a cause and a consequence of market failure.",
+   "ideas": [
+    {
+     "label": "Market failures such as monopsony or imperfect information cause inequality",
+     "any": [
+      "monopsony",
+      "imperfect information",
+      "market power",
+      "low wages",
+      "lower wages",
+      "discrimination",
+      "consequence"
+     ]
+    },
+    {
+     "label": "Inequality means the poor can't afford education or health care, so these are under-consumed",
+     "any": [
+      "under-consum*",
+      "underconsum*",
+      "can't afford",
+      "cannot afford",
+      "education",
+      "health",
+      "misallocat*",
+      "resources"
+     ]
+    }
+   ],
+   "model": "Monopsony power and imperfect information can hold down wages, which causes inequality. In turn, those on low incomes cannot afford enough education or health care, so these are under-consumed.",
+   "why": "It runs in both directions.",
+   "tests": [
+    {
+     "answer": "Monopsony keeps wages low, which causes inequality, and poor people can't afford education so it is under-consumed.",
+     "marks": 2
+    },
+    {
+     "answer": "Poor people can't afford education.",
+     "marks": 1
+    },
+    {
+     "answer": "Rich people have more money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.7.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -55,6 +55,16 @@
    "name": "Competition, efficiency and welfare",
    "emoji": "⚖️",
    "blurb": "Who wins from competition: price discrimination, contestable markets, efficiency and welfare."
+  },
+  "4.1.6": {
+   "name": "The labour market",
+   "emoji": "👷",
+   "blurb": "How wages and jobs are set, and what unions, big employers and the law do to them."
+  },
+  "4.1.7": {
+   "name": "The distribution of income and wealth: poverty and inequality",
+   "emoji": "🪙",
+   "blurb": "Who gets what: measuring inequality, understanding poverty and what governments can do."
   }
  },
  "items": [
@@ -837,6 +847,210 @@
     "deadweight loss"
    ],
    "summary": "Measuring welfare and the deadweight loss of monopoly."
+  },
+  {
+   "id": "4.1.6.1",
+   "kind": "module",
+   "num": 37,
+   "strand": "4.1.6",
+   "title": "The demand for labour, marginal productivity theory",
+   "short": "Demand for labour",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.1"
+   ],
+   "buildsOn": [
+    36
+   ],
+   "introduces": [
+    "marginal revenue product"
+   ],
+   "summary": "Derived demand, MRP and why the demand for labour shifts."
+  },
+  {
+   "id": "4.1.6.2",
+   "kind": "module",
+   "num": 38,
+   "strand": "4.1.6",
+   "title": "Influences upon the supply of labour to different markets",
+   "short": "Supply of labour",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.2"
+   ],
+   "buildsOn": [
+    37
+   ],
+   "introduces": [
+    "labour supply",
+    "non-monetary considerations"
+   ],
+   "summary": "Why people choose jobs, and what shifts labour supply."
+  },
+  {
+   "id": "4.1.6.3",
+   "kind": "module",
+   "num": 39,
+   "strand": "4.1.6",
+   "title": "The determination of relative wage rates and levels of employment in perfectly competitive labour markets",
+   "short": "Competitive labour markets",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.3"
+   ],
+   "buildsOn": [
+    38
+   ],
+   "introduces": [
+    "relative wages"
+   ],
+   "summary": "How demand and supply set wages and explain pay gaps."
+  },
+  {
+   "id": "4.1.6.4",
+   "kind": "module",
+   "num": 40,
+   "strand": "4.1.6",
+   "title": "The determination of relative wage rates and levels of employment in imperfectly competitive labour markets",
+   "short": "Imperfect labour markets",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.4"
+   ],
+   "buildsOn": [
+    39
+   ],
+   "introduces": [
+    "monopsony",
+    "marginal cost of labour"
+   ],
+   "summary": "Monopsony power and why it lowers both wages and jobs."
+  },
+  {
+   "id": "4.1.6.5",
+   "kind": "module",
+   "num": 41,
+   "strand": "4.1.6",
+   "title": "The Influence of trade unions in determining wages and levels of employment",
+   "short": "Trade unions",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.5"
+   ],
+   "buildsOn": [
+    40
+   ],
+   "introduces": [
+    "trade union",
+    "collective bargaining"
+   ],
+   "summary": "What gives unions power, and their effect in two kinds of market."
+  },
+  {
+   "id": "4.1.6.6",
+   "kind": "module",
+   "num": 42,
+   "strand": "4.1.6",
+   "title": "The National Minimum Wage",
+   "short": "National Minimum Wage",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.6"
+   ],
+   "buildsOn": [
+    41
+   ],
+   "introduces": [
+    "national minimum wage"
+   ],
+   "summary": "The effects of a legal wage floor, with its pros and cons."
+  },
+  {
+   "id": "4.1.6.7",
+   "kind": "module",
+   "num": 43,
+   "strand": "4.1.6",
+   "title": "Discrimination in the labour market",
+   "short": "Labour market discrimination",
+   "level": "A-level",
+   "spec": [
+    "4.1.6.7"
+   ],
+   "buildsOn": [
+    42
+   ],
+   "introduces": [
+    "wage discrimination",
+    "occupational crowding"
+   ],
+   "summary": "Wage discrimination, and the costs of unfair treatment at work."
+  },
+  {
+   "id": "4.1.7.1",
+   "kind": "module",
+   "num": 41,
+   "strand": "4.1.7",
+   "title": "The distribution of income and wealth",
+   "short": "Income and wealth",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.7.1"
+   ],
+   "buildsOn": [
+    40
+   ],
+   "introduces": [
+    "income",
+    "wealth",
+    "equality",
+    "equity",
+    "lorenz curve",
+    "gini coefficient"
+   ],
+   "summary": "Measuring inequality, and why fairness is a value judgement."
+  },
+  {
+   "id": "4.1.7.2",
+   "kind": "module",
+   "num": 42,
+   "strand": "4.1.7",
+   "title": "The problem of poverty",
+   "short": "Poverty",
+   "level": "A-level",
+   "spec": [
+    "4.1.7.2"
+   ],
+   "buildsOn": [
+    41
+   ],
+   "introduces": [
+    "absolute poverty",
+    "relative poverty"
+   ],
+   "summary": "Absolute and relative poverty, their causes and their effects."
+  },
+  {
+   "id": "4.1.7.3",
+   "kind": "module",
+   "num": 43,
+   "strand": "4.1.7",
+   "title": "Government policies to alleviate poverty and to influence the distribution of income and wealth",
+   "short": "Policies on poverty and inequality",
+   "level": "A-level",
+   "spec": [
+    "4.1.7.3"
+   ],
+   "buildsOn": [
+    42
+   ],
+   "introduces": [
+    "progressive tax",
+    "means-tested benefit",
+    "universal benefit",
+    "poverty trap",
+    "unemployment trap"
+   ],
+   "summary": "Taxes, benefits and services, with their costs and moral questions."
   }
  ]
 }

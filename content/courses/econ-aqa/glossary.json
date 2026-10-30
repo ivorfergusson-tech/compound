@@ -4,6 +4,11 @@
   "def": "Profit above normal profit. Also called supernormal profit.",
   "module": "4.1.4.7"
  },
+ "absolute poverty": {
+  "term": "absolute poverty",
+  "def": "Having too little income to afford basic needs, such as food, clothing and shelter.",
+  "module": "4.1.7.2"
+ },
  "allocation of resources": {
   "term": "allocation of resources",
   "def": "How an economy's scarce resources are shared out between the different goods and services it could produce.",
@@ -93,6 +98,11 @@
   "term": "choice architecture",
   "def": "The way choices are presented to people, which influences what they choose.",
   "module": "4.1.2.4"
+ },
+ "collective bargaining": {
+  "term": "collective bargaining",
+  "def": "Negotiation between a union and employers on behalf of a group of workers.",
+  "module": "4.1.6.5"
  },
  "collusion": {
   "term": "collusion",
@@ -249,10 +259,20 @@
   "def": "A person who supplies enterprise: they spot an opportunity, organise the resources and take the risk.",
   "module": "4.1.1.2"
  },
+ "equality": {
+  "term": "equality",
+  "def": "Everyone having the same share.",
+  "module": "4.1.7.1"
+ },
  "equilibrium": {
   "term": "equilibrium",
   "def": "A state of rest. In a market, where quantity demanded equals quantity supplied, so there's no pressure for the price to change.",
   "module": "4.1.3.5"
+ },
+ "equity": {
+  "term": "equity",
+  "def": "Fairness. Whether a distribution is equitable is a value judgement.",
+  "module": "4.1.7.1"
  },
  "excess capacity": {
   "term": "excess capacity",
@@ -294,6 +314,11 @@
   "def": "A good with no opportunity cost, because there's enough for everyone without anyone going short, such as air.",
   "module": "4.1.1.4"
  },
+ "gini coefficient": {
+  "term": "gini coefficient",
+  "def": "A measure of inequality from 0 (perfect equality) to 1 (perfect inequality).",
+  "module": "4.1.7.1"
+ },
  "goods": {
   "term": "goods",
   "def": "Physical products that can be touched, such as food, cars and phones.",
@@ -313,6 +338,11 @@
   "term": "imperfect information",
   "def": "When buyers, sellers or both don't have all the information they need to make a rational decision.",
   "module": "4.1.2.2"
+ },
+ "income": {
+  "term": "income",
+  "def": "A flow of money received over a period, such as wages, rent, interest and benefits.",
+  "module": "4.1.7.1"
  },
  "income elasticity of demand": {
   "term": "income elasticity of demand",
@@ -369,6 +399,11 @@
   "def": "Output per worker or per hour worked.",
   "module": "4.1.4.1"
  },
+ "labour supply": {
+  "term": "labour supply",
+  "def": "The number of workers willing and able to work in an occupation at each wage.",
+  "module": "4.1.6.2"
+ },
  "land": {
   "term": "land",
   "def": "Natural resources used in production, such as the ground, minerals, water, oil and fish. Its reward is rent.",
@@ -384,6 +419,11 @@
   "def": "The period in which all factors of production can be changed.",
   "module": "4.1.3.4"
  },
+ "lorenz curve": {
+  "term": "lorenz curve",
+  "def": "A graph of the cumulative share of income held by the cumulative share of people, from the poorest up.",
+  "module": "4.1.7.1"
+ },
  "mandated choice": {
   "term": "mandated choice",
   "def": "Requiring people to make an active decision, with no default.",
@@ -394,10 +434,20 @@
   "def": "The extra cost of producing one more unit.",
   "module": "4.1.4.4"
  },
+ "marginal cost of labour": {
+  "term": "marginal cost of labour",
+  "def": "The extra cost of hiring one more worker, which is above the wage in a monopsony.",
+  "module": "4.1.6.4"
+ },
  "marginal revenue": {
   "term": "marginal revenue",
   "def": "The extra revenue from selling one more unit.",
   "module": "4.1.4.6"
+ },
+ "marginal revenue product": {
+  "term": "marginal revenue product",
+  "def": "The extra revenue from employing one more worker. MRP = marginal physical product × marginal revenue.",
+  "module": "4.1.6.1"
  },
  "marginal utility": {
   "term": "marginal utility",
@@ -408,6 +458,11 @@
   "term": "market failure",
   "def": "When the price mechanism allocates resources inefficiently, so society's welfare is not as high as it could be.",
   "module": "4.1.2.2"
+ },
+ "means-tested benefit": {
+  "term": "means-tested benefit",
+  "def": "A benefit paid only to people whose income or savings are below a set level.",
+  "module": "4.1.7.3"
  },
  "medium of exchange": {
   "term": "medium of exchange",
@@ -434,10 +489,25 @@
   "def": "The ability of a firm to set prices above the competitive level.",
   "module": "4.1.5.6"
  },
+ "monopsony": {
+  "term": "monopsony",
+  "def": "A market with a single buyer, such as one dominant employer in a labour market.",
+  "module": "4.1.6.4"
+ },
+ "national minimum wage": {
+  "term": "national minimum wage",
+  "def": "The lowest hourly rate that employers can legally pay.",
+  "module": "4.1.6.6"
+ },
  "needs": {
   "term": "needs",
   "def": "Things people must have to survive, such as food, water and shelter.",
   "module": "4.1.1.2"
+ },
+ "non-monetary considerations": {
+  "term": "non-monetary considerations",
+  "def": "Features of a job other than pay, such as job satisfaction and working conditions.",
+  "module": "4.1.6.2"
  },
  "non-price competition": {
   "term": "non-price competition",
@@ -469,6 +539,11 @@
   "def": "A small change to how a choice is presented that steers people without banning options or significantly changing incentives.",
   "module": "4.1.2.4"
  },
+ "occupational crowding": {
+  "term": "occupational crowding",
+  "def": "When a group of workers is pushed into a small range of jobs, which pushes down wages in those jobs.",
+  "module": "4.1.6.7"
+ },
  "oligopoly": {
   "term": "oligopoly",
   "def": "A market dominated by a few large firms.",
@@ -493,6 +568,11 @@
   "term": "positive statement",
   "def": "A statement about what is, was or will be, which can be tested against evidence (even if it turns out to be false).",
   "module": "4.1.1.1"
+ },
+ "poverty trap": {
+  "term": "poverty trap",
+  "def": "When a low-paid worker who earns more keeps little of it, due to higher tax and lost benefits.",
+  "module": "4.1.7.3"
  },
  "price discrimination": {
   "term": "price discrimination",
@@ -569,10 +649,25 @@
   "def": "Producing the output where profit is highest, which is where MC = MR.",
   "module": "4.1.5.2"
  },
+ "progressive tax": {
+  "term": "progressive tax",
+  "def": "A tax that takes a rising share of income as income rises.",
+  "module": "4.1.7.3"
+ },
  "rational decision making": {
   "term": "rational decision making",
   "def": "Weighing up the costs and benefits of each option and choosing the one that best meets your aims.",
   "module": "4.1.2.1"
+ },
+ "relative poverty": {
+  "term": "relative poverty",
+  "def": "Having much less than the typical person in a society, usually below 60% of median income in the UK.",
+  "module": "4.1.7.2"
+ },
+ "relative wages": {
+  "term": "relative wages",
+  "def": "The wages of one job compared with another.",
+  "module": "4.1.6.3"
  },
  "renewable resource": {
   "term": "renewable resource",
@@ -679,10 +774,25 @@
   "def": "The total satisfaction from all the units of a good consumed.",
   "module": "4.1.2.1"
  },
+ "trade union": {
+  "term": "trade union",
+  "def": "An organisation of workers that aims to improve pay and working conditions.",
+  "module": "4.1.6.5"
+ },
  "trade-off": {
   "term": "trade-off",
   "def": "Accepting less of one thing to get more of another.",
   "module": "4.1.1.4"
+ },
+ "unemployment trap": {
+  "term": "unemployment trap",
+  "def": "When benefits are so close to the wage from a job that there's little reason to take it.",
+  "module": "4.1.7.3"
+ },
+ "universal benefit": {
+  "term": "universal benefit",
+  "def": "A benefit paid to everyone in a group, whatever their income.",
+  "module": "4.1.7.3"
  },
  "utility": {
   "term": "utility",
@@ -704,9 +814,19 @@
   "def": "Costs that change with output, such as raw materials.",
   "module": "4.1.4.4"
  },
+ "wage discrimination": {
+  "term": "wage discrimination",
+  "def": "Paying different groups different wages for the same work, where the gap doesn't reflect productivity.",
+  "module": "4.1.6.7"
+ },
  "wants": {
   "term": "wants",
   "def": "Things people would like to have but could live without. Economists treat wants as unlimited.",
   "module": "4.1.1.2"
+ },
+ "wealth": {
+  "term": "wealth",
+  "def": "A stock of assets held at a point in time, such as property, pensions and savings.",
+  "module": "4.1.7.1"
  }
 }

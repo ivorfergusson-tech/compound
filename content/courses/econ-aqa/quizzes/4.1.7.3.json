@@ -1,0 +1,176 @@
+{
+ "module": "4.1.7.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.7.3-prog",
+   "type": "mcq",
+   "topic": "taxes",
+   "q": "A progressive tax is one where:",
+   "options": [
+    "A rising share of income is paid as income rises",
+    "Everyone pays the same amount",
+    "The poor pay a larger share",
+    "Nobody pays below the average"
+   ],
+   "answer": 0,
+   "why": "This narrows the gap between high and low incomes.",
+   "spec": "4.1.7.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.3-benefits",
+   "type": "match",
+   "topic": "benefits",
+   "q": "Match each feature to the type of benefit.",
+   "pairs": [
+    [
+     "Paid only to those on low incomes",
+     "Means-tested"
+    ],
+    [
+     "Paid to everyone in a group",
+     "Universal"
+    ],
+    [
+     "Lower take-up due to stigma or complexity",
+     "Means-tested"
+    ],
+    [
+     "Simple, but also goes to the well off",
+     "Universal"
+    ]
+   ],
+   "why": "The trade-off is between targeting and simplicity.",
+   "spec": "4.1.7.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.3-trap",
+   "type": "mcq",
+   "topic": "poverty trap",
+   "q": "The poverty trap occurs when:",
+   "options": [
+    "Low-paid workers keep little of a pay rise, after tax and lost benefits",
+    "Taxes on the rich rise",
+    "Benefits are universal",
+    "Unemployment rises"
+   ],
+   "answer": 0,
+   "why": "High effective tax rates weaken the reward for earning more.",
+   "spec": "4.1.7.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.3-normative",
+   "type": "tf",
+   "topic": "moral perspectives",
+   "q": "How much income should be redistributed is a normative question.",
+   "answer": true,
+   "why": "It depends on value judgements about fairness.",
+   "spec": "4.1.7.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.7.3-long",
+   "type": "mcq",
+   "topic": "consequences",
+   "q": "Which policy tackles a CAUSE of poverty over the long run?",
+   "options": [
+    "Better education and training",
+    "A one-off cash payment",
+    "A temporary price cap",
+    "A rise in the top rate of tax"
+   ],
+   "answer": 0,
+   "why": "Skills raise people's earning power for life.",
+   "spec": "4.1.7.3",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.7.3-explain",
+   "type": "explain",
+   "topic": "consequences",
+   "q": "Explain one disadvantage of raising benefits to reduce poverty.",
+   "ideas": [
+    {
+     "label": "It weakens the incentive to work, or adds to government spending",
+     "any": [
+      "incentive*",
+      "unemployment trap",
+      "poverty trap",
+      "government spending",
+      "opportunity cost",
+      "higher taxes",
+      "raise taxes",
+      "costly",
+      "expensive",
+      "less reason",
+      "discourag*"
+     ]
+    },
+    {
+     "label": "So labour supply falls, or taxes rise or other spending is cut",
+     "any": [
+      "labour supply",
+      "supply of labour",
+      "less likely to work",
+      "stay on benefits",
+      "not work",
+      "not take a job",
+      "work less",
+      "voluntary unemployment",
+      "unemployment",
+      "taxes",
+      "budget deficit",
+      "borrow*",
+      "spending on",
+      "other services"
+     ]
+    }
+   ],
+   "model": "Higher benefits narrow the gap between work and benefits, which weakens the incentive to work. Labour supply falls, and unemployment could rise.",
+   "why": "Name the side effect, then follow it through.",
+   "tests": [
+    {
+     "answer": "It weakens the incentive to work, so people may stay on benefits.",
+     "marks": 2
+    },
+    {
+     "answer": "It reduces the incentive to work.",
+     "marks": 1
+    },
+    {
+     "answer": "People like benefits.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.7.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -1,0 +1,161 @@
+{
+ "module": "4.1.6.6",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.6-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "A national minimum wage is:",
+   "options": [
+    "The lowest hourly rate that employers can legally pay",
+    "The average wage",
+    "A tax on wages",
+    "A benefit paid to workers"
+   ],
+   "answer": 0,
+   "why": "It's a legal floor on pay.",
+   "spec": "4.1.6.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.6-nlw",
+   "type": "mcq",
+   "topic": "UK rates",
+   "q": "From what age does the UK's National Living Wage apply?",
+   "options": [
+    "16",
+    "18",
+    "21",
+    "25"
+   ],
+   "answer": 2,
+   "why": "Since April 2024 it has applied to workers aged 21 and over.",
+   "spec": "4.1.6.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.6-below",
+   "type": "mcq",
+   "topic": "effects",
+   "q": "A minimum wage is set below the market wage. What is the direct effect?",
+   "options": [
+    "None",
+    "Unemployment rises",
+    "Wages rise",
+    "Wages fall"
+   ],
+   "answer": 0,
+   "why": "Firms already pay more than the floor.",
+   "spec": "4.1.6.6",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.6-mono",
+   "type": "mcq",
+   "topic": "effects",
+   "q": "In a monopsony labour market, a minimum wage set at the competitive wage would:",
+   "options": [
+    "Raise pay and employment",
+    "Raise pay and lower employment",
+    "Lower pay and raise employment",
+    "Have no effect"
+   ],
+   "answer": 0,
+   "why": "The firm can hire more without raising the pay of others.",
+   "spec": "4.1.6.6",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.6.6-target",
+   "type": "tf",
+   "topic": "disadvantages",
+   "q": "A minimum wage helps all of the poorest households directly.",
+   "answer": false,
+   "why": "Many of the poorest have nobody in work.",
+   "spec": "4.1.6.6",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.6-explain",
+   "type": "explain",
+   "topic": "advantages",
+   "q": "Explain one way that a higher minimum wage could benefit firms.",
+   "ideas": [
+    {
+     "label": "Higher pay motivates workers or keeps them longer",
+     "any": [
+      "motivat*",
+      "morale",
+      "staff turnover",
+      "stay longer",
+      "retention",
+      "retain",
+      "quit",
+      "leave less",
+      "work harder",
+      "loyal*",
+      "effort"
+     ]
+    },
+    {
+     "label": "This raises productivity or cuts recruitment and training costs",
+     "any": [
+      "productiv*",
+      "recruitment",
+      "training cost*",
+      "hiring cost*",
+      "lower cost*",
+      "reduce* cost*",
+      "saves money",
+      "save money",
+      "more output",
+      "mrp"
+     ]
+    }
+   ],
+   "model": "Higher pay can motivate workers and keep them longer, which raises productivity and cuts recruitment costs.",
+   "why": "Pay can be an investment in the workforce.",
+   "tests": [
+    {
+     "answer": "Better pay motivates workers, which raises productivity.",
+     "marks": 2
+    },
+    {
+     "answer": "Workers are more motivated.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms pay more.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.6",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

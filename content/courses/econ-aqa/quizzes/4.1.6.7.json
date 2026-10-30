@@ -1,0 +1,165 @@
+{
+ "module": "4.1.6.7",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.7-define",
+   "type": "mcq",
+   "topic": "wage discrimination",
+   "q": "Wage discrimination means:",
+   "options": [
+    "Paying different wages for the same work, not linked to productivity",
+    "Paying more for harder work",
+    "Paying everyone the same",
+    "Paying less to less productive workers"
+   ],
+   "answer": 0,
+   "why": "The gap doesn't reflect a gap in productivity.",
+   "spec": "4.1.6.7",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.7-who",
+   "type": "mcq",
+   "topic": "wage discrimination",
+   "q": "An employer practising wage discrimination will pay less to the group with:",
+   "options": [
+    "Less elastic labour supply",
+    "More elastic labour supply",
+    "Higher productivity",
+    "Higher qualifications"
+   ],
+   "answer": 0,
+   "why": "That group has fewer alternatives, so it won't leave as readily.",
+   "spec": "4.1.6.7",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.6.7-gap",
+   "type": "tf",
+   "topic": "gender pay gap",
+   "q": "The gender pay gap measures only unequal pay for the same job.",
+   "answer": false,
+   "why": "It compares the average pay of all men and all women.",
+   "spec": "4.1.6.7",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.7-crowd",
+   "type": "mcq",
+   "topic": "occupational crowding",
+   "q": "Occupational crowding lowers wages in the crowded jobs because:",
+   "options": [
+    "It raises the supply of labour to those jobs",
+    "It lowers the supply of labour to those jobs",
+    "It raises demand for those workers",
+    "It raises MRP"
+   ],
+   "answer": 0,
+   "why": "More workers competing for a few types of job pushes wages down.",
+   "spec": "4.1.6.7",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.7-cost",
+   "type": "mcq",
+   "topic": "costs",
+   "q": "Which is a cost of discrimination to employers?",
+   "options": [
+    "They miss out on talented workers",
+    "Their wage bills rise",
+    "They face more applicants",
+    "Their workers are more productive"
+   ],
+   "answer": 0,
+   "why": "Hiring on prejudice means not hiring the best person.",
+   "spec": "4.1.6.7",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.7-explain",
+   "type": "explain",
+   "topic": "discrimination",
+   "q": "Explain how discrimination in the labour market could harm the economy as a whole.",
+   "ideas": [
+    {
+     "label": "Workers aren't used in jobs where they'd be most productive",
+     "any": [
+      "misallocat*",
+      "most productive",
+      "wasted talent",
+      "waste of talent",
+      "talent",
+      "not used",
+      "underus*",
+      "under-us*",
+      "skills are wasted",
+      "wastes skills",
+      "lower productivity",
+      "less productive"
+     ]
+    },
+    {
+     "label": "So output is lower, or the economy is inside its PPF",
+     "any": [
+      "lower output",
+      "less output",
+      "output falls",
+      "output is lower",
+      "inside the ppf",
+      "inside its ppf",
+      "lower growth",
+      "less growth",
+      "gdp",
+      "lower tax",
+      "less tax",
+      "produces less",
+      "economy is smaller"
+     ]
+    }
+   ],
+   "model": "Workers are not used in the jobs where they would be most productive, so labour is misallocated. The economy produces less, and it lies inside its PPF.",
+   "why": "Wasted talent means lost output.",
+   "tests": [
+    {
+     "answer": "Talent is wasted because people aren't in the jobs where they are most productive, so output is lower.",
+     "marks": 2
+    },
+    {
+     "answer": "Talent is wasted.",
+     "marks": 1
+    },
+    {
+     "answer": "Some people are upset.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.7",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -1,0 +1,179 @@
+{
+ "module": "4.1.6.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.4-define",
+   "type": "mcq",
+   "topic": "monopsony",
+   "q": "A monopsony labour market has:",
+   "options": [
+    "One dominant buyer of labour",
+    "One seller of labour",
+    "Many employers",
+    "No workers"
+   ],
+   "answer": 0,
+   "why": "It's the buyer's version of a monopoly.",
+   "spec": "4.1.6.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.4-hire",
+   "type": "mcq",
+   "topic": "monopsony diagram",
+   "q": "A profit-maximising monopsonist hires where:",
+   "options": [
+    "MCL = MRP",
+    "Supply = MRP",
+    "MCL = supply",
+    "The wage = MRP"
+   ],
+   "answer": 0,
+   "why": "It compares the true cost of the next worker with what they add.",
+   "spec": "4.1.6.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.4-mcl",
+   "type": "number",
+   "topic": "marginal cost of labour",
+   "q": "A monopsonist pays {n} workers £{w}. To hire one more, it must pay all of them £{x} more. What is the marginal cost of that worker, in £?",
+   "vars": {
+    "n": {
+     "choices": [
+      10,
+      20
+     ],
+     "default": 10
+    },
+    "w": {
+     "choices": [
+      50,
+      60
+     ],
+     "default": 50
+    },
+    "x": {
+     "choices": [
+      1,
+      2
+     ],
+     "default": 2
+    }
+   },
+   "answer": "(n+1)*(w+x)-n*w",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "The new wage bill minus the old wage bill is £{answer}.",
+   "spec": "4.1.6.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.6.4-wage",
+   "type": "tf",
+   "topic": "monopsony diagram",
+   "q": "A monopsonist pays the wage shown by the MCL curve.",
+   "answer": false,
+   "why": "It pays the wage on the supply curve, which is lower.",
+   "spec": "4.1.6.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.4-info",
+   "type": "mcq",
+   "topic": "imperfections",
+   "q": "Which is a cause of imperfection in a labour market?",
+   "options": [
+    "Workers don't know what other jobs pay",
+    "There are many employers",
+    "Workers can move easily",
+    "Wages are set by demand and supply"
+   ],
+   "answer": 0,
+   "why": "Imperfect information stops workers moving to better jobs.",
+   "spec": "4.1.6.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.4-explain",
+   "type": "explain",
+   "topic": "monopsony diagram",
+   "q": "Explain why the marginal cost of labour is above the wage for a monopsonist.",
+   "ideas": [
+    {
+     "label": "To hire one more worker, the firm must raise the wage",
+     "any": [
+      "raise the wage",
+      "raise wage*",
+      "higher wage",
+      "pay more",
+      "offer more",
+      "raises the wage",
+      "upward-sloping",
+      "upward sloping"
+     ]
+    },
+    {
+     "label": "It must pay that higher wage to all its workers",
+     "any": [
+      "all workers",
+      "all its workers",
+      "all of its workers",
+      "everyone",
+      "all existing",
+      "existing workers",
+      "all staff",
+      "whole workforce",
+      "other workers",
+      "all of them",
+      "all employees"
+     ]
+    }
+   ],
+   "model": "To hire one more worker the firm must raise the wage, and it pays that higher wage to all its workers. So the extra cost is the new wage plus the rise for everyone else.",
+   "why": "The extra cost includes the rise for everyone already there.",
+   "tests": [
+    {
+     "answer": "It must raise the wage to attract one more worker, and pay the higher wage to all its workers.",
+     "marks": 2
+    },
+    {
+     "answer": "It must pay more to attract workers.",
+     "marks": 1
+    },
+    {
+     "answer": "Workers are expensive.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

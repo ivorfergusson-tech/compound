@@ -1,0 +1,161 @@
+{
+ "module": "4.1.6.5",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.5-define",
+   "type": "mcq",
+   "topic": "trade unions",
+   "q": "What is collective bargaining?",
+   "options": [
+    "A union negotiating for a group of workers",
+    "Workers negotiating alone",
+    "Firms agreeing prices",
+    "A strike"
+   ],
+   "answer": 0,
+   "why": "Workers negotiate together, which gives them more power.",
+   "spec": "4.1.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.5-power",
+   "type": "mcq",
+   "topic": "union power",
+   "q": "A union is likely to be stronger when:",
+   "options": [
+    "Demand for labour is inelastic",
+    "Unemployment is high",
+    "Workers are easily replaced",
+    "Membership is low"
+   ],
+   "answer": 0,
+   "why": "A pay rise then costs few jobs.",
+   "spec": "4.1.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.5-comp",
+   "type": "mcq",
+   "topic": "union in competitive market",
+   "q": "A union wins a wage above equilibrium in a competitive labour market. What is likely?",
+   "options": [
+    "Higher wages and lower employment",
+    "Higher wages and higher employment",
+    "Lower wages and lower employment",
+    "No change"
+   ],
+   "answer": 0,
+   "why": "Firms move up the MRP curve, and more people want the job.",
+   "spec": "4.1.6.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.5-mono",
+   "type": "tf",
+   "topic": "union in monopsony",
+   "q": "A union in a monopsony must always cut employment.",
+   "answer": false,
+   "why": "Up to the competitive wage, it can raise employment as well as pay.",
+   "spec": "4.1.6.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.5-mcl",
+   "type": "mcq",
+   "topic": "union in monopsony",
+   "q": "Why can a union raise employment in a monopsony?",
+   "options": [
+    "The firm no longer has to raise everyone's pay to hire one more worker",
+    "It lowers the wage",
+    "It lowers MRP",
+    "It reduces labour supply"
+   ],
+   "answer": 0,
+   "why": "MCL is flat at the agreed wage, up to the supply curve.",
+   "spec": "4.1.6.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.6.5-explain",
+   "type": "explain",
+   "topic": "union in competitive market",
+   "q": "Explain how a trade union can cause unemployment in a competitive labour market.",
+   "ideas": [
+    {
+     "label": "The union pushes the wage above equilibrium",
+     "any": [
+      "above equilibrium",
+      "above the equilibrium",
+      "above the market",
+      "higher wage",
+      "raise* wage*",
+      "raises the wage",
+      "wage floor",
+      "wages rise",
+      "wage rises"
+     ]
+    },
+    {
+     "label": "Firms demand fewer workers, and more want to work, so there's excess supply",
+     "any": [
+      "excess supply",
+      "fewer workers",
+      "hire fewer",
+      "demand less",
+      "less labour",
+      "more workers want",
+      "more people want",
+      "employ fewer",
+      "lower employment",
+      "fewer jobs",
+      "job losses",
+      "demand for labour falls"
+     ]
+    }
+   ],
+   "model": "The union pushes the wage above equilibrium. Firms demand fewer workers and more people want the job, so there is excess supply of labour.",
+   "why": "A wage floor above equilibrium creates a gap.",
+   "tests": [
+    {
+     "answer": "It pushes the wage above equilibrium, so firms hire fewer workers and there is excess supply.",
+     "marks": 2
+    },
+    {
+     "answer": "It raises wages.",
+     "marks": 1
+    },
+    {
+     "answer": "Workers go on holiday.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

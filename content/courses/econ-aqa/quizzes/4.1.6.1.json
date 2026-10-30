@@ -1,0 +1,174 @@
+{
+ "module": "4.1.6.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.1-mrp",
+   "type": "number",
+   "topic": "marginal revenue product",
+   "q": "An extra worker makes {m} more units a day, and each sells for £{p}. What is the worker's MRP, in £?",
+   "vars": {
+    "m": {
+     "choices": [
+      10,
+      15,
+      20
+     ],
+     "default": 15
+    },
+    "p": {
+     "choices": [
+      4,
+      6,
+      8
+     ],
+     "default": 6
+    }
+   },
+   "answer": "m*p",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "{m} × £{p} = £{answer}.",
+   "spec": "4.1.6.1",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.1-derived",
+   "type": "mcq",
+   "topic": "derived demand",
+   "q": "The demand for labour is derived because:",
+   "options": [
+    "It depends on the demand for the product that workers make",
+    "It's set by the government",
+    "Workers choose how much to supply",
+    "It never changes"
+   ],
+   "answer": 0,
+   "why": "Firms want workers for the output they produce.",
+   "spec": "4.1.6.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.1-hire",
+   "type": "mcq",
+   "topic": "marginal productivity theory",
+   "q": "A firm pays £80 a day. The MRP of the next worker is £95. A profit maximiser will:",
+   "options": [
+    "Hire the worker",
+    "Not hire the worker",
+    "Cut the wage",
+    "Close"
+   ],
+   "answer": 0,
+   "why": "The worker adds £15 more to revenue than to costs.",
+   "spec": "4.1.6.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.1-shift",
+   "type": "mcq",
+   "topic": "shifts",
+   "q": "Which would shift the demand curve for labour to the LEFT?",
+   "options": [
+    "A rise in labour productivity",
+    "A fall in demand for the product",
+    "A rise in the product's price",
+    "A rise in the price of capital that replaces labour"
+   ],
+   "answer": 1,
+   "why": "Derived demand falls when demand for the product falls.",
+   "spec": "4.1.6.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.1-elastic",
+   "type": "tf",
+   "topic": "elasticity",
+   "q": "Demand for labour is more elastic when machines can easily replace workers.",
+   "answer": true,
+   "why": "A wage rise then leads firms to switch away from labour.",
+   "spec": "4.1.6.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.1-slopes",
+   "type": "explain",
+   "topic": "demand curve for labour",
+   "q": "Explain why a firm hires fewer workers at a higher wage.",
+   "ideas": [
+    {
+     "label": "MRP falls as more workers are hired, because of diminishing returns",
+     "any": [
+      "diminishing",
+      "mrp falls",
+      "mrp decreases",
+      "marginal revenue product falls",
+      "falling mrp",
+      "each extra worker adds less",
+      "add less",
+      "adds less"
+     ]
+    },
+    {
+     "label": "The firm hires only while MRP is at least the wage",
+     "any": [
+      "mrp = wage",
+      "mrp equals",
+      "equal to the wage",
+      "above the wage",
+      "exceeds the wage",
+      "greater than the wage",
+      "wage equals mrp",
+      "at least the wage",
+      "worth hiring",
+      "cost more than",
+      "costs more than"
+     ]
+    }
+   ],
+   "model": "Because of diminishing returns, MRP falls as more workers are hired. The firm hires only while MRP is at least equal to the wage, so a higher wage means fewer workers are worth hiring.",
+   "why": "Compare what the next worker adds with what they cost.",
+   "tests": [
+    {
+     "answer": "Diminishing returns mean MRP falls, and the firm only hires while MRP is at least the wage.",
+     "marks": 2
+    },
+    {
+     "answer": "Because of diminishing returns.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms dislike paying wages.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -518,6 +518,14 @@ for (const q of [20, 25, 30, 35, 40]) check(`surplus: welfare adds up at ${q}`, 
 check('discrimination: the less elastic market pays more', discrim(20).pA === 60 && discrim(20).pB === 35 && discrim(20).qA === 40 && discrim(20).qB === 30);
 check('discrimination: earns more than one price', Math.abs(discrim(20).profit - 2050) < 1e-9 && Math.abs(discrim(20).singleProfit - 4900 / 3) < 1e-9);
 for (const c of [10, 15, 20, 25, 30]) check(`discrimination: never earns less, MC ${c}`, discrim(c).profit > discrim(c).singleProfit);
+check('labour: equilibrium is £65 and 45', labourFloor(65).employed === 45 && labourFloor(65).unemployed === 0);
+check('labour: a floor above equilibrium causes unemployment', labourFloor(75).employed === 35 && labourFloor(75).willing === 55 && labourFloor(75).unemployed === 20);
+check('monopsony: MCL = MRP gives 30 workers at £50', monopsony().wage === 50 && monopsony().employed === 30 && 20 + 2 * 30 === 110 - 30);
+check('monopsony: a floor up to £65 raises pay and jobs', monopsony(60).employed === 40 && monopsony(65).employed === 45);
+check('monopsony: a floor above £65 cuts jobs again', monopsony(70).employed === 40 && monopsony(80).employed === 30);
+check('lorenz: the curve runs from 0 to 1 below equality', lorenzShare(0, 0.3) === 0 && lorenzShare(1, 0.3) === 1 && lorenzShare(0.5, 0.3) < 0.5);
+check('lorenz: a higher Gini leaves the poorest with less', lorenzShare(0.5, 0.6) < lorenzShare(0.5, 0.3));
+check('lorenz: the area matches the Gini', (() => { let t = 0; for (let i = 0; i < 20000; i++) t += lorenzShare((i + 0.5) / 20000, 0.4) / 20000; return Math.abs(1 - 2 * t - 0.4) < 1e-4; })());
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

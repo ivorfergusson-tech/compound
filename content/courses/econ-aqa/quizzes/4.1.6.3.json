@@ -1,0 +1,164 @@
+{
+ "module": "4.1.6.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.6.3-set",
+   "type": "mcq",
+   "topic": "wage determination",
+   "q": "In a perfectly competitive labour market, the wage is set by:",
+   "options": [
+    "Demand for and supply of labour",
+    "The largest employer",
+    "A trade union",
+    "The government"
+   ],
+   "answer": 0,
+   "why": "Each firm is a wage taker.",
+   "spec": "4.1.6.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.3-taker",
+   "type": "mcq",
+   "topic": "wage determination",
+   "q": "A firm in a perfectly competitive labour market hires workers until:",
+   "options": [
+    "MRP = wage",
+    "MC = MR",
+    "The wage is zero",
+    "AC is lowest"
+   ],
+   "answer": 0,
+   "why": "Beyond this, the next worker costs more than they add.",
+   "spec": "4.1.6.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.3-real",
+   "type": "tf",
+   "topic": "real labour markets",
+   "q": "All real-world labour markets are imperfectly competitive to some extent.",
+   "answer": true,
+   "why": "The model is a yardstick, not a description.",
+   "spec": "4.1.6.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.6.3-shift",
+   "type": "mcq",
+   "topic": "relative wages",
+   "q": "Fewer people train as plumbers, and demand is unchanged. What is the likely effect?",
+   "options": [
+    "Higher wages for plumbers",
+    "Lower wages for plumbers",
+    "More plumbers employed",
+    "No change"
+   ],
+   "answer": 0,
+   "why": "Supply shifts left, which raises the wage and lowers employment.",
+   "spec": "4.1.6.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.3-reasons",
+   "type": "match",
+   "topic": "relative wages",
+   "q": "Match each fact to how it affects pay in the job.",
+   "pairs": [
+    [
+     "The job needs rare skills",
+     "Raises the wage"
+    ],
+    [
+     "Workers bring in a lot of revenue",
+     "Raises the wage"
+    ],
+    [
+     "Many people could do the job",
+     "Lowers the wage"
+    ]
+   ],
+   "why": "Think about which curve moves.",
+   "spec": "4.1.6.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.6.3-explain",
+   "type": "explain",
+   "topic": "relative wages",
+   "q": "Explain why a top lawyer may earn more than a shop assistant in a competitive labour market.",
+   "ideas": [
+    {
+     "label": "The lawyer brings in more revenue, so demand or MRP is higher",
+     "any": [
+      "mrp",
+      "marginal revenue product",
+      "more revenue",
+      "high revenue",
+      "higher demand",
+      "high demand",
+      "more productive",
+      "productivity"
+     ]
+    },
+    {
+     "label": "Few people have the skills, so supply is low, while many can do shop work",
+     "any": [
+      "supply",
+      "few people",
+      "fewer people",
+      "rare",
+      "skills",
+      "training",
+      "qualification*",
+      "many people",
+      "more people"
+     ]
+    }
+   ],
+   "model": "A top lawyer brings in a lot of revenue, so their MRP is high. Few people have the skills, so supply is low, whereas many people can work in a shop.",
+   "why": "High MRP plus scarce supply gives high pay.",
+   "tests": [
+    {
+     "answer": "A lawyer has a high MRP, and supply is low as few people have the skills.",
+     "marks": 2
+    },
+    {
+     "answer": "A lawyer has a high MRP.",
+     "marks": 1
+    },
+    {
+     "answer": "Lawyers work hard.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.6.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}
