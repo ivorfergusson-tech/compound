@@ -19,7 +19,11 @@
   "4.1.1.1",
   "4.1.1.2",
   "4.1.1.4",
-  "4.1.1.5"
+  "4.1.1.5",
+  "4.1.2.1",
+  "4.1.2.2",
+  "4.1.2.3",
+  "4.1.2.4"
  ],
  "strands": {
   "4.1.1": {
@@ -180,7 +184,13 @@
     "diminishing marginal utility",
     "utility maximisation"
    ],
-   "summary": "Rational choice, utility and why decisions are made at the margin."
+   "summary": "Rational choice, utility and why decisions are made at the margin.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.2.2",
@@ -201,7 +211,13 @@
     "asymmetric information",
     "market failure"
    ],
-   "summary": "Why information matters, and what happens when one side knows more."
+   "summary": "Why information matters, and what happens when one side knows more.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.2.3",
@@ -228,7 +244,13 @@
     "altruism",
     "perceptions of fairness"
    ],
-   "summary": "Why real people aren't always rational: limits, biases, altruism and fairness."
+   "summary": "Why real people aren't always rational: limits, biases, altruism and fairness.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.2.4",
@@ -252,7 +274,13 @@
     "restricted choice",
     "mandated choice"
    ],
-   "summary": "How choice architecture, nudges and defaults are used to steer decisions."
+   "summary": "How choice architecture, nudges and defaults are used to steer decisions.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   }
  ]
 }
