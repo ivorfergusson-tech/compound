@@ -232,6 +232,16 @@ with sync_playwright() as p:
     check("a positive externality gives under-production", box.locator('[data-v="q"]').inner_text() == "50" and "under-produces" in box.locator("[data-desc]").inner_text())
     box.screenshot(path=str(SHOTS / "econ-ext-pos.png"))
     axe(page, "the externalities lesson")
+    # Taxing an externality
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.8.9a")
+    page.wait_for_selector("[data-in='t']")
+    box = page.locator(".calc", has_text="Taxing a negative externality")
+    box.locator('[data-in="t"]').fill("20")
+    check("a tax equal to the external cost removes the loss", box.locator('[data-v="loss"]').inner_text() == "£0" and "internalised" in box.locator("[data-desc]").inner_text())
+    box.locator('[data-in="t"]').fill("40")
+    check("too big a tax overshoots", "government failure" in box.locator("[data-desc]").inner_text())
+    box.locator(".chart").screenshot(path=str(SHOTS / "econ-tax.png"))
+    axe(page, "the intervention lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

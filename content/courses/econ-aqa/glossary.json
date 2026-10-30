@@ -109,6 +109,16 @@
   "def": "Firms working together to limit competition, such as by fixing prices.",
   "module": "4.1.5.5a"
  },
+ "competition and markets authority": {
+  "term": "competition and markets authority",
+  "def": "The main UK body that enforces competition law. Known as the CMA.",
+  "module": "4.1.8.7"
+ },
+ "competition policy": {
+  "term": "competition policy",
+  "def": "Government action to promote competition and protect consumers from market power.",
+  "module": "4.1.8.7"
+ },
  "competitive demand": {
   "term": "competitive demand",
   "def": "When goods compete for the same buyers, as substitutes do.",
@@ -183,6 +193,11 @@
   "term": "demerit good",
   "def": "A good that society believes people should consume less of than they would in a free market.",
   "module": "4.1.8.5"
+ },
+ "deregulation": {
+  "term": "deregulation",
+  "def": "Removing rules, to open up markets to competition.",
+  "module": "4.1.8.8"
  },
  "derived demand": {
   "term": "derived demand",
@@ -304,6 +319,11 @@
   "def": "A cost or benefit to a third party, not reflected in the market price.",
   "module": "4.1.8.4"
  },
+ "factor immobility": {
+  "term": "factor immobility",
+  "def": "When factors of production can't easily move between jobs, uses or places.",
+  "module": "4.1.8.6"
+ },
  "factors of production": {
   "term": "factors of production",
   "def": "The four kinds of resources used to produce goods and services: land, labour, capital and enterprise.",
@@ -338,6 +358,11 @@
   "term": "goods",
   "def": "Physical products that can be touched, such as food, cars and phones.",
   "module": "4.1.1.2"
+ },
+ "government failure": {
+  "term": "government failure",
+  "def": "When government intervention leads to a misallocation of resources.",
+  "module": "4.1.8.10"
  },
  "hit-and-run competition": {
   "term": "hit-and-run competition",
@@ -474,6 +499,11 @@
   "def": "When the price mechanism allocates resources inefficiently, so society's welfare is not as high as it could be.",
   "module": "4.1.2.2"
  },
+ "maximum price": {
+  "term": "maximum price",
+  "def": "A legal ceiling on a price, set below equilibrium to have an effect.",
+  "module": "4.1.8.9a"
+ },
  "means-tested benefit": {
   "term": "means-tested benefit",
   "def": "A benefit paid only to people whose income or savings are below a set level.",
@@ -494,10 +524,20 @@
   "def": "The lowest output at which long-run average cost is at its lowest.",
   "module": "4.1.4.5"
  },
+ "minimum price": {
+  "term": "minimum price",
+  "def": "A legal floor on a price, set above equilibrium to have an effect.",
+  "module": "4.1.8.9a"
+ },
  "missing market": {
   "term": "missing market",
   "def": "When no market forms for a good, though people would benefit from it. This is complete market failure.",
   "module": "4.1.8.2"
+ },
+ "mixed economy": {
+  "term": "mixed economy",
+  "def": "An economy where both markets and the state allocate resources.",
+  "module": "4.1.8.9a"
  },
  "monopolistic competition": {
   "term": "monopolistic competition",
@@ -589,6 +629,11 @@
   "def": "A market model with very many firms, identical products, free entry and exit, and perfect knowledge.",
   "module": "4.1.5.1"
  },
+ "pollution permit": {
+  "term": "pollution permit",
+  "def": "A tradable right to emit a set amount of pollution, within a cap on the total.",
+  "module": "4.1.8.9b"
+ },
  "positive statement": {
   "term": "positive statement",
   "def": "A statement about what is, was or will be, which can be tested against evidence (even if it turns out to be false).",
@@ -638,6 +683,11 @@
   "term": "price war",
   "def": "When firms repeatedly undercut each other's prices to win market share.",
   "module": "4.1.5.5b"
+ },
+ "privatisation": {
+  "term": "privatisation",
+  "def": "The transfer of state-owned assets to the private sector.",
+  "module": "4.1.8.8"
  },
  "producer surplus": {
   "term": "producer surplus",
@@ -694,6 +744,11 @@
   "def": "A good that is non-rival and non-excludable.",
   "module": "4.1.8.3"
  },
+ "public ownership": {
+  "term": "public ownership",
+  "def": "When the state owns a firm or industry.",
+  "module": "4.1.8.8"
+ },
  "quasi-public good": {
   "term": "quasi-public good",
   "def": "A good with some, but not all, of the features of a public good, such as a road.",
@@ -703,6 +758,16 @@
   "term": "rational decision making",
   "def": "Weighing up the costs and benefits of each option and choosing the one that best meets your aims.",
   "module": "4.1.2.1"
+ },
+ "regulation": {
+  "term": "regulation",
+  "def": "Rules that control how firms and people behave.",
+  "module": "4.1.8.8"
+ },
+ "regulatory capture": {
+  "term": "regulatory capture",
+  "def": "When a regulator ends up serving the firms it regulates, not the public.",
+  "module": "4.1.8.8"
  },
  "relative poverty": {
   "term": "relative poverty",

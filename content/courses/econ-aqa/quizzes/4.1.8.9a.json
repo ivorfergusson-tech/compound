@@ -1,0 +1,180 @@
+{
+ "module": "4.1.8.9a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.9-tax",
+   "type": "number",
+   "topic": "indirect taxes",
+   "q": "A tax of £{t} per unit is set, and {q} units are sold. How much tax revenue is raised, in £?",
+   "vars": {
+    "t": {
+     "choices": [
+      2,
+      5,
+      10
+     ],
+     "default": 5
+    },
+    "q": {
+     "choices": [
+      1000,
+      2000
+     ],
+     "default": 1000
+    }
+   },
+   "answer": "t*q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "£{t} × {q} = £{answer}.",
+   "spec": "4.1.8.9",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-intern",
+   "type": "mcq",
+   "topic": "indirect taxes",
+   "q": "What does \"internalising an externality\" mean?",
+   "options": [
+    "Making those who cause it pay for it",
+    "Moving the firm overseas",
+    "Ignoring the external cost",
+    "Banning the good"
+   ],
+   "answer": 0,
+   "why": "The external cost becomes part of the firm's private cost.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-regressive",
+   "type": "mcq",
+   "topic": "indirect taxes",
+   "q": "Why can a tax on a good be regressive?",
+   "options": [
+    "Poorer people spend a larger share of their income on it",
+    "Rich people pay more of it",
+    "It lowers the price",
+    "It raises no revenue"
+   ],
+   "answer": 0,
+   "why": "The same tax takes a bigger share of a small income.",
+   "spec": "4.1.8.9",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-min",
+   "type": "mcq",
+   "topic": "price controls",
+   "q": "A minimum price set above equilibrium is likely to cause:",
+   "options": [
+    "Excess supply",
+    "Excess demand",
+    "A fall in the market price",
+    "No change"
+   ],
+   "answer": 0,
+   "why": "At the higher price, more is supplied and less is demanded.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-minrev",
+   "type": "tf",
+   "topic": "price controls",
+   "q": "Unlike an indirect tax, a minimum price raises no revenue for the government.",
+   "answer": true,
+   "why": "The extra money goes to sellers.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-explain",
+   "type": "explain",
+   "topic": "subsidies",
+   "q": "Explain how a subsidy could correct the under-consumption of a good with external benefits.",
+   "ideas": [
+    {
+     "label": "The subsidy lowers firms' costs or the price",
+     "any": [
+      "lowers the price",
+      "lower the price",
+      "lowers the cost*",
+      "lower the cost*",
+      "lower* cost*",
+      "lower* price*",
+      "reduce* cost*",
+      "reduce* the cost*",
+      "reduce* price*",
+      "reduce* the price*",
+      "price falls",
+      "costs fall",
+      "cheaper",
+      "supply shift*",
+      "supply rises",
+      "supply increases"
+     ]
+    },
+    {
+     "label": "So consumption rises towards the social optimum",
+     "any": [
+      "social optimum",
+      "socially optimal",
+      "msb",
+      "consumption rises",
+      "more consumption",
+      "consume more",
+      "buy more",
+      "raise* consumption",
+      "increase* consumption",
+      "demand more"
+     ]
+    }
+   ],
+   "model": "A subsidy lowers the costs of firms, so the price falls. People consume more, which moves the market towards the social optimum.",
+   "why": "It works just like a tax in reverse.",
+   "tests": [
+    {
+     "answer": "It lowers the price so people consume more, moving towards the social optimum.",
+     "marks": 2
+    },
+    {
+     "answer": "It lowers the price.",
+     "marks": 1
+    },
+    {
+     "answer": "The government likes it.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.9",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

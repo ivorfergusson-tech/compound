@@ -70,6 +70,11 @@
    "name": "How markets work and why they fail",
    "emoji": "🏭",
    "blurb": "How prices coordinate an economy, and why markets sometimes get it wrong."
+  },
+  "4.1.8b": {
+   "name": "Market imperfections and government action",
+   "emoji": "🏛️",
+   "blurb": "What governments can do about market failure, and how their fixes can go wrong."
   }
  },
  "items": [
@@ -1156,6 +1161,127 @@
     "demerit good"
    ],
    "summary": "Goods consumed too little or too much, and the judgement behind the labels."
+  },
+  {
+   "id": "4.1.8.6",
+   "kind": "module",
+   "num": 49,
+   "strand": "4.1.8b",
+   "title": "Market imperfections",
+   "short": "Market imperfections",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.6"
+   ],
+   "buildsOn": [
+    48
+   ],
+   "introduces": [
+    "factor immobility"
+   ],
+   "summary": "Poor information, monopoly power and resources that can't move."
+  },
+  {
+   "id": "4.1.8.7",
+   "kind": "module",
+   "num": 50,
+   "strand": "4.1.8b",
+   "title": "Competition policy",
+   "short": "Competition policy",
+   "level": "A-level",
+   "spec": [
+    "4.1.8.7"
+   ],
+   "buildsOn": [
+    49
+   ],
+   "introduces": [
+    "competition policy",
+    "competition and markets authority"
+   ],
+   "summary": "How the UK and EU promote competition, with the costs and benefits."
+  },
+  {
+   "id": "4.1.8.8",
+   "kind": "module",
+   "num": 51,
+   "strand": "4.1.8b",
+   "title": "Public ownership, privatisation, regulation and deregulation of markets",
+   "short": "Ownership and regulation",
+   "level": "A-level",
+   "spec": [
+    "4.1.8.8"
+   ],
+   "buildsOn": [
+    50
+   ],
+   "introduces": [
+    "public ownership",
+    "privatisation",
+    "regulation",
+    "deregulation",
+    "regulatory capture"
+   ],
+   "summary": "Public ownership, privatisation, regulation and the risk of capture."
+  },
+  {
+   "id": "4.1.8.9a",
+   "kind": "module",
+   "num": 52,
+   "strand": "4.1.8b",
+   "title": "Why governments intervene: indirect taxes, subsidies and price controls",
+   "short": "Taxes, subsidies and price controls",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.9"
+   ],
+   "buildsOn": [
+    51
+   ],
+   "introduces": [
+    "mixed economy",
+    "maximum price",
+    "minimum price"
+   ],
+   "summary": "Why governments intervene, and how they change prices."
+  },
+  {
+   "id": "4.1.8.9b",
+   "kind": "module",
+   "num": 53,
+   "strand": "4.1.8b",
+   "title": "State provision, regulation, property rights and pollution permits",
+   "short": "Provision, rules, rights and permits",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.9"
+   ],
+   "buildsOn": [
+    52
+   ],
+   "introduces": [
+    "pollution permit"
+   ],
+   "summary": "Other tools, and how to choose between them."
+  },
+  {
+   "id": "4.1.8.10",
+   "kind": "module",
+   "num": 54,
+   "strand": "4.1.8b",
+   "title": "Government failure",
+   "short": "Government failure",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.10"
+   ],
+   "buildsOn": [
+    53
+   ],
+   "introduces": [
+    "government failure"
+   ],
+   "summary": "When intervention makes the allocation of resources worse."
   }
  ]
 }

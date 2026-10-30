@@ -115,6 +115,11 @@ export function externality(kind, e) {
   const k = EXTERNAL[kind], c = k.c * e, b = k.b * e, q = 40 + (b - c) / 2;
   return { c, b, q, p: 20 + c + q, marketQ: 40, loss: e * e / 4 };
 }
+// A tax on a negative production externality of £20: the optimum is 30 units, so a £20 tax corrects it and a bigger one overshoots.
+export function pigouTax(tax) {
+  const q = 40 - tax / 2;
+  return { q, price: 60 + tax / 2, revenue: tax * q, loss: (q - 30) ** 2 };
+}
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -390,6 +395,25 @@ export const econCharts = {
       root.querySelector('[data-desc]').textContent = none
         ? 'With no external effect, private and social curves are the same, so the market makes the socially best output.'
         : `The market makes 40 units, where MPB = MPC, but the social optimum is ${r.q}, where MSB = MSC. So the market ${over ? 'over-produces' : 'under-produces'} by ${Math.abs(40 - r.q)} units, and the shaded triangle is a welfare loss of ${money(r.loss)}.`;
+    });
+  },
+  pigou(root, a) {
+    const specs = { t: { min: 0, max: 40, step: 5, value: a.t ?? 0, fmt: v => `£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Taxing a negative externality</h3>${slider('t', 'Tax per unit', specs.t)}`
+      + `<div class="stats">${stat('Output', 'q')}${stat('Tax revenue', 'rev', 'good')}${stat('Welfare loss left', 'loss', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ t }, set) => {
+      const r = pigouTax(t);
+      set('q', r.q); set('rev', money(r.revenue)); set('loss', money(r.loss));
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Cost and benefit diagram with a £20 external cost and a tax of £${t} per unit. Output is ${r.q}, and the social optimum is 30.">${axes('Quantity', 'Cost and benefit')}`
+        + seg(0, 100, 100, 0, 'ch-line ch-a') + seg(0, 20, 110, 130, 'ch-line ch-b') + seg(0, 40, 90, 130, 'ch-line ch-b ch-dash')
+        + (t ? seg(0, 20 + t, 110 - t, 130, 'ch-line ch-c') : '')
+        + `<circle cx="${mx(r.q)}" cy="${my(r.price)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'MPB'], ['ch-b', 'MPC'], ['ch-b dash', 'MSC'], ['ch-c', 'MPC + tax']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = t === 20
+        ? 'The tax equals the £20 external cost, so firms pay the full social cost and output falls to the social optimum of 30. The externality is internalised.'
+        : t < 20 ? `A tax of £${t} is below the £20 external cost, so output of ${r.q} is still above the optimum of 30.`
+          : `A tax of £${t} is above the £20 external cost, so output of ${r.q} is below the optimum. Too big a tax is government failure.`;
     });
   },
   costs(root, a) {

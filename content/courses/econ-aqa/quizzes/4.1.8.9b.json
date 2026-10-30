@@ -1,0 +1,167 @@
+{
+ "module": "4.1.8.9b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.9-provide",
+   "type": "mcq",
+   "topic": "state provision",
+   "q": "Which market failure is state provision best suited to?",
+   "options": [
+    "Public goods",
+    "Perfect competition",
+    "Excess supply",
+    "Falling prices"
+   ],
+   "answer": 0,
+   "why": "The market would not supply public goods at all.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-permit",
+   "type": "mcq",
+   "topic": "pollution permits",
+   "q": "In a pollution permit scheme, a firm that cuts its emissions cheaply can:",
+   "options": [
+    "Sell its spare permits",
+    "Pollute without limit",
+    "Stop paying tax",
+    "Raise the cap"
+   ],
+   "answer": 0,
+   "why": "This gives a reward for every cut made.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-cap",
+   "type": "mcq",
+   "topic": "pollution permits",
+   "q": "What sets the total amount of pollution under a permit scheme?",
+   "options": [
+    "The cap set by the government",
+    "The price of permits",
+    "Each firm",
+    "Consumers"
+   ],
+   "answer": 0,
+   "why": "Trading only decides who does the cutting.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-rights",
+   "type": "tf",
+   "topic": "property rights",
+   "q": "Extending property rights can make an external cost into a private one.",
+   "answer": true,
+   "why": "An owner can charge for the use of the resource, or sue.",
+   "spec": "4.1.8.9",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-tools",
+   "type": "match",
+   "topic": "choosing a tool",
+   "q": "Match each market failure to a suitable tool.",
+   "pairs": [
+    [
+     "Street lighting isn't supplied",
+     "State provision"
+    ],
+    [
+     "A factory pollutes the air",
+     "Pollution permits"
+    ],
+    [
+     "Too few people get vaccinated",
+     "Subsidy"
+    ],
+    [
+     "A dominant firm exploits consumers",
+     "Competition policy"
+    ]
+   ],
+   "why": "A good tool targets the cause.",
+   "spec": "4.1.8.9",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.9-eval",
+   "type": "explain",
+   "topic": "evaluating intervention",
+   "q": "Explain one advantage of a tax over a ban as a way to reduce pollution.",
+   "ideas": [
+    {
+     "label": "A tax keeps an incentive to cut pollution further, or lets firms choose",
+     "any": [
+      "incentive",
+      "reason to",
+      "choose",
+      "choice",
+      "flexib*",
+      "cleaner",
+      "cut further",
+      "every unit"
+     ]
+    },
+    {
+     "label": "It also raises revenue, or avoids black markets, or uses the market",
+     "any": [
+      "revenue",
+      "black market*",
+      "price mechanism",
+      "the market",
+      "lowest cost",
+      "lower cost",
+      "spend on",
+      "cost to"
+     ]
+    }
+   ],
+   "model": "A tax gives firms an incentive to keep cutting pollution and lets them choose how. It also raises revenue, which a ban does not.",
+   "why": "A tax keeps the market working, and pays for itself.",
+   "tests": [
+    {
+     "answer": "A tax gives firms an incentive to find cleaner methods, and it raises revenue.",
+     "marks": 2
+    },
+    {
+     "answer": "It raises revenue.",
+     "marks": 1
+    },
+    {
+     "answer": "Bans are unpopular.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.9",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

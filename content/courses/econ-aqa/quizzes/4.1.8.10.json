@@ -1,0 +1,171 @@
+{
+ "module": "4.1.8.10",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.10-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "Government failure occurs when:",
+   "options": [
+    "Intervention leads to a misallocation of resources",
+    "A government loses an election",
+    "A market fails",
+    "Tax revenue falls"
+   ],
+   "answer": 0,
+   "why": "The test is what happens to resource allocation.",
+   "spec": "4.1.8.10",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.10-sources",
+   "type": "match",
+   "topic": "sources",
+   "q": "Match each example to its source of government failure.",
+   "pairs": [
+    [
+     "Officials can't measure the external cost",
+     "Inadequate information"
+    ],
+    [
+     "Policy aims clash with each other",
+     "Conflicting objectives"
+    ],
+    [
+     "Policy costs a lot to run",
+     "Administrative costs"
+    ],
+    [
+     "A ban creates a black market",
+     "Unintended consequences"
+    ]
+   ],
+   "why": "Each one is a different way that good aims go wrong.",
+   "spec": "4.1.8.10",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.10-distort",
+   "type": "mcq",
+   "topic": "market distortions",
+   "q": "How can a maximum price distort a market?",
+   "options": [
+    "It stops the price from signalling a shortage",
+    "It removes all demand",
+    "It raises the market price",
+    "It adds to supply"
+   ],
+   "answer": 0,
+   "why": "With no price signal, firms have no reason to supply more.",
+   "spec": "4.1.8.10",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.10-always",
+   "type": "tf",
+   "topic": "weighing failures",
+   "q": "Market failure proves that the government should intervene.",
+   "answer": false,
+   "why": "Intervention could leave welfare lower, so the two must be compared.",
+   "spec": "4.1.8.10",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.10-tax",
+   "type": "mcq",
+   "topic": "inadequate information",
+   "q": "A pollution tax is set well above the true external cost. What is the likely result?",
+   "options": [
+    "Output falls below the social optimum",
+    "Output stays above the optimum",
+    "The market reaches the optimum",
+    "Pollution rises"
+   ],
+   "answer": 0,
+   "why": "Too big a tax over-corrects.",
+   "spec": "4.1.8.10",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.10-explain",
+   "type": "explain",
+   "topic": "unintended consequences",
+   "q": "Explain how a large tax on cigarettes could lead to government failure.",
+   "ideas": [
+    {
+     "label": "It could lead to smuggling or a black market",
+     "any": [
+      "smuggl*",
+      "black market*",
+      "illegal",
+      "buying abroad",
+      "buy abroad",
+      "cross-border",
+      "unintended"
+     ]
+    },
+    {
+     "label": "So consumption doesn't fall as planned, or revenue is lost, or the poor are hit",
+     "any": [
+      "revenue",
+      "not fall",
+      "doesn't fall",
+      "does not fall",
+      "still smoke",
+      "keep smoking",
+      "misallocat*",
+      "unregulated",
+      "regressive",
+      "less safe",
+      "more harmful",
+      "enforcement",
+      "poorer"
+     ]
+    }
+   ],
+   "model": "A large tax could lead to smuggling and a black market. People keep smoking unregulated products and the government loses revenue, so resources are misallocated.",
+   "why": "People respond to a tax in ways that weren't planned.",
+   "tests": [
+    {
+     "answer": "It could lead to smuggling, so people keep smoking and the government loses revenue.",
+     "marks": 2
+    },
+    {
+     "answer": "People might smuggle cigarettes.",
+     "marks": 1
+    },
+    {
+     "answer": "Cigarettes are bad.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.10",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

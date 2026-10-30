@@ -1,0 +1,160 @@
+{
+ "module": "4.1.8.6",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.6-asym",
+   "type": "mcq",
+   "topic": "asymmetric information",
+   "q": "Asymmetric information means:",
+   "options": [
+    "One party to a deal knows more than the other",
+    "Nobody has any information",
+    "Prices are the same everywhere",
+    "Everyone knows everything"
+   ],
+   "answer": 0,
+   "why": "It's a form of imperfect information.",
+   "spec": "4.1.8.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.6-immobile",
+   "type": "match",
+   "topic": "factor immobility",
+   "q": "Match each case to the type of immobility.",
+   "pairs": [
+    [
+     "A miner has no skills for office work",
+     "Occupational"
+    ],
+    [
+     "House prices stop a worker moving to a city",
+     "Geographical"
+    ]
+   ],
+   "why": "One is about skills, and the other is about location.",
+   "spec": "4.1.8.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.6-monopoly",
+   "type": "mcq",
+   "topic": "monopoly",
+   "q": "Why is monopoly a cause of market failure?",
+   "options": [
+    "Price is above marginal cost, so too little is produced",
+    "Output is too high",
+    "Prices are too low",
+    "Costs are always zero"
+   ],
+   "answer": 0,
+   "why": "Too few resources go into the good.",
+   "spec": "4.1.8.6",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.6-unemp",
+   "type": "tf",
+   "topic": "factor immobility",
+   "q": "Immobility of labour can make unemployment last longer after an industry declines.",
+   "answer": true,
+   "why": "Workers can't easily move to the new jobs.",
+   "spec": "4.1.8.6",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.6-result",
+   "type": "mcq",
+   "topic": "imperfect information",
+   "q": "A buyer can't tell good used cars from bad ones. What could happen?",
+   "options": [
+    "They offer less, so sellers of good cars leave the market",
+    "All used cars become better",
+    "Prices rise for all cars",
+    "Demand becomes perfectly elastic"
+   ],
+   "answer": 0,
+   "why": "Good sellers can't get a fair price, so the market shrinks.",
+   "spec": "4.1.8.6",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.8.6-explain",
+   "type": "explain",
+   "topic": "factor immobility",
+   "q": "Explain how occupational immobility of labour can lead to market failure.",
+   "ideas": [
+    {
+     "label": "Workers lack the skills to move to new jobs",
+     "any": [
+      "skill*",
+      "retrain*",
+      "training",
+      "qualification*",
+      "can't move",
+      "cannot move",
+      "can't change",
+      "cannot change"
+     ]
+    },
+    {
+     "label": "So resources aren't allocated to where they're wanted, leaving unemployment",
+     "any": [
+      "unemploy*",
+      "vacanc*",
+      "misallocat*",
+      "inside the ppf",
+      "inside its ppf",
+      "wasted",
+      "not used",
+      "unused",
+      "shortage*"
+     ]
+    }
+   ],
+   "model": "Workers lack the skills to move to where demand is, so labour stays unused while vacancies go unfilled. Resources are misallocated.",
+   "why": "Resources can't follow the price signals.",
+   "tests": [
+    {
+     "answer": "Workers lack the skills for new jobs, so there is unemployment and resources are misallocated.",
+     "marks": 2
+    },
+    {
+     "answer": "Workers lack the skills.",
+     "marks": 1
+    },
+    {
+     "answer": "Wages are too high.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.6",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

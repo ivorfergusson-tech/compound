@@ -1,0 +1,172 @@
+{
+ "module": "4.1.8.8",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.8-priv",
+   "type": "mcq",
+   "topic": "privatisation",
+   "q": "Privatisation means:",
+   "options": [
+    "Transferring state-owned assets to the private sector",
+    "Bringing firms into state ownership",
+    "Removing rules from a market",
+    "Taxing private firms"
+   ],
+   "answer": 0,
+   "why": "Nationalisation is the reverse.",
+   "spec": "4.1.8.8",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.8-terms",
+   "type": "match",
+   "topic": "terms",
+   "q": "Match each term to its meaning.",
+   "pairs": [
+    [
+     "State takes over a private firm",
+     "Nationalisation"
+    ],
+    [
+     "State sells a firm to private owners",
+     "Privatisation"
+    ],
+    [
+     "Rules are removed from a market",
+     "Deregulation"
+    ],
+    [
+     "A regulator serves the firms it oversees",
+     "Regulatory capture"
+    ]
+   ],
+   "why": "These are easy to confuse.",
+   "spec": "4.1.8.8",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.8-for",
+   "type": "mcq",
+   "topic": "public ownership",
+   "q": "Which is an argument FOR public ownership?",
+   "options": [
+    "It can take account of social objectives and externalities",
+    "The profit motive cuts costs",
+    "It raises money from selling assets",
+    "It adds competition"
+   ],
+   "answer": 0,
+   "why": "A publicly owned firm need not aim for profit alone.",
+   "spec": "4.1.8.8",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.8-cap",
+   "type": "tf",
+   "topic": "regulation",
+   "q": "A price cap can encourage a regulated firm to cut its costs.",
+   "answer": true,
+   "why": "If prices are capped, cutting costs is the way to earn more profit.",
+   "spec": "4.1.8.8",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.8-capture",
+   "type": "mcq",
+   "topic": "regulatory capture",
+   "q": "Why might regulatory capture occur?",
+   "options": [
+    "Firms know more about their costs than regulators do",
+    "Regulators have too much information",
+    "Consumers are well organised",
+    "Firms have no interest in rules"
+   ],
+   "answer": 0,
+   "why": "The information gap gives firms influence.",
+   "spec": "4.1.8.8",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.8-explain",
+   "type": "explain",
+   "topic": "privatisation",
+   "q": "Explain why privatising a natural monopoly may not improve efficiency.",
+   "ideas": [
+    {
+     "label": "There's still no competition, as it's a monopoly",
+     "any": [
+      "no competition",
+      "no competitors",
+      "no rivals",
+      "lack of competition",
+      "still a monopoly",
+      "private monopoly",
+      "little competition",
+      "remains a monopoly",
+      "without competition"
+     ]
+    },
+    {
+     "label": "So there's little pressure to cut costs, and it could raise prices",
+     "any": [
+      "raise price*",
+      "higher price*",
+      "exploit*",
+      "little pressure",
+      "no pressure",
+      "no incentive",
+      "little incentive",
+      "less incentive",
+      "x-inefficien*",
+      "cut costs",
+      "underinvest*",
+      "too little on investment"
+     ]
+    }
+   ],
+   "model": "A natural monopoly still has no competition after it is privatised, so there is little pressure to cut costs and it could raise its prices.",
+   "why": "Changing the owner doesn't create a rival.",
+   "tests": [
+    {
+     "answer": "It's still a monopoly with no competition, so there is little incentive to cut costs.",
+     "marks": 2
+    },
+    {
+     "answer": "It becomes a private monopoly.",
+     "marks": 1
+    },
+    {
+     "answer": "Private firms are bad.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.8",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}
