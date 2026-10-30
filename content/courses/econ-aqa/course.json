@@ -45,6 +45,11 @@
    "name": "Production, costs and revenue",
    "emoji": "🏭",
    "blurb": "How firms produce, what it costs them, what they earn and how technology changes it all."
+  },
+  "4.1.5a": {
+   "name": "Market structures: perfect competition to monopoly",
+   "emoji": "🏪",
+   "blurb": "From perfect competition to monopoly: how the number of rivals shapes prices and profits."
   }
  },
  "items": [
@@ -578,6 +583,154 @@
     "creative destruction"
    ],
    "summary": "How technology changes production, markets and competition."
+  },
+  {
+   "id": "4.1.5.1",
+   "kind": "module",
+   "num": 22,
+   "strand": "4.1.5a",
+   "title": "Market structures",
+   "short": "Market structures",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.5.1"
+   ],
+   "buildsOn": [
+    21
+   ],
+   "introduces": [
+    "perfect competition",
+    "monopolistic competition",
+    "oligopoly",
+    "monopoly",
+    "product differentiation"
+   ],
+   "summary": "The spectrum of competition and how to tell structures apart."
+  },
+  {
+   "id": "4.1.5.2",
+   "kind": "module",
+   "num": 23,
+   "strand": "4.1.5a",
+   "title": "The objectives of firms",
+   "short": "Objectives of firms",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.5.2"
+   ],
+   "buildsOn": [
+    22
+   ],
+   "introduces": [
+    "profit maximisation",
+    "divorce of ownership from control",
+    "sales revenue maximisation",
+    "satisficing"
+   ],
+   "summary": "MC = MR, and why real firms may aim for something else."
+  },
+  {
+   "id": "4.1.5.3",
+   "kind": "module",
+   "num": 24,
+   "strand": "4.1.5a",
+   "title": "Perfect competition",
+   "short": "Perfect competition",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.5.3"
+   ],
+   "buildsOn": [
+    23
+   ],
+   "introduces": [
+    "price taker"
+   ],
+   "summary": "Price takers, the short and long run, and the efficiency yardstick."
+  },
+  {
+   "id": "4.1.5.4",
+   "kind": "module",
+   "num": 25,
+   "strand": "4.1.5a",
+   "title": "Monopolistic competition",
+   "short": "Monopolistic competition",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.4"
+   ],
+   "buildsOn": [
+    24
+   ],
+   "introduces": [
+    "price maker",
+    "excess capacity",
+    "non-price competition"
+   ],
+   "summary": "Many firms, different products and normal profit in the long run."
+  },
+  {
+   "id": "4.1.5.5a",
+   "kind": "module",
+   "num": 26,
+   "strand": "4.1.5a",
+   "title": "Oligopoly: structure, concentration ratios, collusion and cooperation",
+   "short": "Oligopoly: structure and collusion",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.5"
+   ],
+   "buildsOn": [
+    25
+   ],
+   "introduces": [
+    "concentration ratio",
+    "interdependence",
+    "collusion",
+    "cooperation"
+   ],
+   "summary": "Concentration ratios, interdependence, collusion and cooperation."
+  },
+  {
+   "id": "4.1.5.5b",
+   "kind": "module",
+   "num": 27,
+   "strand": "4.1.5a",
+   "title": "Oligopoly: kinked demand, cartels, price wars and non-price competition",
+   "short": "Oligopoly: behaviour",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.5"
+   ],
+   "buildsOn": [
+    26
+   ],
+   "introduces": [
+    "kinked demand curve",
+    "cartel",
+    "price leadership",
+    "price war"
+   ],
+   "summary": "Kinked demand, cartels, price wars and non-price competition."
+  },
+  {
+   "id": "4.1.5.6",
+   "kind": "module",
+   "num": 28,
+   "strand": "4.1.5a",
+   "title": "Monopoly and monopoly power",
+   "short": "Monopoly",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.5.6"
+   ],
+   "buildsOn": [
+    27
+   ],
+   "introduces": [
+    "monopoly power"
+   ],
+   "summary": "The monopoly diagram, monopoly power and its costs and benefits."
   }
  ]
 }

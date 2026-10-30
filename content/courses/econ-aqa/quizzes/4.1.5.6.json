@@ -1,0 +1,217 @@
+{
+ "module": "4.1.5.6",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.6-mr",
+   "type": "mcq",
+   "topic": "monopoly diagram",
+   "q": "Why does a monopolist's MR curve lie below its AR curve?",
+   "options": [
+    "It must lower its price on all units to sell one more",
+    "Its costs are rising",
+    "It is a price taker",
+    "It pays a tax on each unit"
+   ],
+   "answer": 0,
+   "why": "Cutting the price to sell more means earning less on the units it could have sold for more.",
+   "spec": "4.1.5.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.6-profit",
+   "type": "number",
+   "topic": "monopoly diagram",
+   "q": "A monopolist sells {q} units at £{p}. Its ATC at that output is £{a}. What is its abnormal profit, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      500,
+      1000,
+      2000
+     ],
+     "default": 1000
+    },
+    "p": {
+     "choices": [
+      30,
+      40
+     ],
+     "default": 30
+    },
+    "a": {
+     "choices": [
+      18,
+      22,
+      25
+     ],
+     "default": 22
+    }
+   },
+   "answer": "(p-a)*q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "(£{p} − £{a}) × {q} = £{answer}.",
+   "spec": "4.1.5.6",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.6-sources",
+   "type": "match",
+   "topic": "monopoly power",
+   "q": "Match each case to the source of its monopoly power.",
+   "pairs": [
+    [
+     "A drug firm holds the only legal right to make a medicine",
+     "Patent, a barrier to entry"
+    ],
+    [
+     "Only one firm sells in a town",
+     "Few competitors"
+    ],
+    [
+     "A firm spends heavily on adverts",
+     "Advertising"
+    ],
+    [
+     "Customers see a brand as unique",
+     "Product differentiation"
+    ]
+   ],
+   "why": "Each of these makes demand less elastic or keeps rivals out.",
+   "spec": "4.1.5.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.6-compare",
+   "type": "mcq",
+   "topic": "monopoly diagram",
+   "q": "Compared with where P = MC, a monopolist produces:",
+   "options": [
+    "Less output at a higher price",
+    "More output at a higher price",
+    "Less output at a lower price",
+    "The same output at the same price"
+   ],
+   "answer": 0,
+   "why": "The monopolist restricts output so that it can charge more.",
+   "spec": "4.1.5.6",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.6-maker",
+   "type": "tf",
+   "topic": "price makers",
+   "q": "Firms in oligopoly and monopolistic competition are also price makers.",
+   "answer": true,
+   "why": "They have varying degrees of monopoly power.",
+   "spec": "4.1.5.6",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.6-benefit",
+   "type": "mcq",
+   "topic": "advantages of monopoly",
+   "q": "Which is a possible benefit of monopoly for consumers?",
+   "options": [
+    "Prices can be lower if economies of scale are large",
+    "Output is always above the competitive level",
+    "There is always more choice",
+    "The firm has no reason to make a profit"
+   ],
+   "answer": 0,
+   "why": "Large enough cost savings can mean a lower price than many small firms would charge.",
+   "spec": "4.1.5.6",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.5.6-persist",
+   "type": "explain",
+   "topic": "barriers to entry",
+   "q": "Explain why a monopolist can keep making abnormal profit in the long run.",
+   "ideas": [
+    {
+     "label": "Barriers to entry stop new firms from entering",
+     "any": [
+      "barrier*",
+      "patent*",
+      "can't enter",
+      "cannot enter",
+      "stop new firms",
+      "stops new firms",
+      "keep out",
+      "keeps out",
+      "prevent* new",
+      "prevent* entry"
+     ]
+    },
+    {
+     "label": "So supply doesn't rise and the price isn't competed down",
+     "any": [
+      "compet*",
+      "push prices down",
+      "push the price down",
+      "price stays",
+      "keep the price",
+      "keep prices",
+      "keeps prices",
+      "price high",
+      "prices high",
+      "no rivals",
+      "no substitutes",
+      "not rise",
+      "not fall",
+      "undercut*"
+     ]
+    }
+   ],
+   "model": "Barriers to entry stop new firms from entering the market, so there is no competition to undercut the monopolist and push the price down.",
+   "why": "Without entry, nothing competes the profit away.",
+   "tests": [
+    {
+     "answer": "Barriers to entry stop new firms entering, so there is no competition to push prices down.",
+     "marks": 2
+    },
+    {
+     "answer": "There are barriers to entry.",
+     "marks": 1
+    },
+    {
+     "answer": "It has low costs.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.6",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

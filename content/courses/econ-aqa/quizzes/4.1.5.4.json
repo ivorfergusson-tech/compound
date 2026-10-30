@@ -1,0 +1,173 @@
+{
+ "module": "4.1.5.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.4-feature",
+   "type": "mcq",
+   "topic": "characteristics",
+   "q": "Which is a characteristic of monopolistic competition?",
+   "options": [
+    "One seller",
+    "Differentiated products and low barriers to entry",
+    "Identical products",
+    "High barriers to entry"
+   ],
+   "answer": 1,
+   "why": "Many firms, a little different from each other, and easy entry.",
+   "spec": "4.1.5.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.4-demand",
+   "type": "mcq",
+   "topic": "demand curve",
+   "q": "Why does a firm in monopolistic competition face a downward-sloping demand curve?",
+   "options": [
+    "Its product is a little different, so it keeps some customers if it raises its price",
+    "It is the only seller",
+    "It has perfect knowledge",
+    "Its costs are falling"
+   ],
+   "answer": 0,
+   "why": "Differentiation means a price rise loses some customers, not all of them.",
+   "spec": "4.1.5.4",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.4-long",
+   "type": "tf",
+   "topic": "long run",
+   "q": "In long-run equilibrium a firm in monopolistic competition produces at the lowest point of ATC.",
+   "answer": false,
+   "why": "It produces to the left of the lowest point, so it has excess capacity.",
+   "spec": "4.1.5.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.4-shift",
+   "type": "mcq",
+   "topic": "long run",
+   "q": "New firms enter a monopolistically competitive market. What happens to demand for an existing firm?",
+   "options": [
+    "It shifts left and becomes more elastic",
+    "It shifts right and becomes less elastic",
+    "It stays the same",
+    "It becomes horizontal"
+   ],
+   "answer": 0,
+   "why": "Customers are shared with more firms, and there are more substitutes.",
+   "spec": "4.1.5.4",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.4-nonprice",
+   "type": "match",
+   "topic": "non-price competition",
+   "q": "Match each action by a café to the type of competition.",
+   "pairs": [
+    [
+     "A 20p cut in the price of coffee",
+     "Price competition"
+    ],
+    [
+     "A new loyalty card",
+     "Non-price competition"
+    ],
+    [
+     "A lunch deal at a lower price",
+     "Price competition"
+    ],
+    [
+     "Better cakes and service",
+     "Non-price competition"
+    ]
+   ],
+   "why": "Non-price competition wins customers without lowering the price.",
+   "spec": "4.1.5.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.4-excess",
+   "type": "explain",
+   "topic": "excess capacity",
+   "q": "Explain why firms in monopolistic competition are not productively efficient in the long run.",
+   "ideas": [
+    {
+     "label": "AR slopes down, so it touches ATC to the left of ATC's lowest point",
+     "any": [
+      "left of",
+      "downward",
+      "slopes down",
+      "tangent",
+      "touches",
+      "before the lowest",
+      "before the minimum",
+      "above the lowest",
+      "above the minimum",
+      "not at the lowest",
+      "not at the minimum",
+      "not the lowest",
+      "not the minimum"
+     ]
+    },
+    {
+     "label": "So the firm has excess capacity: more output would lower average cost",
+     "any": [
+      "excess capacity",
+      "spare capacity",
+      "lower average cost*",
+      "lower its average cost*",
+      "lower cost*",
+      "lower its cost*",
+      "reduce average cost*",
+      "reduce its average cost*",
+      "minimum efficient"
+     ]
+    }
+   ],
+   "model": "The demand curve slopes down, so it touches ATC to the left of ATC's lowest point. The firm has excess capacity, because making more would lower its average cost.",
+   "why": "Productive efficiency needs the lowest point of ATC.",
+   "tests": [
+    {
+     "answer": "The demand curve slopes down so it touches ATC to the left of the lowest point, which means the firm has excess capacity.",
+     "marks": 2
+    },
+    {
+     "answer": "The firm has excess capacity.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms make normal profit.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

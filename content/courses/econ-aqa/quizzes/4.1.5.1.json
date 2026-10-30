@@ -1,0 +1,172 @@
+{
+ "module": "4.1.5.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.1-structures",
+   "type": "match",
+   "topic": "market structures",
+   "q": "Match each market to its structure.",
+   "pairs": [
+    [
+     "Thousands of firms, identical products, free entry",
+     "Perfect competition"
+    ],
+    [
+     "Many firms, slightly different products, easy entry",
+     "Monopolistic competition"
+    ],
+    [
+     "A few large firms dominate, high barriers",
+     "Oligopoly"
+    ],
+    [
+     "One seller, entry blocked",
+     "Pure monopoly"
+    ]
+   ],
+   "why": "Look at the number of firms, how different the product is and how easy entry is.",
+   "spec": "4.1.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.1-factors",
+   "type": "mcq",
+   "topic": "factors",
+   "q": "Which set of factors is used to distinguish market structures?",
+   "options": [
+    "Number of firms, product differentiation, ease of entry",
+    "Wages, tax rates, interest rates",
+    "Age, income, location of consumers",
+    "Inflation, growth, unemployment"
+   ],
+   "answer": 0,
+   "why": "These three factors separate one structure from another.",
+   "spec": "4.1.5.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.1-diff",
+   "type": "mcq",
+   "topic": "product differentiation",
+   "q": "What is the main effect of successful product differentiation on a firm?",
+   "options": [
+    "Its demand becomes less price elastic",
+    "Its costs must fall",
+    "Its demand becomes perfectly elastic",
+    "It must leave the market"
+   ],
+   "answer": 0,
+   "why": "Fewer close substitutes means demand is less price elastic, which gives more power over price.",
+   "spec": "4.1.5.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.1-real",
+   "type": "tf",
+   "topic": "spectrum",
+   "q": "Most real-world markets are either perfectly competitive or pure monopolies.",
+   "answer": false,
+   "why": "These are the two ends of the spectrum. Most real markets sit in between.",
+   "spec": "4.1.5.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.1-apply",
+   "type": "mcq",
+   "topic": "market structures",
+   "q": "A town has dozens of hairdressers. Each has its own style, and a new one can open at low cost. Which structure is this closest to?",
+   "options": [
+    "Perfect competition",
+    "Monopolistic competition",
+    "Oligopoly",
+    "Monopoly"
+   ],
+   "answer": 1,
+   "why": "Many firms, differentiated services and low barriers.",
+   "spec": "4.1.5.1",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.1-entry",
+   "type": "explain",
+   "topic": "ease of entry",
+   "q": "Explain how the ease of entry into a market affects the profits of firms in that market.",
+   "ideas": [
+    {
+     "label": "Easy entry attracts new firms when profits are high",
+     "any": [
+      "new firms",
+      "firms enter",
+      "firms will enter",
+      "firms join",
+      "attract*",
+      "more firms",
+      "new entrants",
+      "entrants"
+     ]
+    },
+    {
+     "label": "This competes profits away, while barriers let firms keep them",
+     "any": [
+      "compete* away",
+      "competes profit*",
+      "compete profit*",
+      "competition",
+      "profit* fall",
+      "profits are reduced",
+      "reduce* profit*",
+      "lower profit*",
+      "normal profit",
+      "keep profit*",
+      "keep their profit*",
+      "protect*",
+      "barriers"
+     ]
+    }
+   ],
+   "model": "If entry is easy, high profits attract new firms, which competes the profits away. If there are barriers to entry, firms can keep abnormal profits for longer.",
+   "why": "Profit is a signal. Barriers decide whether others can answer it.",
+   "tests": [
+    {
+     "answer": "If entry is easy, new firms join when profits are high and this competes profits away.",
+     "marks": 2
+    },
+    {
+     "answer": "New firms will enter the market.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms sell more goods.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

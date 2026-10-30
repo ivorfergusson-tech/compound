@@ -1,0 +1,205 @@
+{
+ "module": "4.1.5.3",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.3-assumption",
+   "type": "mcq",
+   "topic": "assumptions",
+   "q": "Which is NOT an assumption of perfect competition?",
+   "options": [
+    "Identical products",
+    "Freedom of entry and exit",
+    "Perfect knowledge",
+    "A few large firms"
+   ],
+   "answer": 3,
+   "why": "Perfect competition assumes a very large number of small producers.",
+   "spec": "4.1.5.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.3-ar",
+   "type": "mcq",
+   "topic": "price taker",
+   "q": "For a perfectly competitive firm, which is true?",
+   "options": [
+    "P = AR = MR",
+    "MR is below AR",
+    "P is above AR",
+    "AR slopes down"
+   ],
+   "answer": 0,
+   "why": "Every extra unit sells at the same market price.",
+   "spec": "4.1.5.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.3-profit",
+   "type": "number",
+   "topic": "short run profit",
+   "q": "A perfectly competitive firm makes {q} units. The market price is £{p} and its ATC is £{a}. What is its profit, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      100,
+      200,
+      500
+     ],
+     "default": 200
+    },
+    "p": {
+     "choices": [
+      20,
+      25
+     ],
+     "default": 20
+    },
+    "a": {
+     "choices": [
+      14,
+      15,
+      18
+     ],
+     "default": 15
+    }
+   },
+   "answer": "(p-a)*q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "(£{p} − £{a}) × {q} = £{answer}.",
+   "spec": "4.1.5.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.3-longrun",
+   "type": "mcq",
+   "topic": "long run",
+   "q": "Firms in a perfectly competitive market are making abnormal profit. What happens in the long run?",
+   "options": [
+    "Firms enter, supply rises and price falls",
+    "Firms leave, supply falls and price rises",
+    "Nothing changes",
+    "Firms raise their prices"
+   ],
+   "answer": 0,
+   "why": "Free entry shifts market supply right until only normal profit is left.",
+   "spec": "4.1.5.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.3-efficient",
+   "type": "tf",
+   "topic": "efficiency",
+   "q": "In long-run equilibrium, a perfectly competitive firm is both productively and allocatively efficient.",
+   "answer": true,
+   "why": "P = MC at the lowest point of ATC.",
+   "spec": "4.1.5.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.3-critique",
+   "type": "mcq",
+   "topic": "critique",
+   "q": "Which is a valid criticism of the claim that perfect competition gives the best outcome?",
+   "options": [
+    "Firms set prices too high",
+    "Normal profits leave little to spend on research",
+    "Firms are allocatively inefficient",
+    "Barriers keep new firms out"
+   ],
+   "answer": 1,
+   "why": "With only normal profit and perfect knowledge, firms have little means or reason to innovate.",
+   "spec": "4.1.5.3",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.5.3-taker",
+   "type": "explain",
+   "topic": "price taker",
+   "q": "Explain why a firm in perfect competition is a price taker.",
+   "ideas": [
+    {
+     "label": "There are very many firms, so one firm can't affect the market price",
+     "any": [
+      "many firms",
+      "many producers",
+      "large number*",
+      "small part",
+      "small share",
+      "can't affect",
+      "cannot affect",
+      "can't influence",
+      "cannot influence",
+      "market price is set",
+      "set by the market",
+      "supply and demand",
+      "demand and supply"
+     ]
+    },
+    {
+     "label": "Products are identical and knowledge is perfect, so a higher price loses all customers",
+     "any": [
+      "identical",
+      "homogen*",
+      "perfect knowledge",
+      "lose all",
+      "lose every",
+      "lose customers",
+      "no customers",
+      "go elsewhere",
+      "buy elsewhere",
+      "buy from another"
+     ]
+    }
+   ],
+   "model": "There are so many firms that one firm cannot affect the market price. Products are identical and buyers have perfect knowledge, so charging more would lose all its customers.",
+   "why": "One firm is too small to matter, and buyers can switch at no cost.",
+   "tests": [
+    {
+     "answer": "There are many firms so one firm can't affect the price. Products are identical, so a higher price would lose all its customers.",
+     "marks": 2
+    },
+    {
+     "answer": "Products are identical.",
+     "marks": 1
+    },
+    {
+     "answer": "The government sets the price.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

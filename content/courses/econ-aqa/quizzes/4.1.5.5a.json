@@ -1,0 +1,184 @@
+{
+ "module": "4.1.5.5a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.5-cr",
+   "type": "number",
+   "topic": "concentration ratio",
+   "q": "In a market worth £{t}m, the three largest firms sell £{a}m, £{b}m and £{c}m. What is the 3-firm concentration ratio, in %?",
+   "vars": {
+    "t": {
+     "choices": [
+      1000
+     ],
+     "default": 1000
+    },
+    "a": {
+     "choices": [
+      300,
+      350,
+      400
+     ],
+     "default": 350
+    },
+    "b": {
+     "choices": [
+      200,
+      250
+     ],
+     "default": 250
+    },
+    "c": {
+     "choices": [
+      100,
+      150
+     ],
+     "default": 150
+    }
+   },
+   "answer": "(a+b+c)/t*100",
+   "tol": 0.01,
+   "unit": "%",
+   "dp": 0,
+   "why": "(£{a}m + £{b}m + £{c}m) ÷ £{t}m × 100 = {answer}%.",
+   "spec": "4.1.5.5",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-define",
+   "type": "mcq",
+   "topic": "oligopoly",
+   "q": "Which best describes oligopoly?",
+   "options": [
+    "A market dominated by a few large firms",
+    "A market with thousands of small firms",
+    "A market with one seller",
+    "A market with no barriers"
+   ],
+   "answer": 0,
+   "why": "A few firms have most of the sales, even if many small firms also exist.",
+   "spec": "4.1.5.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-cooperate",
+   "type": "tf",
+   "topic": "cooperation and collusion",
+   "q": "Cooperation and collusion mean the same thing.",
+   "answer": false,
+   "why": "Collusion limits competition. Cooperation, such as on safety standards, can benefit consumers.",
+   "spec": "4.1.5.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-conduct",
+   "type": "mcq",
+   "topic": "structure and conduct",
+   "q": "Which is an example of defining oligopoly by its market STRUCTURE?",
+   "options": [
+    "Firms avoid price competition",
+    "The 5-firm concentration ratio is 85%",
+    "Firms follow a price leader",
+    "Firms react to each other's adverts"
+   ],
+   "answer": 1,
+   "why": "Structure is about firms, shares and barriers. The others describe behaviour.",
+   "spec": "4.1.5.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-joint",
+   "type": "mcq",
+   "topic": "collusion",
+   "q": "Successful collusion allows oligopolists to:",
+   "options": [
+    "Act like a monopolist and maximise joint profits",
+    "Reach productive efficiency",
+    "Lower prices for consumers",
+    "Remove all costs"
+   ],
+   "answer": 0,
+   "why": "By acting together they can restrict output and raise prices.",
+   "spec": "4.1.5.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-uncertainty",
+   "type": "explain",
+   "topic": "interdependence",
+   "q": "Explain why firms in an oligopoly face uncertainty when they change their price.",
+   "ideas": [
+    {
+     "label": "Firms are interdependent: one firm's move affects its rivals",
+     "any": [
+      "interdependen*",
+      "depends on",
+      "depend on",
+      "affect* rival*",
+      "affect* other*",
+      "large share",
+      "rivals' sales",
+      "rivals sales"
+     ]
+    },
+    {
+     "label": "It can't know how rivals will react, so it can't be sure of the result",
+     "any": [
+      "react*",
+      "respond*",
+      "don't know",
+      "do not know",
+      "can't know",
+      "cannot know",
+      "not know",
+      "unsure",
+      "match"
+     ]
+    }
+   ],
+   "model": "Firms are interdependent, so a price change affects the sales of rivals. A firm does not know how they will react, so it cannot be sure what will happen to its own sales.",
+   "why": "The result of your move depends on their reply.",
+   "tests": [
+    {
+     "answer": "Firms are interdependent, and a firm does not know how rivals will react to its price change.",
+     "marks": 2
+    },
+    {
+     "answer": "Rivals might react.",
+     "marks": 1
+    },
+    {
+     "answer": "Prices are high in oligopoly.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

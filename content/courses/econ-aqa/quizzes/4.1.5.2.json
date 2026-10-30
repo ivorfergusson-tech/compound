@@ -1,0 +1,193 @@
+{
+ "module": "4.1.5.2",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.2-rule",
+   "type": "mcq",
+   "topic": "profit-maximising rule",
+   "q": "Profit is maximised at the output where:",
+   "options": [
+    "MC = MR",
+    "AC = AR",
+    "MR = 0",
+    "MC = AC"
+   ],
+   "answer": 0,
+   "why": "At MC = MR, no change in output can add to profit.",
+   "spec": "4.1.5.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.2-table",
+   "type": "mcq",
+   "topic": "profit-maximising rule",
+   "q": "At 100 units, a firm's MC is £8 and its MR is £5. What should a profit maximiser do?",
+   "options": [
+    "Make more",
+    "Make less",
+    "Stay at 100 units",
+    "Raise output to where MR = 0"
+   ],
+   "answer": 1,
+   "why": "The last unit cost £3 more than it earned, so cutting output raises profit.",
+   "spec": "4.1.5.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.2-satisfice",
+   "type": "tf",
+   "topic": "satisficing",
+   "q": "Satisficing means aiming for a result that is good enough, not the highest possible.",
+   "answer": true,
+   "why": "A firm might aim for enough profit to keep shareholders content.",
+   "spec": "4.1.5.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.2-objectives",
+   "type": "match",
+   "topic": "other objectives",
+   "q": "Match each firm to its objective.",
+   "pairs": [
+    [
+     "A new firm in a recession just trying to stay open",
+     "Survival"
+    ],
+    [
+     "A firm buying rivals to get bigger",
+     "Growth"
+    ],
+    [
+     "A firm cutting prices to win customers from rivals",
+     "Market share"
+    ],
+    [
+     "A firm producing where MR = 0",
+     "Sales revenue maximisation"
+    ]
+   ],
+   "why": "Firms have a range of objectives other than profit.",
+   "spec": "4.1.5.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.2-divorce",
+   "type": "mcq",
+   "topic": "divorce of ownership from control",
+   "q": "What is meant by the divorce of ownership from control?",
+   "options": [
+    "Firms are owned by the state",
+    "Shareholders own the firm while managers run it",
+    "Two firms split up",
+    "Workers own the firm"
+   ],
+   "answer": 1,
+   "why": "Owners and controllers are different groups, so they may want different things.",
+   "spec": "4.1.5.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.2-align",
+   "type": "mcq",
+   "topic": "divorce of ownership from control",
+   "q": "Which would best bring managers' aims closer to those of shareholders?",
+   "options": [
+    "A fixed salary",
+    "Share options",
+    "A bigger office",
+    "A longer contract"
+   ],
+   "answer": 1,
+   "why": "If managers hold shares, they gain from the profits and share price that owners want.",
+   "spec": "4.1.5.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.2-divorce-explain",
+   "type": "explain",
+   "topic": "divorce of ownership from control",
+   "q": "Explain why the divorce of ownership from control may mean a firm does not maximise profits.",
+   "ideas": [
+    {
+     "label": "Shareholders want profit, while managers may want other things",
+     "any": [
+      "own* want*",
+      "shareholders want*",
+      "manager* want*",
+      "manager* may",
+      "growth",
+      "salary",
+      "salaries",
+      "status",
+      "own interest*",
+      "bonus*"
+     ]
+    },
+    {
+     "label": "Managers have more information or control, so they can pursue those goals",
+     "any": [
+      "more information",
+      "know more",
+      "asymmetric",
+      "control",
+      "can't monitor",
+      "cannot monitor",
+      "hard to monitor",
+      "hard to check",
+      "can pursue",
+      "run the firm",
+      "make the decisions",
+      "satisfic*"
+     ]
+    }
+   ],
+   "model": "Shareholders want high profits, while managers may prefer growth, status or a higher salary. Managers know more about the business and run it day to day, so they can pursue these goals.",
+   "why": "Different aims, plus the information to get away with it.",
+   "tests": [
+    {
+     "answer": "Managers may want growth and a higher salary, and because they know more than shareholders they can pursue this.",
+     "marks": 2
+    },
+    {
+     "answer": "Managers may want a higher salary.",
+     "marks": 1
+    },
+    {
+     "answer": "The firm has high costs.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

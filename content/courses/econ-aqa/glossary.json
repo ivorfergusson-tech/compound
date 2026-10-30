@@ -74,6 +74,11 @@
   "def": "Goods used to make other goods and services, such as machinery and factories.",
   "module": "4.1.1.2"
  },
+ "cartel": {
+  "term": "cartel",
+  "def": "A formal agreement between firms to limit competition, for example by fixing prices or output.",
+  "module": "4.1.5.5b"
+ },
  "ceteris paribus": {
   "term": "ceteris paribus",
   "def": "Latin for 'all other things being equal': the assumption that only one thing changes while you look at its effect.",
@@ -83,6 +88,11 @@
   "term": "choice architecture",
   "def": "The way choices are presented to people, which influences what they choose.",
   "module": "4.1.2.4"
+ },
+ "collusion": {
+  "term": "collusion",
+  "def": "Firms working together to limit competition, such as by fixing prices.",
+  "module": "4.1.5.5a"
  },
  "competitive demand": {
   "term": "competitive demand",
@@ -99,10 +109,20 @@
   "def": "When one good is demanded for several different uses.",
   "module": "4.1.3.6"
  },
+ "concentration ratio": {
+  "term": "concentration ratio",
+  "def": "The combined market share of the largest firms in a market.",
+  "module": "4.1.5.5a"
+ },
  "consumer goods": {
   "term": "consumer goods",
   "def": "Goods bought by households to use up for their own satisfaction, such as food and clothes.",
   "module": "4.1.1.2"
+ },
+ "cooperation": {
+  "term": "cooperation",
+  "def": "Firms working together in ways that can benefit consumers or the public, such as agreeing common standards.",
+  "module": "4.1.5.5a"
  },
  "creative destruction": {
   "term": "creative destruction",
@@ -154,6 +174,11 @@
   "def": "Splitting production into separate tasks, with each worker specialising in one.",
   "module": "4.1.4.1"
  },
+ "divorce of ownership from control": {
+  "term": "divorce of ownership from control",
+  "def": "The separation between the shareholders who own a firm and the managers who run it.",
+  "module": "4.1.5.2"
+ },
  "economic good": {
   "term": "economic good",
   "def": "A good that uses scarce resources, so producing it has an opportunity cost.",
@@ -198,6 +223,11 @@
   "term": "equilibrium",
   "def": "A state of rest. In a market, where quantity demanded equals quantity supplied, so there's no pressure for the price to change.",
   "module": "4.1.3.5"
+ },
+ "excess capacity": {
+  "term": "excess capacity",
+  "def": "When a firm produces less than the output at which its average costs are lowest.",
+  "module": "4.1.5.4"
  },
  "excess demand": {
   "term": "excess demand",
@@ -264,6 +294,11 @@
   "def": "Turning an invention into a product or process that's used commercially.",
   "module": "4.1.4.8"
  },
+ "interdependence": {
+  "term": "interdependence",
+  "def": "When a firm's best decision depends on what its rivals do.",
+  "module": "4.1.5.5a"
+ },
  "invention": {
   "term": "invention",
   "def": "Creating a new product or process.",
@@ -278,6 +313,11 @@
   "term": "joint supply",
   "def": "When producing one good also produces another, as with beef and leather.",
   "module": "4.1.3.6"
+ },
+ "kinked demand curve": {
+  "term": "kinked demand curve",
+  "def": "A model of oligopoly in which rivals match price cuts but not price rises, so prices tend to stay stable.",
+  "module": "4.1.5.5b"
  },
  "labour": {
   "term": "labour",
@@ -339,10 +379,30 @@
   "def": "The lowest output at which long-run average cost is at its lowest.",
   "module": "4.1.4.5"
  },
+ "monopolistic competition": {
+  "term": "monopolistic competition",
+  "def": "A market with many firms selling slightly different products, and low barriers to entry.",
+  "module": "4.1.5.1"
+ },
+ "monopoly": {
+  "term": "monopoly",
+  "def": "A market with only one seller. Pure monopoly is rare.",
+  "module": "4.1.5.1"
+ },
+ "monopoly power": {
+  "term": "monopoly power",
+  "def": "The ability of a firm to set prices above the competitive level.",
+  "module": "4.1.5.6"
+ },
  "needs": {
   "term": "needs",
   "def": "Things people must have to survive, such as food, water and shelter.",
   "module": "4.1.1.2"
+ },
+ "non-price competition": {
+  "term": "non-price competition",
+  "def": "Competing in ways other than price, such as branding, quality or service.",
+  "module": "4.1.5.4"
  },
  "non-renewable resource": {
   "term": "non-renewable resource",
@@ -369,6 +429,11 @@
   "def": "A small change to how a choice is presented that steers people without banning options or significantly changing incentives.",
   "module": "4.1.2.4"
  },
+ "oligopoly": {
+  "term": "oligopoly",
+  "def": "A market dominated by a few large firms.",
+  "module": "4.1.5.1"
+ },
  "opportunity cost": {
   "term": "opportunity cost",
   "def": "The value of the next best alternative given up when a choice is made.",
@@ -378,6 +443,11 @@
   "term": "perceptions of fairness",
   "def": "People's views on what's fair, which can lead them to turn down deals they see as unfair, even at a cost to themselves.",
   "module": "4.1.2.3"
+ },
+ "perfect competition": {
+  "term": "perfect competition",
+  "def": "A market model with very many firms, identical products, free entry and exit, and perfect knowledge.",
+  "module": "4.1.5.1"
  },
  "positive statement": {
   "term": "positive statement",
@@ -393,6 +463,31 @@
   "term": "price elasticity of supply",
   "def": "How responsive quantity supplied is to a change in price: % change in quantity supplied ÷ % change in price.",
   "module": "4.1.3.4"
+ },
+ "price leadership": {
+  "term": "price leadership",
+  "def": "When one firm, often the largest, changes its price and others follow.",
+  "module": "4.1.5.5b"
+ },
+ "price maker": {
+  "term": "price maker",
+  "def": "A firm that can set its own price, because it faces a downward-sloping demand curve.",
+  "module": "4.1.5.4"
+ },
+ "price taker": {
+  "term": "price taker",
+  "def": "A firm that has to accept the market price.",
+  "module": "4.1.5.3"
+ },
+ "price war": {
+  "term": "price war",
+  "def": "When firms repeatedly undercut each other's prices to win market share.",
+  "module": "4.1.5.5b"
+ },
+ "product differentiation": {
+  "term": "product differentiation",
+  "def": "Making a product seem different from its rivals, through design, quality, branding or service.",
+  "module": "4.1.5.1"
  },
  "production": {
   "term": "production",
@@ -419,6 +514,11 @@
   "def": "Total revenue minus total costs.",
   "module": "4.1.4.7"
  },
+ "profit maximisation": {
+  "term": "profit maximisation",
+  "def": "Producing the output where profit is highest, which is where MC = MR.",
+  "module": "4.1.5.2"
+ },
  "rational decision making": {
   "term": "rational decision making",
   "def": "Weighing up the costs and benefits of each option and choosing the one that best meets your aims.",
@@ -443,6 +543,16 @@
   "term": "rules of thumb",
   "def": "Simple mental shortcuts used to make decisions quickly, which aren't always right.",
   "module": "4.1.2.3"
+ },
+ "sales revenue maximisation": {
+  "term": "sales revenue maximisation",
+  "def": "Aiming for the highest possible total revenue, which happens where MR = 0.",
+  "module": "4.1.5.2"
+ },
+ "satisficing": {
+  "term": "satisficing",
+  "def": "Aiming for a result that is good enough, not the best possible.",
+  "module": "4.1.5.2"
  },
  "scarcity": {
   "term": "scarcity",

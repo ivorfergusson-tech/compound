@@ -1,0 +1,188 @@
+{
+ "module": "4.1.5.5b",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.5-kinked",
+   "type": "mcq",
+   "topic": "kinked demand curve",
+   "q": "The kinked demand curve assumes that rivals will:",
+   "options": [
+    "Follow a price rise and ignore a price cut",
+    "Ignore a price rise and match a price cut",
+    "Match all price changes",
+    "Ignore all price changes"
+   ],
+   "answer": 1,
+   "why": "So a price rise loses many customers, and a price cut gains few.",
+   "spec": "4.1.5.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-gap",
+   "type": "mcq",
+   "topic": "kinked demand curve",
+   "q": "In the kinked demand model, why may a small rise in marginal cost leave the price unchanged?",
+   "options": [
+    "MC stays within the gap in the MR curve",
+    "MC is always zero",
+    "AR is horizontal",
+    "The firm has no fixed costs"
+   ],
+   "answer": 0,
+   "why": "While MC = MR stays at the same output, the profit-maximising price stays the same.",
+   "spec": "4.1.5.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-conducts",
+   "type": "match",
+   "topic": "conduct",
+   "q": "Match each description to the term.",
+   "pairs": [
+    [
+     "Firms repeatedly undercut each other",
+     "Price war"
+    ],
+    [
+     "One firm moves its price and others follow",
+     "Price leadership"
+    ],
+    [
+     "A formal agreement to fix output",
+     "Cartel"
+    ],
+    [
+     "Competing with adverts and loyalty schemes",
+     "Non-price competition"
+    ]
+   ],
+   "why": "These are different ways oligopolists behave.",
+   "spec": "4.1.5.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-only",
+   "type": "tf",
+   "topic": "kinked demand curve",
+   "q": "The kinked demand curve is the only model of oligopoly.",
+   "answer": false,
+   "why": "It illustrates interdependence. It does not explain how the price was set in the first place.",
+   "spec": "4.1.5.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-cheat",
+   "type": "mcq",
+   "topic": "cartels",
+   "q": "Which makes a cartel more likely to break down?",
+   "options": [
+    "Few members",
+    "Similar costs",
+    "A fall in demand",
+    "High barriers to entry"
+   ],
+   "answer": 2,
+   "why": "When demand falls, members are tempted to cut prices to protect their sales.",
+   "spec": "4.1.5.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-advantage",
+   "type": "mcq",
+   "topic": "advantages of oligopoly",
+   "q": "Which is a likely advantage of oligopoly?",
+   "options": [
+    "Abnormal profit can fund research and investment",
+    "Prices are always the lowest possible",
+    "There are no barriers to entry",
+    "Firms are always allocatively efficient"
+   ],
+   "answer": 0,
+   "why": "Large profits and economies of scale can bring better products and lower costs.",
+   "spec": "4.1.5.5",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.5-nonprice",
+   "type": "explain",
+   "topic": "non-price competition",
+   "q": "Explain why firms in an oligopoly often use non-price competition.",
+   "ideas": [
+    {
+     "label": "A price cut can be matched, which risks a price war and lower profits",
+     "any": [
+      "price war*",
+      "match*",
+      "copied",
+      "copy",
+      "lower profit*",
+      "lose profit*",
+      "reduce profit*",
+      "lowers profit*",
+      "reduces profit*"
+     ]
+    },
+    {
+     "label": "Non-price competition builds loyalty or differentiation, making demand less elastic or adding a barrier",
+     "any": [
+      "loyalty",
+      "brand*",
+      "differentiat*",
+      "less elastic",
+      "more inelastic",
+      "inelastic",
+      "harder to copy",
+      "barrier*"
+     ]
+    }
+   ],
+   "model": "A price cut can be matched at once, which risks a price war and lower profits for all. Advertising and new features build brand loyalty, which makes demand less elastic and is harder to copy.",
+   "why": "Price cuts are easy to match. A brand is not.",
+   "tests": [
+    {
+     "answer": "Rivals would match a price cut, which could start a price war, so firms build brand loyalty instead.",
+     "marks": 2
+    },
+    {
+     "answer": "To avoid a price war.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms like adverts.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

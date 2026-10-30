@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -503,6 +503,15 @@ check('Economics spec map has all 79 section 4 points', existsSync(new URL('cour
 // every question is tagged and marks its own right answer, at least N_BANK questions per spec point
 check('PPF: ends of the curve', ppfY(0, 100) === 100 && ppfY(100, 100) === 0);
 check('PPF: opportunity cost rises along the curve', ppfCost(10, 100) < ppfCost(50, 100) && ppfCost(50, 100) < ppfCost(80, 100) && Math.abs(ppfCost(100 * Math.SQRT1_2, 100) - 1) < 1e-9);
+check('firm: MC cuts ATC at its lowest point', firmAtc(60) === 50 && firmMc(60) === 50 && firmAtc(59) > 50 && firmAtc(61) > 50);
+check('perfect competition: £50 gives normal profit', priceTaker(50).q === 60 && Math.abs(priceTaker(50).profit) < 1e-9);
+check('perfect competition: £70 gives abnormal profit', priceTaker(70).q === 100 && Math.abs(priceTaker(70).profit - 1600) < 1e-9);
+check('perfect competition: £40 gives a loss', priceTaker(40).q === 40 && Math.abs(priceTaker(40).profit + 500) < 1e-9);
+check('monopoly: MR = MC at 60 units and £80', priceMaker(110).q === 60 && priceMaker(110).p === 80 && Math.abs(priceMaker(110).profit - 1800) < 1e-9);
+check('monopoly: the efficient output is higher and cheaper', priceMaker(110).efficientQ === 90 && priceMaker(110).efficientP === 65);
+check('monopolistic competition: AR near 72 touches ATC, above the lowest-cost price', Math.abs(priceMaker(72).profit) < 15 && priceMaker(72).q < 60);
+check('kinked demand: cost rises inside the gap leave the price at £70', kinked(0).p === 70 && kinked(25).p === 70 && kinked(25).q === 50);
+check('kinked demand: a big cost rise raises the price', kinked(40).p > 70 && kinked(40).q < 50 && !kinked(40).inGap);
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

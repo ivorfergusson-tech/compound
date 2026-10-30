@@ -59,6 +59,30 @@ export function lowestAtc(fc, w) {
   return best;
 }
 
+// One firm's costs for the market structure diagrams: TC = 900 + 20q + 0.25q², so MC cuts ATC at its lowest (q 60, £50).
+export const firmAtc = q => 900 / q + 20 + 0.25 * q;
+export const firmMc = q => 20 + 0.5 * q;
+// Perfect competition: price P is given, and the firm makes the output where MC = MR = P.
+export function priceTaker(price) {
+  const q = (price - 20) / 0.5, atc = firmAtc(q);
+  return { q, atc, profit: (price - atc) * q };
+}
+// A price maker facing AR = a - 0.5q, so MR = a - q. MR = MC gives the output; P = MC gives the allocatively efficient one.
+export function priceMaker(a) {
+  const q = (a - 20) / 1.5, p = a - 0.5 * q, atc = firmAtc(q);
+  return { q, p, atc, profit: (p - atc) * q, efficientQ: a - 20, efficientP: (a + 20) / 2 };
+}
+// Kinked demand: the kink is at £70 and 50 units. AR = 95 - 0.5q above it, AR = 120 - q below it, so MR jumps from 45 to 20 at the kink. MC = c + 0.4q.
+export function kinked(c) {
+  const mc = c + 20;
+  if (mc >= 20 && mc <= 45) return { q: 50, p: 70, inGap: true };
+  const q = mc > 45 ? (95 - c) / 1.4 : (120 - c) / 2.4;
+  return { q, p: mc > 45 ? 95 - 0.5 * q : 120 - q, inGap: false };
+}
+const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
+const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
+const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
+
 export const econCharts = {
   ppf(root, a) {
     const xName = a.x || 'Consumer goods', yName = a.y || 'Capital goods';
@@ -176,6 +200,67 @@ export const econCharts = {
   },
 
   // Short-run cost curves: MC cuts AVC and ATC at their lowest points.
+  perfect(root, a) {
+    const specs = { price: { min: 30, max: 80, step: 5, value: a.price ?? 70, fmt: v => `£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The firm in perfect competition</h3>${slider('price', 'Market price', specs.price)}`
+      + `<div class="stats">${stat('Output (MC = MR)', 'q')}${stat('ATC at that output', 'atc')}${stat('Profit', 'profit', 'good')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ price }, set) => {
+      const { q, atc, profit } = priceTaker(price), normal = Math.abs(profit) < 1;
+      set('q', q); set('atc', `£${atc.toFixed(2)}`); set('profit', money(profit));
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Firm diagram. Price is a horizontal line at £${price}, which is also marginal revenue. The firm makes ${q} units, where marginal cost equals price.">${axes()}`
+        + (normal ? '' : box(0, price, q, atc, profit > 0 ? 'ch-gain' : 'ch-loss'))
+        + curve(firmAtc, 10, 118, 'ch-line ch-a') + curve(firmMc, 0, 118, 'ch-line ch-c') + seg(0, price, 125, price, 'ch-line ch-b')
+        + `<circle cx="${mx(q)}" cy="${my(price)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-b', 'P = AR = MR'], ['ch-c', 'MC'], ['ch-a', 'ATC']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = normal
+        ? 'Long-run equilibrium: price equals the lowest ATC and MC, so the firm makes normal profit. There is no reason to enter or leave.'
+        : profit > 0 ? `Abnormal profit of ${money(profit)} (the shaded box). In the long run new firms enter, supply rises and the price falls to £50.`
+          : `A loss of ${money(-profit)} (the shaded box). In the long run firms leave, supply falls and the price rises to £50.`;
+    });
+  },
+  pricemaker(root, a) {
+    const mono = a.model !== 'monopolistic', base = mono ? 110 : 72;
+    const specs = { a: { min: mono ? 90 : 66, max: mono ? 130 : 110, step: mono ? 5 : 1, value: a.a ?? (mono ? 110 : 90), fmt: v => `${v >= base ? '+' : ''}${v - base}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">${mono ? 'The monopolist' : 'The firm in monopolistic competition'}</h3>${slider('a', 'Strength of demand for this firm', specs.a)}`
+      + `<div class="stats">${stat('Output (MR = MC)', 'q')}${stat('Price', 'p')}${stat('Profit', 'profit', 'good')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ a: top }, set) => {
+      const r = priceMaker(top), normal = Math.abs(r.profit) < 15;
+      set('q', r.q.toFixed(0)); set('p', `£${r.p.toFixed(0)}`); set('profit', normal ? '£0' : money(r.profit));
+      const end = Math.min(125, top / 0.5), mrEnd = Math.min(125, top);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Firm diagram with a downward-sloping demand curve and a steeper marginal revenue curve. The firm makes ${r.q.toFixed(0)} units, where marginal revenue equals marginal cost, and charges £${r.p.toFixed(0)}.">${axes()}`
+        + (normal ? '' : box(0, r.p, r.q, r.atc, r.profit > 0 ? 'ch-gain' : 'ch-loss'))
+        + curve(firmAtc, 10, 118, 'ch-line ch-a') + curve(firmMc, 0, 118, 'ch-line ch-c')
+        + seg(0, top, end, top - 0.5 * end, 'ch-line ch-b') + seg(0, top, mrEnd, top - mrEnd, 'ch-line ch-b ch-dash')
+        + seg(r.q, 0, r.q, r.p, 'ch-line ch-dash ch-guide') + `<circle cx="${mx(r.q)}" cy="${my(r.p)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-b', 'AR (demand)'], ['ch-b dash', 'MR'], ['ch-c', 'MC'], ['ch-a', 'ATC']], '')}</figure>`;
+      const after = mono ? 'Barriers to entry can protect this in the long run.' : 'In the long run this attracts new firms, which takes demand from this firm until AR just touches ATC.';
+      const lossAfter = mono ? 'A monopolist in this position would leave the market in the long run.' : 'In the long run some firms leave, so demand for this firm rises until AR just touches ATC.';
+      root.querySelector('[data-desc]').textContent = (normal
+        ? `Normal profit: AR just touches ATC, at about £${r.p.toFixed(0)} and ${r.q.toFixed(0)} units.${mono ? '' : ' This is the long-run equilibrium.'} The firm still isn't at the lowest ATC, so it has excess capacity.`
+        : r.profit > 0 ? `Abnormal profit of ${money(r.profit)} (the shaded box). ${after}` : `A loss of ${money(-r.profit)} (the shaded box). ${lossAfter}`)
+        + ` Price is above MC: where P = MC the output would be ${r.efficientQ} at £${r.efficientP}.`;
+    });
+  },
+  kinked(root, a) {
+    const specs = { c: { min: 0, max: 40, step: 5, value: a.c ?? 10, fmt: v => `+£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The kinked demand curve</h3>${slider('c', 'Rise in marginal cost', specs.c)}`
+      + `<div class="stats">${stat('Price', 'p')}${stat('Output', 'q')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ c }, set) => {
+      const r = kinked(c);
+      set('p', `£${r.p.toFixed(0)}`); set('q', r.q.toFixed(0));
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Kinked demand curve with a kink at £70 and 50 units. Marginal revenue has a vertical gap below the kink, and marginal cost ${r.inGap ? 'passes through the gap' : 'misses the gap'}.">${axes()}`
+        + seg(0, 95, 50, 70, 'ch-line ch-b') + seg(50, 70, 110, 10, 'ch-line ch-b')
+        + seg(0, 95, 50, 45, 'ch-line ch-b ch-dash') + seg(50, 45, 50, 20, 'ch-line ch-b ch-dash') + seg(50, 20, 60, 0, 'ch-line ch-b ch-dash')
+        + curve(q => c + 0.4 * q, 0, 110, 'ch-line ch-c') + `<circle cx="${mx(r.q)}" cy="${my(r.p)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-b', 'AR (demand)'], ['ch-b dash', 'MR'], ['ch-c', 'MC']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = r.inGap
+        ? 'MC passes through the gap in MR, so the firm keeps the price at £70 and output at 50. This is why prices in an oligopoly can be stable.'
+        : 'MC has gone above the gap in MR, so this cost rise is large enough for the firm to raise its price.';
+    });
+  },
   costs(root, a) {
     const specs = {
       fc: { min: 20, max: 200, step: 10, value: a.fc ?? 60, fmt: v => `£${v}` },
