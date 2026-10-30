@@ -97,6 +97,11 @@ create table if not exists public.settings (
   display    jsonb not null default '{}' check (jsonb_typeof(display) = 'object' and octet_length(display::text) <= 2000),
   updated_at timestamptz not null default now()
 );
+-- P2: exam dates the learner adds for the dashboard countdown: { "list": [{ id, name, date, course? }], "updatedAt" }.
+alter table public.settings add column if not exists exams jsonb not null default '{}';
+alter table public.settings drop constraint if exists settings_exams_ok;
+alter table public.settings add constraint settings_exams_ok
+  check (jsonb_typeof(exams) = 'object' and octet_length(exams::text) <= 4000);
 
 -- ---------- row level security: own rows only ----------
 do $$

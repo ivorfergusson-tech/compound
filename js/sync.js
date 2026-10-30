@@ -4,6 +4,7 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 import { mergeStates, emptyState } from './progress.js';
 import { nicknameProblem, nicknameLock, lockMessage, passwordProblem } from './nickname.js';
 import * as display from './display.js';
+import * as exams from './exams.js';
 import { esc } from './util.js';
 
 const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
@@ -51,6 +52,7 @@ export async function init(p, onChange) {
       history.replaceState(null, '', location.pathname + (recovery || authError || !to ? '#/account' : to));
     }
     display.onChange(() => pushSettingsSoon());
+    exams.onChange(() => pushExams());
     if (session) syncNow();
     else refreshRank();
   } catch (e) {
@@ -72,6 +74,10 @@ function syncNow() {
         const local = display.get();
         if (remote.display && (remote.display.updatedAt || '') > (local.updatedAt || '')) display.set(display.clean(remote.display), { fromAccount: true });
         else if (local.updatedAt && local.updatedAt !== remote.display?.updatedAt) await pushSettings();
+        // Exam dates: the newer copy wins too.
+        const mine = exams.get();
+        if (remote.exams && (remote.exams.updatedAt || '') > (mine.updatedAt || '')) exams.set(exams.clean(remote.exams), { fromAccount: true });
+        else if (mine.updatedAt && mine.updatedAt !== remote.exams?.updatedAt) await pushExams();
         await push();
         await refreshRank();
       } catch (e) {
@@ -108,6 +114,7 @@ async function pull() {
   const s = emptyState();
   s.nickname = profile.mustChange ? null : profile.nickname;
   s.display = settings[0] ? { ...settings[0].display, updatedAt: settings[0].updated_at } : null;
+  s.exams = settings[0] && settings[0].exams && settings[0].exams.updatedAt ? settings[0].exams : null; // arrives with the P2 schema
   for (const r of reads) s.read[r.item_id] = r.read_at;
   s.attempts = attempts.map(a => ({
     uid: a.id, at: a.at, day: a.day, kind: a.kind, id: a.item_id, auto: a.auto, claimed: a.claimed, outOf: a.out_of,
@@ -150,6 +157,11 @@ async function pushSettings() {
   const { updatedAt, ...rest } = d;
   const { error } = await sb.from('settings').upsert({ user_id: session.user.id, display: rest, updated_at: updatedAt || new Date().toISOString() });
   if (error) console.warn('Settings not saved to the account; kept in this browser', error);
+}
+async function pushExams() {
+  if (!sb || !session || admin) return;
+  const { error } = await sb.from('settings').upsert({ user_id: session.user.id, exams: exams.get() });
+  if (error) console.warn('Exam dates not saved to the account; kept in this browser', error);
 }
 let settingsTimer = null;
 function pushSettingsSoon() { clearTimeout(settingsTimer); settingsTimer = setTimeout(pushSettings, 800); }
@@ -410,7 +422,7 @@ export const hasNickname = () => Boolean(session && profile.nickname && !profile
 
 // ---------- your data ----------
 export async function exportAll(state) {
-  const out = { exported: new Date().toISOString(), course: 'Compound', thisBrowser: state };
+  const out = { exported: new Date().toISOString(), course: 'Compound', thisBrowser: { ...state, display: display.get(), exams: exams.get() } };
   if (sb && session) {
     const uid = session.user.id;
     out.account = { email: session.user.email, userId: uid };

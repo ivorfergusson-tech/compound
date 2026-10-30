@@ -63,7 +63,7 @@ def admin(method, path, body=None):
 
 def make_user(tag):
     email = f"compound-test-{tag}-{secrets.token_hex(4)}@example.com"
-    password = secrets.token_urlsafe(18)
+    password = secrets.token_urlsafe(18) + "aA1!"  # meets any character rule set in Supabase
     s, u = admin("POST", "/users", {"email": email, "password": password, "email_confirm": True})
     assert s in (200, 201), f"create user: {s} {u}"
     s, t = call("POST", "/auth/v1/token?grant_type=password", {"email": email, "password": password})
@@ -148,6 +148,21 @@ def main():
         check("still locked after trying to move the date", s == 400 and isinstance(err, dict) and err.get("code") == "CN001", f"{s} {err}")
         s, data = rows("settings", b, a["id"])
         check("B can't see A's display settings", s == 200 and data == [], f"{s} {data}")
+
+        # exam dates (P2): saved on the settings row, private, size-limited
+        exams = {"list": [{"id": "x1", "name": "Economics mock", "date": "2026-12-07", "course": "money"}], "updatedAt": "2026-10-30T10:00:00Z"}
+        s, _ = call("PATCH", f"/rest/v1/settings?user_id=eq.{a['id']}", {"exams": exams}, token=a["token"])
+        check("A saves exam dates", s in (200, 204), s)
+        s, mine = rows("settings", a)
+        check("exam dates kept beside display settings", mine and mine[0]["exams"]["list"][0]["name"] == "Economics mock" and mine[0]["display"].get("size") == "l", mine)
+        s, data = call("GET", f"/rest/v1/settings?select=exams&user_id=eq.{a['id']}", token=b["token"])
+        check("B can't see A's exam dates", s == 200 and data == [], f"{s} {data}")
+        s, _ = call("PATCH", f"/rest/v1/settings?user_id=eq.{a['id']}", {"exams": {"list": [{"name": "x" * 5000}]}}, token=a["token"])
+        check("huge exam list rejected", s == 400, s)
+        s, _ = call("PATCH", f"/rest/v1/settings?user_id=eq.{a['id']}", {"exams": ["not", "an", "object"]}, token=a["token"])
+        check("exam dates must be an object", s == 400, s)
+        s, _ = post(b, "settings", {"user_id": a["id"], "exams": exams})
+        check("B can't write A's exam dates", s in (401, 403, 409), s)
 
         # delete account
         s, _ = call("POST", "/rest/v1/rpc/delete_my_account", {}, token=a["token"])

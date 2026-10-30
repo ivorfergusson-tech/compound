@@ -86,7 +86,7 @@ with sync_playwright() as p:
     check("Escape closes it", page.locator(".modal").count() == 0)
     check("closing remembers", flag(page) == "dismissed")
     page.reload()
-    page.wait_for_selector(".item")
+    page.wait_for_selector(".course-card")
     page.wait_for_timeout(800)
     check("not shown again", page.locator(".modal").count() == 0)
     ctx.close()
@@ -101,7 +101,7 @@ with sync_playwright() as p:
     # Someone who has already used the course in this browser isn't interrupted
     ctx, page = new_page(browser, {"v": 1, "nickname": None, "read": {"00": "2026-10-20T10:00:00Z"}, "attempts": [], "srs": {}, "notes": {}, "guesses": {}, "days": []})
     page.goto(BASE)
-    page.wait_for_selector(".item")
+    page.wait_for_selector(".course-card")
     page.wait_for_timeout(800)
     check("no pop-up for someone with progress", page.locator(".modal").count() == 0)
     ctx.close()
@@ -246,7 +246,7 @@ with sync_playwright() as p:
     # axe on the other main pages (default look, dark and light, desktop width)
     for theme in ("dark", "light"):
         ctx, page = new_page(browser, signup="done", width=1200, extra_init=f"localStorage.setItem('compound.theme', '{theme}')")
-        for route, sel in (("#/", ".item"), ("#/c/money/m/01", ".lesson-section"), ("#/c/money/glossary", ".g-item"), ("#/leaderboard", "main h1"), ("#/about", "main h1"), ("#/account", ".settings-grid")):
+        for route, sel in (("#/", ".course-card"), ("#/c/money", ".item"), ("#/refresh", ".quiz .card"), ("#/c/money/m/01", ".lesson-section"), ("#/c/money/glossary", ".g-item"), ("#/leaderboard", "main h1"), ("#/about", "main h1"), ("#/account", ".settings-grid")):
             page.goto(BASE + route)
             page.wait_for_selector(sel)
             page.wait_for_timeout(300)

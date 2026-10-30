@@ -12,7 +12,7 @@ export const XP_RULES = {
   streakWeek: 50,      // every 7 days in a row
 };
 const SRS_GAPS = [1, 3, 7, 21]; // days until a missed question comes back, by box
-const RETIRED = '9999-12-31';
+export const RETIRED = '9999-12-31';
 
 function newId() {
   if (globalThis.crypto && crypto.randomUUID) return crypto.randomUUID();

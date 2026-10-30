@@ -81,7 +81,7 @@ def new_page(browser, progress):
 
 def hash_after(page, route):
     page.goto(BASE + route)
-    page.wait_for_function("() => !/^#\\/(m|cp|glossary)(\\/|\\?|$)/.test(location.hash)")
+    page.wait_for_function("() => !/^#\\/(m|cp|glossary)(\\/|\\?|$)/.test(location.hash) && !location.hash.startsWith('#/?')")
     page.wait_for_selector("main")
     return page.evaluate("location.hash")
 
@@ -96,7 +96,7 @@ with sync_playwright() as p:
     check("module 1 opens at its new route", page.locator(".lesson h1").count() == 1)
     check("#/cp/1 redirects", hash_after(page, "#/cp/1") == "#/c/money/cp/1")
     check("#/glossary keeps its query", hash_after(page, "#/glossary?t=isa") == "#/c/money/glossary?t=isa")
-    page.goto(BASE + "#/?strand=money")
+    check("#/?strand= redirects to the course map", hash_after(page, "#/?strand=money") == "#/c/money?strand=money")
     page.wait_for_selector(".item")
     check("#/?strand= still filters", page.locator(".chip.on").inner_text().endswith("Money"))
     page.goto(BASE + "#/c/nope")

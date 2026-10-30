@@ -20,6 +20,7 @@ These settle the open points in the brief below. Where they differ from the brie
 | Money course review status | All existing Money modules and questions are `reviewed-by-owner`, dated 29 Oct 2026. |
 | Support email | A new Compound address Ivor will make. Use a placeholder until then. |
 | Sign-up pop-up scope | The app (`index.html`) only. The static reading pages (`m/<id>/`) stay clean for search engines; their "Open in the course" button leads into the app. |
+| Dashboard (P2, 30 Oct 2026) | `#/` is the dashboard; a course's map is `#/c/<course>`. Exam dates are ones the learner adds (stored in `settings.exams`); official dates go in a course's `exams` list in `courses.json` only once checked against the board's timetable, with source and checked date. Refresh knowledge sets are recall attempts with id `rf` (5 XP per right answer, first set each day). Question ids are unique across courses; outside Money they start `<course>:`. My classes, Due soon and the class leaderboard come with classes (P3/P4). |
 | Supabase region | Already West EU (London), set 27 Oct 2026. No move needed. |
 
 ---

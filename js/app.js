@@ -1,8 +1,11 @@
-// Router and views. Hash routes: #/, #/c/<course>, #/c/<course>/m/<id>, #/c/<course>/cp/<n>, #/c/<course>/glossary,
-// #/leaderboard, #/account, #/about. The old Money routes (#/m/<id>, #/cp/<n>, #/glossary) redirect to #/c/money/….
+// Router and views. Hash routes: #/ (dashboard), #/refresh, #/c/<course>, #/c/<course>/m/<id>, #/c/<course>/cp/<n>,
+// #/c/<course>/glossary, #/leaderboard, #/account, #/about. The old Money routes (#/m/<id>, #/cp/<n>, #/glossary)
+// redirect to #/c/money/….
 import { esc, el, niceDate } from './util.js';
 import { loadRegistry, loadFigures, courseFiles } from './content.js';
 import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES } from './progress.js';
+import { REFRESH_ID, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, upcoming, weekPlan } from './dashboard.js';
+import * as exams from './exams.js';
 import { buildAttempt, buildCheckpoint, instantiate } from './quiz.js';
 import { runQuiz } from './quizui.js';
 import { parseLesson, hydrateBlocks } from './lesson.js';
@@ -169,7 +172,7 @@ function viewHome(params) {
   const modules = course.items.filter(i => i.kind === 'module');
   const passedCount = modules.filter(i => st[i.id].state === 'passed').length;
   const fresh = !course.items.some(i => progress.state.read[K(i.id)] || progress.attemptsFor(K(i.id)).length);
-  const next = (fresh && course.items[0]) || course.items.find(i => i.kind !== 'intro' && st[i.id].state === 'open') || course.items[0];
+  const next = nextItem(course, st, !fresh) || course.items[0];
   const nextStrand = strandOf(next);
   const ns = st[next.id];
 
@@ -198,7 +201,8 @@ function viewHome(params) {
 
   shell(`<div class="home">
     <section class="card hero">
-      <span class="eyebrow">${fresh ? 'Welcome' : 'Pick up where you left off'}</span>
+      <a class="small back-link" href="#/">← Dashboard</a>
+      <span class="eyebrow">${esc(entry.title)} · ${fresh ? 'Welcome' : 'Pick up where you left off'}</span>
       ${nextStrand ? `<span class="pill strand-pill-${next.strand}">${nextStrand.emoji} ${esc(nextStrand.name)} · module ${next.num}</span>` : ''}
       <h1>${esc(next.title)}</h1>
       <p class="muted">${esc(next.summary)}</p>
@@ -215,8 +219,206 @@ function viewHome(params) {
       <div class="lb-mini"><p class="muted small">Loading…</p></div>
     </aside>
     <nav class="chips" aria-label="Filter by strand">${chips}</nav>
-    <section class="items">${list}</section></div>`, { wide: true });
+    <section class="items">${list}</section></div>`, { wide: true, title: entry.title });
   fillMiniLeaderboard(app.querySelector('.lb-mini'));
+}
+
+// ---------- dashboard ----------
+// Every live course, loaded, with its progress keys and status.
+async function liveCourses() {
+  const list = await Promise.all(registry.courses.filter(e => e.live).map(e => loadCourseById(e.id)));
+  return list.map(c => {
+    const key = id => itemKey(c.course, id);
+    return { ...c, key, st: courseStatus(c.course.items, progress, c.course.ready, { unlockAll: sync.isAdmin(), key }) };
+  });
+}
+
+// Questions still being learnt (missed before), from every course: Map qid → { q, course, module }.
+// Only the quizzes holding them are loaded. Question ids are unique across courses (tests/run.js).
+async function questionBank(courses) {
+  const need = srsModules(progress.state, registry.default);
+  const bank = new Map();
+  await Promise.all(courses.map(async c => {
+    const nums = need[c.course.id];
+    if (!nums) return;
+    const items = c.course.items.filter(i => i.kind === 'module' && nums.has(i.num) && c.course.ready.includes(i.id));
+    const quizzes = await Promise.all(items.map(i => c.files.quiz(i.id)));
+    items.forEach((item, k) => {
+      for (const q of quizzes[k]?.questions || []) bank.set(q.id, { q, course: c.course.id, module: item.num });
+    });
+  }));
+  return bank;
+}
+
+const itemHref = (c, it) => `#/c/${c.course.id}/${it.kind === 'checkpoint' ? `cp/${it.num}` : `m/${it.id}`}`;
+const itemName = it => (it.kind === 'checkpoint' ? it.title : it.kind === 'intro' ? 'Introduction' : `Module ${it.num}: ${it.short || it.title}`);
+
+async function viewDashboard() {
+  const courses = await liveCourses();
+  const bank = await questionBank(courses);
+  const today = progress.today();
+  const refresh = pickRefresh(progress.state, bank, today);
+  const active = lastActive(progress.state, registry.default);
+  const byId = Object.fromEntries(courses.map(c => [c.course.id, c]));
+  const recent = courses.filter(c => active[c.course.id]).sort((a, b) => active[b.course.id] - active[a.course.id]);
+  const here = recent[0] || byId[registry.default];
+  const started = Boolean(active[here.course.id]);
+  const next = nextItem(here.course, here.st, started);
+  const nick = sync.signedIn() && sync.hasNickname() ? progress.state.nickname : null;
+
+  // Continue where you left off
+  let hero;
+  if (next) {
+    const ns = here.st[next.id];
+    hero = `<section class="card hero continue">
+      <span class="eyebrow">${started ? 'Continue where you left off' : 'Start here'} · ${esc(here.entry.title)}</span>
+      <h2 class="hero-title">${esc(next.title)}</h2>
+      <p class="muted">${esc(next.summary || '')}</p>
+      ${ns.best != null ? `<p>Best score <strong>${ns.best}%</strong>. Score ${Math.round(here.course.passMark * 100)}% to unlock the next one.</p>` : ''}
+      <a class="btn wide" href="${itemHref(here, next)}">${ns.best != null ? 'Carry on' : next.kind === 'intro' ? 'Start the course' : 'Start'}</a>
+    </section>`;
+  } else {
+    hero = `<section class="card hero continue"><span class="eyebrow">${esc(here.entry.title)}</span><h2 class="hero-title">Course finished</h2>
+      <p>You've passed every module. Retake any quiz or refresh what you got wrong to keep it fresh.</p><a class="btn wide" href="#/c/${here.course.id}">Open the course</a></section>`;
+  }
+
+  // Refresh knowledge
+  const refreshCard = refresh.waiting ? `<section class="card refresh-card">
+      <div class="row-between"><h2>Refresh knowledge</h2><span class="tag ${refresh.due ? 'warm' : 'good'}">${refresh.due ? `${refresh.due} due` : 'Nothing due today'}</span></div>
+      <p class="muted">A quick set of ${refresh.questions.length} questions you got wrong before${courses.length > 1 ? ', from every course' : ''}. Each one comes back further apart until it sticks.</p>
+      <a class="btn${refresh.due ? '' : ' ghost'} wide" href="#/refresh">Start a refresh set</a>
+    </section>` : '';
+
+  // Course picker
+  const cards = registry.courses.map(e => {
+    const c = byId[e.id];
+    const board = e.board ? `${e.board.toUpperCase()}${e.spec ? ` · ${esc(e.spec)}` : ''}` : 'Any age · UK';
+    if (!c) {
+      return `<div class="course-card soon"><span class="eyebrow">${board}</span><strong class="cc-title">${esc(e.title)}</strong>
+        <span class="muted small">${esc(registry.subjects[e.subject]?.blurb || '')}</span><span class="tag">Coming soon</span></div>`;
+    }
+    const p = coursePercent(c.course, c.st);
+    const locked = e.needsAccount && !sync.hasNickname() && !sync.isAdmin();
+    return `<a class="course-card" href="#/c/${e.id}"><span class="eyebrow">${board}</span><strong class="cc-title">${esc(e.title)}</strong>
+      <span class="muted small">${esc(registry.subjects[e.subject]?.blurb || '')}</span>
+      <span class="bar" role="progressbar" aria-label="${esc(e.title)} complete" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p.pct}"><span style="width:${p.pct}%"></span></span>
+      <span class="small"><strong>${p.pct}%</strong> · ${p.passed} of ${p.total} modules passed${locked ? ' · needs a free account' : ''}</span></a>`;
+  }).join('');
+
+  shell(`<div class="home dash">
+    <h1 class="dash-title">${nick ? `Hi ${esc(nick)}` : 'Your dashboard'}</h1>
+    ${hero}
+    ${refreshCard}
+    <section class="courses"><h2>Your courses</h2><div class="course-grid">${cards}</div></section>
+    <section class="card exams" id="exams">${examsHtml(courses, here, refresh)}</section>
+    <aside class="card side-lb" aria-labelledby="lb-h">
+      <div class="row-between"><h2 id="lb-h">Leaderboard</h2><a class="small" href="#/leaderboard">See all</a></div>
+      <div class="lb-mini"><p class="muted small">Loading…</p></div>
+    </aside></div>`, { wide: true });
+  wireExams(app.querySelector('#exams'));
+  fillMiniLeaderboard(app.querySelector('.lb-mini'));
+}
+
+// Exam countdown: official dates from the course registry (with their source) and the learner's own,
+// then a plan for this week before the soonest one.
+function examsHtml(courses, here, refresh) {
+  const today = progress.today();
+  const byId = Object.fromEntries(courses.map(c => [c.course.id, c]));
+  const official = courses.flatMap(c => (c.entry.exams || []).map((x, k) => ({ id: `o-${c.course.id}-${k}`, name: x.paper, date: x.date, course: c.course.id, official: x })));
+  const mine = exams.get().list;
+  const soon = upcoming([...official, ...mine], today);
+  const past = mine.filter(e => e.date < today);
+  const courseName = id => (byId[id] ? byId[id].entry.title : '');
+  const row = e => `<li class="exam${e.days <= 14 ? ' close' : ''}"><span class="days"><strong>${e.days}</strong> ${e.days === 1 ? 'day' : 'days'}</span>
+    <span class="ex-txt"><span class="ex-name">${esc(e.name)}</span><span class="muted small">${esc(niceDate(e.date))}${e.course ? ` · ${esc(courseName(e.course))}` : ''}${e.official ? ` · <a href="${esc(e.official.url)}">${esc(e.official.source)}</a>, checked ${esc(niceDate(e.official.checked))}` : ''}</span></span>
+    ${e.official ? '' : `<button type="button" class="icon-btn remove" data-id="${esc(e.id)}" aria-label="Remove ${esc(e.name)}">×</button>`}</li>`;
+
+  let plan = '';
+  const first = soon[0];
+  if (first) {
+    const c = (first.course && byId[first.course]) || here;
+    const weak = weakSpots(progress.state, c.course, c.key, c.st);
+    const started = Boolean(lastActive(progress.state, registry.default)[c.course.id]);
+    const p = weekPlan({ days: first.days, refresh: refresh.due, weak, next: nextItem(c.course, c.st, started) });
+    const step = s => s.kind === 'refresh' ? `<li><a href="#/refresh">Refresh knowledge</a>: ${s.count} ${s.count === 1 ? 'question' : 'questions'} due.</li>`
+      : s.kind === 'retake' ? `<li>Retake <a href="${itemHref(c, s.item)}">${esc(itemName(s.item))}</a> (best ${s.best}%).</li>`
+      : s.kind === 'topics' ? `<li>Go back over ${s.topics.map(t => `<a href="${itemHref(c, t.item)}">${esc(t.topic)}</a>`).join(', ')}.</li>`
+      : `<li>Learn next: <a href="${itemHref(c, s.item)}">${esc(itemName(s.item))}</a>.</li>`;
+    plan = `<div class="plan"><h3>This week, for ${esc(first.name)}</h3>
+      <p class="muted small">${p.weeks} ${p.weeks === 1 ? 'week' : 'weeks'} to go · ${esc(c.entry.title)}. ${esc(p.pace)}</p>
+      ${p.steps.length ? `<ol>${p.steps.map(step).join('')}</ol>` : '<p>Nothing weak yet. Keep going with the course.</p>'}
+      ${weak.topics.length ? '' : '<p class="muted small">Your weakest topics show here once you\'ve done a few quizzes.</p>'}</div>`;
+  }
+  const opts = courses.map(c => `<option value="${esc(c.course.id)}">${esc(c.entry.title)}</option>`).join('');
+  return `<h2>Exam countdown</h2>
+    ${soon.length ? `<ul class="exam-list">${soon.map(row).join('')}</ul>` : '<p class="muted">Add your exam dates, mocks too, for a countdown and a plan for each week.</p>'}
+    ${plan}
+    ${past.length ? `<p class="muted small past-exams">Done: ${past.map(e => `${esc(e.name)} (${esc(niceDate(e.date))}) <button type="button" class="linkish remove" data-id="${esc(e.id)}" aria-label="Remove ${esc(e.name)}">remove</button>`).join(' · ')}</p>` : ''}
+    <details class="add-exam"${soon.length ? '' : ' open'}><summary>Add an exam date</summary>
+      <form class="exam-form" novalidate>
+        <label>Exam<input name="name" maxlength="${exams.MAX_NAME}" placeholder="e.g. Economics mock, Paper 1" autocomplete="off"></label>
+        <label>Date<input name="date" type="date" min="${today}"></label>
+        ${courses.length > 1 ? `<label>Course<select name="course"><option value="">Any</option>${opts}</select></label>` : `<input type="hidden" name="course" value="${esc(courses[0].course.id)}">`}
+        <button type="submit" class="btn">Add</button>
+        <p class="auth-error exam-msg" role="alert" hidden></p>
+      </form></details>
+    <p class="muted small">${sync.signedIn() ? 'Saved to your account.' : 'Saved in this browser; make an account to keep them on any device.'}</p>`;
+}
+
+function wireExams(box) {
+  const form = box.querySelector('.exam-form');
+  const msg = box.querySelector('.exam-msg');
+  const say = t => { msg.textContent = t; msg.hidden = !t; };
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const f = form.elements;
+    const name = f.name.value.replace(/\s+/g, ' ').trim();
+    const date = f.date.value;
+    const list = exams.get().list;
+    if (!name) return say('Give the exam a name.');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return say('Pick the date of the exam.');
+    if (date < progress.today()) return say('That date has passed. Pick a date from today on.');
+    if (list.length >= exams.MAX_EXAMS) return say(`You can keep up to ${exams.MAX_EXAMS} exams. Remove one first.`);
+    exams.set([...list, { id: exams.newId(), name, date, ...(f.course.value ? { course: f.course.value } : {}) }]);
+    toast(`Added ${name}`);
+    route();
+  });
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.remove');
+    if (!b) return;
+    exams.set(exams.get().list.filter(x => x.id !== b.dataset.id));
+    route();
+  });
+}
+
+// Refresh knowledge: a quick set of questions got wrong before, from every course.
+async function viewRefresh() {
+  const courses = await liveCourses();
+  const bank = await questionBank(courses);
+  shell(`<article class="lesson"><header class="lesson-head"><span class="pill">🔁 Refresh knowledge</span><h1>Refresh knowledge</h1>
+    <p class="muted">Questions you got wrong before${courses.length > 1 ? ', from every course' : ''}. Get one right and it comes back later, further apart each time, until it sticks. ${XP_RULES.perRecall} XP per right answer in your first set each day.</p></header>
+    <div class="quiz"></div></article>`, { title: 'Refresh knowledge' });
+  const box = app.querySelector('.quiz');
+  const empty = `<div class="card"><p><strong>Nothing to refresh.</strong> Questions you get wrong in quizzes and recall checks come back here.</p><a class="btn" href="#/">Back to the dashboard</a></div>`;
+  const start = () => {
+    const pick = pickRefresh(progress.state, bank, progress.today());
+    if (!pick.questions.length) { box.innerHTML = empty; return; }
+    const qs = pick.questions.map(b => ({ ...instantiate(b.q, { randomise: true }), module: b.module }));
+    const xpBefore = progress.xp().total;
+    runQuiz(box, qs, {
+      kind: 'recall', title: 'Refresh knowledge', passMark: 0, onRetry: start,
+      onFinish: s => {
+        progress.recordAttempt({ kind: 'recall', id: REFRESH_ID, auto: s.auto, claimed: s.claimed, outOf: s.outOf, results: s.results });
+        refreshStrip(); sync.pushSoon();
+        const gained = progress.xp().total - xpBefore;
+        return `<p class="muted">${gained > 0 ? `+${gained} XP` : 'No new XP: refresh XP counts your first set each day.'}</p>${saveBanner()}<a class="btn ghost" href="#/">Back to the dashboard</a>`;
+      },
+    });
+  };
+  const pick = pickRefresh(progress.state, bank, progress.today());
+  if (!pick.questions.length) { box.innerHTML = empty; return; }
+  box.innerHTML = `<div class="card"><p>${pick.due ? `<strong>${pick.due} due today.</strong> ` : ''}${pick.questions.length} quick ${pick.questions.length === 1 ? 'question' : 'questions'}, about two minutes.</p><button type="button" class="btn wide">Start</button></div>`;
+  box.querySelector('button').addEventListener('click', start);
 }
 
 async function fillMiniLeaderboard(box) {
@@ -600,7 +802,7 @@ function viewAbout() {
       <li><strong>${R.perMark} XP per mark</strong> on each quiz and checkpoint, using your best auto-marked score. Retrying can only raise it, never double it.</li>
       <li><strong>Passing a module:</strong> every module from 2 on starts with a short recall check of questions from earlier modules, then the quiz. You need ${Math.round(course.passMark * 100)}% across both parts together, and each retry starts with a fresh recall check. Module 1 has no recall check, so its pass is from the quiz alone. Modules you passed before this rule came in stay passed.</li>
       <li><strong>${R.firstPassModule} XP</strong> the first time you pass a module, and <strong>${R.firstPassCheckpoint} XP</strong> for a checkpoint. This bonus needs ${Math.round(course.passMark * 100)}% from auto-marked answers alone (recall check and quiz together).</li>
-      <li><strong>${R.perRecall} XP</strong> per right answer in a module's first recall check each day.</li>
+      <li><strong>${R.perRecall} XP</strong> per right answer in a module's first recall check each day, and in your first refresh knowledge set each day (on the dashboard).</li>
       <li><strong>${R.perDay} XP</strong> for each day you do something, and <strong>${R.streakWeek} XP</strong> for every 7 days in a row.</li>
       <li><strong>Claimed marks</strong> ("I had this") help you pass and unlock the next module, but never earn XP. That keeps the leaderboard fair.</li>
       <li>Levels get further apart as you go: level 2 at 100 XP, level 3 at 300, level 4 at 600, level 5 at 1,000.</li>
@@ -663,12 +865,14 @@ async function route() {
   const params = new URLSearchParams(query || '');
   const parts = path.split('/').filter(Boolean);
   // Old Money links (#/m/01, #/cp/1, #/glossary?t=…) keep working.
-  if (['m', 'cp', 'glossary'].includes(parts[0])) {
-    location.replace(`#/c/${registry.default}${path}${query ? `?${query}` : ''}`);
+  // and so does the old strand filter on the home page (#/?strand=money), now the course map's.
+  if (['m', 'cp', 'glossary'].includes(parts[0]) || (!parts.length && params.has('strand'))) {
+    location.replace(`#/c/${registry.default}${path === '/' ? '' : path}${query ? `?${query}` : ''}`);
     return;
   }
   try {
-    if (!parts.length) { await useCourse(registry.default); viewHome(params); }
+    if (!parts.length) { await useCourse(registry.default); await viewDashboard(); }
+    else if (parts[0] === 'refresh') { await useCourse(registry.default); await viewRefresh(); }
     else if (parts[0] === 'c') {
       if (!(await useCourse(parts[1]))) return viewNotFound();
       if (entry.needsAccount && sync.signedIn()) await sync.settled();
@@ -680,7 +884,7 @@ async function route() {
       else if (sub === 'glossary') viewGlossary(params);
       else viewNotFound();
     }
-    else if (parts[0] === 'leaderboard') await viewLeaderboard();
+    else if (parts[0] === 'leaderboard') { await useCourse(registry.default); await viewLeaderboard(); }
     else if (parts[0] === 'account') await viewAccount();
     else if (parts[0] === 'about') viewAbout();
     else viewNotFound();

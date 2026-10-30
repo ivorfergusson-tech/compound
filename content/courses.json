@@ -1,7 +1,9 @@
 {
   "default": "money",
   "subjects": {
-    "money": { "name": "Money", "blurb": "Personal finance, investing, paper trading and the finance industry, for anyone in the UK." }
+    "money": { "name": "Money", "blurb": "Personal finance, investing, paper trading and the finance industry, for anyone in the UK." },
+    "economics": { "name": "Economics", "blurb": "A-level Economics, mapped to the exam specification." },
+    "business": { "name": "Business", "blurb": "A-level Business, mapped to the exam specification." }
   },
   "courses": [
     {
@@ -12,7 +14,32 @@
       "path": "content/courses/money/",
       "pages": "m/",
       "needsAccount": false,
-      "live": true
+      "live": true,
+      "exams": []
+    },
+    {
+      "id": "econ-aqa",
+      "subject": "economics",
+      "board": "aqa",
+      "spec": "7136",
+      "title": "A-level Economics",
+      "path": "content/courses/econ-aqa/",
+      "pages": null,
+      "needsAccount": true,
+      "live": false,
+      "exams": []
+    },
+    {
+      "id": "business-aqa",
+      "subject": "business",
+      "board": "aqa",
+      "spec": "7132",
+      "title": "A-level Business",
+      "path": "content/courses/business-aqa/",
+      "pages": null,
+      "needsAccount": true,
+      "live": false,
+      "exams": []
     }
   ]
 }

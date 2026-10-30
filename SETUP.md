@@ -19,6 +19,7 @@ What it makes: 7 tables (profiles, module_reads, attempts, srs, notes, guesses, 
 **Run it again whenever `schema.sql` changes, before the site is pushed.** The site sends every column the file defines, so pushing first makes syncing fail until the SQL is run (progress stays safe in each browser meanwhile). Changes so far:
 - 29 Oct 2026 (platform P0): `attempts` gets `recall_auto`, `recall_claimed`, `recall_out_of` (the recall check part of a module quiz), and item ids may be course-prefixed (`econ-aqa:4.1.5`). Existing rows are untouched.
 - 29 Oct 2026 (platform P1): the nickname lock (`nickname_changed_at`, `nickname_must_change` on profiles, and the `nickname_lock` trigger: 7 days between changes, enforced by the database), and a `settings` table for display settings. Existing nicknames start unlocked.
+- 30 Oct 2026 (platform P2): an `exams` column on `settings` for the exam dates learners add on the dashboard (up to 12, size-limited by the database).
 
 ## 3. Sign-in links point at the right site
 Left sidebar → **Authentication** → **URL Configuration**:

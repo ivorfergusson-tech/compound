@@ -11,6 +11,8 @@ import { payslip } from '../js/calcs-money.js';
 import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-trade.js';
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
+import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
+import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
 function check(name, cond, extra = '') {
@@ -207,7 +209,7 @@ const idRule = sql.match(/attempts_item_id_ok\s+check \(item_id ~ '([^']+)'\)/);
 check('schema has the item id rule', Boolean(idRule));
 if (idRule) {
   const re = new RegExp(idRule[1]);
-  for (const k of ['00', '01', '32', 'cp1', 'cp4', 'econ-aqa:4.1.5', 'econ-aqa:4.1.5.4', 'bus-aqa:3.2']) check(`schema accepts ${k}`, re.test(k));
+  for (const k of ['00', '01', '32', 'cp1', 'cp4', REFRESH_ID, 'econ-aqa:4.1.5', 'econ-aqa:4.1.5.4', 'bus-aqa:3.2']) check(`schema accepts ${k}`, re.test(k));
   for (const k of ['', 'x', 'drop table', 'econ-aqa:', ':4.1', 'ECON:1']) check(`schema rejects "${k}"`, !re.test(k));
 }
 
@@ -343,6 +345,122 @@ const l6 = lbo({ ebitda: 20, entryMult: 10, debtPct: 60, growth: 5, years: 5, ex
 check('LBO debt magnifies return', l6.moic > lbo({ ebitda: 20, entryMult: 10, debtPct: 0, growth: 5, years: 5, exitMult: 10, paydownPct: 40 }).moic, l6.moic);
 check('call payoff', optionPnl('call', 100, 5, 110) === 5 && optionPnl('call', 100, 5, 90) === -5);
 check('put payoff', optionPnl('put', 100, 5, 80) === 15 && optionPnl('put', 100, 5, 120) === -5);
+
+// --- dashboard (P2)
+// Question ids are unique across every course (refresh and the srs table key on them); outside Money
+// they start '<course>:' so courseOfKey can tell which course a missed question came from.
+{
+  const seen = new Map();
+  for (const e of registry.courses.filter(c => c.live)) {
+    const c = JSON.parse(readFileSync(new URL(`courses/${e.id}/course.json`, contentRoot)));
+    for (const f of readdirSync(new URL(`courses/${e.id}/quizzes/`, contentRoot))) {
+      for (const q of JSON.parse(readFileSync(new URL(`courses/${e.id}/quizzes/${f}`, contentRoot))).questions) {
+        if (seen.has(q.id)) check(`question id ${q.id} unique across courses`, false, `${seen.get(q.id)} and ${e.id}`);
+        seen.set(q.id, e.id);
+        if (!c.legacyIds) check(`${q.id} starts ${e.id}:`, q.id.startsWith(`${e.id}:`));
+        else check(`${q.id} has no course prefix`, !q.id.includes(':'));
+      }
+    }
+  }
+  check('question ids checked', seen.size > 100, seen.size);
+}
+for (const e of registry.courses) {
+  check(`${e.id}: exams is a list`, Array.isArray(e.exams));
+  for (const x of e.exams || []) check(`${e.id}: official exam has paper, date, source, url, checked`, x.paper && /^\d{4}-\d{2}-\d{2}$/.test(x.date) && x.source && /^https:\/\//.test(x.url) && /^\d{4}-\d{2}-\d{2}$/.test(x.checked));
+  if (e.board) check(`${e.id}: A-level entry names its spec and needs an account`, Boolean(e.spec) && e.needsAccount === true);
+}
+check('courseOfKey: bare is the default course', courseOfKey('05', 'money').course === 'money' && courseOfKey('05-tax-code', 'money').id === '05-tax-code');
+check('courseOfKey: prefixed', courseOfKey('econ-aqa:4.1.5', 'money').course === 'econ-aqa' && courseOfKey('econ-aqa:4.1.5', 'money').id === '4.1.5');
+{
+  const st0 = { read: { '00': '2026-10-01T10:00:00Z', 'econ-aqa:4.1': '2026-10-03T10:00:00Z' }, attempts: [
+    { kind: 'quiz', id: '01', at: '2026-10-02T10:00:00+00:00' }, { kind: 'recall', id: REFRESH_ID, at: '2026-10-09T10:00:00Z' }] };
+  const la = lastActive(st0, 'money');
+  check('lastActive per course', la.money === Date.parse('2026-10-02T10:00:00Z') && la['econ-aqa'] === Date.parse('2026-10-03T10:00:00Z'));
+  check('lastActive ignores refresh sets', Object.keys(la).length === 2);
+}
+{
+  const pd = new Progress({ storage: mem(), today: () => '2026-10-30' });
+  const all = course.items.map(i => i.id);
+  let sd = courseStatus(course.items, pd, all);
+  check('nextItem: not started is the introduction', nextItem(course, sd, false) === course.items[0]);
+  check('nextItem: started is the first open module', nextItem(course, sd, true).id === '01');
+  check('coursePercent: none passed', coursePercent(course, sd).pct === 0 && coursePercent(course, sd).total === course.items.filter(i => i.kind === 'module').length);
+  const allPassed = Object.fromEntries(course.items.map(i => [i.id, { state: i.kind === 'intro' ? 'done' : 'passed' }]));
+  check('nextItem: course done is null', nextItem(course, allPassed, true) === null);
+  check('coursePercent: all passed is 100', coursePercent(course, allPassed).pct === 100);
+  const q1 = quizzes['01'].questions, q2 = quizzes['02'].questions;
+  pd.recordAttempt({ kind: 'quiz', id: '01', auto: 2, outOf: 8, passed: false, results: [
+    { qid: q1[0].id, module: 1, topic: 'topic A', correct: false }, { qid: q1[1].id, module: 1, topic: 'topic B', correct: false }, { qid: q1[2].id, module: 1, topic: 'topic C', correct: true }] });
+  sd = courseStatus(course.items, pd, all);
+  const ws = weakSpots(pd.state, course, id => id, sd);
+  check('weakSpots: failed module listed with its best', ws.modules.length === 1 && ws.modules[0].item.id === '01' && ws.modules[0].best === 25);
+  check('weakSpots: missed topics of the latest attempt', ws.topics.map(t => t.topic).join() === 'topic A,topic B' && ws.topics[0].item.id === '01');
+  check('srsModules: modules with questions still being learnt', [...srsModules(pd.state, 'money').money].join() === '1');
+  pd.recordAttempt({ kind: 'quiz', id: '01', auto: 7, outOf: 8, passed: true, results: [{ qid: q1[0].id, module: 1, topic: 'topic A', correct: true }] });
+  sd = courseStatus(course.items, pd, all);
+  const ws2 = weakSpots(pd.state, course, id => id, sd);
+  check('weakSpots: passed module drops off, old misses forgotten', ws2.modules.length === 0 && ws2.topics.length === 0);
+  // bank: a due one, an older due one, a not-yet-due one, a retired one and a written answer
+  const bank = new Map();
+  const add = (q, module) => bank.set(q.id, { q, course: 'money', module });
+  const quick = q2.filter(q => q.type !== 'explain');
+  const expl = q2.find(q => q.type === 'explain');
+  add(q1[1], 1);
+  quick.slice(0, 3).forEach(q => add(q, 2));
+  if (expl) add(expl, 2);
+  const srs = {
+    [q1[1].id]: { box: 0, due: '2026-10-30', module: 1, misses: 1 },
+    [quick[0].id]: { box: 0, due: '2026-10-20', module: 2, misses: 2 },
+    [quick[1].id]: { box: 1, due: '2026-11-02', module: 2, misses: 1 },
+    [quick[2].id]: { box: 4, due: '9999-12-31', module: 2, misses: 1 },
+    ...(expl ? { [expl.id]: { box: 0, due: '2026-10-01', module: 2, misses: 1 } } : {}),
+  };
+  check('test bank has a written answer', Boolean(expl));
+  const pr = pickRefresh({ srs }, bank, '2026-10-30');
+  check('refresh: due first, oldest first, then the rest', pr.questions.map(b => b.q.id).join() === [quick[0].id, q1[1].id, quick[1].id].join(), pr.questions.map(b => b.q.id).join());
+  check('refresh: counts due, leaves out retired and written answers', pr.due === 2 && pr.waiting === 3, `${pr.due} ${pr.waiting}`);
+  check('refresh: size cap', pickRefresh({ srs }, bank, '2026-10-30', 1).questions.length === 1);
+  check('refresh: empty without misses', pickRefresh({ srs: {} }, bank, '2026-10-30').questions.length === 0);
+  const g = { ...quick[0], id: 'g1', group: 'same' }, g2 = { ...quick[1], id: 'g2', group: 'same' };
+  const gb = new Map([['g1', { q: g, course: 'money', module: 2 }], ['g2', { q: g2, course: 'money', module: 2 }]]);
+  check('refresh: one question per group', pickRefresh({ srs: { g1: { due: '2026-10-01' }, g2: { due: '2026-10-02' } } }, gb, '2026-10-30').questions.length === 1);
+  // plan
+  const plan = weekPlan({ days: 38, refresh: 2, weak: ws, next: course.items.find(i => i.id === '02') });
+  check('plan: weeks and pace', plan.weeks === 6 && /Three or four/.test(plan.pace));
+  check('plan: refresh, retake, topics, next', plan.steps.map(s => s.kind).join() === 'refresh,retake,topics,next');
+  check('plan: next not repeated when it is the retake', !weekPlan({ days: 3, weak: ws, next: ws.modules[0].item }).steps.some(s => s.kind === 'next'));
+  check('plan: last week is daily', /every day/.test(weekPlan({ days: 5 }).pace) && weekPlan({ days: 0 }).weeks === 1);
+}
+check('daysUntil', daysUntil('2026-12-07', '2026-10-30') === 38 && daysUntil('2026-10-30', '2026-10-30') === 0 && daysUntil('2026-10-29', '2026-10-30') === -1);
+check('daysUntil across the clocks going back', daysUntil('2026-10-26', '2026-10-24') === 2);
+{
+  const up = upcoming([{ name: 'B', date: '2027-05-20' }, { name: 'Old', date: '2026-10-01' }, { name: 'A', date: '2026-12-07' }], '2026-10-30');
+  check('upcoming: future only, soonest first', up.map(e => e.name).join() === 'A,B' && up[0].days === 38);
+}
+// --- my exams (js/exams.js)
+{
+  const list = cleanExamList([
+    { id: 'b', name: '  Econ   mock  ', date: '2026-12-07', course: 'money' },
+    { id: 'a', name: 'Physics', date: '2026-11-20' },
+    { name: 'No date' }, { name: '', date: '2026-12-01' }, { name: 'Bad day', date: '2026-02-30' }, { name: 'Bad fmt', date: '7/12/2026' },
+    { id: 'BAD ID!', name: 'x'.repeat(200), date: '2027-01-01', course: 'DROP TABLE' }, null, 'junk',
+  ]);
+  check('exams: bad ones dropped', list.length === 3, list.length);
+  check('exams: soonest first, names tidied', list[0].name === 'Physics' && list[1].name === 'Econ mock' && list[1].course === 'money');
+  check('exams: long names cut, bad ids and courses replaced or dropped', list[2].name.length === 60 && /^[a-z0-9-]+$/.test(list[2].id) && !('course' in list[2]));
+  check('exams: at most 12', cleanExamList(Array.from({ length: 20 }, (_, k) => ({ id: `e${k}`, name: `E${k}`, date: '2026-12-01' }))).length === MAX_EXAMS);
+  check('exams: clean of nothing', cleanExams(null).list.length === 0 && cleanExams(null).updatedAt === '');
+  const st = mem();
+  saveExams({ list: [{ id: 'a', name: 'Mock', date: '2026-12-07' }], updatedAt: '2026-10-30T10:00:00Z' }, st);
+  check('exams: saved and loaded', loadExams(st).list[0].name === 'Mock' && loadExams(st).updatedAt === '2026-10-30T10:00:00Z');
+  check('exams: blank storage loads empty', loadExams(mem()).list.length === 0);
+  const older = { list: [{ id: 'o', name: 'Old', date: '2026-12-01' }], updatedAt: '2026-10-01T00:00:00Z' };
+  const newerOne = { list: [{ id: 'n', name: 'New', date: '2026-12-01' }], updatedAt: '2026-10-02T00:00:00Z' };
+  check('exams: newer copy wins', newerExams(older, newerOne).list[0].id === 'n' && newerExams(newerOne, older).list[0].id === 'n');
+  const full = cleanExams({ list: Array.from({ length: 12 }, (_, k) => ({ id: `x${k}`.padEnd(40, 'a'), name: 'é'.repeat(60), date: '2026-12-01', course: 'business-aqa' })), updatedAt: new Date().toISOString() });
+  check('exams: a full list fits the database limit', full.list.length === 12 && Buffer.byteLength(JSON.stringify(full)) <= 4000, Buffer.byteLength(JSON.stringify(full)));
+}
+check('schema: settings.exams with a size limit', /add column if not exists exams jsonb/.test(sql) && /settings_exams_ok[\s\S]{0,120}octet_length\(exams::text\) <= 4000/.test(sql));
 
 // --- reading pages (m/<id>/) and sitemap.xml match the content
 const built = await build();

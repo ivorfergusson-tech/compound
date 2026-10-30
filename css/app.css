@@ -442,3 +442,41 @@ html { font-size: 100%; }
 .q-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .q-head .speak-btn { flex: none; margin-top: -6px; }
 .modal [tabindex="-1"]:focus { outline: none; }
+
+/* dashboard (#/): continue, refresh, course picker, exam countdown */
+.back-link { margin-bottom: 8px; align-self: flex-start; text-decoration: none; font-weight: 600; }
+.dash-title { margin: 0; }
+.hero-title { font-size: 1.5rem; margin: 4px 0 8px; }
+.refresh-card h2, .courses h2, .exams h2 { margin: 0; font-size: 1.25rem; }
+.refresh-card p { margin: 8px 0 14px; }
+.course-grid { display: grid; gap: 12px; margin-top: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.course-card { display: flex; flex-direction: column; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-decoration: none; color: var(--text); box-shadow: var(--shadow); }
+a.course-card:hover { border-color: var(--accent); }
+.course-card .eyebrow { margin: 0; }
+.course-card .cc-title { font-size: 1.125rem; }
+.course-card .bar { margin: 6px 0 2px; }
+.course-card.soon { background: var(--surface-2); box-shadow: none; }
+.course-card.soon .tag { align-self: flex-start; }
+.exam-list { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.exam { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+.exam .days { flex: none; min-width: 64px; text-align: center; font-size: 0.8125rem; color: var(--muted); line-height: 1.2; }
+.exam .days strong { display: block; font-size: 1.5rem; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.exam.close .days strong { color: var(--warm); }
+.exam .ex-txt { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.exam .ex-name { font-weight: 600; }
+.exam .remove { flex: none; font-size: 1.125rem; }
+.plan { margin-top: 14px; background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; }
+.plan h3 { margin: 0 0 4px; font-size: 1.0625rem; }
+.plan ol { margin: 8px 0 0; padding-left: 1.25em; }
+.plan li { margin-bottom: 6px; }
+.past-exams { margin-top: 12px; }
+.linkish { border: 0; background: none; padding: 0; color: var(--accent-text); text-decoration: underline; cursor: pointer; font: inherit; }
+.add-exam { margin-top: 14px; }
+.add-exam summary { cursor: pointer; font-weight: 600; color: var(--accent-text); min-height: 44px; display: flex; align-items: center; }
+.exam-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-top: 6px; }
+.exam-form label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9375rem; font-weight: 600; flex: 1 1 180px; }
+.exam-form input, .exam-form select { min-height: 48px; border: 1px solid var(--border-2); border-radius: 12px; padding: 0 12px; background: var(--surface); color: var(--text); font: inherit; font-weight: 400; }
+.exam-form .exam-msg { flex-basis: 100%; margin: 0; }
+@media (min-width: 1100px) {
+  .home.dash .side-lb { grid-row: 2 / span 4; }
+}

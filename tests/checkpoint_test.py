@@ -98,7 +98,7 @@ with sync_playwright() as p:
 
     # Checkpoint 1 gates module 9
     ctx, page = new_page(browser, passed_up_to("cp1"))
-    page.goto(BASE)
+    page.goto(BASE + "#/c/money")
     page.wait_for_selector(".item")
     check("course map has one card per item", page.locator(".item").count() == len(course["items"]))
     check("checkpoint 1 open after module 8", not is_locked(page, "cp1"))
@@ -121,7 +121,7 @@ with sync_playwright() as p:
     check("fail shows Not yet", "Not yet" in page.locator(".result").inner_text())
     check("fail says module 9 stays locked", "Module 9 stays locked" in page.locator(".quiz").inner_text())
     page.locator(".result").screenshot(path=str(SHOTS / "cp1-fail.png"))
-    page.goto(BASE)
+    page.goto(BASE + "#/c/money")
     page.wait_for_selector(".item")
     check("module 9 still locked after failing", is_locked(page, "09"))
     page.goto(BASE + "#/cp/1")
@@ -134,7 +134,7 @@ with sync_playwright() as p:
     check("pass gives XP", "XP" in res)
     check("pass links to module 9", page.locator('.quiz a.btn[href="#/c/money/m/09"]').count() == 1)
     page.locator(".result").screenshot(path=str(SHOTS / "cp1-pass.png"))
-    page.goto(BASE)
+    page.goto(BASE + "#/c/money")
     page.wait_for_selector(".item")
     check("module 9 unlocked after passing", not is_locked(page, "09"))
     check("module 10 still locked", is_locked(page, "10"))
