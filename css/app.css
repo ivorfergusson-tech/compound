@@ -204,6 +204,7 @@ a.item:hover { border-color: var(--border-2); }
 .ch-line { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
 .ch-a { stroke: var(--chart-a); } .ch-b { stroke: var(--chart-b); } .ch-c { stroke: var(--chart-c); }
 .ch-dash { stroke-dasharray: 6 5; stroke-width: 2.5; }
+.ch-node { fill: var(--surface); stroke: var(--text-2); stroke-width: 1.5; } .ch-head-a { fill: var(--chart-a); } .ch-head-b { fill: var(--chart-b); } .ch-head-c { fill: var(--chart-c); }
 .ch-gain { fill: var(--chart-b); opacity: .18; } .ch-loss { fill: var(--chart-a); opacity: .18; } polygon.ch-loss { opacity: .5; } .ch-guide { stroke: var(--text-2); stroke-width: 1; }
 .ch-prod { fill: var(--chart-c); opacity: .22; } .ch-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
 .ch-dot-a { fill: var(--chart-a); } .ch-dot-b { fill: var(--chart-b); } .ch-dot-c { fill: var(--chart-c); }

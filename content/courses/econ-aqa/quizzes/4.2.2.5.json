@@ -1,0 +1,166 @@
+{
+ "module": "4.2.2.5",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.2.5-main",
+   "type": "mcq",
+   "topic": "determinants",
+   "q": "The main determinants of SRAS are:",
+   "options": [
+    "The price level and production costs",
+    "Interest rates and exports",
+    "Population and land",
+    "Confidence and saving"
+   ],
+   "answer": 0,
+   "why": "The price level moves along the curve, and costs shift it.",
+   "spec": "4.2.2.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.5-shift",
+   "type": "match",
+   "topic": "shifts",
+   "q": "Match each event to its effect on SRAS.",
+   "pairs": [
+    [
+     "Wages rise with no rise in productivity",
+     "Shifts left"
+    ],
+    [
+     "Raw material prices fall",
+     "Shifts right"
+    ],
+    [
+     "Business taxes rise",
+     "Shifts left"
+    ]
+   ],
+   "why": "Costs up: left. Costs down: right.",
+   "spec": "4.2.2.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.5-prod",
+   "type": "mcq",
+   "topic": "productivity",
+   "q": "Why does higher productivity shift SRAS to the right?",
+   "options": [
+    "The cost of each unit falls",
+    "Prices rise",
+    "AD rises",
+    "Taxes fall"
+   ],
+   "answer": 0,
+   "why": "More output from the same pay lowers unit costs.",
+   "spec": "4.2.2.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.5-move",
+   "type": "tf",
+   "topic": "determinants",
+   "q": "A change in the price level causes a movement along the SRAS curve.",
+   "answer": true,
+   "why": "Only other changes shift it.",
+   "spec": "4.2.2.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.5-pound",
+   "type": "mcq",
+   "topic": "raw materials",
+   "q": "How could a fall in the pound shift the UK's SRAS?",
+   "options": [
+    "Left, as imported raw materials cost more",
+    "Right, as imports get cheaper",
+    "It has no effect on SRAS",
+    "It shifts LRAS only"
+   ],
+   "answer": 0,
+   "why": "UK firms pay more for what they import.",
+   "spec": "4.2.2.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.2.2.5-explain",
+   "type": "explain",
+   "topic": "shifts",
+   "q": "Explain how a general rise in money wages could affect the price level.",
+   "ideas": [
+    {
+     "label": "Wages are a cost, so firms' costs rise and SRAS shifts left",
+     "any": [
+      "costs rise",
+      "higher costs",
+      "cost of production",
+      "costs of production",
+      "production costs",
+      "sras",
+      "aggregate supply",
+      "raises costs",
+      "raise costs",
+      "unit costs"
+     ]
+    },
+    {
+     "label": "So the price level rises",
+     "any": [
+      "price level rises",
+      "higher price level",
+      "prices rise",
+      "higher prices",
+      "raise prices",
+      "raise their prices",
+      "cost-push",
+      "cost push",
+      "inflation"
+     ]
+    }
+   ],
+   "model": "Wages are a cost for firms, so costs rise and SRAS shifts left. Firms pass this on, so the price level rises.",
+   "why": "Pay is a cost as well as an income.",
+   "tests": [
+    {
+     "answer": "Firms' costs rise, so SRAS shifts left and the price level rises.",
+     "marks": 2
+    },
+    {
+     "answer": "Firms' costs rise.",
+     "marks": 1
+    },
+    {
+     "answer": "Workers get more money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.2.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

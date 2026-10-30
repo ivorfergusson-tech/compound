@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -541,6 +541,16 @@ check('tax: too big overshoots', pigouTax(40).q === 20 && pigouTax(40).loss === 
 check('price index: no change stays at 100', basketIndex({ food: 0, energy: 0, other: 0 }) === 100);
 check('price index: weights count', Math.abs(basketIndex({ food: 10, energy: 20, other: 0 }) - 104) < 1e-9);
 check('price index: a small rise in a big weight can beat a big rise in a small one', basketIndex({ food: 0, energy: 0, other: 5 }) > basketIndex({ food: 0, energy: 30, other: 0 }));
+check('AD/AS: starts at capacity', adas().y === 80 && adas().p === 50 && adas().gap === 0);
+check('AD/AS: more demand raises output and prices', adas(20).y === 90 && adas(20).p === 60 && adas(20).gap === 10);
+check('AD/AS: higher costs raise prices and cut output', adas(0, 20).y === 70 && adas(0, 20).p === 60 && adas(0, 20).gap === -10);
+check('AD/AS: more capacity opens a negative gap until demand grows', adas(0, 0, 20).gap === -20 && adas(0, 0, 20).capacity === 100);
+check('multiplier: MPC 0.8 gives 5', Math.abs(multiplierK(0.8) - 5) < 1e-9);
+check('multiplier: rounds add up to the total', Math.abs(multiplierRounds(10, 0.8, 200) - 50) < 1e-6 && multiplierRounds(10, 0.8, 1) === 10);
+check('keynesian: flat region leaves prices alone', keynesAt(100).p === 40 && keynesAt(100).y === 60 && keynesAt(100).zone === 'flat');
+check('keynesian: the curve joins up at Y = 70', keynesAS(70) === 40 && Math.abs(keynesAS(70.0001) - 40) < 0.01);
+check('keynesian: a high AD is near capacity with higher prices', keynesAt(200).y > 92 && keynesAt(200).y < 100 && keynesAt(200).p > 90 && keynesAt(200).zone === 'capacity');
+check('keynesian: the middle has both rising', keynesAt(130).zone === 'rising' && keynesAt(130).y > 70 && keynesAt(130).p > 40);
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

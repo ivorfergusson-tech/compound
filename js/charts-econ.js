@@ -123,6 +123,22 @@ export function pigouTax(tax) {
 // A weighted price index, base 100: each item's price change counts in proportion to its weight.
 export const BASKET = [{ id: 'food', name: 'Food', weight: 0.2 }, { id: 'energy', name: 'Energy', weight: 0.1 }, { id: 'other', name: 'Everything else', weight: 0.7 }];
 export const basketIndex = rises => 100 + BASKET.reduce((t, b) => t + b.weight * rises[b.id], 0);
+// AD: P = 130 + d - Y. SRAS: P = Y - 30 + s (s is higher costs, so it moves SRAS up and left). LRAS is vertical at 80 + l.
+export function adas(d = 0, s = 0, l = 0) {
+  const y = 80 + (d - s) / 2, p = 50 + (d + s) / 2, capacity = 80 + l;
+  return { y, p, capacity, gap: y - capacity };
+}
+export const multiplierK = mpc => 1 / (1 - mpc);
+// Spending after n rounds of an injection j: each round is mpc times the last.
+export const multiplierRounds = (j, mpc, n) => j * (1 - mpc ** n) / (1 - mpc);
+// The Keynesian AS curve: flat at £40 up to Y = 70, rising, and vertical at full capacity Y = 100.
+export const keynesAS = y => (y <= 70 ? 40 : 30 + 300 / (100 - y));
+export function keynesAt(a) {
+  if (a - 70 <= 40) return { y: a - 40, p: 40, zone: 'flat' };
+  let lo = 70, hi = 99.9;
+  for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; if (keynesAS(m) < a - m) lo = m; else hi = m; }
+  return { y: lo, p: keynesAS(lo), zone: lo > 92 ? 'capacity' : 'rising' };
+}
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -429,6 +445,82 @@ export const econCharts = {
       const i = basketIndex(v);
       set('i', i.toFixed(1)); set('r', `${(i - 100).toFixed(1)}%`);
       root.querySelector('[data-desc]').textContent = 'Each price rise counts in line with its weight, so a big rise in a small part of the basket adds less than a small rise in a large part.';
+    });
+  },
+  circular(root, a) {
+    const specs = { j: { min: 50, max: 150, step: 10, value: a.j ?? 100, fmt: v => `£${v}bn` }, w: { min: 50, max: 150, step: 10, value: a.w ?? 100, fmt: v => `£${v}bn` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The circular flow of income</h3>${slider('j', 'Injections (I + G + X)', specs.j)}${slider('w', 'Withdrawals (S + T + M)', specs.w)}`
+      + `<div class="stats">${stat('Gap (J − W)', 'gap')}${stat('National income', 'dir', 'good')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    const svg = `<svg viewBox="0 0 ${W} 130" role="img" aria-label="Circular flow diagram. Households supply factors to firms and receive income, then spend it on the goods firms make. Saving, tax and imports leave the flow, and investment, government spending and exports enter it.">`
+      + `<rect x="12" y="55" width="96" height="60" rx="8" class="ch-node"/><rect x="232" y="55" width="96" height="60" rx="8" class="ch-node"/>`
+      + `<text x="60" y="90" text-anchor="middle" class="ch-label">Households</text><text x="280" y="90" text-anchor="middle" class="ch-label">Firms</text>`
+      + `<line x1="108" y1="68" x2="228" y2="68" class="ch-line ch-a"/><polygon points="232,68 222,63 222,73" class="ch-head-a"/><text x="170" y="60" text-anchor="middle" class="ch-label">Spending</text>`
+      + `<line x1="232" y1="102" x2="112" y2="102" class="ch-line ch-b"/><polygon points="108,102 118,97 118,107" class="ch-head-b"/><text x="170" y="120" text-anchor="middle" class="ch-label">Income</text>`
+      + `<text x="60" y="28" text-anchor="middle" class="ch-label">Out: S, T, M</text><line x1="60" y1="55" x2="60" y2="40" class="ch-line ch-c"/><polygon points="60,34 55,44 65,44" class="ch-head-c"/>`
+      + `<text x="280" y="28" text-anchor="middle" class="ch-label">In: I, G, X</text><line x1="280" y1="36" x2="280" y2="49" class="ch-line ch-c"/><polygon points="280,55 275,45 285,45" class="ch-head-c"/></svg>`;
+    wire(root, specs, ({ j, w }, set) => {
+      const gap = j - w;
+      set('gap', `${gap > 0 ? '+' : gap < 0 ? '−' : ''}£${Math.abs(gap)}bn`); set('dir', gap > 0 ? 'Rising' : gap < 0 ? 'Falling' : 'Steady');
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}</figure>`;
+      root.querySelector('[data-desc]').textContent = gap > 0 ? 'More is entering the flow than leaving it, so spending, output and income rise.'
+        : gap < 0 ? 'More is leaving the flow than entering it, so spending, output and income fall.'
+          : 'Injections equal withdrawals, so national income is in equilibrium.';
+    });
+  },
+  adas(root, a) {
+    const specs = {
+      d: { min: -30, max: 30, step: 10, value: a.d ?? 0, fmt: v => `${v > 0 ? '+' : ''}${v}` },
+      s: { min: -30, max: 30, step: 10, value: a.s ?? 0, fmt: v => `${v > 0 ? '+' : ''}${v}` },
+      l: { min: 0, max: 30, step: 10, value: a.l ?? 0, fmt: v => `+${v}` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Aggregate demand and aggregate supply</h3>${slider('d', 'Aggregate demand', specs.d)}${slider('s', 'Costs of production', specs.s)}${slider('l', 'Long-run capacity', specs.l)}`
+      + `<div class="stats">${stat('Real output', 'y', 'good')}${stat('Price level', 'p')}${stat('Output gap', 'gap', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ d, s, l }, set) => {
+      const r = adas(d, s, l);
+      set('y', r.y); set('p', r.p); set('gap', `${r.gap > 0 ? '+' : ''}${r.gap}`);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="AD and AS diagram. Equilibrium real output is ${r.y} at a price level of ${r.p}, and long-run capacity is ${r.capacity}.">${axes('Real output', 'Price level')}`
+        + seg(Math.max(0, d), 130 + d - Math.max(0, d), 125, 5 + d, 'ch-line ch-a') + seg(35 - s, 5, 125, 95 + s, 'ch-line ch-b') + seg(r.capacity, 0, r.capacity, 125, 'ch-line ch-c ch-dash')
+        + `<circle cx="${mx(r.y)}" cy="${my(r.p)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'AD'], ['ch-b', 'SRAS'], ['ch-c dash', 'LRAS']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = r.gap < 0 ? `Output is ${-r.gap} below capacity, so there's a negative output gap. ${d < 0 ? 'Weak demand means demand-deficient unemployment.' : s > 0 ? 'Higher costs have cut output and raised prices, which is cost-push inflation.' : 'Spending has not yet caught up with the extra capacity.'}`
+        : r.gap > 0 ? `Output is ${r.gap} above capacity, so there's a positive output gap and pressure on prices.`
+          : 'Output is at long-run capacity, so the economy is at its normal capacity level.';
+    });
+  },
+  multiplier(root, a) {
+    const specs = { m: { min: 0.5, max: 0.9, step: 0.1, value: a.m ?? 0.8, fmt: v => v.toFixed(1) } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The multiplier</h3>${slider('m', 'Marginal propensity to consume', specs.m)}`
+      + `<div class="stats">${stat('Multiplier', 'k', 'good')}${stat('Rise in income from £10bn', 'total')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ m }, set) => {
+      const k = multiplierK(m);
+      set('k', k.toFixed(1)); set('total', `£${(10 * k).toFixed(0)}bn`);
+      root.querySelector('[data-chart]').innerHTML = lineChart({
+        label: `Total rise in income after each round of spending, reaching about £${(10 * k).toFixed(0)}bn.`,
+        series: [{ name: 'Total rise in income', tone: 'a', points: Array.from({ length: 15 }, (_, i) => [i + 1, +multiplierRounds(10, m, i + 1).toFixed(2)]) }],
+        yFmt: v => `£${v}bn`, xFmt: v => `${v}`, xTicks: [1, 5, 10, 15],
+      });
+      root.querySelector('[data-desc]').textContent = `Each round, people spend ${(m * 100).toFixed(0)}p of each extra £1. Rounds get smaller, and the total heads towards £${(10 * k).toFixed(0)}bn. This is the multiplier: 1 ÷ (1 − MPC) = ${k.toFixed(1)}.`;
+    });
+  },
+  keynesian(root, a) {
+    const specs = { a: { min: 90, max: 200, step: 10, value: a.a ?? 100, fmt: v => `${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The Keynesian AS curve</h3>${slider('a', 'Aggregate demand', specs.a)}`
+      + `<div class="stats">${stat('Real output', 'y', 'good')}${stat('Price level', 'p')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ a: top }, set) => {
+      const r = keynesAt(top);
+      set('y', r.y.toFixed(0)); set('p', r.p.toFixed(0));
+      const from = Math.max(0, top - 125);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Keynesian aggregate supply curve, flat at low output and vertical at full capacity of 100. Output is ${r.y.toFixed(0)} at a price level of ${r.p.toFixed(0)}.">${axes('Real output', 'Price level')}`
+        + seg(0, 40, 70, 40, 'ch-line ch-b') + curve(keynesAS, 70, 97, 'ch-line ch-b') + seg(from, top - from, Math.min(125, top), Math.max(0, top - 125), 'ch-line ch-a')
+        + `<circle cx="${mx(r.y)}" cy="${my(r.p)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'AD'], ['ch-b', 'Keynesian AS']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = r.zone === 'flat' ? 'There is plenty of spare capacity, so more demand raises output with no rise in prices.'
+        : r.zone === 'rising' ? 'Spare capacity is running out, so more demand raises both output and prices.'
+          : 'The economy is close to full capacity, so more demand mostly raises prices.';
     });
   },
   costs(root, a) {

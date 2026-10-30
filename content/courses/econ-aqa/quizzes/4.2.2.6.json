@@ -1,0 +1,167 @@
+{
+ "module": "4.2.2.6",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.2.6-position",
+   "type": "mcq",
+   "topic": "LRAS",
+   "q": "The position of the vertical LRAS curve shows:",
+   "options": [
+    "The normal capacity level of output",
+    "The price level",
+    "The inflation target",
+    "The level of exports"
+   ],
+   "answer": 0,
+   "why": "It's what the economy can sustainably produce.",
+   "spec": "4.2.2.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.6-det",
+   "type": "mcq",
+   "topic": "determinants",
+   "q": "Which is a fundamental determinant of LRAS?",
+   "options": [
+    "Technology",
+    "This month's oil price",
+    "The price level",
+    "A one-off tax rebate"
+   ],
+   "answer": 0,
+   "why": "Others include productivity, attitudes, enterprise, factor mobility and incentives.",
+   "spec": "4.2.2.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.6-bank",
+   "type": "mcq",
+   "topic": "institutions",
+   "q": "How can the banking system affect aggregate supply?",
+   "options": [
+    "By providing funds for business investment",
+    "By setting all wages",
+    "By fixing the price level",
+    "By stopping trade"
+   ],
+   "answer": 0,
+   "why": "Investment adds to the capital stock.",
+   "spec": "4.2.2.6",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.6-key",
+   "type": "tf",
+   "topic": "Keynesian AS",
+   "q": "On the Keynesian AS curve, at full capacity, a rise in AD only raises prices.",
+   "answer": true,
+   "why": "Output can't rise any further.",
+   "spec": "4.2.2.6",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.6-zones",
+   "type": "match",
+   "topic": "Keynesian AS",
+   "q": "Match each part of the Keynesian AS curve to what a rise in AD does.",
+   "pairs": [
+    [
+     "Flat part",
+     "Output rises, prices don't"
+    ],
+    [
+     "Rising part",
+     "Output and prices both rise"
+    ],
+    [
+     "Vertical part",
+     "Only prices rise"
+    ]
+   ],
+   "why": "It depends on how much spare capacity there is.",
+   "spec": "4.2.2.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.6-explain",
+   "type": "explain",
+   "topic": "determinants",
+   "q": "Explain how a rise in investment could affect both aggregate demand and long-run aggregate supply.",
+   "ideas": [
+    {
+     "label": "Investment is a part of AD, so AD rises",
+     "any": [
+      "part of ad",
+      "component of ad",
+      "part of aggregate demand",
+      "component of aggregate demand",
+      "ad rises",
+      "ad shifts",
+      "aggregate demand rises",
+      "raises ad",
+      "raises aggregate demand",
+      "increases ad",
+      "increases aggregate demand",
+      "shifts ad",
+      "shift ad"
+     ]
+    },
+    {
+     "label": "More capital raises productive capacity, so LRAS shifts right",
+     "any": [
+      "capacity",
+      "capital stock",
+      "more capital",
+      "productive potential",
+      "lras",
+      "long-run aggregate supply",
+      "long run aggregate supply"
+     ]
+    }
+   ],
+   "model": "Investment is a part of AD, so AD rises in the short run. It also adds to the capital stock, which raises productive capacity and shifts LRAS to the right.",
+   "why": "Investment works on both sides of the diagram.",
+   "tests": [
+    {
+     "answer": "Investment is part of AD so AD rises, and it adds to capacity so LRAS shifts right.",
+     "marks": 2
+    },
+    {
+     "answer": "AD rises.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms buy things.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.2.6",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

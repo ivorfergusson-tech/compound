@@ -1,0 +1,182 @@
+{
+ "module": "4.2.2.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.2.4-k",
+   "type": "number",
+   "topic": "calculating the multiplier",
+   "q": "The MPC is {m}. What is the multiplier?",
+   "vars": {
+    "m": {
+     "choices": [
+      0.5,
+      0.75,
+      0.8,
+      0.9
+     ],
+     "default": 0.8
+    }
+   },
+   "answer": "1/(1-m)",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 0,
+   "why": "1 ÷ (1 − {m}) = {answer}.",
+   "spec": "4.2.2.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.4-total",
+   "type": "number",
+   "topic": "calculating the multiplier",
+   "q": "The MPC is {m}, and government spending rises by £{j}bn. What is the total rise in national income, in £bn?",
+   "vars": {
+    "m": {
+     "choices": [
+      0.5,
+      0.75,
+      0.8
+     ],
+     "default": 0.8
+    },
+    "j": {
+     "choices": [
+      4,
+      10,
+      20
+     ],
+     "default": 10
+    }
+   },
+   "answer": "j/(1-m)",
+   "tol": 0.01,
+   "unit": "£bn",
+   "dp": 0,
+   "why": "£{j}bn ÷ (1 − {m}) = £{answer}bn.",
+   "spec": "4.2.2.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.4-mpc",
+   "type": "mcq",
+   "topic": "MPC",
+   "q": "If you earn £200 more and spend £150 of it, your MPC is:",
+   "options": [
+    "0.25",
+    "0.5",
+    "0.75",
+    "1.5"
+   ],
+   "answer": 2,
+   "why": "£150 ÷ £200 = 0.75.",
+   "spec": "4.2.2.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.4-size",
+   "type": "tf",
+   "topic": "MPC",
+   "q": "The larger the MPC, the larger the multiplier.",
+   "answer": true,
+   "why": "More of each pound stays in the flow.",
+   "spec": "4.2.2.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.4-limit",
+   "type": "mcq",
+   "topic": "limits",
+   "q": "When will a rise in AD mostly raise prices, and not output?",
+   "options": [
+    "When the economy is near full capacity",
+    "When there's high unemployment",
+    "When firms have spare capacity",
+    "When the MPC is low"
+   ],
+   "answer": 0,
+   "why": "Firms can't easily make more, so prices rise.",
+   "spec": "4.2.2.4",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.4-explain",
+   "type": "explain",
+   "topic": "multiplier",
+   "q": "Explain why a rise in investment can raise national income by more than the initial spending.",
+   "ideas": [
+    {
+     "label": "One person's spending is another's income",
+     "any": [
+      "becomes income",
+      "another's income",
+      "someone else's income",
+      "income for",
+      "receive income",
+      "their income",
+      "income of others",
+      "other people's income"
+     ]
+    },
+    {
+     "label": "They spend part of it, so there are further rounds of spending",
+     "any": [
+      "rounds",
+      "spend some",
+      "spend part",
+      "spend it",
+      "spend a share",
+      "spend a proportion",
+      "further spending",
+      "more spending",
+      "again",
+      "multiplier",
+      "mpc"
+     ]
+    }
+   ],
+   "model": "Spending on the project becomes income for workers and firms. They spend part of it, which becomes income for others, so there are further rounds of spending.",
+   "why": "Follow the money through more than one pair of hands.",
+   "tests": [
+    {
+     "answer": "The spending becomes income for workers, who spend part of it, so there are further rounds of spending.",
+     "marks": 2
+    },
+    {
+     "answer": "There are further rounds of spending.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms make money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.2.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

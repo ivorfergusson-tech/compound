@@ -80,6 +80,11 @@
    "name": "The measurement of macroeconomic performance",
    "emoji": "📈",
    "blurb": "What governments aim for, and how we measure whether an economy is doing well."
+  },
+  "4.2.2": {
+   "name": "How the macroeconomy works: the circular flow of income, aggregate demand/aggregate supply analysis and related concepts",
+   "emoji": "🔁",
+   "blurb": "How the whole economy works: the circular flow, AD and AS, and the multiplier."
   }
  },
  "items": [
@@ -1371,6 +1376,129 @@
     "purchasing power parity"
    ],
    "summary": "What GDP can and can't say about living standards, and why PPP matters."
+  },
+  {
+   "id": "4.2.2.1",
+   "kind": "module",
+   "num": 59,
+   "strand": "4.2.2",
+   "title": "The circular flow of income",
+   "short": "The circular flow of income",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.2.1"
+   ],
+   "buildsOn": [
+    58
+   ],
+   "introduces": [
+    "injections",
+    "withdrawals"
+   ],
+   "summary": "Income, output and spending, and what makes national income rise."
+  },
+  {
+   "id": "4.2.2.2",
+   "kind": "module",
+   "num": 60,
+   "strand": "4.2.2",
+   "title": "Aggregate demand and aggregate supply analysis",
+   "short": "AD/AS analysis",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.2.2"
+   ],
+   "buildsOn": [
+    59
+   ],
+   "introduces": [
+    "aggregate demand",
+    "short-run aggregate supply",
+    "long-run aggregate supply",
+    "macroeconomic equilibrium"
+   ],
+   "summary": "The diagram for the whole economy, and demand and supply shocks."
+  },
+  {
+   "id": "4.2.2.3",
+   "kind": "module",
+   "num": 61,
+   "strand": "4.2.2",
+   "title": "The determinants of aggregate demand",
+   "short": "Determinants of AD",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.2.3"
+   ],
+   "buildsOn": [
+    60
+   ],
+   "introduces": [
+    "consumption",
+    "saving",
+    "investment",
+    "accelerator",
+    "net exports"
+   ],
+   "summary": "What drives C, I, G and net exports, and how saving differs from investment."
+  },
+  {
+   "id": "4.2.2.4",
+   "kind": "module",
+   "num": 62,
+   "strand": "4.2.2",
+   "title": "Aggregate demand and the level of economic activity",
+   "short": "AD and economic activity",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.2.4"
+   ],
+   "buildsOn": [
+    61
+   ],
+   "introduces": [
+    "multiplier",
+    "marginal propensity to consume"
+   ],
+   "summary": "Why spending can raise income by more than itself."
+  },
+  {
+   "id": "4.2.2.5",
+   "kind": "module",
+   "num": 63,
+   "strand": "4.2.2",
+   "title": "Determinants of short-run aggregate supply",
+   "short": "Short-run AS",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.2.5"
+   ],
+   "buildsOn": [
+    62
+   ],
+   "introduces": [
+    "cost-push inflation"
+   ],
+   "summary": "How costs shift the short-run AS curve."
+  },
+  {
+   "id": "4.2.2.6",
+   "kind": "module",
+   "num": 64,
+   "strand": "4.2.2",
+   "title": "Determinants of long-run aggregate supply",
+   "short": "Long-run AS",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.2.6"
+   ],
+   "buildsOn": [
+    63
+   ],
+   "introduces": [
+    "keynesian as curve"
+   ],
+   "summary": "What sets an economy's capacity, and the Keynesian view of AS."
   }
  ]
 }

@@ -1,0 +1,171 @@
+{
+ "module": "4.2.2.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.2.1-equal",
+   "type": "mcq",
+   "topic": "circular flow",
+   "q": "In the circular flow, which three are equal?",
+   "options": [
+    "Income, output and expenditure",
+    "Saving, tax and imports",
+    "Wages, prices and profit",
+    "Exports, imports and tax"
+   ],
+   "answer": 0,
+   "why": "They are three ways of measuring the same flow.",
+   "spec": "4.2.2.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.1-flows",
+   "type": "match",
+   "topic": "injections and withdrawals",
+   "q": "Sort each flow into an injection or a withdrawal.",
+   "pairs": [
+    [
+     "Investment",
+     "Injection"
+    ],
+    [
+     "Imports",
+     "Withdrawal"
+    ],
+    [
+     "Exports",
+     "Injection"
+    ],
+    [
+     "Saving",
+     "Withdrawal"
+    ]
+   ],
+   "why": "Injections are I, G and X. Withdrawals are S, T and M.",
+   "spec": "4.2.2.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.1-up",
+   "type": "mcq",
+   "topic": "changes in national income",
+   "q": "National income will rise when:",
+   "options": [
+    "Injections are greater than withdrawals",
+    "Withdrawals are greater than injections",
+    "Injections equal withdrawals",
+    "Saving rises"
+   ],
+   "answer": 0,
+   "why": "More is entering the flow than leaving it.",
+   "spec": "4.2.2.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.1-full",
+   "type": "tf",
+   "topic": "equilibrium",
+   "q": "An economy can be in equilibrium at a level of income below full employment.",
+   "answer": true,
+   "why": "Total spending may be too low to employ all resources.",
+   "spec": "4.2.2.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.1-real",
+   "type": "mcq",
+   "topic": "real and nominal",
+   "q": "Why is real income a better guide to performance than nominal income?",
+   "options": [
+    "It removes the effect of inflation",
+    "It's always larger",
+    "It includes imports",
+    "It leaves out wages"
+   ],
+   "answer": 0,
+   "why": "Real income only rises when more is produced.",
+   "spec": "4.2.2.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.1-explain",
+   "type": "explain",
+   "topic": "changes in national income",
+   "q": "Explain how a rise in taxes could reduce national income.",
+   "ideas": [
+    {
+     "label": "Taxes are a withdrawal, so withdrawals exceed injections",
+     "any": [
+      "withdrawal*",
+      "leakage*",
+      "leaves the flow",
+      "out of the flow",
+      "less disposable",
+      "lower disposable",
+      "disposable income falls",
+      "reduces disposable",
+      "less to spend"
+     ]
+    },
+    {
+     "label": "So spending falls, and firms' output and income fall",
+     "any": [
+      "spending falls",
+      "less spending",
+      "spend less",
+      "consumption falls",
+      "lower spending",
+      "output falls",
+      "lower output",
+      "income falls",
+      "lower income",
+      "firms sell less",
+      "national income falls"
+     ]
+    }
+   ],
+   "model": "Taxes are a withdrawal, so withdrawals exceed injections. People spend less, firms sell less, and national income falls.",
+   "why": "Follow the money out of the flow.",
+   "tests": [
+    {
+     "answer": "Taxes are a withdrawal, so people spend less and national income falls.",
+     "marks": 2
+    },
+    {
+     "answer": "Taxes are a withdrawal.",
+     "marks": 1
+    },
+    {
+     "answer": "People dislike tax.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.2.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

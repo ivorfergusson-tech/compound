@@ -9,6 +9,16 @@
   "def": "Having too little income to afford basic needs, such as food, clothing and shelter.",
   "module": "4.1.7.2"
  },
+ "accelerator": {
+  "term": "accelerator",
+  "def": "The idea that investment depends on the rate of change of output or income.",
+  "module": "4.2.2.3"
+ },
+ "aggregate demand": {
+  "term": "aggregate demand",
+  "def": "Total planned spending on an economy's output at a given price level. AD = C + I + G + (X − M).",
+  "module": "4.2.2.2"
+ },
  "allocation of resources": {
   "term": "allocation of resources",
   "def": "How an economy's scarce resources are shared out between the different goods and services it could produce.",
@@ -164,6 +174,11 @@
   "def": "The difference between what consumers are willing to pay and what they actually pay.",
   "module": "4.1.5.11"
  },
+ "consumption": {
+  "term": "consumption",
+  "def": "Spending by households on goods and services.",
+  "module": "4.2.2.3"
+ },
  "contestable market": {
   "term": "contestable market",
   "def": "A market where the threat of new firms entering affects how existing firms behave, because entry and exit are easy.",
@@ -173,6 +188,11 @@
   "term": "cooperation",
   "def": "Firms working together in ways that can benefit consumers or the public, such as agreeing common standards.",
   "module": "4.1.5.5a"
+ },
+ "cost-push inflation": {
+  "term": "cost-push inflation",
+  "def": "Inflation caused by rising costs of production.",
+  "module": "4.2.2.5"
  },
  "creative destruction": {
   "term": "creative destruction",
@@ -429,6 +449,11 @@
   "def": "A sustained rise in the general price level.",
   "module": "4.2.1.2"
  },
+ "injections": {
+  "term": "injections",
+  "def": "Money entering the circular flow: investment, government spending and exports.",
+  "module": "4.2.2.1"
+ },
  "innovation": {
   "term": "innovation",
   "def": "Turning an invention into a product or process that's used commercially.",
@@ -444,6 +469,11 @@
   "def": "Creating a new product or process.",
   "module": "4.1.4.8"
  },
+ "investment": {
+  "term": "investment",
+  "def": "Spending on capital goods, such as machines and factories.",
+  "module": "4.2.2.3"
+ },
  "joint demand": {
   "term": "joint demand",
   "def": "When two goods are demanded together, such as printers and ink.",
@@ -453,6 +483,11 @@
   "term": "joint supply",
   "def": "When producing one good also produces another, as with beef and leather.",
   "module": "4.1.3.6"
+ },
+ "keynesian as curve": {
+  "term": "keynesian as curve",
+  "def": "An AS curve that is flat with spare capacity, rises as capacity runs out, and is vertical at full capacity.",
+  "module": "4.2.2.6"
  },
  "kinked demand curve": {
   "term": "kinked demand curve",
@@ -494,10 +529,20 @@
   "def": "The period in which all factors of production can be changed.",
   "module": "4.1.3.4"
  },
+ "long-run aggregate supply": {
+  "term": "long-run aggregate supply",
+  "def": "The economy's productive capacity, shown by a vertical curve at normal capacity output.",
+  "module": "4.2.2.2"
+ },
  "lorenz curve": {
   "term": "lorenz curve",
   "def": "A graph of the cumulative share of income held by the cumulative share of people, from the poorest up.",
   "module": "4.1.7.1"
+ },
+ "macroeconomic equilibrium": {
+  "term": "macroeconomic equilibrium",
+  "def": "Where aggregate demand equals aggregate supply.",
+  "module": "4.2.2.2"
  },
  "mandated choice": {
   "term": "mandated choice",
@@ -513,6 +558,11 @@
   "term": "marginal cost of labour",
   "def": "The extra cost of hiring one more worker, which is above the wage in a monopsony.",
   "module": "4.1.6.4"
+ },
+ "marginal propensity to consume": {
+  "term": "marginal propensity to consume",
+  "def": "The share of each extra £1 of income that is spent on consumption.",
+  "module": "4.2.2.4"
  },
  "marginal revenue": {
   "term": "marginal revenue",
@@ -594,6 +644,11 @@
   "def": "A market with a single buyer, such as one dominant employer in a labour market.",
   "module": "4.1.6.4"
  },
+ "multiplier": {
+  "term": "multiplier",
+  "def": "The process by which a change in spending leads to a larger change in national income. Its size is 1 ÷ (1 − MPC).",
+  "module": "4.2.2.4"
+ },
  "national income": {
   "term": "national income",
   "def": "The total income or output of an economy, measured by figures such as GDP.",
@@ -608,6 +663,11 @@
   "term": "needs",
   "def": "Things people must have to survive, such as food, water and shelter.",
   "module": "4.1.1.2"
+ },
+ "net exports": {
+  "term": "net exports",
+  "def": "Exports minus imports.",
+  "module": "4.2.2.3"
  },
  "non-monetary considerations": {
   "term": "non-monetary considerations",
@@ -864,6 +924,11 @@
   "def": "Aiming for a result that is good enough, not the best possible.",
   "module": "4.1.5.2"
  },
+ "saving": {
+  "term": "saving",
+  "def": "Income that is not spent on consumption.",
+  "module": "4.2.2.3"
+ },
  "scarcity": {
   "term": "scarcity",
   "def": "The fundamental economic problem: resources are limited but wants are unlimited.",
@@ -878,6 +943,11 @@
   "term": "short run",
   "def": "The period in which at least one factor of production is fixed.",
   "module": "4.1.3.4"
+ },
+ "short-run aggregate supply": {
+  "term": "short-run aggregate supply",
+  "def": "The total output firms will supply at each price level, while some costs are fixed.",
+  "module": "4.2.2.2"
  },
  "social norms": {
   "term": "social norms",
@@ -1003,5 +1073,10 @@
   "term": "wealth",
   "def": "A stock of assets held at a point in time, such as property, pensions and savings.",
   "module": "4.1.7.1"
+ },
+ "withdrawals": {
+  "term": "withdrawals",
+  "def": "Money leaving the circular flow: saving, taxes and imports.",
+  "module": "4.2.2.1"
  }
 }

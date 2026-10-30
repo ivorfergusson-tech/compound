@@ -1,0 +1,174 @@
+{
+ "module": "4.2.2.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.2.2-axes",
+   "type": "mcq",
+   "topic": "the diagram",
+   "q": "On an AD/AS diagram, the vertical axis shows:",
+   "options": [
+    "The price level",
+    "Real output",
+    "Unemployment",
+    "The interest rate"
+   ],
+   "answer": 0,
+   "why": "The horizontal axis shows real output.",
+   "spec": "4.2.2.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.2-shifts",
+   "type": "match",
+   "topic": "shifts",
+   "q": "Match each event to the curve it shifts first.",
+   "pairs": [
+    [
+     "A rise in consumer confidence",
+     "AD"
+    ],
+    [
+     "A rise in oil prices",
+     "SRAS"
+    ],
+    [
+     "A big rise in the skills of the workforce",
+     "LRAS"
+    ]
+   ],
+   "why": "Spending moves AD, costs move SRAS and capacity moves LRAS.",
+   "spec": "4.2.2.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.2-growth",
+   "type": "mcq",
+   "topic": "growth",
+   "q": "Underlying economic growth is shown by:",
+   "options": [
+    "A rightward shift of LRAS",
+    "A leftward shift of SRAS",
+    "A movement along AD",
+    "A rise in the price level"
+   ],
+   "answer": 0,
+   "why": "Capacity has grown.",
+   "spec": "4.2.2.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.2-supply",
+   "type": "mcq",
+   "topic": "shocks",
+   "q": "A negative supply-side shock will cause:",
+   "options": [
+    "A higher price level and lower real output",
+    "A lower price level and higher real output",
+    "A higher price level and higher real output",
+    "No change"
+   ],
+   "answer": 0,
+   "why": "SRAS shifts left, so prices and unemployment worsen together.",
+   "spec": "4.2.2.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.2-move",
+   "type": "tf",
+   "topic": "the diagram",
+   "q": "A change in the price level shifts the AD curve.",
+   "answer": false,
+   "why": "It causes a movement along the curve.",
+   "spec": "4.2.2.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.2-explain",
+   "type": "explain",
+   "topic": "shocks",
+   "q": "Explain how a recession in the UK's main trading partners could lead to unemployment in the UK.",
+   "ideas": [
+    {
+     "label": "UK exports fall, so AD falls",
+     "any": [
+      "exports fall",
+      "fewer exports",
+      "less exports",
+      "lower exports",
+      "reduce* exports",
+      "exports decrease",
+      "buy less",
+      "buy fewer",
+      "ad falls",
+      "ad shifts left",
+      "aggregate demand falls",
+      "lower aggregate demand",
+      "aggregate demand shifts left",
+      "net exports fall"
+     ]
+    },
+    {
+     "label": "UK firms produce less, so they need fewer workers",
+     "any": [
+      "fewer workers",
+      "less labour",
+      "derived demand",
+      "lay off",
+      "laying off",
+      "lay workers off",
+      "job losses",
+      "cut jobs",
+      "demand-deficient",
+      "demand deficient",
+      "cyclical",
+      "less workers",
+      "negative output gap"
+     ]
+    }
+   ],
+   "model": "Foreigners buy fewer UK exports, so AD falls. UK firms produce less and need fewer workers, which causes demand-deficient unemployment.",
+   "why": "Global events reach the UK through trade.",
+   "tests": [
+    {
+     "answer": "Exports fall, so AD falls and firms need fewer workers.",
+     "marks": 2
+    },
+    {
+     "answer": "Exports fall.",
+     "marks": 1
+    },
+    {
+     "answer": "People go on holiday.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.2.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

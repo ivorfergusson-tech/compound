@@ -1,0 +1,162 @@
+{
+ "module": "4.2.2.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.2.3-formula",
+   "type": "mcq",
+   "topic": "meaning of AD",
+   "q": "Which is the correct formula for AD?",
+   "options": [
+    "C + I + G + (X − M)",
+    "C + S + T",
+    "I + G + X",
+    "S + T + M"
+   ],
+   "answer": 0,
+   "why": "I + G + X are injections, and S + T + M are withdrawals.",
+   "spec": "4.2.2.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.3-largest",
+   "type": "mcq",
+   "topic": "consumption",
+   "q": "Which is the largest part of AD in the UK?",
+   "options": [
+    "Consumption",
+    "Investment",
+    "Government spending",
+    "Net exports"
+   ],
+   "answer": 0,
+   "why": "Household spending is by far the largest part.",
+   "spec": "4.2.2.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.3-invest",
+   "type": "mcq",
+   "topic": "saving and investment",
+   "q": "In economics, investment means:",
+   "options": [
+    "Spending on capital goods",
+    "Putting money in the bank",
+    "Buying shares",
+    "Spending on holidays"
+   ],
+   "answer": 0,
+   "why": "It adds to the stock of capital.",
+   "spec": "4.2.2.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.2.3-acc",
+   "type": "tf",
+   "topic": "accelerator",
+   "q": "The accelerator means that investment can fall even if demand is still growing, if growth slows.",
+   "answer": true,
+   "why": "Firms need less new capital when growth slows.",
+   "spec": "4.2.2.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.2.2.3-save",
+   "type": "mcq",
+   "topic": "saving",
+   "q": "Which is most likely to increase saving?",
+   "options": [
+    "A rise in interest rates",
+    "A fall in incomes",
+    "Rising consumer confidence",
+    "Expected rises in prices"
+   ],
+   "answer": 0,
+   "why": "Higher rates reward saving.",
+   "spec": "4.2.2.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.2.3-explain",
+   "type": "explain",
+   "topic": "net exports",
+   "q": "Explain how a rise in the value of the pound could affect aggregate demand.",
+   "ideas": [
+    {
+     "label": "Exports get dearer abroad, and imports get cheaper",
+     "any": [
+      "exports dearer",
+      "exports more expensive",
+      "exports become more expensive",
+      "exports become dearer",
+      "exports are dearer",
+      "imports cheaper",
+      "imports become cheaper",
+      "imports are cheaper",
+      "more expensive abroad",
+      "less competitive"
+     ]
+    },
+    {
+     "label": "So net exports fall, which lowers AD",
+     "any": [
+      "net exports fall",
+      "exports fall",
+      "imports rise",
+      "ad falls",
+      "ad shifts left",
+      "aggregate demand falls",
+      "lower ad",
+      "lowers ad",
+      "lower aggregate demand",
+      "reduces aggregate demand",
+      "reduce aggregate demand",
+      "reduces ad"
+     ]
+    }
+   ],
+   "model": "A stronger pound makes exports dearer abroad and imports cheaper at home. Net exports fall, so AD falls.",
+   "why": "Think about prices on both sides of the border.",
+   "tests": [
+    {
+     "answer": "Exports become more expensive and imports become cheaper, so net exports fall and AD falls.",
+     "marks": 2
+    },
+    {
+     "answer": "Imports become cheaper.",
+     "marks": 1
+    },
+    {
+     "answer": "The pound is stronger.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.2.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}
