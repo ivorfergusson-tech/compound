@@ -1,0 +1,1372 @@
+{
+ "course": "econ-aqa",
+ "board": "aqa",
+ "spec": "7136",
+ "specTitle": "AQA AS and A-level Economics (7135, 7136)",
+ "specVersion": "1.3",
+ "specDate": "2022-06-29",
+ "source": "https://filestore.aqa.org.uk/resources/economics/specifications/AQA-7135-7136-SP-2015.PDF",
+ "checked": "2026-10-30",
+ "status": "draft: for Ivor to check",
+ "rules": "One lesson per lowest-level spec point (5-10 minutes). Two tiny pairs are merged; big points are split into parts a/b(/c). A module is a spec section, the two biggest split in two. 'as' lists the AS (section 3) point with the same heading: a guide to Year 12 vs Year 13, not a rule.",
+ "sections": {
+  "4.1": "Individuals, firms, markets and market failure",
+  "4.1.1": "Economic methodology and the economic problem",
+  "4.1.2": "Individual economic decision making",
+  "4.1.3": "Price determination in a competitive market",
+  "4.1.4": "Production, costs and revenue",
+  "4.1.5": "Perfect competition, imperfectly competitive markets and monopoly",
+  "4.1.6": "The labour market",
+  "4.1.7": "The distribution of income and wealth: poverty and inequality",
+  "4.1.8": "The market mechanism, market failure and government intervention in markets",
+  "4.2": "The national and international economy",
+  "4.2.1": "The measurement of macroeconomic performance",
+  "4.2.2": "How the macroeconomy works: the circular flow of income, aggregate demand/aggregate supply analysis and related concepts",
+  "4.2.3": "Economic performance",
+  "4.2.4": "Financial markets and monetary policy",
+  "4.2.5": "Fiscal policy and supply-side policies",
+  "4.2.6": "The international economy"
+ },
+ "points": [
+  {
+   "id": "4.1.1.1",
+   "title": "Economic methodology",
+   "as": "3.1.1.1"
+  },
+  {
+   "id": "4.1.1.2",
+   "title": "The nature and purpose of economic activity",
+   "as": "3.1.1.2"
+  },
+  {
+   "id": "4.1.1.3",
+   "title": "Economic resources",
+   "as": "3.1.1.3"
+  },
+  {
+   "id": "4.1.1.4",
+   "title": "Scarcity, choice and the allocation of resources",
+   "as": "3.1.1.4"
+  },
+  {
+   "id": "4.1.1.5",
+   "title": "Production possibility diagrams",
+   "as": "3.1.1.5"
+  },
+  {
+   "id": "4.1.2.1",
+   "title": "Consumer behaviour"
+  },
+  {
+   "id": "4.1.2.2",
+   "title": "Imperfect information"
+  },
+  {
+   "id": "4.1.2.3",
+   "title": "Aspects of behavioural economic theory"
+  },
+  {
+   "id": "4.1.2.4",
+   "title": "Behavioural economics and economic policy"
+  },
+  {
+   "id": "4.1.3.1",
+   "title": "The determinants of the demand for goods and services",
+   "as": "3.1.2.1"
+  },
+  {
+   "id": "4.1.3.2",
+   "title": "Price, income and cross elasticities of demand",
+   "as": "3.1.2.2"
+  },
+  {
+   "id": "4.1.3.3",
+   "title": "The determinants of the supply of goods and services",
+   "as": "3.1.2.3"
+  },
+  {
+   "id": "4.1.3.4",
+   "title": "Price elasticity of supply",
+   "as": "3.1.2.4"
+  },
+  {
+   "id": "4.1.3.5",
+   "title": "The determination of equilibrium market prices",
+   "as": "3.1.2.5"
+  },
+  {
+   "id": "4.1.3.6",
+   "title": "The interrelationship between markets",
+   "as": "3.1.2.6"
+  },
+  {
+   "id": "4.1.4.1",
+   "title": "Production and productivity",
+   "as": "3.1.3.1"
+  },
+  {
+   "id": "4.1.4.2",
+   "title": "Specialisation, division of labour and exchange",
+   "as": "3.1.3.2"
+  },
+  {
+   "id": "4.1.4.3",
+   "title": "The law of diminishing returns and returns to scale"
+  },
+  {
+   "id": "4.1.4.4",
+   "title": "Costs of production",
+   "as": "3.1.3.3"
+  },
+  {
+   "id": "4.1.4.5",
+   "title": "Economies and diseconomies of scale",
+   "as": "3.1.3.4"
+  },
+  {
+   "id": "4.1.4.6",
+   "title": "Marginal, average and total revenue",
+   "as": "3.1.3.5"
+  },
+  {
+   "id": "4.1.4.7",
+   "title": "Profit",
+   "as": "3.1.3.5"
+  },
+  {
+   "id": "4.1.4.8",
+   "title": "Technological change"
+  },
+  {
+   "id": "4.1.5.1",
+   "title": "Market structures",
+   "as": "3.1.4.1"
+  },
+  {
+   "id": "4.1.5.2",
+   "title": "The objectives of firms",
+   "as": "3.1.4.2"
+  },
+  {
+   "id": "4.1.5.3",
+   "title": "Perfect competition",
+   "as": "3.1.4.3"
+  },
+  {
+   "id": "4.1.5.4",
+   "title": "Monopolistic competition"
+  },
+  {
+   "id": "4.1.5.5",
+   "title": "Oligopoly"
+  },
+  {
+   "id": "4.1.5.6",
+   "title": "Monopoly and monopoly power",
+   "as": "3.1.4.4"
+  },
+  {
+   "id": "4.1.5.7",
+   "title": "Price discrimination"
+  },
+  {
+   "id": "4.1.5.8",
+   "title": "The dynamics of competition and competitive market processes",
+   "as": "3.1.4.5"
+  },
+  {
+   "id": "4.1.5.9",
+   "title": "Contestable and non-contestable markets"
+  },
+  {
+   "id": "4.1.5.10",
+   "title": "Market structure, static efficiency, dynamic efficiency and resource allocation"
+  },
+  {
+   "id": "4.1.5.11",
+   "title": "Consumer and producer surplus"
+  },
+  {
+   "id": "4.1.6.1",
+   "title": "The demand for labour, marginal productivity theory"
+  },
+  {
+   "id": "4.1.6.2",
+   "title": "Influences upon the supply of labour to different markets"
+  },
+  {
+   "id": "4.1.6.3",
+   "title": "The determination of relative wage rates and levels of employment in perfectly competitive labour markets"
+  },
+  {
+   "id": "4.1.6.4",
+   "title": "The determination of relative wage rates and levels of employment in imperfectly competitive labour markets"
+  },
+  {
+   "id": "4.1.6.5",
+   "title": "The Influence of trade unions in determining wages and levels of employment"
+  },
+  {
+   "id": "4.1.6.6",
+   "title": "The National Minimum Wage"
+  },
+  {
+   "id": "4.1.6.7",
+   "title": "Discrimination in the labour market"
+  },
+  {
+   "id": "4.1.7.1",
+   "title": "The distribution of income and wealth",
+   "as": "3.1.5.7"
+  },
+  {
+   "id": "4.1.7.2",
+   "title": "The problem of poverty"
+  },
+  {
+   "id": "4.1.7.3",
+   "title": "Government policies to alleviate poverty and to influence the distribution of income and wealth"
+  },
+  {
+   "id": "4.1.8.1",
+   "title": "How markets and prices allocate resources",
+   "as": "3.1.5.1"
+  },
+  {
+   "id": "4.1.8.2",
+   "title": "The meaning of market failure",
+   "as": "3.1.5.2"
+  },
+  {
+   "id": "4.1.8.3",
+   "title": "Public goods, private goods and quasi-public goods",
+   "as": "3.1.5.3"
+  },
+  {
+   "id": "4.1.8.4",
+   "title": "Positive and negative externalities in consumption and production",
+   "as": "3.1.5.4"
+  },
+  {
+   "id": "4.1.8.5",
+   "title": "Merit and demerit goods",
+   "as": "3.1.5.5"
+  },
+  {
+   "id": "4.1.8.6",
+   "title": "Market imperfections",
+   "as": "3.1.5.6"
+  },
+  {
+   "id": "4.1.8.7",
+   "title": "Competition policy"
+  },
+  {
+   "id": "4.1.8.8",
+   "title": "Public ownership, privatisation, regulation and deregulation of markets"
+  },
+  {
+   "id": "4.1.8.9",
+   "title": "Government intervention in markets",
+   "as": "3.1.5.8"
+  },
+  {
+   "id": "4.1.8.10",
+   "title": "Government failure",
+   "as": "3.1.5.9"
+  },
+  {
+   "id": "4.2.1.1",
+   "title": "The objectives of government economic policy",
+   "as": "3.2.1.1"
+  },
+  {
+   "id": "4.2.1.2",
+   "title": "Macroeconomic indicators",
+   "as": "3.2.1.2"
+  },
+  {
+   "id": "4.2.1.3",
+   "title": "Uses of index numbers",
+   "as": "3.2.1.3"
+  },
+  {
+   "id": "4.2.1.4",
+   "title": "Uses of national income data"
+  },
+  {
+   "id": "4.2.2.1",
+   "title": "The circular flow of income",
+   "as": "3.2.2.1"
+  },
+  {
+   "id": "4.2.2.2",
+   "title": "Aggregate demand and aggregate supply analysis",
+   "as": "3.2.2.2"
+  },
+  {
+   "id": "4.2.2.3",
+   "title": "The determinants of aggregate demand",
+   "as": "3.2.2.3"
+  },
+  {
+   "id": "4.2.2.4",
+   "title": "Aggregate demand and the level of economic activity",
+   "as": "3.2.2.4"
+  },
+  {
+   "id": "4.2.2.5",
+   "title": "Determinants of short-run aggregate supply",
+   "as": "3.2.2.5"
+  },
+  {
+   "id": "4.2.2.6",
+   "title": "Determinants of long-run aggregate supply",
+   "as": "3.2.2.6"
+  },
+  {
+   "id": "4.2.3.1",
+   "title": "Economic growth and the economic cycle",
+   "as": "3.2.3.1"
+  },
+  {
+   "id": "4.2.3.2",
+   "title": "Employment and unemployment",
+   "as": "3.2.3.2"
+  },
+  {
+   "id": "4.2.3.3",
+   "title": "Inflation and deflation",
+   "as": "3.2.3.3"
+  },
+  {
+   "id": "4.2.3.4",
+   "title": "Possible conflicts between macroeconomic policy objectives",
+   "as": "3.2.3.5"
+  },
+  {
+   "id": "4.2.4.1",
+   "title": "The structure of financial markets and financial assets"
+  },
+  {
+   "id": "4.2.4.2",
+   "title": "Commercial banks and investment banks"
+  },
+  {
+   "id": "4.2.4.3",
+   "title": "Central banks and monetary policy",
+   "as": "3.2.4.1"
+  },
+  {
+   "id": "4.2.4.4",
+   "title": "The regulation of the financial system"
+  },
+  {
+   "id": "4.2.5.1",
+   "title": "Fiscal policy",
+   "as": "3.2.4.2"
+  },
+  {
+   "id": "4.2.5.2",
+   "title": "Supply-side policies",
+   "as": "3.2.4.3"
+  },
+  {
+   "id": "4.2.6.1",
+   "title": "Globalisation"
+  },
+  {
+   "id": "4.2.6.2",
+   "title": "Trade"
+  },
+  {
+   "id": "4.2.6.3",
+   "title": "The balance of payments",
+   "as": "3.2.3.4"
+  },
+  {
+   "id": "4.2.6.4",
+   "title": "Exchange rate systems"
+  },
+  {
+   "id": "4.2.6.5",
+   "title": "Economic growth and development"
+  }
+ ],
+ "modules": [
+  {
+   "id": "4.1.1",
+   "num": 1,
+   "section": "4.1.1",
+   "title": "Economic methodology and the economic problem",
+   "lessons": [
+    {
+     "id": "4.1.1.1",
+     "title": "Economic methodology",
+     "points": [
+      "4.1.1.1"
+     ],
+     "as": [
+      "3.1.1.1"
+     ]
+    },
+    {
+     "id": "4.1.1.2",
+     "title": "The purpose of economic activity and economic resources",
+     "points": [
+      "4.1.1.2",
+      "4.1.1.3"
+     ],
+     "as": [
+      "3.1.1.2",
+      "3.1.1.3"
+     ]
+    },
+    {
+     "id": "4.1.1.4",
+     "title": "Scarcity, choice and the allocation of resources",
+     "points": [
+      "4.1.1.4"
+     ],
+     "as": [
+      "3.1.1.4"
+     ]
+    },
+    {
+     "id": "4.1.1.5",
+     "title": "Production possibility diagrams",
+     "points": [
+      "4.1.1.5"
+     ],
+     "as": [
+      "3.1.1.5"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.1.2",
+   "num": 2,
+   "section": "4.1.2",
+   "title": "Individual economic decision making",
+   "lessons": [
+    {
+     "id": "4.1.2.1",
+     "title": "Consumer behaviour",
+     "points": [
+      "4.1.2.1"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.2.2",
+     "title": "Imperfect information",
+     "points": [
+      "4.1.2.2"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.2.3",
+     "title": "Aspects of behavioural economic theory",
+     "points": [
+      "4.1.2.3"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.2.4",
+     "title": "Behavioural economics and economic policy",
+     "points": [
+      "4.1.2.4"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.1.3",
+   "num": 3,
+   "section": "4.1.3",
+   "title": "Price determination in a competitive market",
+   "lessons": [
+    {
+     "id": "4.1.3.1",
+     "title": "The determinants of the demand for goods and services",
+     "points": [
+      "4.1.3.1"
+     ],
+     "as": [
+      "3.1.2.1"
+     ]
+    },
+    {
+     "id": "4.1.3.2",
+     "title": "Price, income and cross elasticities of demand",
+     "points": [
+      "4.1.3.2"
+     ],
+     "as": [
+      "3.1.2.2"
+     ]
+    },
+    {
+     "id": "4.1.3.3",
+     "title": "The determinants of the supply of goods and services",
+     "points": [
+      "4.1.3.3"
+     ],
+     "as": [
+      "3.1.2.3"
+     ]
+    },
+    {
+     "id": "4.1.3.4",
+     "title": "Price elasticity of supply",
+     "points": [
+      "4.1.3.4"
+     ],
+     "as": [
+      "3.1.2.4"
+     ]
+    },
+    {
+     "id": "4.1.3.5",
+     "title": "The determination of equilibrium market prices",
+     "points": [
+      "4.1.3.5"
+     ],
+     "as": [
+      "3.1.2.5"
+     ]
+    },
+    {
+     "id": "4.1.3.6",
+     "title": "The interrelationship between markets",
+     "points": [
+      "4.1.3.6"
+     ],
+     "as": [
+      "3.1.2.6"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.1.4",
+   "num": 4,
+   "section": "4.1.4",
+   "title": "Production, costs and revenue",
+   "lessons": [
+    {
+     "id": "4.1.4.1",
+     "title": "Production, productivity and specialisation",
+     "points": [
+      "4.1.4.1",
+      "4.1.4.2"
+     ],
+     "as": [
+      "3.1.3.1",
+      "3.1.3.2"
+     ]
+    },
+    {
+     "id": "4.1.4.3",
+     "title": "The law of diminishing returns and returns to scale",
+     "points": [
+      "4.1.4.3"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.4.4",
+     "title": "Costs of production",
+     "points": [
+      "4.1.4.4"
+     ],
+     "as": [
+      "3.1.3.3"
+     ]
+    },
+    {
+     "id": "4.1.4.5",
+     "title": "Economies and diseconomies of scale",
+     "points": [
+      "4.1.4.5"
+     ],
+     "as": [
+      "3.1.3.4"
+     ]
+    },
+    {
+     "id": "4.1.4.6",
+     "title": "Marginal, average and total revenue",
+     "points": [
+      "4.1.4.6"
+     ],
+     "as": [
+      "3.1.3.5"
+     ]
+    },
+    {
+     "id": "4.1.4.7",
+     "title": "Profit",
+     "points": [
+      "4.1.4.7"
+     ],
+     "as": [
+      "3.1.3.5"
+     ]
+    },
+    {
+     "id": "4.1.4.8",
+     "title": "Technological change",
+     "points": [
+      "4.1.4.8"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.1.5a",
+   "num": 5,
+   "section": "4.1.5",
+   "title": "Market structures: perfect competition to monopoly",
+   "lessons": [
+    {
+     "id": "4.1.5.1",
+     "title": "Market structures",
+     "points": [
+      "4.1.5.1"
+     ],
+     "as": [
+      "3.1.4.1"
+     ]
+    },
+    {
+     "id": "4.1.5.2",
+     "title": "The objectives of firms",
+     "points": [
+      "4.1.5.2"
+     ],
+     "as": [
+      "3.1.4.2"
+     ]
+    },
+    {
+     "id": "4.1.5.3",
+     "title": "Perfect competition",
+     "points": [
+      "4.1.5.3"
+     ],
+     "as": [
+      "3.1.4.3"
+     ]
+    },
+    {
+     "id": "4.1.5.4",
+     "title": "Monopolistic competition",
+     "points": [
+      "4.1.5.4"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.5.5a",
+     "title": "Oligopoly: structure, concentration ratios, collusion and cooperation",
+     "points": [
+      "4.1.5.5"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.5.5b",
+     "title": "Oligopoly: kinked demand, cartels, price wars and non-price competition",
+     "points": [
+      "4.1.5.5"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.5.6",
+     "title": "Monopoly and monopoly power",
+     "points": [
+      "4.1.5.6"
+     ],
+     "as": [
+      "3.1.4.4"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.1.5b",
+   "num": 6,
+   "section": "4.1.5",
+   "title": "Competition, efficiency and welfare",
+   "lessons": [
+    {
+     "id": "4.1.5.7",
+     "title": "Price discrimination",
+     "points": [
+      "4.1.5.7"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.5.8",
+     "title": "The dynamics of competition and competitive market processes",
+     "points": [
+      "4.1.5.8"
+     ],
+     "as": [
+      "3.1.4.5"
+     ]
+    },
+    {
+     "id": "4.1.5.9",
+     "title": "Contestable and non-contestable markets",
+     "points": [
+      "4.1.5.9"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.5.10",
+     "title": "Market structure, static efficiency, dynamic efficiency and resource allocation",
+     "points": [
+      "4.1.5.10"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.5.11",
+     "title": "Consumer and producer surplus",
+     "points": [
+      "4.1.5.11"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.1.6",
+   "num": 7,
+   "section": "4.1.6",
+   "title": "The labour market",
+   "lessons": [
+    {
+     "id": "4.1.6.1",
+     "title": "The demand for labour, marginal productivity theory",
+     "points": [
+      "4.1.6.1"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.6.2",
+     "title": "Influences upon the supply of labour to different markets",
+     "points": [
+      "4.1.6.2"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.6.3",
+     "title": "The determination of relative wage rates and levels of employment in perfectly competitive labour markets",
+     "points": [
+      "4.1.6.3"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.6.4",
+     "title": "The determination of relative wage rates and levels of employment in imperfectly competitive labour markets",
+     "points": [
+      "4.1.6.4"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.6.5",
+     "title": "The Influence of trade unions in determining wages and levels of employment",
+     "points": [
+      "4.1.6.5"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.6.6",
+     "title": "The National Minimum Wage",
+     "points": [
+      "4.1.6.6"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.6.7",
+     "title": "Discrimination in the labour market",
+     "points": [
+      "4.1.6.7"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.1.7",
+   "num": 8,
+   "section": "4.1.7",
+   "title": "The distribution of income and wealth: poverty and inequality",
+   "lessons": [
+    {
+     "id": "4.1.7.1",
+     "title": "The distribution of income and wealth",
+     "points": [
+      "4.1.7.1"
+     ],
+     "as": [
+      "3.1.5.7"
+     ]
+    },
+    {
+     "id": "4.1.7.2",
+     "title": "The problem of poverty",
+     "points": [
+      "4.1.7.2"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.7.3",
+     "title": "Government policies to alleviate poverty and to influence the distribution of income and wealth",
+     "points": [
+      "4.1.7.3"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.1.8a",
+   "num": 9,
+   "section": "4.1.8",
+   "title": "How markets work and why they fail",
+   "lessons": [
+    {
+     "id": "4.1.8.1",
+     "title": "How markets and prices allocate resources",
+     "points": [
+      "4.1.8.1"
+     ],
+     "as": [
+      "3.1.5.1"
+     ]
+    },
+    {
+     "id": "4.1.8.2",
+     "title": "The meaning of market failure",
+     "points": [
+      "4.1.8.2"
+     ],
+     "as": [
+      "3.1.5.2"
+     ]
+    },
+    {
+     "id": "4.1.8.3",
+     "title": "Public goods, private goods and quasi-public goods",
+     "points": [
+      "4.1.8.3"
+     ],
+     "as": [
+      "3.1.5.3"
+     ]
+    },
+    {
+     "id": "4.1.8.4",
+     "title": "Positive and negative externalities in consumption and production",
+     "points": [
+      "4.1.8.4"
+     ],
+     "as": [
+      "3.1.5.4"
+     ]
+    },
+    {
+     "id": "4.1.8.5",
+     "title": "Merit and demerit goods",
+     "points": [
+      "4.1.8.5"
+     ],
+     "as": [
+      "3.1.5.5"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.1.8b",
+   "num": 10,
+   "section": "4.1.8",
+   "title": "Market imperfections and government action",
+   "lessons": [
+    {
+     "id": "4.1.8.6",
+     "title": "Market imperfections",
+     "points": [
+      "4.1.8.6"
+     ],
+     "as": [
+      "3.1.5.6"
+     ]
+    },
+    {
+     "id": "4.1.8.7",
+     "title": "Competition policy",
+     "points": [
+      "4.1.8.7"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.8.8",
+     "title": "Public ownership, privatisation, regulation and deregulation of markets",
+     "points": [
+      "4.1.8.8"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.1.8.9a",
+     "title": "Why governments intervene: indirect taxes, subsidies and price controls",
+     "points": [
+      "4.1.8.9"
+     ],
+     "as": [
+      "3.1.5.8"
+     ]
+    },
+    {
+     "id": "4.1.8.9b",
+     "title": "State provision, regulation, property rights and pollution permits",
+     "points": [
+      "4.1.8.9"
+     ],
+     "as": [
+      "3.1.5.8"
+     ]
+    },
+    {
+     "id": "4.1.8.10",
+     "title": "Government failure",
+     "points": [
+      "4.1.8.10"
+     ],
+     "as": [
+      "3.1.5.9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.2.1",
+   "num": 11,
+   "section": "4.2.1",
+   "title": "The measurement of macroeconomic performance",
+   "lessons": [
+    {
+     "id": "4.2.1.1",
+     "title": "The objectives of government economic policy",
+     "points": [
+      "4.2.1.1"
+     ],
+     "as": [
+      "3.2.1.1"
+     ]
+    },
+    {
+     "id": "4.2.1.2",
+     "title": "Macroeconomic indicators",
+     "points": [
+      "4.2.1.2"
+     ],
+     "as": [
+      "3.2.1.2"
+     ]
+    },
+    {
+     "id": "4.2.1.3",
+     "title": "Uses of index numbers",
+     "points": [
+      "4.2.1.3"
+     ],
+     "as": [
+      "3.2.1.3"
+     ]
+    },
+    {
+     "id": "4.2.1.4",
+     "title": "Uses of national income data",
+     "points": [
+      "4.2.1.4"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.2.2",
+   "num": 12,
+   "section": "4.2.2",
+   "title": "How the macroeconomy works: the circular flow of income, aggregate demand/aggregate supply analysis and related concepts",
+   "lessons": [
+    {
+     "id": "4.2.2.1",
+     "title": "The circular flow of income",
+     "points": [
+      "4.2.2.1"
+     ],
+     "as": [
+      "3.2.2.1"
+     ]
+    },
+    {
+     "id": "4.2.2.2",
+     "title": "Aggregate demand and aggregate supply analysis",
+     "points": [
+      "4.2.2.2"
+     ],
+     "as": [
+      "3.2.2.2"
+     ]
+    },
+    {
+     "id": "4.2.2.3",
+     "title": "The determinants of aggregate demand",
+     "points": [
+      "4.2.2.3"
+     ],
+     "as": [
+      "3.2.2.3"
+     ]
+    },
+    {
+     "id": "4.2.2.4",
+     "title": "Aggregate demand and the level of economic activity",
+     "points": [
+      "4.2.2.4"
+     ],
+     "as": [
+      "3.2.2.4"
+     ]
+    },
+    {
+     "id": "4.2.2.5",
+     "title": "Determinants of short-run aggregate supply",
+     "points": [
+      "4.2.2.5"
+     ],
+     "as": [
+      "3.2.2.5"
+     ]
+    },
+    {
+     "id": "4.2.2.6",
+     "title": "Determinants of long-run aggregate supply",
+     "points": [
+      "4.2.2.6"
+     ],
+     "as": [
+      "3.2.2.6"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.2.3",
+   "num": 13,
+   "section": "4.2.3",
+   "title": "Economic performance",
+   "lessons": [
+    {
+     "id": "4.2.3.1a",
+     "title": "Economic growth: short run and long run, causes, costs and benefits",
+     "points": [
+      "4.2.3.1"
+     ],
+     "as": [
+      "3.2.3.1"
+     ]
+    },
+    {
+     "id": "4.2.3.1b",
+     "title": "The economic cycle and output gaps",
+     "points": [
+      "4.2.3.1"
+     ],
+     "as": [
+      "3.2.3.1"
+     ]
+    },
+    {
+     "id": "4.2.3.2a",
+     "title": "Unemployment: measures and types",
+     "points": [
+      "4.2.3.2"
+     ],
+     "as": [
+      "3.2.3.2"
+     ]
+    },
+    {
+     "id": "4.2.3.2b",
+     "title": "Unemployment: causes, the natural rate and consequences",
+     "points": [
+      "4.2.3.2"
+     ],
+     "as": [
+      "3.2.3.2"
+     ]
+    },
+    {
+     "id": "4.2.3.3a",
+     "title": "Inflation and deflation: meaning and causes, including MV = PQ",
+     "points": [
+      "4.2.3.3"
+     ],
+     "as": [
+      "3.2.3.3"
+     ]
+    },
+    {
+     "id": "4.2.3.3b",
+     "title": "Consequences of inflation and deflation, and world influences",
+     "points": [
+      "4.2.3.3"
+     ],
+     "as": [
+      "3.2.3.3"
+     ]
+    },
+    {
+     "id": "4.2.3.4",
+     "title": "Possible conflicts between macroeconomic policy objectives",
+     "points": [
+      "4.2.3.4"
+     ],
+     "as": [
+      "3.2.3.5"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.2.4",
+   "num": 14,
+   "section": "4.2.4",
+   "title": "Financial markets and monetary policy",
+   "lessons": [
+    {
+     "id": "4.2.4.1",
+     "title": "The structure of financial markets and financial assets",
+     "points": [
+      "4.2.4.1"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.4.2",
+     "title": "Commercial banks and investment banks",
+     "points": [
+      "4.2.4.2"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.4.3a",
+     "title": "The Bank of England, the MPC and bank rate",
+     "points": [
+      "4.2.4.3"
+     ],
+     "as": [
+      "3.2.4.1"
+     ]
+    },
+    {
+     "id": "4.2.4.3b",
+     "title": "The transmission mechanism, exchange rates and quantitative easing",
+     "points": [
+      "4.2.4.3"
+     ],
+     "as": [
+      "3.2.4.1"
+     ]
+    },
+    {
+     "id": "4.2.4.4",
+     "title": "The regulation of the financial system",
+     "points": [
+      "4.2.4.4"
+     ],
+     "as": []
+    }
+   ]
+  },
+  {
+   "id": "4.2.5",
+   "num": 15,
+   "section": "4.2.5",
+   "title": "Fiscal policy and supply-side policies",
+   "lessons": [
+    {
+     "id": "4.2.5.1a",
+     "title": "Fiscal policy: aggregate demand, aggregate supply and public spending",
+     "points": [
+      "4.2.5.1"
+     ],
+     "as": [
+      "3.2.4.2"
+     ]
+    },
+    {
+     "id": "4.2.5.1b",
+     "title": "Taxation: types, principles and UK taxes",
+     "points": [
+      "4.2.5.1"
+     ],
+     "as": [
+      "3.2.4.2"
+     ]
+    },
+    {
+     "id": "4.2.5.1c",
+     "title": "The budget balance, national debt and the OBR",
+     "points": [
+      "4.2.5.1"
+     ],
+     "as": [
+      "3.2.4.2"
+     ]
+    },
+    {
+     "id": "4.2.5.2",
+     "title": "Supply-side policies",
+     "points": [
+      "4.2.5.2"
+     ],
+     "as": [
+      "3.2.4.3"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.2.6",
+   "num": 16,
+   "section": "4.2.6",
+   "title": "The international economy",
+   "lessons": [
+    {
+     "id": "4.2.6.1",
+     "title": "Globalisation",
+     "points": [
+      "4.2.6.1"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.6.2a",
+     "title": "Trade: comparative advantage, benefits and costs",
+     "points": [
+      "4.2.6.2"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.6.2b",
+     "title": "Protectionism, customs unions, the Single Market and the WTO",
+     "points": [
+      "4.2.6.2"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.6.3a",
+     "title": "The balance of payments: structure and the current account",
+     "points": [
+      "4.2.6.3"
+     ],
+     "as": [
+      "3.2.3.4"
+     ]
+    },
+    {
+     "id": "4.2.6.3b",
+     "title": "Correcting imbalances and why they matter",
+     "points": [
+      "4.2.6.3"
+     ],
+     "as": [
+      "3.2.3.4"
+     ]
+    },
+    {
+     "id": "4.2.6.4",
+     "title": "Exchange rate systems",
+     "points": [
+      "4.2.6.4"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.6.5a",
+     "title": "Growth and development: meaning and indicators",
+     "points": [
+      "4.2.6.5"
+     ],
+     "as": []
+    },
+    {
+     "id": "4.2.6.5b",
+     "title": "Barriers to development, policies, aid and trade",
+     "points": [
+      "4.2.6.5"
+     ],
+     "as": []
+    }
+   ]
+  }
+ ],
+ "checkpoints": [
+  {
+   "id": "cp1",
+   "covers": [
+    "4.1.1",
+    "4.1.4"
+   ]
+  },
+  {
+   "id": "cp2",
+   "covers": [
+    "4.1.5a",
+    "4.1.8b"
+   ]
+  },
+  {
+   "id": "cp3",
+   "covers": [
+    "4.2.1",
+    "4.2.3"
+   ]
+  },
+  {
+   "id": "cp4",
+   "covers": [
+    "4.2.4",
+    "4.2.6"
+   ]
+  }
+ ]
+}

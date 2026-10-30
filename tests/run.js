@@ -1,7 +1,7 @@
 // Run: node tests/run.js
 // Checks marking, the quiz engine, XP, locks, recall, the course registry and progress keys. Explain questions in every quiz file
 // can carry "tests": [{ "answer": "...", "marks": n }] and are all checked here.
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { markExplain, parseNumber } from '../js/marking.js';
 import { instantiate, mark, buildAttempt, buildCheckpoint, score, combineScores, seededRng } from '../js/quiz.js';
 import { Progress, xpFromState, levelFor, courseStatus, pickRecall, mergeStates, emptyState, itemKey, attemptPct } from '../js/progress.js';
@@ -461,6 +461,42 @@ check('daysUntil across the clocks going back', daysUntil('2026-10-26', '2026-10
   check('exams: a full list fits the database limit', full.list.length === 12 && Buffer.byteLength(JSON.stringify(full)) <= 4000, Buffer.byteLength(JSON.stringify(full)));
 }
 check('schema: settings.exams with a size limit', /add column if not exists exams jsonb/.test(sql) && /settings_exams_ok[\s\S]{0,120}octet_length\(exams::text\) <= 4000/.test(sql));
+
+// --- spec maps (content/courses/<id>/specmap.json): every spec point taught exactly once, ids the database accepts
+for (const e of registry.courses) {
+  const f = new URL(`courses/${e.id}/specmap.json`, contentRoot);
+  if (!existsSync(f)) { check(`${e.id}: live A-level course has a spec map`, !e.board || !e.live); continue; }
+  const sm = JSON.parse(readFileSync(f));
+  check(`${e.id} spec map: names its spec, version, date, source and check date`, sm.course === e.id && sm.spec === e.spec && sm.board === e.board
+    && /^\d+(\.\d+)*$/.test(sm.specVersion) && /^\d{4}-\d{2}-\d{2}$/.test(sm.specDate) && /^https:\/\//.test(sm.source) && /^\d{4}-\d{2}-\d{2}$/.test(sm.checked));
+  const pointIds = sm.points.map(pt => pt.id);
+  check(`${e.id} spec map: point ids unique`, new Set(pointIds).size === pointIds.length);
+  check(`${e.id} spec map: every point has a section`, sm.points.every(pt => pt.title && sm.sections[pt.id.split('.').slice(0, 3).join('.')]));
+  check(`${e.id} spec map: AS references look right`, sm.points.every(pt => !pt.as || /^3\.\d+\.\d+\.\d+$/.test(pt.as)));
+  const where = new Map();
+  const lessonIds = [];
+  sm.modules.forEach((m, k) => {
+    check(`${e.id} module ${m.id}: numbered in order`, m.num === k + 1);
+    check(`${e.id} module ${m.id}: 3 to 8 lessons`, m.lessons.length >= 3 && m.lessons.length <= 8, m.lessons.length);
+    for (const l of m.lessons) {
+      lessonIds.push(l.id);
+      check(`${e.id} lesson ${l.id}: id the database accepts`, idRule && new RegExp(idRule[1]).test(itemKey({ id: e.id }, l.id)));
+      check(`${e.id} lesson ${l.id}: starts with its spec point`, l.id.startsWith(l.points[0]) && l.title);
+      for (const pt of l.points) {
+        check(`${e.id} lesson ${l.id}: point ${pt} is in the spec`, pointIds.includes(pt));
+        check(`${e.id} lesson ${l.id}: point ${pt} in its module's section`, pt.startsWith(m.section + '.'));
+        if (where.has(pt) && where.get(pt) !== m.id) check(`${e.id}: ${pt} taught in one module only`, false, `${where.get(pt)} and ${m.id}`);
+        where.set(pt, m.id);
+      }
+    }
+  });
+  check(`${e.id} spec map: lesson ids unique`, new Set(lessonIds).size === lessonIds.length);
+  const missing = pointIds.filter(pt => !where.has(pt));
+  check(`${e.id} spec map: every spec point is taught`, !missing.length, missing.join(' '));
+  const moduleIds = sm.modules.map(m => m.id);
+  check(`${e.id} spec map: checkpoints cover modules in order`, sm.checkpoints.every(c => moduleIds.indexOf(c.covers[0]) >= 0 && moduleIds.indexOf(c.covers[1]) >= moduleIds.indexOf(c.covers[0])));
+}
+check('Economics spec map has all 79 section 4 points', existsSync(new URL('courses/econ-aqa/specmap.json', contentRoot)) && JSON.parse(readFileSync(new URL('courses/econ-aqa/specmap.json', contentRoot))).points.length === 79);
 
 // --- reading pages (m/<id>/) and sitemap.xml match the content
 const built = await build();

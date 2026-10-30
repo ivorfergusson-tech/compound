@@ -39,8 +39,8 @@ Check gov.uk "Rates and thresholds for employers" and HMRC for the new tax year,
 
 ## Each September (A-level specifications)
 Exam boards sometimes update a specification. For each A-level course in `content/courses.json`:
-- Open the board's spec page (AQA Economics 7136, AQA Business 7132) and compare the version and date with `spec` and `specVersion` in the course's `course.json`.
-- If the version changed, read the summary of changes, update the spec map and any affected lessons and questions, then update `specVersion`. Changed lessons go back through review.
+- Run `python tools/spec_points.py <course>` (e.g. `econ-aqa`). It downloads the spec from the map's `source`, compares its version, date and every section 4 point with `content/courses/<course>/specmap.json`, and lists anything new, gone or renamed. If AQA has moved the PDF, find the new link on its spec page and update `source`.
+- If the version changed, read the summary of changes, update the spec map and any affected lessons and questions, then update `specVersion` and `specDate` (in `specmap.json` and `course.json`) and `checked`. Changed lessons go back through review.
 
 ## Don't forget
 - Never type a changing figure into a lesson as plain text. Add it to `figures.json`.
