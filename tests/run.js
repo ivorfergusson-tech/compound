@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -538,6 +538,9 @@ for (const k of ['negative-production', 'positive-production', 'negative-consump
 check('tax: none leaves the full welfare loss', pigouTax(0).q === 40 && pigouTax(0).loss === 100);
 check('tax: equal to the external cost reaches the optimum', pigouTax(20).q === 30 && pigouTax(20).loss === 0 && pigouTax(20).revenue === 600);
 check('tax: too big overshoots', pigouTax(40).q === 20 && pigouTax(40).loss === 100);
+check('price index: no change stays at 100', basketIndex({ food: 0, energy: 0, other: 0 }) === 100);
+check('price index: weights count', Math.abs(basketIndex({ food: 10, energy: 20, other: 0 }) - 104) < 1e-9);
+check('price index: a small rise in a big weight can beat a big rise in a small one', basketIndex({ food: 0, energy: 0, other: 5 }) > basketIndex({ food: 0, energy: 30, other: 0 }));
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

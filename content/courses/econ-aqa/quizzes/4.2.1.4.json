@@ -1,0 +1,179 @@
+{
+ "module": "4.2.1.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.1.4-limit",
+   "type": "mcq",
+   "topic": "limits",
+   "q": "Which is left out of GDP?",
+   "options": [
+    "Unpaid care in the home",
+    "Wages",
+    "Spending by firms",
+    "Government spending"
+   ],
+   "answer": 0,
+   "why": "Work that isn't paid for isn't counted.",
+   "spec": "4.2.1.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.4-hidden",
+   "type": "mcq",
+   "topic": "limits",
+   "q": "What is the hidden economy?",
+   "options": [
+    "Economic activity not declared to the authorities",
+    "Firms with secret products",
+    "Foreign firms",
+    "Spending on savings"
+   ],
+   "answer": 0,
+   "why": "It means that GDP understates true output.",
+   "spec": "4.2.1.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.4-ppp",
+   "type": "mcq",
+   "topic": "PPP",
+   "q": "Why do PPP exchange rates often raise the measured income of poorer countries?",
+   "options": [
+    "Many local goods and services are cheap there",
+    "Their currencies always rise",
+    "They have fewer people",
+    "They trade less"
+   ],
+   "answer": 0,
+   "why": "Income buys more at home than the market rate suggests.",
+   "spec": "4.2.1.4",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.1.4-pppnum",
+   "type": "number",
+   "topic": "PPP",
+   "q": "A basket costs £{a} in the UK and {b} pesos abroad. What is the PPP rate, in pesos per £1?",
+   "vars": {
+    "a": {
+     "choices": [
+      100,
+      200
+     ],
+     "default": 200
+    },
+    "b": {
+     "choices": [
+      4000,
+      6000
+     ],
+     "default": 6000
+    }
+   },
+   "answer": "b/a",
+   "tol": 0.01,
+   "unit": "pesos",
+   "dp": 0,
+   "why": "{b} ÷ {a} = {answer} pesos per £1.",
+   "spec": "4.2.1.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.1.4-dist",
+   "type": "tf",
+   "topic": "limits",
+   "q": "A rising average income means that everyone is better off.",
+   "answer": false,
+   "why": "Averages say nothing about how income is shared.",
+   "spec": "4.2.1.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.4-explain",
+   "type": "explain",
+   "topic": "limits",
+   "q": "Explain why a rise in real GDP per capita may not mean that living standards have improved.",
+   "ideas": [
+    {
+     "label": "GDP leaves out things like pollution, leisure or how income is shared",
+     "any": [
+      "pollution",
+      "externalit*",
+      "environment*",
+      "longer hours",
+      "leisure",
+      "distribution",
+      "inequal*",
+      "unpaid",
+      "hidden economy",
+      "quality of life",
+      "stress"
+     ]
+    },
+    {
+     "label": "So people may not actually be better off",
+     "any": [
+      "no better off",
+      "not better off",
+      "worse off",
+      "lower quality",
+      "quality of life",
+      "most people",
+      "few people",
+      "only the rich",
+      "the rich",
+      "less leisure",
+      "harm*",
+      "health",
+      "not improve*",
+      "reduce* living standards",
+      "overstate*"
+     ]
+    }
+   ],
+   "model": "GDP leaves out pollution and lost leisure, and it does not show how income is shared. So people may be no better off, even if output per person has risen.",
+   "why": "GDP counts output, not well-being.",
+   "tests": [
+    {
+     "answer": "Growth may bring more pollution, which harms health, so people may not be better off.",
+     "marks": 2
+    },
+    {
+     "answer": "There may be more pollution.",
+     "marks": 1
+    },
+    {
+     "answer": "GDP is a large number.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.1.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

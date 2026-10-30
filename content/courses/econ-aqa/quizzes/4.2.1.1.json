@@ -1,0 +1,166 @@
+{
+ "module": "4.2.1.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.1.1-four",
+   "type": "mcq",
+   "topic": "objectives",
+   "q": "Which is NOT one of the four main macroeconomic objectives?",
+   "options": [
+    "Economic growth",
+    "Price stability",
+    "Minimising unemployment",
+    "Maximising firms' profits"
+   ],
+   "answer": 3,
+   "why": "The fourth main objective is a stable current account.",
+   "spec": "4.2.1.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.1-target",
+   "type": "mcq",
+   "topic": "price stability",
+   "q": "What is the UK government's inflation target?",
+   "options": [
+    "0% CPI",
+    "2% CPI",
+    "5% CPI",
+    "2% RPI"
+   ],
+   "answer": 1,
+   "why": "The Bank of England aims for CPI inflation of 2%.",
+   "spec": "4.2.1.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.1-conflict",
+   "type": "match",
+   "topic": "conflicts",
+   "q": "Match each policy result to the conflict it shows.",
+   "pairs": [
+    [
+     "Rising incomes pull in more imports",
+     "Growth and the current account"
+    ],
+    [
+     "Falling joblessness pushes up wages and prices",
+     "Unemployment and inflation"
+    ],
+    [
+     "More output means more pollution",
+     "Growth and the environment"
+    ]
+   ],
+   "why": "Each aim can make another harder to reach.",
+   "spec": "4.2.1.1",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.1.1-time",
+   "type": "tf",
+   "topic": "priorities",
+   "q": "The importance given to different objectives changes over time.",
+   "answer": true,
+   "why": "High inflation in the 1970s and 1980s moved it up the list, for example.",
+   "spec": "4.2.1.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.1-other",
+   "type": "mcq",
+   "topic": "other objectives",
+   "q": "Which is another possible objective of macroeconomic policy?",
+   "options": [
+    "Balancing the budget",
+    "Raising all prices",
+    "Reducing all imports to zero",
+    "Fixing the number of firms"
+   ],
+   "answer": 0,
+   "why": "An equitable distribution of income is another.",
+   "spec": "4.2.1.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.1-explain",
+   "type": "explain",
+   "topic": "conflicts",
+   "q": "Explain how a government policy to raise economic growth could worsen the current account.",
+   "ideas": [
+    {
+     "label": "Higher growth raises incomes and spending",
+     "any": [
+      "raises incomes",
+      "raise incomes",
+      "incomes rise",
+      "higher income*",
+      "rising income*",
+      "more income",
+      "spending rises",
+      "more spending",
+      "consumers spend more",
+      "aggregate demand",
+      "demand rises"
+     ]
+    },
+    {
+     "label": "So imports rise, which widens the deficit",
+     "any": [
+      "imports rise",
+      "more imports",
+      "buy more imports",
+      "higher imports",
+      "imports increase",
+      "increase* imports",
+      "raise* imports",
+      "deficit"
+     ]
+    }
+   ],
+   "model": "Faster growth raises incomes and spending. Some of that goes on imports, so imports rise and the current account deficit widens.",
+   "why": "Part of any rise in spending goes abroad.",
+   "tests": [
+    {
+     "answer": "Higher incomes lead people to buy more imports, which widens the deficit.",
+     "marks": 2
+    },
+    {
+     "answer": "People have higher incomes.",
+     "marks": 1
+    },
+    {
+     "answer": "Growth is good.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.1.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

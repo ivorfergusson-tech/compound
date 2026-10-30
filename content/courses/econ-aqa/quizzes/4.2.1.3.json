@@ -1,0 +1,186 @@
+{
+ "module": "4.2.1.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.1.3-index",
+   "type": "number",
+   "topic": "calculating",
+   "q": "A price was £{a} in the base year and is £{b} now. What is the index number?",
+   "vars": {
+    "a": {
+     "choices": [
+      40,
+      50
+     ],
+     "default": 50
+    },
+    "b": {
+     "choices": [
+      60,
+      70
+     ],
+     "default": 60
+    }
+   },
+   "answer": "b/a*100",
+   "tol": 0.05,
+   "unit": "",
+   "dp": 1,
+   "why": "£{b} ÷ £{a} × 100 = {answer}.",
+   "spec": "4.2.1.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.3-change",
+   "type": "number",
+   "topic": "percentage change",
+   "q": "An index rises from {a} to {b}. What is the percentage rise, to 1 decimal place, in %?",
+   "vars": {
+    "a": {
+     "choices": [
+      120,
+      150
+     ],
+     "default": 120
+    },
+    "b": {
+     "choices": [
+      126,
+      165
+     ],
+     "default": 126
+    }
+   },
+   "answer": "(b-a)/a*100",
+   "tol": 0.05,
+   "unit": "%",
+   "dp": 1,
+   "why": "({b} − {a}) ÷ {a} × 100 = {answer}%.",
+   "spec": "4.2.1.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.1.3-base",
+   "type": "mcq",
+   "topic": "base year",
+   "q": "In an index, the value of the base year is set at:",
+   "options": [
+    "0",
+    "1",
+    "100",
+    "1,000"
+   ],
+   "answer": 2,
+   "why": "Other years are compared with it.",
+   "spec": "4.2.1.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.3-weights",
+   "type": "mcq",
+   "topic": "weights",
+   "q": "What do weights show in the CPI?",
+   "options": [
+    "Each item's share of household spending",
+    "How heavy each item is",
+    "The number of shops",
+    "The tax on each item"
+   ],
+   "answer": 0,
+   "why": "Items count in line with how much households spend on them.",
+   "spec": "4.2.1.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.3-typical",
+   "type": "tf",
+   "topic": "limits",
+   "q": "A pensioner's personal rate of inflation can differ from the CPI.",
+   "answer": true,
+   "why": "Their spending differs from the average basket.",
+   "spec": "4.2.1.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.3-explain",
+   "type": "explain",
+   "topic": "limits",
+   "q": "Explain one reason why the CPI may not measure changes in the cost of living accurately.",
+   "ideas": [
+    {
+     "label": "It's based on an average basket, or can't fully allow for quality or new products",
+     "any": [
+      "average",
+      "typical",
+      "basket",
+      "quality",
+      "new product*",
+      "substitut*",
+      "switch*",
+      "spending patterns"
+     ]
+    },
+    {
+     "label": "So it doesn't match what a given household buys, or prices don't show the real change",
+     "any": [
+      "different",
+      "differ*",
+      "not the same",
+      "not reflect",
+      "doesn't reflect",
+      "does not reflect",
+      "buy",
+      "spend",
+      "overstate*",
+      "understate*",
+      "better product*",
+      "improve*"
+     ]
+    }
+   ],
+   "model": "The CPI uses an average basket, while real households buy different things. So their own cost of living can change by more or less than the index.",
+   "why": "Averages hide the differences between households.",
+   "tests": [
+    {
+     "answer": "It uses an average basket, but households spend differently, so it does not reflect their costs.",
+     "marks": 2
+    },
+    {
+     "answer": "It uses an average basket.",
+     "marks": 1
+    },
+    {
+     "answer": "It is published each month.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.1.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

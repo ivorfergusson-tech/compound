@@ -120,6 +120,9 @@ export function pigouTax(tax) {
   const q = 40 - tax / 2;
   return { q, price: 60 + tax / 2, revenue: tax * q, loss: (q - 30) ** 2 };
 }
+// A weighted price index, base 100: each item's price change counts in proportion to its weight.
+export const BASKET = [{ id: 'food', name: 'Food', weight: 0.2 }, { id: 'energy', name: 'Energy', weight: 0.1 }, { id: 'other', name: 'Everything else', weight: 0.7 }];
+export const basketIndex = rises => 100 + BASKET.reduce((t, b) => t + b.weight * rises[b.id], 0);
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -414,6 +417,18 @@ export const econCharts = {
         ? 'The tax equals the £20 external cost, so firms pay the full social cost and output falls to the social optimum of 30. The externality is internalised.'
         : t < 20 ? `A tax of £${t} is below the £20 external cost, so output of ${r.q} is still above the optimum of 30.`
           : `A tax of £${t} is above the £20 external cost, so output of ${r.q} is below the optimum. Too big a tax is government failure.`;
+    });
+  },
+  basket(root, a) {
+    const specs = Object.fromEntries(BASKET.map(b => [b.id, { min: 0, max: 30, step: 1, value: a[b.id] ?? 0, fmt: v => `+${v}%` }]));
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">A weighted price index</h3>`
+      + BASKET.map(b => slider(b.id, `${b.name} (weight ${b.weight * 100}%)`, specs[b.id])).join('')
+      + `<div class="stats">${stat('Index (base year = 100)', 'i')}${stat('Inflation', 'r', 'warm')}</div>`
+      + `<p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, (v, set) => {
+      const i = basketIndex(v);
+      set('i', i.toFixed(1)); set('r', `${(i - 100).toFixed(1)}%`);
+      root.querySelector('[data-desc]').textContent = 'Each price rise counts in line with its weight, so a big rise in a small part of the basket adds less than a small rise in a large part.';
     });
   },
   costs(root, a) {

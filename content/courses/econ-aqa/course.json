@@ -75,6 +75,11 @@
    "name": "Market imperfections and government action",
    "emoji": "🏛️",
    "blurb": "What governments can do about market failure, and how their fixes can go wrong."
+  },
+  "4.2.1": {
+   "name": "The measurement of macroeconomic performance",
+   "emoji": "📈",
+   "blurb": "What governments aim for, and how we measure whether an economy is doing well."
   }
  },
  "items": [
@@ -1282,6 +1287,90 @@
     "government failure"
    ],
    "summary": "When intervention makes the allocation of resources worse."
+  },
+  {
+   "id": "4.2.1.1",
+   "kind": "module",
+   "num": 55,
+   "strand": "4.2.1",
+   "title": "The objectives of government economic policy",
+   "short": "Macroeconomic objectives",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.1.1"
+   ],
+   "buildsOn": [
+    54
+   ],
+   "introduces": [
+    "price stability",
+    "unemployment",
+    "balance of payments on current account"
+   ],
+   "summary": "Growth, prices, jobs and the current account, and how they can clash."
+  },
+  {
+   "id": "4.2.1.2",
+   "kind": "module",
+   "num": 56,
+   "strand": "4.2.1",
+   "title": "Macroeconomic indicators",
+   "short": "Macroeconomic indicators",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.1.2"
+   ],
+   "buildsOn": [
+    55
+   ],
+   "introduces": [
+    "gross domestic product",
+    "real GDP",
+    "inflation"
+   ],
+   "summary": "Real GDP, CPI, unemployment, productivity and the UK's latest figures."
+  },
+  {
+   "id": "4.2.1.3",
+   "kind": "module",
+   "num": 57,
+   "strand": "4.2.1",
+   "title": "Uses of index numbers",
+   "short": "Index numbers",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.1.3"
+   ],
+   "buildsOn": [
+    56
+   ],
+   "introduces": [
+    "index number",
+    "base year",
+    "consumer prices index"
+   ],
+   "summary": "Base years, weights and how to read a price index."
+  },
+  {
+   "id": "4.2.1.4",
+   "kind": "module",
+   "num": 58,
+   "strand": "4.2.1",
+   "title": "Uses of national income data",
+   "short": "National income data",
+   "level": "A-level",
+   "spec": [
+    "4.2.1.4"
+   ],
+   "buildsOn": [
+    57
+   ],
+   "introduces": [
+    "national income",
+    "living standards",
+    "purchasing power parity"
+   ],
+   "summary": "What GDP can and can't say about living standards, and why PPP matters."
   }
  ]
 }

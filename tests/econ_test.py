@@ -242,6 +242,14 @@ with sync_playwright() as p:
     check("too big a tax overshoots", "government failure" in box.locator("[data-desc]").inner_text())
     box.locator(".chart").screenshot(path=str(SHOTS / "econ-tax.png"))
     axe(page, "the intervention lesson")
+    # Weighted price index
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.1.3")
+    page.wait_for_selector("[data-in='food']")
+    page.locator('[data-in="food"]').fill("10")
+    page.locator('[data-in="energy"]').fill("20")
+    page.locator('[data-in="other"]').fill("0")
+    check("the index uses the weights", page.locator('[data-v="i"]').inner_text() == "104.0" and page.locator('[data-v="r"]').inner_text() == "4.0%")
+    axe(page, "the index numbers lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

@@ -1,0 +1,169 @@
+{
+ "module": "4.2.1.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.1.2-real",
+   "type": "mcq",
+   "topic": "real GDP",
+   "q": "Real GDP is:",
+   "options": [
+    "GDP adjusted for inflation",
+    "GDP at current prices",
+    "GDP per person",
+    "GDP minus imports"
+   ],
+   "answer": 0,
+   "why": "It shows the change in actual output.",
+   "spec": "4.2.1.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.2-rate",
+   "type": "number",
+   "topic": "unemployment",
+   "q": "{e} million people are employed and {u} million are unemployed. What is the unemployment rate, in %?",
+   "vars": {
+    "e": {
+     "choices": [
+      36,
+      45
+     ],
+     "default": 36
+    },
+    "u": {
+     "choices": [
+      4,
+      5
+     ],
+     "default": 4
+    }
+   },
+   "answer": "u/(e+u)*100",
+   "tol": 0.05,
+   "unit": "%",
+   "dp": 1,
+   "why": "{u} ÷ ({e} + {u}) × 100 = {answer}%.",
+   "spec": "4.2.1.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.1.2-measures",
+   "type": "mcq",
+   "topic": "unemployment",
+   "q": "The Labour Force Survey measure of unemployment uses which definition?",
+   "options": [
+    "The ILO definition",
+    "People claiming benefits",
+    "People with no degree",
+    "People under 21"
+   ],
+   "answer": 0,
+   "why": "It's based on a survey, and on the International Labour Organization's definition.",
+   "spec": "4.2.1.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.2-rateofinf",
+   "type": "tf",
+   "topic": "inflation",
+   "q": "A fall in the rate of inflation means the price level is falling.",
+   "answer": false,
+   "why": "Prices are still rising, only more slowly.",
+   "spec": "4.2.1.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.1.2-cpi",
+   "type": "mcq",
+   "topic": "inflation",
+   "q": "Which is used for the Bank of England's inflation target?",
+   "options": [
+    "CPI",
+    "RPI",
+    "GDP",
+    "The FTSE 100"
+   ],
+   "answer": 0,
+   "why": "The target is 2% CPI inflation.",
+   "spec": "4.2.1.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.1.2-explain",
+   "type": "explain",
+   "topic": "real GDP per capita",
+   "q": "Explain why real GDP can rise while real GDP per capita falls.",
+   "ideas": [
+    {
+     "label": "Real GDP per capita is output divided by the population",
+     "any": [
+      "divided by",
+      "per person",
+      "per head",
+      "each person",
+      "average person",
+      "by the population"
+     ]
+    },
+    {
+     "label": "So if population grows faster than output, it falls",
+     "any": [
+      "population grows faster",
+      "population rises faster",
+      "population rises more",
+      "population increases faster",
+      "population growth",
+      "faster than",
+      "more quickly than",
+      "more than output",
+      "more than gdp",
+      "more than real gdp"
+     ]
+    }
+   ],
+   "model": "Real GDP per capita is real GDP divided by the population. If the population grows faster than output, output per person falls.",
+   "why": "Watch the top and the bottom of the fraction.",
+   "tests": [
+    {
+     "answer": "It is GDP divided by the population, so if population grows faster than GDP, it falls.",
+     "marks": 2
+    },
+    {
+     "answer": "It is output per person.",
+     "marks": 1
+    },
+    {
+     "answer": "Prices have gone up.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.1.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}
