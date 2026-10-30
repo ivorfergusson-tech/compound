@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -509,6 +509,12 @@ check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p 
 check('market: gap above and below equilibrium', marketGap(80) === -40 && marketGap(40) === 40 && marketGap(60) === 0);
 check('PED: inelastic price rise raises revenue', Math.abs(pedRevenue(10, -0.5).after - 1045) < 1e-9);
 check('PED: elastic price rise cuts revenue', pedRevenue(10, -2).after < pedRevenue(10, -2).before);
+{
+  const q0 = lowestAtc(60, 1), at = costsAt(q0, 60, 1);
+  check('costs: MC cuts ATC at its lowest point', Math.abs(at.mc - at.atc) < 0.05, `${at.mc} ${at.atc}`);
+  check('costs: fixed costs leave MC alone', costsAt(10, 60, 1).mc === costsAt(10, 200, 1).mc);
+  check('costs: TC is fixed plus variable', Math.abs(at.tc - (60 + at.avc * q0)) < 1e-6);
+}
 const N_BANK = 6, AOS = ['AO1', 'AO2', 'AO3', 'AO4'];
 for (const e of registry.courses.filter(c => c.board)) {
   const dir = new URL(`courses/${e.id}/`, contentRoot);

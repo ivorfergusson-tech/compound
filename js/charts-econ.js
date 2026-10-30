@@ -1,6 +1,7 @@
 // Economics diagrams for lessons (:::chart <name> {args}). Inline SVG, colours from the theme tokens,
 // and every diagram writes a plain-text description of what it shows (for screen readers and for revision).
 import { esc } from './util.js';
+import { lineChart } from './charts.js';
 
 const W = 340, H = 260, PAD = { l: 44, r: 16, t: 14, b: 40 };
 
@@ -46,6 +47,17 @@ const axes = () => `<line x1="${PAD.l}" y1="${PAD.t}" x2="${PAD.l}" y2="${my(0)}
   + `<text x="${W - PAD.r}" y="${H - 10}" text-anchor="end" class="ch-label">Quantity</text>`
   + `<text x="12" y="${PAD.t + 4}" class="ch-label" transform="rotate(-90 12 ${PAD.t + 4})" text-anchor="end">Price</text>`;
 const legend = (items, dot) => `<figcaption class="legend">${items.map(([cls, name]) => `<span><i class="key ${cls}"></i>${esc(name)}</span>`).join('')}${dot ? `<span><i class="key ch-b"></i>${esc(dot)}</span>` : ''}</figcaption>`;
+
+// Short-run costs for output q: fixed cost fc, and variable cost scaled by w (the price of the variable factor).
+export function costsAt(q, fc, w) {
+  const tvc = w * (0.02 * q ** 3 - 0.4 * q ** 2 + 4 * q);
+  return { tc: fc + tvc, afc: fc / q, avc: tvc / q, atc: (fc + tvc) / q, mc: w * (0.06 * q ** 2 - 0.8 * q + 4) };
+}
+export function lowestAtc(fc, w) {
+  let best = 1;
+  for (let q = 1; q <= 25; q += 0.01) if (costsAt(q, fc, w).atc < costsAt(best, fc, w).atc) best = q;
+  return best;
+}
 
 export const econCharts = {
   ppf(root, a) {
@@ -160,6 +172,30 @@ export const econCharts = {
       const kind = e > 1 ? 'elastic' : e < 1 ? 'inelastic' : 'unit elastic';
       const moved = Math.abs(r.after - r.before) < 0.5 ? 'stays about the same' : r.after > r.before ? 'rises' : 'falls';
       root.querySelector('[data-desc]').textContent = `Starts at a price of £10 and 100 sold. Demand is ${kind}, so ${pc ? `this price change means revenue ${moved}` : 'move the price to see the effect'}.`;
+    });
+  },
+
+  // Short-run cost curves: MC cuts AVC and ATC at their lowest points.
+  costs(root, a) {
+    const specs = {
+      fc: { min: 20, max: 200, step: 10, value: a.fc ?? 60, fmt: v => `£${v}` },
+      w: { min: 1, max: 3, step: 0.5, value: a.w ?? 1, fmt: v => `${v} × normal` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Short-run cost curves</h3>`
+      + slider('fc', 'Fixed costs', specs.fc) + slider('w', 'Wages (the variable cost)', specs.w)
+      + `<div class="stats">${stat('Output at lowest ATC', 'q', 'good')}${stat('Lowest ATC', 'atc')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ fc, w }, set) => {
+      const qs = Array.from({ length: 19 }, (_, i) => i + 2);
+      const line = k => qs.map(q => [q, +costsAt(q, fc, w)[k].toFixed(2)]);
+      const q0 = lowestAtc(fc, w), atc0 = costsAt(q0, fc, w).atc;
+      set('q', q0.toFixed(1)); set('atc', `£${atc0.toFixed(2)}`);
+      root.querySelector('[data-chart]').innerHTML = lineChart({
+        label: `Marginal cost, average variable cost and average total cost curves. Average total cost is lowest at about ${q0.toFixed(1)} units, where marginal cost cuts it.`,
+        series: [{ name: 'ATC', tone: 'a', points: line('atc') }, { name: 'AVC', tone: 'c', points: line('avc') }, { name: 'MC', tone: 'b', points: line('mc') }],
+        yFmt: v => `£${v}`, xFmt: v => `${v}`, xTicks: [2, 8, 14, 20],
+      });
+      root.querySelector('[data-desc]').textContent = `MC cuts ATC at its lowest point, about £${atc0.toFixed(2)} at ${q0.toFixed(1)} units. Higher fixed costs raise ATC but leave MC and AVC alone; higher wages raise all three.`;
     });
   },
 };

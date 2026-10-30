@@ -1,0 +1,247 @@
+{
+ "module": "4.1.4.6",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.6-tr",
+   "type": "number",
+   "topic": "calculating revenue",
+   "q": "A firm sells {q} units at £{p} each. What is its total revenue, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      20,
+      50,
+      200
+     ],
+     "default": 50
+    },
+    "p": {
+     "choices": [
+      4,
+      8,
+      15
+     ],
+     "default": 8
+    }
+   },
+   "answer": "p*q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "£{p} × {q} = {answer}.",
+   "spec": "4.1.4.6",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-mr",
+   "type": "number",
+   "topic": "calculating marginal revenue",
+   "q": "A firm sells {q} units at £10. To sell one more, it must charge £{p} for all units. What is the marginal revenue of the extra unit, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      10,
+      20
+     ],
+     "default": 10
+    },
+    "p": {
+     "choices": [
+      9.5,
+      9.8
+     ],
+     "default": 9.5
+    }
+   },
+   "answer": "(q+1)*p - q*10",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "New TR minus old TR = {answer}.",
+   "spec": "4.1.4.6",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-ar",
+   "type": "number",
+   "topic": "calculating average revenue",
+   "q": "Total revenue is £{t} from selling {q} units. What is average revenue, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      40,
+      50,
+      100
+     ],
+     "default": 50
+    },
+    "k": {
+     "choices": [
+      3,
+      6,
+      12
+     ],
+     "default": 6
+    }
+   },
+   "answer": "k",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "£{t} ÷ {q} = {answer}, which is also the price.",
+   "spec": "4.1.4.6",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1,
+   "calc": {
+    "t": "q*k"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-ar-demand",
+   "type": "tf",
+   "topic": "AR and demand",
+   "q": "The average revenue curve is the firm's demand curve.",
+   "answer": true,
+   "why": "AR is the price, and the demand curve shows the price at each quantity.",
+   "spec": "4.1.4.6",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-mr-ar",
+   "type": "mcq",
+   "topic": "AR and MR",
+   "q": "For a firm with a straight-line, downward-sloping demand curve, the MR curve:",
+   "options": [
+    "Is the same as AR",
+    "Is above AR",
+    "Falls twice as fast as AR",
+    "Is horizontal"
+   ],
+   "answer": 2,
+   "why": "The price cut applies to all units, so MR drops faster.",
+   "spec": "4.1.4.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-tr-mr",
+   "type": "mcq",
+   "topic": "MR and TR",
+   "q": "If marginal revenue is negative, then total revenue is:",
+   "options": [
+    "Rising",
+    "Falling",
+    "At its maximum",
+    "Zero"
+   ],
+   "answer": 1,
+   "why": "Each extra sale takes away from total revenue.",
+   "spec": "4.1.4.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-price-taker",
+   "type": "mcq",
+   "topic": "price takers",
+   "q": "A firm can sell all it wants at the market price. Which is true?",
+   "options": [
+    "MR is below AR",
+    "AR = MR = price",
+    "MR is negative",
+    "TR falls as it sells more"
+   ],
+   "answer": 1,
+   "why": "It does not need to cut its price to sell more.",
+   "spec": "4.1.4.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.6-mr-below",
+   "type": "explain",
+   "topic": "AR and MR",
+   "q": "Explain why marginal revenue is below price for most firms.",
+   "ideas": [
+    {
+     "label": "To sell one more, the firm must lower its price",
+     "any": [
+      "lower its price",
+      "lower the price",
+      "cut its price",
+      "cut the price",
+      "reduce the price",
+      "price must fall",
+      "lower price",
+      "price cut",
+      "downward sloping",
+      "downward-sloping"
+     ]
+    },
+    {
+     "label": "The lower price applies to all units, so revenue is lost on the earlier ones",
+     "any": [
+      "all units",
+      "every unit",
+      "all its units",
+      "earlier units",
+      "previous units",
+      "other units",
+      "all of the units",
+      "all goods",
+      "all the units",
+      "each unit"
+     ]
+    }
+   ],
+   "model": "To sell one more unit the firm must lower its price, and this lower price applies to all units. It loses revenue on the earlier units, so the extra revenue is less than the price.",
+   "why": "One sale gains the price but loses on the others.",
+   "tests": [
+    {
+     "answer": "The firm must lower its price and this applies to all units, so MR is less than the price.",
+     "marks": 2
+    },
+    {
+     "answer": "It has to cut the price to sell more.",
+     "marks": 1
+    },
+    {
+     "answer": "Costs rise when output rises.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.6",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

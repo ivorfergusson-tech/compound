@@ -134,6 +134,38 @@ with sync_playwright() as p:
     page.locator(".calc").screenshot(path=str(SHOTS / "econ-ppf.png"))
     axe(page, "the PPF lesson (light)")
 
+    # Demand and supply: a shift moves the equilibrium the right way
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.3.5")
+    page.wait_for_selector(".chart svg")
+    box = page.locator(".calc", has_text="Demand and supply")
+    box.locator('[data-in="d"]').fill("20")
+    check("demand shift right raises the price", box.locator('[data-v="p"]').inner_text() == "£70" and "rises" in box.locator("[data-desc]").inner_text())
+    box.locator('[data-in="d"]').fill("0")
+    box.locator('[data-in="s"]').fill("20")
+    check("supply shift right lowers the price", box.locator('[data-v="p"]').inner_text() == "£50" and box.locator('[data-v="q"]').inner_text() == "50")
+    box.locator(".chart").screenshot(path=str(SHOTS / "econ-market.png"))
+    gap = page.locator(".calc", has_text="Equilibrium and disequilibrium")
+    check("a price above equilibrium shows excess supply", "Excess supply of 40" in gap.locator("[data-desc]").inner_text())
+    gap.locator('[data-in="price"]').fill("40")
+    check("a price below equilibrium shows excess demand", "Excess demand of 40" in gap.locator("[data-desc]").inner_text())
+    gap.locator('[data-in="price"]').fill("60")
+    check("at £60 there is equilibrium", "Equilibrium" in gap.locator("[data-desc]").inner_text())
+
+    # PED and revenue
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.3.2")
+    page.wait_for_selector("[data-in='e']")
+    check("inelastic demand: a price rise raises revenue", page.locator('[data-v="r"]').inner_text() == "£1045" and "inelastic" in page.locator("[data-desc]").inner_text())
+    page.locator('[data-in="e"]').fill("2")
+    check("elastic demand: a price rise cuts revenue", page.locator('[data-v="r"]').inner_text() == "£880" and "falls" in page.locator("[data-desc]").inner_text())
+
+    # Cost curves
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.4.4")
+    page.wait_for_selector(".chart svg")
+    before = float(page.locator('[data-v="atc"]').inner_text().strip("£"))
+    page.locator('[data-in="w"]').fill("2")
+    check("higher wages raise lowest ATC", float(page.locator('[data-v="atc"]').inner_text().strip("£")) > before)
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-costs.png"))
+    axe(page, "the cost curves lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

@@ -1,0 +1,311 @@
+{
+ "module": "4.1.4.1",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.1-labour-prod",
+   "type": "number",
+   "topic": "labour productivity",
+   "q": "A factory of {w} workers makes {o} units a week. What is labour productivity, in units per worker?",
+   "vars": {
+    "w": {
+     "choices": [
+      10,
+      20,
+      25
+     ],
+     "default": 20
+    },
+    "k": {
+     "choices": [
+      30,
+      40,
+      60
+     ],
+     "default": 40
+    }
+   },
+   "answer": "k",
+   "tol": 0.01,
+   "unit": "units",
+   "dp": 0,
+   "why": "{o} ÷ {w} = {answer} units per worker.",
+   "spec": "4.1.4.1",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1,
+   "calc": {
+    "o": "w*k"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.4.1-production",
+   "type": "mcq",
+   "topic": "meaning of production",
+   "q": "What is production?",
+   "options": [
+    "Buying goods for resale",
+    "Converting inputs into final output",
+    "The total a firm spends",
+    "The price of a good"
+   ],
+   "answer": 1,
+   "why": "Production turns the services of factors into goods and services.",
+   "spec": "4.1.4.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.1-productivity",
+   "type": "mcq",
+   "topic": "productivity vs production",
+   "q": "A firm hires 10% more workers and output rises 10%. What has happened?",
+   "options": [
+    "Production has risen, but labour productivity is unchanged",
+    "Productivity has risen by 10%",
+    "Productivity has fallen",
+    "Production has not changed"
+   ],
+   "answer": 0,
+   "why": "Output per worker is the same, so productivity has not changed.",
+   "spec": "4.1.4.1",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.1-raise",
+   "type": "mcq",
+   "topic": "productivity",
+   "q": "Which is most likely to raise labour productivity?",
+   "options": [
+    "A longer lunch break for no reason",
+    "Better training for workers",
+    "A rise in the price of the product",
+    "Hiring more workers on the same terms"
+   ],
+   "answer": 1,
+   "why": "Better skills mean more output per hour.",
+   "spec": "4.1.4.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.1-wages",
+   "type": "tf",
+   "topic": "productivity",
+   "q": "Higher labour productivity can lower a firm's labour cost per unit.",
+   "answer": true,
+   "why": "More output from the same wage bill means each unit carries less labour cost.",
+   "spec": "4.1.4.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.1-compare",
+   "type": "mcq",
+   "topic": "productivity",
+   "q": "Firm A has 10 workers making 500 units. Firm B has 20 workers making 800 units. Which is true?",
+   "options": [
+    "Firm A has higher labour productivity",
+    "Firm B has higher labour productivity",
+    "They have the same labour productivity",
+    "Firm B has lower production"
+   ],
+   "answer": 0,
+   "why": "Firm A makes 50 units per worker and Firm B makes 40. B produces more in total, but A is more productive.",
+   "spec": "4.1.4.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-division",
+   "type": "mcq",
+   "topic": "division of labour",
+   "q": "What is the division of labour?",
+   "options": [
+    "Sharing profits among workers",
+    "Splitting production into tasks, each done by a specialist worker",
+    "Paying workers different wages",
+    "Dividing a firm in two"
+   ],
+   "answer": 1,
+   "why": "Each worker concentrates on one task.",
+   "spec": "4.1.4.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-benefit",
+   "type": "mcq",
+   "topic": "benefits of specialisation",
+   "q": "Which is a benefit of specialisation?",
+   "options": [
+    "Workers do many different jobs",
+    "Workers become faster and more skilled at a task",
+    "Work becomes more varied",
+    "Each worker needs more tools"
+   ],
+   "answer": 1,
+   "why": "Repetition builds speed and skill, so output rises.",
+   "spec": "4.1.4.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-drawback",
+   "type": "mcq",
+   "topic": "drawbacks of specialisation",
+   "q": "Which is a drawback of the division of labour?",
+   "options": [
+    "Output falls",
+    "Repetitive work can lower motivation",
+    "Costs always rise",
+    "Machines cannot be used"
+   ],
+   "answer": 1,
+   "why": "Boring, repetitive work can reduce motivation and quality.",
+   "spec": "4.1.4.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-barter",
+   "type": "tf",
+   "topic": "money and exchange",
+   "q": "Barter requires a double coincidence of wants.",
+   "answer": true,
+   "why": "Each side must want what the other has. Money removes that need.",
+   "spec": "4.1.4.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-money",
+   "type": "mcq",
+   "topic": "money and exchange",
+   "q": "Why does specialisation need an efficient means of exchange?",
+   "options": [
+    "Because specialists make only some of what they need, so they must trade for the rest",
+    "Because money is itself a factor of production",
+    "Because specialists never trade",
+    "Because barter is illegal"
+   ],
+   "answer": 0,
+   "why": "Specialists depend on trading with others, and money makes that easy.",
+   "spec": "4.1.4.2",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-example",
+   "type": "mcq",
+   "topic": "specialisation",
+   "q": "Which is an example of regional specialisation?",
+   "options": [
+    "A worker learning two jobs",
+    "An area that concentrates on making one product, such as a region known for pottery",
+    "A firm with one owner",
+    "A family that grows all its own food"
+   ],
+   "answer": 1,
+   "why": "Specialisation can happen at the level of workers, firms, regions and countries.",
+   "spec": "4.1.4.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.2-money-explain",
+   "type": "explain",
+   "topic": "money and exchange",
+   "q": "Explain why a specialised economy could not work well using barter.",
+   "ideas": [
+    {
+     "label": "Barter needs a double coincidence of wants, so trades are hard to arrange",
+     "any": [
+      "double coincidence",
+      "coincidence",
+      "wants what",
+      "want what",
+      "find someone",
+      "hard to find",
+      "difficult to find",
+      "time consuming",
+      "time-consuming",
+      "difficult to swap"
+     ]
+    },
+    {
+     "label": "Specialists rely on trade for what they don't make, and money solves this",
+     "any": [
+      "money",
+      "medium of exchange",
+      "specialis*",
+      "rely on",
+      "depend on",
+      "don't make",
+      "do not make",
+      "other goods"
+     ]
+    }
+   ],
+   "model": "Barter needs a double coincidence of wants, so it takes a long time to find someone to trade with. Specialists rely on trading for everything they do not make, so they need money as a medium of exchange.",
+   "why": "Specialists trade a lot, and barter makes trading slow.",
+   "tests": [
+    {
+     "answer": "Barter needs a double coincidence of wants, so specialists who rely on trading would struggle. Money solves this.",
+     "marks": 2
+    },
+    {
+     "answer": "You need a double coincidence of wants.",
+     "marks": 1
+    },
+    {
+     "answer": "Barter is old fashioned.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -1,0 +1,291 @@
+{
+ "module": "4.1.4.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.4-fixed",
+   "type": "mcq",
+   "topic": "fixed and variable costs",
+   "q": "Which of these is a fixed cost for a factory in the short run?",
+   "options": [
+    "Raw materials",
+    "Rent on the building",
+    "Electricity for the machines",
+    "Packaging"
+   ],
+   "answer": 1,
+   "why": "Rent does not change with output.",
+   "spec": "4.1.4.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-atc",
+   "type": "number",
+   "topic": "calculating average cost",
+   "q": "A firm has fixed costs of £{f} and variable costs of £{v}, and makes {q} units. What is its average total cost, in £?",
+   "vars": {
+    "f": {
+     "choices": [
+      200,
+      400,
+      600
+     ],
+     "default": 400
+    },
+    "v": {
+     "choices": [
+      600,
+      800,
+      1000
+     ],
+     "default": 600
+    },
+    "q": {
+     "choices": [
+      50,
+      100
+     ],
+     "default": 100
+    }
+   },
+   "answer": "(f+v)/q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "(£{f} + £{v}) ÷ {q} = {answer}.",
+   "spec": "4.1.4.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-mc",
+   "type": "number",
+   "topic": "calculating marginal cost",
+   "q": "Total cost rises from £{a} to £{b} when output rises from {q} to {r} units. What is the marginal cost per unit, in £?",
+   "vars": {
+    "a": {
+     "choices": [
+      500,
+      800
+     ],
+     "default": 500
+    },
+    "k": {
+     "choices": [
+      5,
+      8,
+      12
+     ],
+     "default": 8
+    },
+    "q": {
+     "choices": [
+      50,
+      100
+     ],
+     "default": 100
+    }
+   },
+   "answer": "k",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "Change in TC ÷ change in output = {answer}.",
+   "spec": "4.1.4.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2,
+   "calc": {
+    "b": "a+k*10",
+    "r": "q+10"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-tvc",
+   "type": "number",
+   "topic": "calculating variable cost",
+   "q": "Total cost is £{t} and average fixed cost is £{a} at an output of {q} units. What are the total variable costs, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      50,
+      100
+     ],
+     "default": 100
+    },
+    "a": {
+     "choices": [
+      2,
+      3,
+      5
+     ],
+     "default": 3
+    },
+    "t": {
+     "choices": [
+      1000,
+      1500
+     ],
+     "default": 1000
+    }
+   },
+   "answer": "t-a*q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "Fixed cost = £{a} × {q}. Subtract it from total cost: {answer}.",
+   "spec": "4.1.4.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-mc-atc",
+   "type": "mcq",
+   "topic": "shape of cost curves",
+   "q": "Marginal cost cuts average total cost:",
+   "options": [
+    "At the highest point of ATC",
+    "At the lowest point of ATC",
+    "Only where output is zero",
+    "Never"
+   ],
+   "answer": 1,
+   "why": "If MC is below ATC, ATC falls. If MC is above it, ATC rises. So they meet at the minimum.",
+   "spec": "4.1.4.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-u",
+   "type": "mcq",
+   "topic": "shape of cost curves",
+   "q": "What causes the short-run ATC curve to rise at high output?",
+   "options": [
+    "Economies of scale",
+    "Diminishing returns",
+    "Falling fixed costs",
+    "Lower wages"
+   ],
+   "answer": 1,
+   "why": "With a fixed factor, each extra unit takes more labour.",
+   "spec": "4.1.4.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-unit",
+   "type": "mcq",
+   "topic": "factor prices and productivity",
+   "q": "Wages rise 10% and output per worker rises 20%. What happens to labour cost per unit?",
+   "options": [
+    "It rises",
+    "It falls",
+    "It stays the same",
+    "It cannot be known"
+   ],
+   "answer": 1,
+   "why": "Productivity rose faster than wages, so each unit takes less labour cost.",
+   "spec": "4.1.4.4",
+   "ao": "AO3",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-choice",
+   "type": "mcq",
+   "topic": "choice of factor inputs",
+   "q": "A sharp rise in wages is most likely to lead firms to:",
+   "options": [
+    "Use more labour",
+    "Replace some labour with capital",
+    "Raise fixed costs by buying nothing",
+    "Stop using machines"
+   ],
+   "answer": 1,
+   "why": "Capital becomes relatively cheaper, so firms switch towards it.",
+   "spec": "4.1.4.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.4-fc",
+   "type": "explain",
+   "topic": "fixed costs and MC",
+   "q": "Explain why a rise in rent would raise a firm's average total cost but not its marginal cost.",
+   "ideas": [
+    {
+     "label": "Rent is a fixed cost, so it adds to total and average cost",
+     "any": [
+      "fixed cost*",
+      "rent is fixed",
+      "afc",
+      "average fixed",
+      "spread over",
+      "adds to total"
+     ]
+    },
+    {
+     "label": "Marginal cost is the extra cost of one more unit, and rent doesn't change with output",
+     "any": [
+      "one more unit",
+      "extra unit",
+      "extra cost",
+      "additional unit",
+      "doesn't change with output",
+      "does not change with output",
+      "not vary",
+      "doesn't vary",
+      "same whatever",
+      "regardless of output"
+     ]
+    }
+   ],
+   "model": "Rent is a fixed cost, so it adds to total and average cost. Marginal cost is the extra cost of one more unit, and rent does not change with output, so marginal cost stays the same.",
+   "why": "MC only picks up costs that change with output.",
+   "tests": [
+    {
+     "answer": "Rent is a fixed cost so ATC rises, but MC is the extra cost of one more unit, which is unaffected.",
+     "marks": 2
+    },
+    {
+     "answer": "Rent is a fixed cost.",
+     "marks": 1
+    },
+    {
+     "answer": "Rent is paid monthly.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 3
+  }
+ ]
+}

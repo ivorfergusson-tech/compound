@@ -42,6 +42,8 @@ function splitArg(arg) {
 }
 
 export function hydrateBlocks(root, blocks, ctx) {
+  // A wide table scrolls sideways on a phone, so the keyboard has to be able to reach it.
+  for (const t of root.querySelectorAll('.lesson-section table')) { t.tabIndex = 0; t.setAttribute('aria-label', 'Table, scrolls sideways on small screens'); }
   for (const holder of root.querySelectorAll('[data-blk]')) {
     const b = blocks[+holder.dataset.blk];
     try {

@@ -1,0 +1,247 @@
+{
+ "module": "4.1.4.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.3-short-run",
+   "type": "mcq",
+   "topic": "short run and long run",
+   "q": "What defines the short run?",
+   "options": [
+    "Less than a year",
+    "At least one factor of production is fixed",
+    "All factors can change",
+    "Prices are fixed"
+   ],
+   "answer": 1,
+   "why": "It is defined by fixed factors, not by a set length of time.",
+   "spec": "4.1.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-law",
+   "type": "mcq",
+   "topic": "law of diminishing returns",
+   "q": "The law of diminishing returns says that, as more of a variable factor is added to a fixed factor:",
+   "options": [
+    "Total output falls straight away",
+    "Marginal returns eventually fall",
+    "Average costs fall for ever",
+    "All factors become variable"
+   ],
+   "answer": 1,
+   "why": "Marginal returns fall. Total output can still rise.",
+   "spec": "4.1.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-marginal",
+   "type": "number",
+   "topic": "marginal returns",
+   "q": "Total output is {a} units with {n} workers and {b} units with one more worker. What are the marginal returns to the extra worker?",
+   "vars": {
+    "n": {
+     "choices": [
+      3,
+      4,
+      5
+     ],
+     "default": 4
+    },
+    "a": {
+     "choices": [
+      40,
+      60,
+      80
+     ],
+     "default": 60
+    },
+    "m": {
+     "choices": [
+      5,
+      8,
+      12
+     ],
+     "default": 8
+    }
+   },
+   "answer": "m",
+   "tol": 0.01,
+   "unit": "units",
+   "dp": 0,
+   "why": "{b} − {a} = {answer} units.",
+   "spec": "4.1.4.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1,
+   "calc": {
+    "b": "a+m"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-average",
+   "type": "number",
+   "topic": "average returns",
+   "q": "{n} workers make {o} units. What are the average returns per worker?",
+   "vars": {
+    "n": {
+     "choices": [
+      4,
+      5,
+      8
+     ],
+     "default": 5
+    },
+    "k": {
+     "choices": [
+      10,
+      12,
+      15
+     ],
+     "default": 12
+    }
+   },
+   "answer": "k",
+   "tol": 0.01,
+   "unit": "units",
+   "dp": 0,
+   "why": "{o} ÷ {n} = {answer}.",
+   "spec": "4.1.4.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1,
+   "calc": {
+    "o": "n*k"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-returns",
+   "type": "match",
+   "topic": "returns to scale",
+   "q": "All inputs double. Match the rise in output to the type of returns to scale.",
+   "pairs": [
+    [
+     "Output more than doubles",
+     "Increasing returns to scale"
+    ],
+    [
+     "Output exactly doubles",
+     "Constant returns to scale"
+    ],
+    [
+     "Output less than doubles",
+     "Decreasing returns to scale"
+    ]
+   ],
+   "why": "Compare the proportional change in output with the proportional change in inputs.",
+   "spec": "4.1.4.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-time",
+   "type": "tf",
+   "topic": "diminishing returns vs returns to scale",
+   "q": "Returns to scale are a long-run idea, as all inputs change.",
+   "answer": true,
+   "why": "Diminishing returns are the short-run idea, with a fixed factor.",
+   "spec": "4.1.4.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-cost",
+   "type": "mcq",
+   "topic": "returns and costs",
+   "q": "Diminishing returns tend to:",
+   "options": [
+    "Lower marginal cost",
+    "Raise marginal cost",
+    "Lower fixed cost",
+    "Raise fixed cost"
+   ],
+   "answer": 1,
+   "why": "Each extra unit takes more labour to make, so it costs more.",
+   "spec": "4.1.4.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.3-why",
+   "type": "explain",
+   "topic": "law of diminishing returns",
+   "q": "Explain why the law of diminishing returns only applies in the short run.",
+   "ideas": [
+    {
+     "label": "It depends on a fixed factor of production",
+     "any": [
+      "fixed factor*",
+      "fixed capital",
+      "fixed land",
+      "factor is fixed",
+      "capital is fixed",
+      "fixed input",
+      "is fixed",
+      "are fixed"
+     ]
+    },
+    {
+     "label": "In the long run all factors can change, so there's no fixed factor",
+     "any": [
+      "long run",
+      "all factors",
+      "all inputs",
+      "can be changed",
+      "can change",
+      "variable"
+     ]
+    }
+   ],
+   "model": "The law depends on adding more of a variable factor to a fixed factor. In the long run all factors can change, so there is no fixed factor for workers to share.",
+   "why": "No fixed factor, no diminishing returns.",
+   "tests": [
+    {
+     "answer": "It needs a fixed factor, and in the long run all factors can be changed.",
+     "marks": 2
+    },
+    {
+     "answer": "Because a factor is fixed.",
+     "marks": 1
+    },
+    {
+     "answer": "Because firms close down.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

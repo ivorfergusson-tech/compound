@@ -1,0 +1,208 @@
+{
+ "module": "4.1.4.5",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.5-definition",
+   "type": "mcq",
+   "topic": "economies of scale",
+   "q": "Economies of scale are:",
+   "options": [
+    "Falling long-run average costs as output rises",
+    "Falling total costs",
+    "Rising marginal returns in the short run",
+    "Lower prices set by government"
+   ],
+   "answer": 0,
+   "why": "They are about long-run cost per unit.",
+   "spec": "4.1.4.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-internal",
+   "type": "mcq",
+   "topic": "internal economies",
+   "q": "Which is an internal economy of scale?",
+   "options": [
+    "A new motorway that serves the whole industry",
+    "A big firm gets cheaper loans than small ones",
+    "A local college trains workers for an industry",
+    "A rival firm closes"
+   ],
+   "answer": 1,
+   "why": "Financial economies come from the firm's own size.",
+   "spec": "4.1.4.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-types",
+   "type": "match",
+   "topic": "types of internal economy",
+   "q": "Match each example to its type of economy of scale.",
+   "pairs": [
+    [
+     "A 10% discount on large orders",
+     "Purchasing"
+    ],
+    [
+     "Larger ships cost less per container carried",
+     "Technical"
+    ],
+    [
+     "Hiring a specialist finance director",
+     "Managerial"
+    ],
+    [
+     "A firm sells in many countries so one downturn hurts less",
+     "Risk-bearing"
+    ]
+   ],
+   "why": "These are four of the common categories.",
+   "spec": "4.1.4.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-diseconomy",
+   "type": "mcq",
+   "topic": "diseconomies of scale",
+   "q": "Which of these is a diseconomy of scale?",
+   "options": [
+    "Discounts for bulk buying",
+    "Messages getting lost in a very large firm",
+    "Lower interest rates on loans",
+    "Sharing a research lab"
+   ],
+   "answer": 1,
+   "why": "Communication problems raise cost per unit at very large scale.",
+   "spec": "4.1.4.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-l",
+   "type": "tf",
+   "topic": "the LRAC curve",
+   "q": "An L-shaped LRAC curve suggests that diseconomies of scale can be avoided.",
+   "answer": true,
+   "why": "Costs fall and then stay low, with no upturn.",
+   "spec": "4.1.4.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-mes",
+   "type": "mcq",
+   "topic": "minimum efficient scale",
+   "q": "What is the minimum efficient scale?",
+   "options": [
+    "The smallest firm that can exist",
+    "The lowest output at which LRAC is at its lowest",
+    "The highest output of the firm",
+    "The output at which profit is zero"
+   ],
+   "answer": 1,
+   "why": "It is where LRAC first reaches its lowest level.",
+   "spec": "4.1.4.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-industry",
+   "type": "mcq",
+   "topic": "MES and market structure",
+   "q": "In which market is a very high MES most likely?",
+   "options": [
+    "Hairdressing",
+    "Aircraft manufacturing",
+    "Window cleaning",
+    "Street food"
+   ],
+   "answer": 1,
+   "why": "Huge fixed costs mean only very large output gets costs down.",
+   "spec": "4.1.4.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.5-barrier",
+   "type": "explain",
+   "topic": "economies of scale as a barrier to entry",
+   "q": "Explain how economies of scale can act as a barrier to entry.",
+   "ideas": [
+    {
+     "label": "Established big firms have much lower average costs",
+     "any": [
+      "lower cost*",
+      "lower average",
+      "lower unit",
+      "low cost*",
+      "lower lrac",
+      "cheaper",
+      "costs are lower",
+      "lower ac"
+     ]
+    },
+    {
+     "label": "A small new firm has higher costs, so it can't compete on price",
+     "any": [
+      "new firm*",
+      "new entrant*",
+      "entrant*",
+      "small firm*",
+      "can't compete",
+      "cannot compete",
+      "compete",
+      "undercut",
+      "higher cost*"
+     ]
+    }
+   ],
+   "model": "Big established firms have lower average costs because of economies of scale. A new firm starts small with higher costs, so it cannot compete on price and may stay out of the market.",
+   "why": "The cost gap protects the firms already in the market.",
+   "tests": [
+    {
+     "answer": "Big firms have lower costs so a new firm with higher costs can't compete.",
+     "marks": 2
+    },
+    {
+     "answer": "Big firms have lower average costs.",
+     "marks": 1
+    },
+    {
+     "answer": "The government stops firms entering.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

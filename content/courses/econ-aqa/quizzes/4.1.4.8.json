@@ -1,0 +1,190 @@
+{
+ "module": "4.1.4.8",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.8-innovation",
+   "type": "mcq",
+   "topic": "invention and innovation",
+   "q": "What is the difference between invention and innovation?",
+   "options": [
+    "There is none",
+    "Invention is the new idea; innovation is bringing it into use",
+    "Innovation comes first",
+    "Invention is only done by governments"
+   ],
+   "answer": 1,
+   "why": "Innovation turns the idea into something used or sold.",
+   "spec": "4.1.4.8",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.8-types",
+   "type": "match",
+   "topic": "product and process innovation",
+   "q": "Match each example to its type.",
+   "pairs": [
+    [
+     "A factory installs robots to weld cars",
+     "Process innovation"
+    ],
+    [
+     "A firm launches a new foldable phone",
+     "Product innovation"
+    ],
+    [
+     "An engineer draws up a new battery design",
+     "Invention"
+    ]
+   ],
+   "why": "New ways of making things, new things to sell, and the original idea.",
+   "spec": "4.1.4.8",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.8-cost",
+   "type": "mcq",
+   "topic": "technology and costs",
+   "q": "New technology lowers a firm's costs. What is the likely effect on its market?",
+   "options": [
+    "Supply shifts right",
+    "Supply shifts left",
+    "Demand shifts left",
+    "No effect"
+   ],
+   "answer": 0,
+   "why": "Lower costs mean more is supplied at every price.",
+   "spec": "4.1.4.8",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.8-creative",
+   "type": "mcq",
+   "topic": "creative destruction",
+   "q": "Creative destruction refers to:",
+   "options": [
+    "Governments closing firms",
+    "New technology and firms replacing old ones",
+    "Firms destroying unsold stock",
+    "Advertising by rival firms"
+   ],
+   "answer": 1,
+   "why": "It is the process Schumpeter described.",
+   "spec": "4.1.4.8",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.8-structure",
+   "type": "tf",
+   "topic": "technology and market structure",
+   "q": "Technological change can make a market more competitive or less competitive.",
+   "answer": true,
+   "why": "It can lower barriers to entry or help a few firms dominate.",
+   "spec": "4.1.4.8",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.8-barriers",
+   "type": "mcq",
+   "topic": "technology and market structure",
+   "q": "Which of these shows technology raising competition?",
+   "options": [
+    "A patent protects one firm's design",
+    "Small sellers can reach customers worldwide online",
+    "One platform gains most users",
+    "A firm buys its rival"
+   ],
+   "answer": 1,
+   "why": "Selling online lowers barriers to entry.",
+   "spec": "4.1.4.8",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.8-losers",
+   "type": "explain",
+   "topic": "creative destruction",
+   "q": "Explain one benefit and one cost of creative destruction.",
+   "ideas": [
+    {
+     "label": "Benefit: new, better or cheaper products, higher productivity or growth",
+     "any": [
+      "better product*",
+      "new product*",
+      "cheaper",
+      "lower cost*",
+      "productivity",
+      "growth",
+      "more choice",
+      "more efficient",
+      "better goods",
+      "new goods",
+      "new market*",
+      "new jobs"
+     ]
+    },
+    {
+     "label": "Cost: old firms close or workers lose jobs",
+     "any": [
+      "lose their jobs",
+      "job loss*",
+      "lose jobs",
+      "unemploy*",
+      "close",
+      "closure*",
+      "go bust",
+      "bankrupt*",
+      "old firms",
+      "firms fail",
+      "destroy*"
+     ]
+    }
+   ],
+   "model": "Consumers gain new and cheaper products, and productivity rises. But old firms close and their workers can lose their jobs, at least in the short run.",
+   "why": "One gain and one loss are needed.",
+   "tests": [
+    {
+     "answer": "Consumers get new products but workers in old firms lose their jobs.",
+     "marks": 2
+    },
+    {
+     "answer": "Consumers get new products.",
+     "marks": 1
+    },
+    {
+     "answer": "It makes people sad.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.8",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

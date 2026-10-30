@@ -1,0 +1,218 @@
+{
+ "module": "4.1.4.7",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.4.7-profit",
+   "type": "number",
+   "topic": "calculating profit",
+   "q": "A firm sells {q} units at £{p}. Its total costs are £{c}. What is its profit, in £?",
+   "vars": {
+    "q": {
+     "choices": [
+      100,
+      200
+     ],
+     "default": 100
+    },
+    "p": {
+     "choices": [
+      20,
+      30
+     ],
+     "default": 20
+    },
+    "c": {
+     "choices": [
+      1200,
+      1500,
+      1800
+     ],
+     "default": 1500
+    }
+   },
+   "answer": "p*q-c",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "TR − TC = {answer}.",
+   "spec": "4.1.4.7",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.7-abnormal",
+   "type": "number",
+   "topic": "abnormal profit",
+   "q": "Revenue is £{r}, costs excluding normal profit are £{c}, and normal profit is £{n}. What is abnormal profit, in £?",
+   "vars": {
+    "r": {
+     "choices": [
+      100000,
+      150000
+     ],
+     "default": 100000
+    },
+    "c": {
+     "choices": [
+      60000,
+      70000
+     ],
+     "default": 60000
+    },
+    "n": {
+     "choices": [
+      10000,
+      20000
+     ],
+     "default": 20000
+    }
+   },
+   "answer": "r-c-n",
+   "tol": 0.5,
+   "unit": "£",
+   "dp": 2,
+   "why": "TR − costs − normal profit = {answer}.",
+   "spec": "4.1.4.7",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.4.7-normal",
+   "type": "mcq",
+   "topic": "normal profit",
+   "q": "Normal profit is:",
+   "options": [
+    "The average profit in the economy",
+    "The minimum profit needed to keep a firm in its current business",
+    "Any profit above costs",
+    "The profit a firm earns in a good year"
+   ],
+   "answer": 1,
+   "why": "It covers the opportunity cost of the owner's resources.",
+   "spec": "4.1.4.7",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.7-cost",
+   "type": "tf",
+   "topic": "normal profit",
+   "q": "Economists treat normal profit as a cost of production.",
+   "answer": true,
+   "why": "It is the return the firm must earn to keep operating.",
+   "spec": "4.1.4.7",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.7-signal",
+   "type": "mcq",
+   "topic": "role of profit",
+   "q": "High profits in a market act as:",
+   "options": [
+    "A signal that consumers want more, drawing in resources",
+    "A sign that resources should leave",
+    "A reason for firms to cut output",
+    "A tax on consumers"
+   ],
+   "answer": 0,
+   "why": "Profit signals and allocates resources.",
+   "spec": "4.1.4.7",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.7-finance",
+   "type": "mcq",
+   "topic": "role of profit",
+   "q": "Which is a role of retained profit?",
+   "options": [
+    "It pays for investment without the need to borrow",
+    "It always lowers prices",
+    "It sets wages",
+    "It replaces taxes"
+   ],
+   "answer": 0,
+   "why": "Profit kept in the business can fund new capital and research.",
+   "spec": "4.1.4.7",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.4.7-role",
+   "type": "explain",
+   "topic": "role of profit",
+   "q": "Explain the role of profit in allocating resources in a market economy.",
+   "ideas": [
+    {
+     "label": "Profit is a signal or incentive showing what consumers want",
+     "any": [
+      "signal*",
+      "incentive*",
+      "consumers want",
+      "demand is",
+      "shows"
+     ]
+    },
+    {
+     "label": "Resources move towards profitable uses and away from loss-making ones",
+     "any": [
+      "resources move",
+      "resources to",
+      "move resources",
+      "move into",
+      "enter the market",
+      "new firms",
+      "firms enter",
+      "firms leave",
+      "allocat*",
+      "switch",
+      "reallocat*",
+      "attract*"
+     ]
+    }
+   ],
+   "model": "Profit acts as a signal that consumers want more of something and gives an incentive to supply it. Resources move towards profitable uses and away from loss-making ones.",
+   "why": "Signal first, then the movement of resources.",
+   "tests": [
+    {
+     "answer": "High profit is a signal so new firms enter and resources move to that market.",
+     "marks": 2
+    },
+    {
+     "answer": "Profit is an incentive for firms.",
+     "marks": 1
+    },
+    {
+     "answer": "Profit is paid to the bank.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.4.7",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

@@ -40,6 +40,11 @@
    "name": "Price determination in a competitive market",
    "emoji": "⚖️",
    "blurb": "Demand, supply, elasticity, equilibrium and how markets affect each other."
+  },
+  "4.1.4": {
+   "name": "Production, costs and revenue",
+   "emoji": "🏭",
+   "blurb": "How firms produce, what it costs them, what they earn and how technology changes it all."
   }
  },
  "items": [
@@ -421,6 +426,158 @@
     "joint supply"
    ],
    "summary": "How a change in one market spreads to others."
+  },
+  {
+   "id": "4.1.4.1",
+   "kind": "module",
+   "num": 15,
+   "strand": "4.1.4",
+   "title": "Production, productivity and specialisation",
+   "short": "Production and specialisation",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.4.1",
+    "4.1.4.2"
+   ],
+   "buildsOn": [
+    14
+   ],
+   "introduces": [
+    "production",
+    "productivity",
+    "labour productivity",
+    "specialisation",
+    "division of labour",
+    "medium of exchange"
+   ],
+   "summary": "Productivity, the division of labour and why it needs money."
+  },
+  {
+   "id": "4.1.4.3",
+   "kind": "module",
+   "num": 16,
+   "strand": "4.1.4",
+   "title": "The law of diminishing returns and returns to scale",
+   "short": "Returns",
+   "level": "A-level",
+   "spec": [
+    "4.1.4.3"
+   ],
+   "buildsOn": [
+    15
+   ],
+   "introduces": [
+    "law of diminishing returns",
+    "returns to scale"
+   ],
+   "summary": "Short run and long run, diminishing returns and returns to scale."
+  },
+  {
+   "id": "4.1.4.4",
+   "kind": "module",
+   "num": 17,
+   "strand": "4.1.4",
+   "title": "Costs of production",
+   "short": "Costs of production",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.4.4"
+   ],
+   "buildsOn": [
+    16
+   ],
+   "introduces": [
+    "fixed costs",
+    "variable costs",
+    "average cost",
+    "marginal cost"
+   ],
+   "summary": "Calculating costs and explaining the shape of the cost curves."
+  },
+  {
+   "id": "4.1.4.5",
+   "kind": "module",
+   "num": 18,
+   "strand": "4.1.4",
+   "title": "Economies and diseconomies of scale",
+   "short": "Economies of scale",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.4.5"
+   ],
+   "buildsOn": [
+    17
+   ],
+   "introduces": [
+    "economies of scale",
+    "external economies of scale",
+    "diseconomies of scale",
+    "minimum efficient scale",
+    "barriers to entry"
+   ],
+   "summary": "Why big firms can have lower costs, and when they stop."
+  },
+  {
+   "id": "4.1.4.6",
+   "kind": "module",
+   "num": 19,
+   "strand": "4.1.4",
+   "title": "Marginal, average and total revenue",
+   "short": "Revenue",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.4.6"
+   ],
+   "buildsOn": [
+    18
+   ],
+   "introduces": [
+    "average revenue",
+    "marginal revenue"
+   ],
+   "summary": "Total, average and marginal revenue, and how they link."
+  },
+  {
+   "id": "4.1.4.7",
+   "kind": "module",
+   "num": 20,
+   "strand": "4.1.4",
+   "title": "Profit",
+   "short": "Profit",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.4.7"
+   ],
+   "buildsOn": [
+    19
+   ],
+   "introduces": [
+    "profit",
+    "normal profit",
+    "abnormal profit"
+   ],
+   "summary": "Normal and abnormal profit, and what profit does in a market economy."
+  },
+  {
+   "id": "4.1.4.8",
+   "kind": "module",
+   "num": 21,
+   "strand": "4.1.4",
+   "title": "Technological change",
+   "short": "Technological change",
+   "level": "A-level",
+   "spec": [
+    "4.1.4.8"
+   ],
+   "buildsOn": [
+    20
+   ],
+   "introduces": [
+    "invention",
+    "innovation",
+    "creative destruction"
+   ],
+   "summary": "How technology changes production, markets and competition."
   }
  ]
 }

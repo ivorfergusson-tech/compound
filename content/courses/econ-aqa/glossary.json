@@ -1,4 +1,9 @@
 {
+ "abnormal profit": {
+  "term": "abnormal profit",
+  "def": "Profit above normal profit. Also called supernormal profit.",
+  "module": "4.1.4.7"
+ },
  "allocation of resources": {
   "term": "allocation of resources",
   "def": "How an economy's scarce resources are shared out between the different goods and services it could produce.",
@@ -28,6 +33,21 @@
   "term": "availability bias",
   "def": "Judging how likely something is by how easily examples come to mind.",
   "module": "4.1.2.3"
+ },
+ "average cost": {
+  "term": "average cost",
+  "def": "Cost per unit: total cost divided by output.",
+  "module": "4.1.4.4"
+ },
+ "average revenue": {
+  "term": "average revenue",
+  "def": "Revenue per unit sold, which equals the price.",
+  "module": "4.1.4.6"
+ },
+ "barriers to entry": {
+  "term": "barriers to entry",
+  "def": "Anything that makes it hard for new firms to enter a market.",
+  "module": "4.1.4.5"
  },
  "behavioural economics": {
   "term": "behavioural economics",
@@ -84,6 +104,11 @@
   "def": "Goods bought by households to use up for their own satisfaction, such as food and clothes.",
   "module": "4.1.1.2"
  },
+ "creative destruction": {
+  "term": "creative destruction",
+  "def": "The process, described by Joseph Schumpeter, by which new technology and firms replace old ones.",
+  "module": "4.1.4.8"
+ },
  "cross elasticity of demand": {
   "term": "cross elasticity of demand",
   "def": "How responsive demand for one good is to a change in the price of another.",
@@ -114,10 +139,20 @@
   "def": "The idea that as more of a good is consumed in a given period, the extra satisfaction from each additional unit eventually falls.",
   "module": "4.1.2.1"
  },
+ "diseconomies of scale": {
+  "term": "diseconomies of scale",
+  "def": "Rising long-run average costs as a firm gets too large, for example from poor communication.",
+  "module": "4.1.4.5"
+ },
  "disequilibrium": {
   "term": "disequilibrium",
   "def": "When quantity demanded and quantity supplied are not equal, so the price is under pressure to change.",
   "module": "4.1.3.5"
+ },
+ "division of labour": {
+  "term": "division of labour",
+  "def": "Splitting production into separate tasks, with each worker specialising in one.",
+  "module": "4.1.4.1"
  },
  "economic good": {
   "term": "economic good",
@@ -144,6 +179,11 @@
   "def": "How to allocate scarce resources between unlimited wants. Also called the fundamental economic problem.",
   "module": "4.1.1.4"
  },
+ "economies of scale": {
+  "term": "economies of scale",
+  "def": "Falling long-run average costs as the scale of production increases.",
+  "module": "4.1.4.5"
+ },
  "enterprise": {
   "term": "enterprise",
   "def": "Organising land, labour and capital to produce something, and taking the risk that it fails. Its reward is profit.",
@@ -169,10 +209,20 @@
   "def": "When quantity supplied is greater than quantity demanded at the current price, causing a surplus.",
   "module": "4.1.3.5"
  },
+ "external economies of scale": {
+  "term": "external economies of scale",
+  "def": "Falling costs for firms that come from the growth of the whole industry, not the firm itself.",
+  "module": "4.1.4.5"
+ },
  "factors of production": {
   "term": "factors of production",
   "def": "The four kinds of resources used to produce goods and services: land, labour, capital and enterprise.",
   "module": "4.1.1.2"
+ },
+ "fixed costs": {
+  "term": "fixed costs",
+  "def": "Costs that don't change with output in the short run, such as rent.",
+  "module": "4.1.4.4"
  },
  "framing": {
   "term": "framing",
@@ -209,6 +259,16 @@
   "def": "A good with negative income elasticity: demand falls as income rises.",
   "module": "4.1.3.2"
  },
+ "innovation": {
+  "term": "innovation",
+  "def": "Turning an invention into a product or process that's used commercially.",
+  "module": "4.1.4.8"
+ },
+ "invention": {
+  "term": "invention",
+  "def": "Creating a new product or process.",
+  "module": "4.1.4.8"
+ },
  "joint demand": {
   "term": "joint demand",
   "def": "When two goods are demanded together, such as printers and ink.",
@@ -224,10 +284,20 @@
   "def": "The physical and mental work people put into production. Its reward is wages.",
   "module": "4.1.1.2"
  },
+ "labour productivity": {
+  "term": "labour productivity",
+  "def": "Output per worker or per hour worked.",
+  "module": "4.1.4.1"
+ },
  "land": {
   "term": "land",
   "def": "Natural resources used in production, such as the ground, minerals, water, oil and fish. Its reward is rent.",
   "module": "4.1.1.2"
+ },
+ "law of diminishing returns": {
+  "term": "law of diminishing returns",
+  "def": "In the short run, as more of a variable factor is added to a fixed factor, marginal returns eventually fall.",
+  "module": "4.1.4.3"
  },
  "long run": {
   "term": "long run",
@@ -239,6 +309,16 @@
   "def": "Requiring people to make an active decision, with no default.",
   "module": "4.1.2.4"
  },
+ "marginal cost": {
+  "term": "marginal cost",
+  "def": "The extra cost of producing one more unit.",
+  "module": "4.1.4.4"
+ },
+ "marginal revenue": {
+  "term": "marginal revenue",
+  "def": "The extra revenue from selling one more unit.",
+  "module": "4.1.4.6"
+ },
  "marginal utility": {
   "term": "marginal utility",
   "def": "The extra satisfaction from consuming one more unit of a good.",
@@ -248,6 +328,16 @@
   "term": "market failure",
   "def": "When the price mechanism allocates resources inefficiently, so society's welfare is not as high as it could be.",
   "module": "4.1.2.2"
+ },
+ "medium of exchange": {
+  "term": "medium of exchange",
+  "def": "Something accepted in payment for goods and services, which is the main function of money.",
+  "module": "4.1.4.1"
+ },
+ "minimum efficient scale": {
+  "term": "minimum efficient scale",
+  "def": "The lowest output at which long-run average cost is at its lowest.",
+  "module": "4.1.4.5"
  },
  "needs": {
   "term": "needs",
@@ -263,6 +353,11 @@
   "term": "normal good",
   "def": "A good with positive income elasticity: demand rises as income rises.",
   "module": "4.1.3.2"
+ },
+ "normal profit": {
+  "term": "normal profit",
+  "def": "The minimum profit needed to keep a firm in its current business. Economists count it as a cost.",
+  "module": "4.1.4.7"
  },
  "normative statement": {
   "term": "normative statement",
@@ -299,6 +394,11 @@
   "def": "How responsive quantity supplied is to a change in price: % change in quantity supplied ÷ % change in price.",
   "module": "4.1.3.4"
  },
+ "production": {
+  "term": "production",
+  "def": "Converting inputs, such as the services of capital and labour, into final output.",
+  "module": "4.1.4.1"
+ },
  "production possibility frontier": {
   "term": "production possibility frontier",
   "def": "A curve showing the maximum combinations of two goods an economy can produce with all its resources fully and efficiently used. Also called a production possibility boundary.",
@@ -308,6 +408,16 @@
   "term": "productive efficiency",
   "def": "Producing the most output possible from the resources available, with nothing wasted. Every point on the PPF is productively efficient.",
   "module": "4.1.1.5"
+ },
+ "productivity": {
+  "term": "productivity",
+  "def": "How much output is made from a given input.",
+  "module": "4.1.4.1"
+ },
+ "profit": {
+  "term": "profit",
+  "def": "Total revenue minus total costs.",
+  "module": "4.1.4.7"
  },
  "rational decision making": {
   "term": "rational decision making",
@@ -323,6 +433,11 @@
   "term": "restricted choice",
   "def": "Limiting the options available to steer people's decisions.",
   "module": "4.1.2.4"
+ },
+ "returns to scale": {
+  "term": "returns to scale",
+  "def": "How output changes when all inputs are increased by the same proportion in the long run.",
+  "module": "4.1.4.3"
  },
  "rules of thumb": {
   "term": "rules of thumb",
@@ -358,6 +473,11 @@
   "term": "spare capacity",
   "def": "When a firm or economy could produce more with the resources it already has.",
   "module": "4.1.3.4"
+ },
+ "specialisation": {
+  "term": "specialisation",
+  "def": "People, firms, regions or countries concentrating on what they do best and producing only some goods.",
+  "module": "4.1.4.1"
  },
  "subsidy": {
   "term": "subsidy",
@@ -408,6 +528,11 @@
   "term": "value judgement",
   "def": "An opinion about what is good, bad, fair or important, based on moral or political views rather than evidence.",
   "module": "4.1.1.1"
+ },
+ "variable costs": {
+  "term": "variable costs",
+  "def": "Costs that change with output, such as raw materials.",
+  "module": "4.1.4.4"
  },
  "wants": {
   "term": "wants",
