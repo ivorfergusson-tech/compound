@@ -1,0 +1,165 @@
+{
+ "module": "4.1.8.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.1-functions",
+   "type": "match",
+   "topic": "functions of prices",
+   "q": "Match each function of prices to its meaning.",
+   "pairs": [
+    [
+     "Limits demand for a scarce good",
+     "Rationing"
+    ],
+    [
+     "Carries information to buyers and sellers",
+     "Signalling"
+    ],
+    [
+     "Encourages firms to move resources",
+     "Incentive"
+    ]
+   ],
+   "why": "Prices do all three at once.",
+   "spec": "4.1.8.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.1-who",
+   "type": "mcq",
+   "topic": "what, how and for whom",
+   "q": "In a market economy, the question \"for whom?\" is answered mainly by:",
+   "options": [
+    "Ability and willingness to pay",
+    "A central planner",
+    "Need",
+    "Age"
+   ],
+   "answer": 0,
+   "why": "Goods go to those with the income to pay for them.",
+   "spec": "4.1.8.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.1-signal",
+   "type": "mcq",
+   "topic": "functions of prices",
+   "q": "Rents rise in a city. Which is the signalling function at work?",
+   "options": [
+    "Builders learn that more homes are wanted there",
+    "Some people can no longer afford to live there",
+    "Landlords gain more income",
+    "Tenants move out"
+   ],
+   "answer": 0,
+   "why": "A rising price tells producers that consumers want more.",
+   "spec": "4.1.8.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.1-impersonal",
+   "type": "tf",
+   "topic": "impersonal allocation",
+   "q": "The price mechanism is called impersonal because it responds to ability to pay, whoever the buyer is.",
+   "answer": true,
+   "why": "It treats all spending alike, which is both a strength and a weakness.",
+   "spec": "4.1.8.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.1-blood",
+   "type": "mcq",
+   "topic": "extending markets",
+   "q": "Which is the best argument against a market for blood?",
+   "options": [
+    "It changes a gift into a sale, and alters the incentives of donors",
+    "Blood is non-rival",
+    "Hospitals don't need blood",
+    "Prices can't be set"
+   ],
+   "answer": 0,
+   "why": "Introducing a price can change the nature of the activity.",
+   "spec": "4.1.8.1",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.8.1-explain",
+   "type": "explain",
+   "topic": "functions of prices",
+   "q": "Explain how a rise in the price of a good can help to allocate resources.",
+   "ideas": [
+    {
+     "label": "It rations the good, or signals that consumers want more",
+     "any": [
+      "ration*",
+      "signal*",
+      "tells firms",
+      "tells producers",
+      "shows firms",
+      "shows producers",
+      "excess demand"
+     ]
+    },
+    {
+     "label": "It gives firms an incentive to shift resources into making it",
+     "any": [
+      "incentive*",
+      "more profit*",
+      "higher profit*",
+      "profit*",
+      "move resources",
+      "shift resources",
+      "resources move",
+      "resources shift",
+      "supply more",
+      "produce more",
+      "make more"
+     ]
+    }
+   ],
+   "model": "A higher price rations the good and signals that consumers want more. Higher profits give firms an incentive to move resources into making it.",
+   "why": "Think about what the price tells people and what it rewards.",
+   "tests": [
+    {
+     "answer": "It signals that consumers want more, and higher profits give firms an incentive to produce more.",
+     "marks": 2
+    },
+    {
+     "answer": "It signals that consumers want more.",
+     "marks": 1
+    },
+    {
+     "answer": "People have less money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

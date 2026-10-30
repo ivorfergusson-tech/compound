@@ -1,0 +1,169 @@
+{
+ "module": "4.1.8.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.2-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "Market failure occurs when:",
+   "options": [
+    "A market leads to a misallocation of resources",
+    "A firm goes out of business",
+    "Prices rise",
+    "Demand falls"
+   ],
+   "answer": 0,
+   "why": "The test is what happens to resource allocation.",
+   "spec": "4.1.8.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.2-partial",
+   "type": "mcq",
+   "topic": "partial failure",
+   "q": "Which is an example of partial market failure?",
+   "options": [
+    "Too much sugary food being consumed",
+    "No private market for national defence",
+    "No private market for street lighting",
+    "No private market for flood defences"
+   ],
+   "answer": 0,
+   "why": "The market exists, but gives the wrong quantity.",
+   "spec": "4.1.8.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.2-causes",
+   "type": "match",
+   "topic": "causes",
+   "q": "Match each example to its cause of market failure.",
+   "pairs": [
+    [
+     "Lighthouses aren't supplied by firms",
+     "Public good"
+    ],
+    [
+     "A factory pollutes a river",
+     "Negative externality"
+    ],
+    [
+     "People under-use preventive health care",
+     "Merit good"
+    ],
+    [
+     "A sole supplier charges high prices",
+     "Monopoly"
+    ]
+   ],
+   "why": "Each one is a different way for resources to be misallocated.",
+   "spec": "4.1.8.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.2-inequal",
+   "type": "tf",
+   "topic": "causes",
+   "q": "Inequalities in the distribution of income and wealth can lead to market failure.",
+   "answer": true,
+   "why": "Those on low incomes may not be able to afford what they need.",
+   "spec": "4.1.8.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.2-missing",
+   "type": "mcq",
+   "topic": "complete failure",
+   "q": "What is a missing market?",
+   "options": [
+    "A market that doesn't form at all",
+    "A market with few sellers",
+    "A market that has closed for the day",
+    "A market with no profit"
+   ],
+   "answer": 0,
+   "why": "This is complete market failure.",
+   "spec": "4.1.8.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.2-explain",
+   "type": "explain",
+   "topic": "causes",
+   "q": "Explain how a monopoly could lead to market failure.",
+   "ideas": [
+    {
+     "label": "It restricts output and raises the price",
+     "any": [
+      "restrict*",
+      "higher price*",
+      "raise* price*",
+      "lower output",
+      "less output",
+      "reduce* output",
+      "charge more",
+      "high prices"
+     ]
+    },
+    {
+     "label": "So resources are misallocated, or P is above MC",
+     "any": [
+      "misallocat*",
+      "allocative*",
+      "above mc",
+      "above marginal cost",
+      "p > mc",
+      "deadweight",
+      "welfare loss",
+      "too few resources",
+      "under-produc*",
+      "inefficien*"
+     ]
+    }
+   ],
+   "model": "A monopoly restricts output and raises its price. Price is above marginal cost, so too few resources go into the good and there is a misallocation of resources.",
+   "why": "Link the firm's behaviour to what happens to resources.",
+   "tests": [
+    {
+     "answer": "It restricts output and charges a higher price, so resources are misallocated.",
+     "marks": 2
+    },
+    {
+     "answer": "It charges high prices.",
+     "marks": 1
+    },
+    {
+     "answer": "It is a big firm.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

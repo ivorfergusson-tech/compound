@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -526,6 +526,15 @@ check('monopsony: a floor above £65 cuts jobs again', monopsony(70).employed ==
 check('lorenz: the curve runs from 0 to 1 below equality', lorenzShare(0, 0.3) === 0 && lorenzShare(1, 0.3) === 1 && lorenzShare(0.5, 0.3) < 0.5);
 check('lorenz: a higher Gini leaves the poorest with less', lorenzShare(0.5, 0.6) < lorenzShare(0.5, 0.3));
 check('lorenz: the area matches the Gini', (() => { let t = 0; for (let i = 0; i < 20000; i++) t += lorenzShare((i + 0.5) / 20000, 0.4) / 20000; return Math.abs(1 - 2 * t - 0.4) < 1e-4; })());
+check('externality: negative production means over-production', externality('negative-production', 20).q === 30 && externality('negative-production', 20).p === 70 && externality('negative-production', 20).loss === 100);
+check('externality: negative consumption means over-consumption', externality('negative-consumption', 20).q === 30 && externality('negative-consumption', 20).p === 50);
+check('externality: positive production means under-production', externality('positive-production', 20).q === 50 && externality('positive-production', 20).p === 50);
+check('externality: positive consumption means under-consumption', externality('positive-consumption', 20).q === 50 && externality('positive-consumption', 20).p === 70);
+for (const k of ['negative-production', 'positive-production', 'negative-consumption', 'positive-consumption']) {
+  const r = externality(k, 20);
+  check(`externality: MSB = MSC at the optimum (${k})`, 100 + r.b - r.q === 20 + r.c + r.q);
+  check(`externality: no effect leaves the market output (${k})`, externality(k, 0).q === 40 && externality(k, 0).loss === 0);
+}
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

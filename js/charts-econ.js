@@ -103,6 +103,18 @@ export function monopsony(f = 0) {
 }
 // Lorenz curve y = x^k has Gini (k - 1) / (k + 1), so a Gini g gives k = (1 + g) / (1 - g).
 export const lorenzShare = (x, g) => x ** ((1 + g) / (1 - g));
+// Externalities in the market MPB: P = 100 - Q, MPC: P = 20 + Q (market outcome £60 and 40).
+// An external cost lifts MSC above MPC, and an external benefit lifts MSB above MPB. kind says which curve moves and which way.
+const EXTERNAL = {
+  'negative-production': { c: 1, b: 0, label: 'External cost of production' },
+  'positive-production': { c: -1, b: 0, label: 'External benefit of production' },
+  'negative-consumption': { c: 0, b: -1, label: 'External cost of consumption' },
+  'positive-consumption': { c: 0, b: 1, label: 'External benefit of consumption' },
+};
+export function externality(kind, e) {
+  const k = EXTERNAL[kind], c = k.c * e, b = k.b * e, q = 40 + (b - c) / 2;
+  return { c, b, q, p: 20 + c + q, marketQ: 40, loss: e * e / 4 };
+}
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -353,6 +365,31 @@ export const econCharts = {
         + seg(0, 0, 125, 125, 'ch-line ch-c ch-dash') + curve(q => lorenzShare(q / 125, g) * 125, 0, 125, 'ch-line ch-a') + `</svg>`;
       root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-c dash', 'Line of perfect equality'], ['ch-a', 'Lorenz curve']], '')}</figure>`;
       root.querySelector('[data-desc]').textContent = `The further the curve bows away from the line of equality, the higher the Gini and the more unequal the distribution. This is a smooth model curve, so the shares are illustrative.`;
+    });
+  },
+  externality(root, a) {
+    const kind = a.kind ?? 'negative-production', info = EXTERNAL[kind];
+    const specs = { e: { min: 0, max: 40, step: 10, value: a.e ?? 20, fmt: v => `£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">${esc(info.label)}</h3>${slider('e', 'Size of the external effect', specs.e)}`
+      + `<div class="stats">${stat('Market output', 'm')}${stat('Social optimum', 'q', 'good')}${stat('Welfare loss', 'loss', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ e }, set) => {
+      const r = externality(kind, e), over = r.q < 40, none = e === 0;
+      const msc = q => 20 + r.c + q, msb = q => 100 + r.b - q;
+      set('m', '40'); set('q', r.q); set('loss', money(r.loss));
+      const from = Math.max(0, r.b - 30), mscFrom = Math.max(0, -20 - r.c);
+      const pts = [[r.q, r.p], [40, 60 + r.b], [40, 60 + r.c]].map(([x, y]) => `${mx(x).toFixed(1)},${my(y).toFixed(1)}`).join(' ');
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Cost and benefit diagram. The market makes 40 units, where private benefit equals private cost. The social optimum is ${r.q} units, where social benefit equals social cost.">${axes('Quantity', 'Cost and benefit')}`
+        + (none ? '' : `<polygon class="ch-loss" points="${pts}"/>`)
+        + seg(0, 100, 100, 0, 'ch-line ch-a') + seg(0, 20, 110, 130, 'ch-line ch-b')
+        + (r.b ? seg(from, msb(from), 100 + r.b, 0, 'ch-line ch-a ch-dash') : '')
+        + (r.c ? seg(mscFrom, msc(mscFrom), 110 - r.c, 130, 'ch-line ch-b ch-dash') : '')
+        + `<circle cx="${mx(40)}" cy="${my(60)}" r="5" class="ch-dot-b"/><circle cx="${mx(r.q)}" cy="${my(r.p)}" r="5" class="ch-dot-a"/></svg>`;
+      const curves = [['ch-a', 'MPB'], ['ch-b', 'MPC'], ...(r.b ? [['ch-a dash', 'MSB']] : []), ...(r.c ? [['ch-b dash', 'MSC']] : [])];
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend(curves, '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = none
+        ? 'With no external effect, private and social curves are the same, so the market makes the socially best output.'
+        : `The market makes 40 units, where MPB = MPC, but the social optimum is ${r.q}, where MSB = MSC. So the market ${over ? 'over-produces' : 'under-produces'} by ${Math.abs(40 - r.q)} units, and the shaded triangle is a welfare loss of ${money(r.loss)}.`;
     });
   },
   costs(root, a) {

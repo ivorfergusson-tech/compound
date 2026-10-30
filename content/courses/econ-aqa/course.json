@@ -65,6 +65,11 @@
    "name": "The distribution of income and wealth: poverty and inequality",
    "emoji": "🪙",
    "blurb": "Who gets what: measuring inequality, understanding poverty and what governments can do."
+  },
+  "4.1.8a": {
+   "name": "How markets work and why they fail",
+   "emoji": "🏭",
+   "blurb": "How prices coordinate an economy, and why markets sometimes get it wrong."
   }
  },
  "items": [
@@ -1051,6 +1056,106 @@
     "unemployment trap"
    ],
    "summary": "Taxes, benefits and services, with their costs and moral questions."
+  },
+  {
+   "id": "4.1.8.1",
+   "kind": "module",
+   "num": 44,
+   "strand": "4.1.8a",
+   "title": "How markets and prices allocate resources",
+   "short": "How prices allocate resources",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.1"
+   ],
+   "buildsOn": [
+    43
+   ],
+   "introduces": [
+    "price mechanism"
+   ],
+   "summary": "The rationing, signalling and incentive functions of prices, and their limits."
+  },
+  {
+   "id": "4.1.8.2",
+   "kind": "module",
+   "num": 45,
+   "strand": "4.1.8a",
+   "title": "The meaning of market failure",
+   "short": "Market failure",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.2"
+   ],
+   "buildsOn": [
+    44
+   ],
+   "introduces": [
+    "missing market"
+   ],
+   "summary": "Complete and partial market failure, and what causes each."
+  },
+  {
+   "id": "4.1.8.3",
+   "kind": "module",
+   "num": 46,
+   "strand": "4.1.8a",
+   "title": "Public goods, private goods and quasi-public goods",
+   "short": "Public goods",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.3"
+   ],
+   "buildsOn": [
+    45
+   ],
+   "introduces": [
+    "public good",
+    "free-rider problem",
+    "quasi-public good",
+    "tragedy of the commons"
+   ],
+   "summary": "Why markets don't provide public goods, and how shared resources get overused."
+  },
+  {
+   "id": "4.1.8.4",
+   "kind": "module",
+   "num": 47,
+   "strand": "4.1.8a",
+   "title": "Positive and negative externalities in consumption and production",
+   "short": "Externalities",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.4"
+   ],
+   "buildsOn": [
+    46
+   ],
+   "introduces": [
+    "externality",
+    "property rights"
+   ],
+   "summary": "Private and social costs and benefits, with the diagrams."
+  },
+  {
+   "id": "4.1.8.5",
+   "kind": "module",
+   "num": 48,
+   "strand": "4.1.8a",
+   "title": "Merit and demerit goods",
+   "short": "Merit and demerit goods",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.8.5"
+   ],
+   "buildsOn": [
+    47
+   ],
+   "introduces": [
+    "merit good",
+    "demerit good"
+   ],
+   "summary": "Goods consumed too little or too much, and the judgement behind the labels."
   }
  ]
 }

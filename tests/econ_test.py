@@ -219,6 +219,19 @@ with sync_playwright() as p:
     check("a higher Gini leaves the poorest half less", int(page.locator('[data-v="low"]').inner_text().strip("%")) < int(before.strip("%")))
     page.locator(".calc").screenshot(path=str(SHOTS / "econ-lorenz.png"))
     axe(page, "the inequality lesson")
+    # Externalities
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.8.4")
+    page.wait_for_selector(".chart svg")
+    box = page.locator(".calc").nth(0)
+    check("a negative externality gives over-production", box.locator('[data-v="q"]').inner_text() == "30" and "over-produces" in box.locator("[data-desc]").inner_text())
+    box.locator('[data-in="e"]').fill("0")
+    check("no externality leaves no loss", box.locator('[data-v="loss"]').inner_text() == "£0" and box.locator(".ch-loss").count() == 0)
+    box.locator('[data-in="e"]').fill("20")
+    box.screenshot(path=str(SHOTS / "econ-ext-neg.png"))
+    box = page.locator(".calc").nth(1)
+    check("a positive externality gives under-production", box.locator('[data-v="q"]').inner_text() == "50" and "under-produces" in box.locator("[data-desc]").inner_text())
+    box.screenshot(path=str(SHOTS / "econ-ext-pos.png"))
+    axe(page, "the externalities lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

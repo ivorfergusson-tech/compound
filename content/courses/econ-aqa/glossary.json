@@ -179,6 +179,11 @@
   "def": "A curve showing the relationship between price and quantity demanded.",
   "module": "4.1.3.1"
  },
+ "demerit good": {
+  "term": "demerit good",
+  "def": "A good that society believes people should consume less of than they would in a free market.",
+  "module": "4.1.8.5"
+ },
  "derived demand": {
   "term": "derived demand",
   "def": "When something is demanded for what it helps to produce, as labour is.",
@@ -294,6 +299,11 @@
   "def": "Falling costs for firms that come from the growth of the whole industry, not the firm itself.",
   "module": "4.1.4.5"
  },
+ "externality": {
+  "term": "externality",
+  "def": "A cost or benefit to a third party, not reflected in the market price.",
+  "module": "4.1.8.4"
+ },
  "factors of production": {
   "term": "factors of production",
   "def": "The four kinds of resources used to produce goods and services: land, labour, capital and enterprise.",
@@ -313,6 +323,11 @@
   "term": "free good",
   "def": "A good with no opportunity cost, because there's enough for everyone without anyone going short, such as air.",
   "module": "4.1.1.4"
+ },
+ "free-rider problem": {
+  "term": "free-rider problem",
+  "def": "When people benefit from a good without paying, so firms can't earn a return from providing it.",
+  "module": "4.1.8.3"
  },
  "gini coefficient": {
   "term": "gini coefficient",
@@ -469,10 +484,20 @@
   "def": "Something accepted in payment for goods and services, which is the main function of money.",
   "module": "4.1.4.1"
  },
+ "merit good": {
+  "term": "merit good",
+  "def": "A good that society believes people should consume more of than they would in a free market.",
+  "module": "4.1.8.5"
+ },
  "minimum efficient scale": {
   "term": "minimum efficient scale",
   "def": "The lowest output at which long-run average cost is at its lowest.",
   "module": "4.1.4.5"
+ },
+ "missing market": {
+  "term": "missing market",
+  "def": "When no market forms for a good, though people would benefit from it. This is complete market failure.",
+  "module": "4.1.8.2"
  },
  "monopolistic competition": {
   "term": "monopolistic competition",
@@ -599,6 +624,11 @@
   "def": "A firm that can set its own price, because it faces a downward-sloping demand curve.",
   "module": "4.1.5.4"
  },
+ "price mechanism": {
+  "term": "price mechanism",
+  "def": "The way that prices allocate resources, through their rationing, signalling and incentive functions.",
+  "module": "4.1.8.1"
+ },
  "price taker": {
   "term": "price taker",
   "def": "A firm that has to accept the market price.",
@@ -653,6 +683,21 @@
   "term": "progressive tax",
   "def": "A tax that takes a rising share of income as income rises.",
   "module": "4.1.7.3"
+ },
+ "property rights": {
+  "term": "property rights",
+  "def": "Legal rights to own and control a resource, and to be paid for its use.",
+  "module": "4.1.8.4"
+ },
+ "public good": {
+  "term": "public good",
+  "def": "A good that is non-rival and non-excludable.",
+  "module": "4.1.8.3"
+ },
+ "quasi-public good": {
+  "term": "quasi-public good",
+  "def": "A good with some, but not all, of the features of a public good, such as a road.",
+  "module": "4.1.8.3"
  },
  "rational decision making": {
   "term": "rational decision making",
@@ -783,6 +828,11 @@
   "term": "trade-off",
   "def": "Accepting less of one thing to get more of another.",
   "module": "4.1.1.4"
+ },
+ "tragedy of the commons": {
+  "term": "tragedy of the commons",
+  "def": "The overuse of a shared resource that nobody owns, since each user gains the full benefit and shares the cost.",
+  "module": "4.1.8.3"
  },
  "unemployment trap": {
   "term": "unemployment trap",

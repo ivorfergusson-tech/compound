@@ -1,0 +1,185 @@
+{
+ "module": "4.1.8.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.4-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "An externality exists when:",
+   "options": [
+    "Private and social costs or benefits differ",
+    "A firm exports its goods",
+    "Prices are too high",
+    "A market has few firms"
+   ],
+   "answer": 0,
+   "why": "A third party bears a cost or gets a benefit.",
+   "spec": "4.1.8.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.4-msc",
+   "type": "number",
+   "topic": "social cost",
+   "q": "A unit costs a firm £{c} to make, and causes £{e} of external damage. What is the marginal social cost, in £?",
+   "vars": {
+    "c": {
+     "choices": [
+      20,
+      30,
+      40
+     ],
+     "default": 30
+    },
+    "e": {
+     "choices": [
+      5,
+      10,
+      15
+     ],
+     "default": 10
+    }
+   },
+   "answer": "c+e",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "£{c} + £{e} = £{answer}.",
+   "spec": "4.1.8.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.4-kinds",
+   "type": "match",
+   "topic": "types",
+   "q": "Match each example to its type of externality.",
+   "pairs": [
+    [
+     "Smoke from a factory",
+     "Negative production"
+    ],
+    [
+     "Loud music at a party",
+     "Negative consumption"
+    ],
+    [
+     "Bees from a farm pollinate nearby crops",
+     "Positive production"
+    ],
+    [
+     "A vaccination protects others",
+     "Positive consumption"
+    ]
+   ],
+   "why": "Ask who causes it, and whether third parties gain or lose.",
+   "spec": "4.1.8.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.4-optimum",
+   "type": "mcq",
+   "topic": "diagrams",
+   "q": "The socially optimal output is where:",
+   "options": [
+    "MSB = MSC",
+    "MPB = MPC",
+    "MPB = MSC",
+    "MSB = MPC"
+   ],
+   "answer": 0,
+   "why": "All costs and benefits are counted.",
+   "spec": "4.1.8.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.4-rights",
+   "type": "tf",
+   "topic": "property rights",
+   "q": "A lack of property rights helps to explain why externalities occur.",
+   "answer": true,
+   "why": "If nobody owns a resource, nobody can charge for using it.",
+   "spec": "4.1.8.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.4-explain",
+   "type": "explain",
+   "topic": "diagrams",
+   "q": "Explain why a good with external costs is over-produced in a free market.",
+   "ideas": [
+    {
+     "label": "Producers only consider private costs and ignore external costs",
+     "any": [
+      "private cost*",
+      "ignore*",
+      "don't pay",
+      "do not pay",
+      "not take account",
+      "not take into account",
+      "don't consider",
+      "not consider",
+      "mpc"
+     ]
+    },
+    {
+     "label": "So output is above the social optimum, where MSB = MSC",
+     "any": [
+      "social optimum",
+      "socially optimal",
+      "msb",
+      "msc",
+      "mpc is below",
+      "price is too low",
+      "too low",
+      "above the",
+      "welfare loss",
+      "too much"
+     ]
+    }
+   ],
+   "model": "Producers consider only their private costs and ignore external costs. So they produce where MPB = MPC, which is above the social optimum where MSB = MSC.",
+   "why": "Compare what the firm counts with what society counts.",
+   "tests": [
+    {
+     "answer": "Firms ignore external costs, so output is above the social optimum.",
+     "marks": 2
+    },
+    {
+     "answer": "Firms ignore external costs.",
+     "marks": 1
+    },
+    {
+     "answer": "People like the good.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

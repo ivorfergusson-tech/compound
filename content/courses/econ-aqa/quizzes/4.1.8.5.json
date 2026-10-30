@@ -1,0 +1,161 @@
+{
+ "module": "4.1.8.5",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.5-merit",
+   "type": "mcq",
+   "topic": "merit goods",
+   "q": "Which is usually classed as a merit good?",
+   "options": [
+    "Education",
+    "Cigarettes",
+    "Gambling",
+    "Sweets"
+   ],
+   "answer": 0,
+   "why": "Society believes that people should consume more of it.",
+   "spec": "4.1.8.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.5-judge",
+   "type": "mcq",
+   "topic": "value judgement",
+   "q": "Why is the classification of merit and demerit goods not purely positive?",
+   "options": [
+    "It depends on a value judgement about what people should consume",
+    "Prices can't be measured",
+    "Goods change every year",
+    "It depends on the law of demand"
+   ],
+   "answer": 0,
+   "why": "Deciding what's good for people is normative.",
+   "spec": "4.1.8.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.5-not",
+   "type": "tf",
+   "topic": "externalities",
+   "q": "All products with externalities in consumption are merit or demerit goods.",
+   "answer": false,
+   "why": "The label also needs a judgement that people should consume more or less.",
+   "spec": "4.1.8.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.5-info",
+   "type": "mcq",
+   "topic": "imperfect information",
+   "q": "People underestimate the long-term benefits of a health check. This shows:",
+   "options": [
+    "Imperfect information leading to under-consumption",
+    "A negative externality",
+    "A public good",
+    "Over-consumption"
+   ],
+   "answer": 0,
+   "why": "Their perceived benefit is below the true one.",
+   "spec": "4.1.8.5",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.5-demerit",
+   "type": "mcq",
+   "topic": "diagrams",
+   "q": "On a diagram of a demerit good with external costs in consumption:",
+   "options": [
+    "MSB lies below MPB",
+    "MSB lies above MPB",
+    "MSC lies below MPC",
+    "MSB equals MPB"
+   ],
+   "answer": 0,
+   "why": "Society benefits by less than the consumer does.",
+   "spec": "4.1.8.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.5-explain",
+   "type": "explain",
+   "topic": "imperfect information",
+   "q": "Explain why a demerit good may be over-consumed even if it has no externalities.",
+   "ideas": [
+    {
+     "label": "Consumers have imperfect information",
+     "any": [
+      "imperfect information",
+      "information failure",
+      "lack information",
+      "lack of information",
+      "don't know",
+      "do not know",
+      "unaware",
+      "not aware",
+      "poor information",
+      "misjudge*",
+      "underestimate*"
+     ]
+    },
+    {
+     "label": "So they underestimate the harm, and consume more than is in their own interest",
+     "any": [
+      "harm",
+      "risk*",
+      "long term",
+      "long-term",
+      "future",
+      "own interest*",
+      "health",
+      "overestimate*",
+      "benefit is lower",
+      "true cost*"
+     ]
+    }
+   ],
+   "model": "Consumers have imperfect information, so they underestimate the long-term harm to themselves. They consume more than is in their own interest.",
+   "why": "The failure here is inside the consumer's own decision.",
+   "tests": [
+    {
+     "answer": "Consumers have imperfect information, so they underestimate the long-term harm.",
+     "marks": 2
+    },
+    {
+     "answer": "They have imperfect information.",
+     "marks": 1
+    },
+    {
+     "answer": "It tastes good.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

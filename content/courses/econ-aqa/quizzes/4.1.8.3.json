@@ -1,0 +1,170 @@
+{
+ "module": "4.1.8.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.8.3-define",
+   "type": "mcq",
+   "topic": "public goods",
+   "q": "A pure public good is:",
+   "options": [
+    "Non-rival and non-excludable",
+    "Rival and excludable",
+    "Any good provided by the state",
+    "Rival and non-excludable"
+   ],
+   "answer": 0,
+   "why": "A good isn't public just because the state provides it.",
+   "spec": "4.1.8.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.3-sort",
+   "type": "match",
+   "topic": "types of good",
+   "q": "Match each good to its type.",
+   "pairs": [
+    [
+     "A sandwich",
+     "Private good"
+    ],
+    [
+     "National defence",
+     "Public good"
+    ],
+    [
+     "A busy road",
+     "Quasi-public good"
+    ]
+   ],
+   "why": "Ask whether it's rival and whether it's excludable.",
+   "spec": "4.1.8.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.3-free",
+   "type": "mcq",
+   "topic": "free-rider problem",
+   "q": "The free-rider problem results mainly from which feature?",
+   "options": [
+    "Non-excludability",
+    "Rivalry",
+    "High prices",
+    "Scarcity"
+   ],
+   "answer": 0,
+   "why": "If you can't be stopped from benefiting, you have no need to pay.",
+   "spec": "4.1.8.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.3-tv",
+   "type": "tf",
+   "topic": "technological change",
+   "q": "Encrypted television broadcasts are non-excludable.",
+   "answer": false,
+   "why": "Technology lets firms stop non-payers from watching.",
+   "spec": "4.1.8.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.8.3-commons",
+   "type": "mcq",
+   "topic": "tragedy of the commons",
+   "q": "Which is the best example of the tragedy of the commons?",
+   "options": [
+    "Overfishing in international waters",
+    "A shop running out of bread",
+    "Street lighting being free",
+    "A park with an entry charge"
+   ],
+   "answer": 0,
+   "why": "Fish are rival, and nobody can be stopped from catching them.",
+   "spec": "4.1.8.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.8.3-explain",
+   "type": "explain",
+   "topic": "free-rider problem",
+   "q": "Explain why the free-rider problem leads to a missing market.",
+   "ideas": [
+    {
+     "label": "People can benefit without paying, so few will pay",
+     "any": [
+      "without paying",
+      "not pay",
+      "won't pay",
+      "wouldn't pay",
+      "don't pay",
+      "avoid paying",
+      "non-excludable",
+      "can't be excluded",
+      "cannot be excluded",
+      "can't stop",
+      "cannot stop"
+     ]
+    },
+    {
+     "label": "So firms can't make a profit and won't supply it",
+     "any": [
+      "profit*",
+      "won't supply",
+      "will not supply",
+      "wouldn't supply",
+      "not supply",
+      "not provide",
+      "won't provide",
+      "can't charge",
+      "cannot charge",
+      "no revenue",
+      "no incentive",
+      "no market"
+     ]
+    }
+   ],
+   "model": "People can benefit without paying, so few will pay. Firms cannot make a profit, so they do not supply the good and no market forms.",
+   "why": "No payment means no profit, and no profit means no supply.",
+   "tests": [
+    {
+     "answer": "People can benefit without paying, so firms can't make a profit and won't supply it.",
+     "marks": 2
+    },
+    {
+     "answer": "People won't pay.",
+     "marks": 1
+    },
+    {
+     "answer": "The good is too expensive.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.8.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}
