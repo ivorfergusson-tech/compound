@@ -1,0 +1,241 @@
+{
+ "module": "4.1.3.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.3.4-pes-calc",
+   "type": "number",
+   "topic": "calculating PES",
+   "q": "A price rise of {p}% leads to a rise in quantity supplied of {q}%. Calculate the PES.",
+   "vars": {
+    "p": {
+     "choices": [
+      5,
+      10,
+      20
+     ],
+     "default": 10
+    },
+    "q": {
+     "choices": [
+      2,
+      4,
+      8,
+      15,
+      30
+     ],
+     "default": 15
+    }
+   },
+   "answer": "q/p",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 2,
+   "why": "{q} ÷ {p} = {answer}. Above 1 is elastic, below 1 inelastic.",
+   "spec": "4.1.3.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.4-pes-prices",
+   "type": "number",
+   "topic": "PES from prices and quantities",
+   "q": "The price rises from £{p1} to £{p2}, and quantity supplied rises from {q1} to {q2}. Calculate the PES.",
+   "vars": {
+    "p1": {
+     "choices": [
+      10,
+      20,
+      50
+     ],
+     "default": 20
+    },
+    "c": {
+     "choices": [
+      10,
+      25,
+      50
+     ],
+     "default": 25
+    },
+    "q1": {
+     "choices": [
+      100,
+      200,
+      500
+     ],
+     "default": 200
+    },
+    "r": {
+     "choices": [
+      5,
+      20,
+      40,
+      60
+     ],
+     "default": 40
+    }
+   },
+   "answer": "r/c",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 2,
+   "why": "Quantity rises {r}%, price rises {c}%. {r} ÷ {c} = {answer}.",
+   "spec": "4.1.3.4",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2,
+   "calc": {
+    "p2": "p1*(1+c/100)",
+    "q2": "q1*(1+r/100)"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.3.4-interpret",
+   "type": "mcq",
+   "topic": "interpreting PES",
+   "q": "A PES of 0.4 means that:",
+   "options": [
+    "Supply is elastic",
+    "Supply is inelastic",
+    "Quantity supplied falls when price rises",
+    "Supply is perfectly elastic"
+   ],
+   "answer": 1,
+   "why": "Quantity supplied changes by a smaller percentage than price.",
+   "spec": "4.1.3.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.4-time",
+   "type": "mcq",
+   "topic": "factors that influence PES",
+   "q": "What is usually the most important influence on PES?",
+   "options": [
+    "Advertising",
+    "Time",
+    "The number of consumers",
+    "Consumer incomes"
+   ],
+   "answer": 1,
+   "why": "With more time, firms can change all their inputs, so supply becomes more elastic.",
+   "spec": "4.1.3.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.4-capacity",
+   "type": "mcq",
+   "topic": "factors that influence PES",
+   "q": "Which firm is likely to have the most elastic supply?",
+   "options": [
+    "A farm growing a crop that takes a year to ripen",
+    "A factory with idle machines and goods in storage",
+    "A hospital with all its beds full",
+    "A stadium with all seats sold"
+   ],
+   "answer": 1,
+   "why": "Spare capacity and stocks let a firm respond quickly.",
+   "spec": "4.1.3.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.4-sign",
+   "type": "tf",
+   "topic": "interpreting PES",
+   "q": "PES is normally a negative number.",
+   "answer": false,
+   "why": "Price and quantity supplied normally move in the same direction, so PES is positive.",
+   "spec": "4.1.3.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.4-why",
+   "type": "explain",
+   "topic": "PES and price changes",
+   "q": "Explain why a rise in demand would raise prices by more if supply is price inelastic.",
+   "ideas": [
+    {
+     "label": "Inelastic supply means firms can't raise output much",
+     "any": [
+      "can't raise",
+      "cannot raise",
+      "can't increase",
+      "cannot increase",
+      "can't produce",
+      "cannot produce",
+      "little extra",
+      "output can't",
+      "supply can't",
+      "not raise output",
+      "hard to increase",
+      "difficult to increase",
+      "quantity supplied rises by less",
+      "can't respond",
+      "cannot respond",
+      "slow to respond",
+      "smaller percentage"
+     ]
+    },
+    {
+     "label": "So the excess demand is removed mainly by a rise in price",
+     "any": [
+      "price rises",
+      "price rise",
+      "higher price",
+      "prices rise",
+      "price goes up",
+      "price increase",
+      "prices increase",
+      "prices go up",
+      "bid up",
+      "excess demand"
+     ]
+    }
+   ],
+   "model": "With inelastic supply, firms cannot raise output much in response. The excess demand is therefore removed mainly by a rise in price, not by more goods being sold.",
+   "why": "If quantity cannot adjust, price has to.",
+   "tests": [
+    {
+     "answer": "Firms cannot increase output much so the excess demand makes the price rise a lot.",
+     "marks": 2
+    },
+    {
+     "answer": "Firms can't raise output quickly.",
+     "marks": 1
+    },
+    {
+     "answer": "Consumers have less money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.3.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 3
+  }
+ ]
+}

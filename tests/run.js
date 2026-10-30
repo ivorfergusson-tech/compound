@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -503,6 +503,12 @@ check('Economics spec map has all 79 section 4 points', existsSync(new URL('cour
 // every question is tagged and marks its own right answer, at least N_BANK questions per spec point
 check('PPF: ends of the curve', ppfY(0, 100) === 100 && ppfY(100, 100) === 0);
 check('PPF: opportunity cost rises along the curve', ppfCost(10, 100) < ppfCost(50, 100) && ppfCost(50, 100) < ppfCost(80, 100) && Math.abs(ppfCost(100 * Math.SQRT1_2, 100) - 1) < 1e-9);
+check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
+check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
+check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);
+check('market: gap above and below equilibrium', marketGap(80) === -40 && marketGap(40) === 40 && marketGap(60) === 0);
+check('PED: inelastic price rise raises revenue', Math.abs(pedRevenue(10, -0.5).after - 1045) < 1e-9);
+check('PED: elastic price rise cuts revenue', pedRevenue(10, -2).after < pedRevenue(10, -2).before);
 const N_BANK = 6, AOS = ['AO1', 'AO2', 'AO3', 'AO4'];
 for (const e of registry.courses.filter(c => c.board)) {
   const dir = new URL(`courses/${e.id}/`, contentRoot);

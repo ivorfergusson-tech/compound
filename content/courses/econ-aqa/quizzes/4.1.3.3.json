@@ -1,0 +1,169 @@
+{
+ "module": "4.1.3.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.3.3-why-slope",
+   "type": "mcq",
+   "topic": "why supply slopes up",
+   "q": "Why do supply curves normally slope upwards?",
+   "options": [
+    "Consumers prefer higher prices",
+    "Higher prices imply higher profits, giving firms an incentive to produce more",
+    "Costs always fall as output rises",
+    "Governments require it"
+   ],
+   "answer": 1,
+   "why": "The profit incentive is the spec reason: higher price, higher profit, more output.",
+   "spec": "4.1.3.3",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.3-shift-left",
+   "type": "mcq",
+   "topic": "shifts in supply",
+   "q": "Which of these would shift a supply curve to the left?",
+   "options": [
+    "A new indirect tax on the good",
+    "Better technology",
+    "A subsidy",
+    "A fall in wages"
+   ],
+   "answer": 0,
+   "why": "A tax acts like a cost of production, so less is supplied at every price.",
+   "spec": "4.1.3.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.3-shift-right",
+   "type": "mcq",
+   "topic": "shifts in supply",
+   "q": "Which of these would shift the supply curve of smartphones to the right?",
+   "options": [
+    "A rise in the price of smartphones",
+    "A fall in the cost of microchips",
+    "A rise in consumer incomes",
+    "A shortage of skilled workers"
+   ],
+   "answer": 1,
+   "why": "Lower input costs allow more to be supplied at every price. The price change is a movement; incomes affect demand.",
+   "spec": "4.1.3.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.3-price",
+   "type": "tf",
+   "topic": "movement along the supply curve",
+   "q": "A rise in a good's own price causes an extension of supply.",
+   "answer": true,
+   "why": "Own price changes cause movements along the curve.",
+   "spec": "4.1.3.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.3-mc",
+   "type": "tf",
+   "topic": "supply and marginal cost",
+   "q": "Under perfect competition, the supply curve is the marginal cost curve.",
+   "answer": true,
+   "why": "A firm supplies one more unit only if the price at least covers the cost of making it.",
+   "spec": "4.1.3.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.3-harvest",
+   "type": "mcq",
+   "topic": "shifts in supply",
+   "q": "A very good harvest of apples will:",
+   "options": [
+    "Shift the demand curve right",
+    "Shift the supply curve right",
+    "Shift the supply curve left",
+    "Cause a contraction of supply"
+   ],
+   "answer": 1,
+   "why": "More apples are available at every price.",
+   "spec": "4.1.3.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.3-profit",
+   "type": "explain",
+   "topic": "the profit incentive",
+   "q": "Explain why a rise in the price of a good gives firms an incentive to supply more.",
+   "ideas": [
+    {
+     "label": "A higher price means higher profit on each unit",
+     "any": [
+      "profit*",
+      "more money",
+      "earn more",
+      "revenue"
+     ]
+    },
+    {
+     "label": "So firms expand production, or resources move to it",
+     "any": [
+      "produce more",
+      "expand*",
+      "more output",
+      "increase output",
+      "raise output",
+      "increase production",
+      "supply more",
+      "resources move",
+      "more production",
+      "new firms",
+      "enter"
+     ]
+    }
+   ],
+   "model": "A higher price means each unit brings in more profit, so production becomes more attractive. Firms expand output and resources move towards the good.",
+   "why": "Price is a signal and profit is the incentive.",
+   "tests": [
+    {
+     "answer": "Higher prices mean higher profits so firms want to produce more.",
+     "marks": 2
+    },
+    {
+     "answer": "They will make more profit.",
+     "marks": 1
+    },
+    {
+     "answer": "Consumers want more of it.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.3.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

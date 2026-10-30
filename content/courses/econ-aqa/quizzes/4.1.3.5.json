@@ -1,0 +1,227 @@
+{
+ "module": "4.1.3.5",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.3.5-definition",
+   "type": "mcq",
+   "topic": "equilibrium",
+   "q": "Market equilibrium occurs where:",
+   "options": [
+    "Price is as low as possible",
+    "Quantity demanded equals quantity supplied",
+    "Firms make the most profit",
+    "The government sets the price"
+   ],
+   "answer": 1,
+   "why": "The curves cross, there is no shortage or surplus, and so no pressure on price.",
+   "spec": "4.1.3.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-excess-demand",
+   "type": "mcq",
+   "topic": "excess demand",
+   "q": "If the price is below equilibrium, there will be:",
+   "options": [
+    "Excess supply, and the price falls",
+    "Excess demand, and the price rises",
+    "Excess demand, and the price falls",
+    "Equilibrium"
+   ],
+   "answer": 1,
+   "why": "At a low price, buyers want more than firms offer, so the price is pushed up.",
+   "spec": "4.1.3.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-gap",
+   "type": "number",
+   "topic": "calculating excess demand",
+   "q": "At a price of £{p}, quantity demanded is 100 − {p} and quantity supplied is {p} − 20 (in thousands). How much is the excess demand, in thousands?",
+   "vars": {
+    "p": {
+     "choices": [
+      30,
+      35,
+      40,
+      45,
+      50
+     ],
+     "default": 40
+    }
+   },
+   "answer": "(100-p)-(p-20)",
+   "tol": 0.01,
+   "unit": "thousand",
+   "dp": 0,
+   "why": "Quantity demanded minus quantity supplied = {answer} thousand.",
+   "spec": "4.1.3.5",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-solve",
+   "type": "number",
+   "topic": "finding the equilibrium price",
+   "q": "Quantity demanded = {a} − 2P and quantity supplied = 3P − {b}. What is the equilibrium price, in £?",
+   "vars": {
+    "a": {
+     "choices": [
+      100,
+      120,
+      150
+     ],
+     "default": 120
+    },
+    "b": {
+     "choices": [
+      0,
+      5,
+      10,
+      30
+     ],
+     "default": 30
+    }
+   },
+   "answer": "(a+b)/5",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 2,
+   "why": "Set them equal: {a} + {b} = 5P, so P = {answer}.",
+   "spec": "4.1.3.5",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-shift",
+   "type": "mcq",
+   "topic": "using the model",
+   "q": "A fall in the price of a key raw material will most likely cause, in the market for the final good:",
+   "options": [
+    "Price up, quantity down",
+    "Price down, quantity up",
+    "Price up, quantity up",
+    "Price down, quantity down"
+   ],
+   "answer": 1,
+   "why": "Lower costs shift supply right, so the price falls and quantity rises.",
+   "spec": "4.1.3.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-demand-shift",
+   "type": "mcq",
+   "topic": "using the model",
+   "q": "A hot summer raises demand for ice cream. At the old price, there is:",
+   "options": [
+    "Excess supply",
+    "Excess demand",
+    "Equilibrium",
+    "A fall in supply"
+   ],
+   "answer": 1,
+   "why": "Demand shifts right, so at the old price buyers want more than firms supply. The price then rises.",
+   "spec": "4.1.3.5",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-assumption",
+   "type": "tf",
+   "topic": "assumptions of the model",
+   "q": "The basic demand and supply model assumes that prices can adjust freely.",
+   "answer": true,
+   "why": "Rent controls, for example, stop this happening.",
+   "spec": "4.1.3.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.5-excess",
+   "type": "explain",
+   "topic": "how excess supply changes price",
+   "q": "Explain how excess supply in a market leads to a new equilibrium.",
+   "ideas": [
+    {
+     "label": "Excess supply means unsold goods, so firms cut prices",
+     "any": [
+      "cut price*",
+      "cut their price*",
+      "lower price*",
+      "reduce price*",
+      "prices fall",
+      "price falls",
+      "price will fall",
+      "price fall",
+      "unsold",
+      "surplus",
+      "discount*"
+     ]
+    },
+    {
+     "label": "As price falls, demand extends and supply contracts until they are equal",
+     "any": [
+      "extend*",
+      "contract*",
+      "quantity demanded rises",
+      "quantity demanded increases",
+      "more demanded",
+      "supply less",
+      "less supplied",
+      "until",
+      "equal",
+      "market clears",
+      "clears"
+     ]
+    }
+   ],
+   "model": "Excess supply means firms have unsold goods, so they cut prices. As the price falls, quantity demanded extends and quantity supplied contracts until the two are equal at the new equilibrium.",
+   "why": "The price falls, and both sides adjust.",
+   "tests": [
+    {
+     "answer": "Firms have unsold stock so they cut prices. Quantity demanded extends and supply contracts until they are equal.",
+     "marks": 2
+    },
+    {
+     "answer": "Firms cut their prices.",
+     "marks": 1
+    },
+    {
+     "answer": "The government buys everything.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.3.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

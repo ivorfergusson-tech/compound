@@ -1,0 +1,378 @@
+{
+ "module": "4.1.3.2",
+ "pick": 7,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.3.2-ped-calc",
+   "type": "number",
+   "topic": "calculating PED",
+   "q": "A price rise of {p}% leads to a fall in quantity demanded of {q}%. Calculate the PED.",
+   "vars": {
+    "p": {
+     "choices": [
+      5,
+      10,
+      20
+     ],
+     "default": 10
+    },
+    "q": {
+     "choices": [
+      2,
+      4,
+      8,
+      15,
+      30
+     ],
+     "default": 4
+    }
+   },
+   "answer": "-q/p",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 2,
+   "why": "−{q} ÷ {p} = {answer}. Size below 1 is inelastic, above 1 elastic.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-ped-prices",
+   "type": "number",
+   "topic": "PED from prices and quantities",
+   "q": "The price falls from £{p1} to £{p2} and quantity demanded rises from {q1} to {q2}. Calculate the PED.",
+   "vars": {
+    "p1": {
+     "choices": [
+      10,
+      20,
+      40
+     ],
+     "default": 20
+    },
+    "c": {
+     "choices": [
+      10,
+      20,
+      25
+     ],
+     "default": 10
+    },
+    "q1": {
+     "choices": [
+      100,
+      200,
+      400
+     ],
+     "default": 200
+    },
+    "r": {
+     "choices": [
+      5,
+      15,
+      30,
+      40
+     ],
+     "default": 30
+    }
+   },
+   "answer": "(r)/(-c)",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 2,
+   "why": "Quantity changes +{r}%, price changes −{c}%. {r} ÷ −{c} = {answer}.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2,
+   "calc": {
+    "p2": "p1*(1-c/100)",
+    "q2": "q1*(1+r/100)"
+   },
+   "calcFmt": {}
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-yed-calc",
+   "type": "number",
+   "topic": "calculating YED",
+   "q": "Incomes rise by {y}% and demand for a good changes by {q}%. Calculate the YED.",
+   "vars": {
+    "y": {
+     "choices": [
+      2,
+      4,
+      5
+     ],
+     "default": 4
+    },
+    "q": {
+     "choices": [
+      -6,
+      -2,
+      3,
+      8,
+      10
+     ],
+     "default": 8
+    }
+   },
+   "answer": "q/y",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 2,
+   "why": "{q} ÷ {y} = {answer}. A negative value means an inferior good.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-xed-calc",
+   "type": "number",
+   "topic": "calculating XED",
+   "q": "The price of good B rises by {p}%, and demand for good A changes by {q}%. Calculate the XED of A with respect to B's price.",
+   "vars": {
+    "p": {
+     "choices": [
+      5,
+      10,
+      20
+     ],
+     "default": 10
+    },
+    "q": {
+     "choices": [
+      -12,
+      -6,
+      4,
+      8,
+      15
+     ],
+     "default": 8
+    }
+   },
+   "answer": "q/p",
+   "tol": 0.01,
+   "unit": "",
+   "dp": 2,
+   "why": "{q} ÷ {p} = {answer}. Positive means substitutes, negative means complements.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-revenue",
+   "type": "number",
+   "topic": "PED and revenue",
+   "q": "A firm sells 1,000 units at £{p}. PED is {e}. If it raises its price by 10%, what is its new total revenue?",
+   "vars": {
+    "p": {
+     "choices": [
+      10,
+      20,
+      50
+     ],
+     "default": 20
+    },
+    "e": {
+     "choices": [
+      -0.5,
+      -2
+     ],
+     "default": -0.5
+    }
+   },
+   "answer": "p*1.1*1000*(1+e*0.1)",
+   "tol": 0.5,
+   "unit": "£",
+   "dp": 2,
+   "why": "Quantity changes by {e} × 10%. New price × new quantity = {answer}.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-revenue-rule",
+   "type": "mcq",
+   "topic": "PED and revenue",
+   "q": "Demand for a good is price inelastic. What happens to total revenue if the firm raises its price?",
+   "options": [
+    "It falls",
+    "It rises",
+    "It stays the same",
+    "It falls to zero"
+   ],
+   "answer": 1,
+   "why": "Quantity falls by a smaller percentage than the price rises, so revenue rises.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-factor",
+   "type": "mcq",
+   "topic": "factors that influence PED",
+   "q": "Which is likely to make demand for a product more price elastic?",
+   "options": [
+    "It is addictive",
+    "It takes up a tiny share of income",
+    "It has many close substitutes",
+    "It is a necessity"
+   ],
+   "answer": 2,
+   "why": "With close substitutes available, buyers switch easily when the price rises.",
+   "spec": "4.1.3.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-time",
+   "type": "mcq",
+   "topic": "factors that influence PED",
+   "q": "Why is demand for petrol usually more elastic in the long run than the short run?",
+   "options": [
+    "People forget the old price",
+    "People have time to find alternatives, such as a more efficient car",
+    "Petrol stations close",
+    "Oil runs out"
+   ],
+   "answer": 1,
+   "why": "Over time, people can change how they travel and what they drive.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-signs",
+   "type": "match",
+   "topic": "interpreting elasticities",
+   "q": "Match each result to its meaning.",
+   "pairs": [
+    [
+     "YED of −0.4",
+     "Inferior good"
+    ],
+    [
+     "YED of 1.8",
+     "Luxury normal good"
+    ],
+    [
+     "XED of 2.1",
+     "Close substitutes"
+    ],
+    [
+     "XED of −1.2",
+     "Complements"
+    ]
+   ],
+   "why": "For YED and XED, the sign carries the meaning.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-sign",
+   "type": "tf",
+   "topic": "interpreting elasticities",
+   "q": "A YED of 0.3 means the good is an inferior good.",
+   "answer": false,
+   "why": "A positive YED means a normal good. A value below 1 means it is income inelastic, often a necessity.",
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.2-tax",
+   "type": "explain",
+   "topic": "PED and government",
+   "q": "Explain why a government might choose to tax a good with price inelastic demand.",
+   "ideas": [
+    {
+     "label": "Quantity demanded falls by only a small amount when the price rises",
+     "any": [
+      "small fall",
+      "falls a little",
+      "fall by little",
+      "little change",
+      "small change",
+      "smaller percentage",
+      "smaller %",
+      "still buy",
+      "keep buying",
+      "not fall much",
+      "won't fall much",
+      "does not fall much",
+      "falls by less",
+      "falls less",
+      "few people stop",
+      "not change much"
+     ]
+    },
+    {
+     "label": "So the tax raises a lot of revenue",
+     "any": [
+      "revenue",
+      "raise money",
+      "raises money",
+      "raise a lot",
+      "tax income",
+      "lots of tax",
+      "lot of tax",
+      "more tax",
+      "tax receipts"
+     ]
+    }
+   ],
+   "model": "If demand is price inelastic, quantity demanded falls by a smaller percentage than price rises, so people still buy. The tax is paid on most of the original sales, so it raises a lot of revenue for the government.",
+   "why": "Inelastic demand means the tax base barely shrinks.",
+   "tests": [
+    {
+     "answer": "People still buy it when the price rises so the government gets lots of tax revenue.",
+     "marks": 2
+    },
+    {
+     "answer": "It raises revenue for the government.",
+     "marks": 1
+    },
+    {
+     "answer": "Because the government likes taxing things.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.3.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

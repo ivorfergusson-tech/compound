@@ -1,0 +1,190 @@
+{
+ "module": "4.1.3.6",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.3.6-terms",
+   "type": "match",
+   "topic": "links between markets",
+   "q": "Match each term to its meaning.",
+   "pairs": [
+    [
+     "Joint demand",
+     "Goods bought together"
+    ],
+    [
+     "Competitive demand",
+     "Goods that replace each other"
+    ],
+    [
+     "Composite demand",
+     "One good with several uses"
+    ],
+    [
+     "Derived demand",
+     "Wanted for what it produces"
+    ],
+    [
+     "Joint supply",
+     "Producing one good also produces another"
+    ]
+   ],
+   "why": "These are the five links in the spec.",
+   "spec": "4.1.3.6",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.6-joint-demand",
+   "type": "mcq",
+   "topic": "joint demand",
+   "q": "Which pair shows joint demand?",
+   "options": [
+    "Beef and leather",
+    "Tea and coffee",
+    "Cars and tyres",
+    "Bricks and bricklayers"
+   ],
+   "answer": 2,
+   "why": "Cars and tyres are needed together. Beef and leather are joint supply; tea and coffee compete.",
+   "spec": "4.1.3.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.6-derived",
+   "type": "mcq",
+   "topic": "derived demand",
+   "q": "Demand for airline pilots is an example of:",
+   "options": [
+    "Joint supply",
+    "Derived demand",
+    "Composite demand",
+    "Competitive demand"
+   ],
+   "answer": 1,
+   "why": "Pilots are wanted because of demand for air travel.",
+   "spec": "4.1.3.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.6-composite",
+   "type": "mcq",
+   "topic": "composite demand",
+   "q": "More land is used for housing. What does composite demand suggest will happen to the market for farmland?",
+   "options": [
+    "Less is available, so supply falls and its price tends to rise",
+    "More is available, so its price falls",
+    "Nothing changes",
+    "Demand for food disappears"
+   ],
+   "answer": 0,
+   "why": "One good has several uses, so more of one use means less for the others.",
+   "spec": "4.1.3.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.6-joint-supply",
+   "type": "mcq",
+   "topic": "joint supply",
+   "q": "Demand for lamb rises. What is the likely effect on the wool market?",
+   "options": [
+    "Supply of wool rises and its price tends to fall",
+    "Demand for wool rises",
+    "Supply of wool falls",
+    "No effect"
+   ],
+   "answer": 0,
+   "why": "More sheep are farmed, so more wool is produced as well.",
+   "spec": "4.1.3.6",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.3.6-competitive",
+   "type": "tf",
+   "topic": "competitive demand",
+   "q": "If the price of rail tickets rises, demand for coach travel is likely to rise.",
+   "answer": true,
+   "why": "They are substitutes, in competitive demand.",
+   "spec": "4.1.3.6",
+   "ao": "AO2",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.3.6-labour",
+   "type": "explain",
+   "topic": "derived demand",
+   "q": "Explain why a fall in demand for new cars may reduce the wages of car workers.",
+   "ideas": [
+    {
+     "label": "Demand for labour is derived from demand for cars",
+     "any": [
+      "derived",
+      "demand for labour",
+      "demand for workers",
+      "fewer workers",
+      "less labour",
+      "need fewer",
+      "need less",
+      "fewer staff",
+      "job*"
+     ]
+    },
+    {
+     "label": "Lower demand for labour pushes wages down",
+     "any": [
+      "wage*",
+      "pay falls",
+      "lower pay",
+      "pay fall",
+      "pay cut*",
+      "cut pay"
+     ]
+    }
+   ],
+   "model": "Demand for car workers is derived from demand for cars. If fewer cars are wanted, firms need fewer workers, so demand for labour shifts left and wages tend to fall.",
+   "why": "Labour is wanted for what it produces.",
+   "tests": [
+    {
+     "answer": "Demand for labour is derived from cars so firms need fewer workers, which pushes wages down.",
+     "marks": 2
+    },
+    {
+     "answer": "Demand for labour is a derived demand.",
+     "marks": 1
+    },
+    {
+     "answer": "Cars are too expensive.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.3.6",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}
