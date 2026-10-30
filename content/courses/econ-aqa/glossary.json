@@ -69,6 +69,11 @@
   "def": "The record of a country's trade and income flows with the rest of the world.",
   "module": "4.2.1.1"
  },
+ "bank rate": {
+  "term": "bank rate",
+  "def": "The interest rate the Bank of England pays on banks' reserves, which influences other interest rates.",
+  "module": "4.2.4.3a"
+ },
  "barriers to entry": {
   "term": "barriers to entry",
   "def": "Anything that makes it hard for new firms to enter a market.",
@@ -84,6 +89,11 @@
   "def": "The study of how people really make decisions, using ideas from psychology to question the assumption that people are rational.",
   "module": "4.1.2.3"
  },
+ "bond": {
+  "term": "bond",
+  "def": "A loan that can be bought and sold. UK government bonds are called gilts.",
+  "module": "4.2.4.1"
+ },
  "bounded rationality": {
   "term": "bounded rationality",
   "def": "Rational decision making limited by the information people have, their ability to process it and the time available.",
@@ -93,6 +103,11 @@
   "term": "bounded self-control",
   "def": "Limited willpower: people may know what's best for them but not do it.",
   "module": "4.1.2.3"
+ },
+ "broad money": {
+  "term": "broad money",
+  "def": "Narrow money plus bank and building society deposits.",
+  "module": "4.2.4.1"
  },
  "capital": {
   "term": "capital",
@@ -104,10 +119,20 @@
   "def": "Goods used to make other goods and services, such as machinery and factories.",
   "module": "4.1.1.2"
  },
+ "capital ratio": {
+  "term": "capital ratio",
+  "def": "A comparison of a bank's capital with its assets, weighted by risk.",
+  "module": "4.2.4.4"
+ },
  "cartel": {
   "term": "cartel",
   "def": "A formal agreement between firms to limit competition, for example by fixing prices or output.",
   "module": "4.1.5.5b"
+ },
+ "central bank": {
+  "term": "central bank",
+  "def": "The bank that carries out a country's monetary policy and acts as banker to the government and banks.",
+  "module": "4.2.4.3a"
  },
  "ceteris paribus": {
   "term": "ceteris paribus",
@@ -128,6 +153,11 @@
   "term": "collusion",
   "def": "Firms working together to limit competition, such as by fixing prices.",
   "module": "4.1.5.5a"
+ },
+ "commercial bank": {
+  "term": "commercial bank",
+  "def": "A bank that takes deposits from and makes loans to households and firms.",
+  "module": "4.2.4.2"
  },
  "competition and markets authority": {
   "term": "competition and markets authority",
@@ -194,10 +224,20 @@
   "def": "Inflation caused by rising costs of production.",
   "module": "4.2.2.5"
  },
+ "coupon": {
+  "term": "coupon",
+  "def": "The fixed interest paid on a bond each year.",
+  "module": "4.2.4.1"
+ },
  "creative destruction": {
   "term": "creative destruction",
   "def": "The process, described by Joseph Schumpeter, by which new technology and firms replace old ones.",
   "module": "4.1.4.8"
+ },
+ "credit creation": {
+  "term": "credit creation",
+  "def": "The process by which banks create new deposits when they make loans.",
+  "module": "4.2.4.2"
  },
  "cross elasticity of demand": {
   "term": "cross elasticity of demand",
@@ -213,6 +253,11 @@
   "term": "deadweight loss",
   "def": "Welfare that is lost to everyone, because units worth more than they cost aren't made.",
   "module": "4.1.5.11"
+ },
+ "debt": {
+  "term": "debt",
+  "def": "Money that is borrowed and must be repaid, usually with interest.",
+  "module": "4.2.4.1"
  },
  "default choice": {
   "term": "default choice",
@@ -354,6 +399,11 @@
   "def": "Fairness. Whether a distribution is equitable is a value judgement.",
   "module": "4.1.7.1"
  },
+ "equity shares": {
+  "term": "equity shares",
+  "def": "Ownership of a firm. Shareholders get a share of the profit, and the firm need not repay them.",
+  "module": "4.2.4.1"
+ },
  "excess capacity": {
   "term": "excess capacity",
   "def": "When a firm produces less than the output at which its average costs are lowest.",
@@ -368,6 +418,11 @@
   "term": "excess supply",
   "def": "When quantity supplied is greater than quantity demanded at the current price, causing a surplus.",
   "module": "4.1.3.5"
+ },
+ "exchange rate": {
+  "term": "exchange rate",
+  "def": "The price of one currency in terms of another.",
+  "module": "4.2.4.3b"
  },
  "external economies of scale": {
   "term": "external economies of scale",
@@ -389,10 +444,25 @@
   "def": "The four kinds of resources used to produce goods and services: land, labour, capital and enterprise.",
   "module": "4.1.1.2"
  },
+ "financial conduct authority": {
+  "term": "financial conduct authority",
+  "def": "The UK regulator of how financial firms treat customers. Known as the FCA.",
+  "module": "4.2.4.4"
+ },
+ "financial policy committee": {
+  "term": "financial policy committee",
+  "def": "The Bank of England committee that looks at risks to the whole financial system. Known as the FPC.",
+  "module": "4.2.4.4"
+ },
  "fixed costs": {
   "term": "fixed costs",
   "def": "Costs that don't change with output in the short run, such as rent.",
   "module": "4.1.4.4"
+ },
+ "forward guidance": {
+  "term": "forward guidance",
+  "def": "When a central bank tells the public how interest rates are likely to change in future.",
+  "module": "4.2.4.3b"
  },
  "framing": {
   "term": "framing",
@@ -509,6 +579,11 @@
   "def": "Spending on capital goods, such as machines and factories.",
   "module": "4.2.2.3"
  },
+ "investment bank": {
+  "term": "investment bank",
+  "def": "A bank that helps firms issue shares and bonds, advises on mergers and trades financial assets.",
+  "module": "4.2.4.2"
+ },
  "involuntary unemployment": {
   "term": "involuntary unemployment",
   "def": "When people are willing to work at the going wage, but can't find a job.",
@@ -558,6 +633,16 @@
   "term": "law of diminishing returns",
   "def": "In the short run, as more of a variable factor is added to a fixed factor, marginal returns eventually fall.",
   "module": "4.1.4.3"
+ },
+ "liquidity": {
+  "term": "liquidity",
+  "def": "How quickly an asset can be turned into cash with little loss of value.",
+  "module": "4.2.4.2"
+ },
+ "liquidity ratio": {
+  "term": "liquidity ratio",
+  "def": "A comparison of a bank's liquid assets with its short-term liabilities.",
+  "module": "4.2.4.4"
  },
  "living standards": {
   "term": "living standards",
@@ -634,6 +719,11 @@
   "def": "When the price mechanism allocates resources inefficiently, so society's welfare is not as high as it could be.",
   "module": "4.1.2.2"
  },
+ "maturity": {
+  "term": "maturity",
+  "def": "The date on which a bond is repaid.",
+  "module": "4.2.4.1"
+ },
  "maximum price": {
   "term": "maximum price",
   "def": "A legal ceiling on a price, set below equilibrium to have an effect.",
@@ -674,6 +764,26 @@
   "def": "An economy where both markets and the state allocate resources.",
   "module": "4.1.8.9a"
  },
+ "monetary policy": {
+  "term": "monetary policy",
+  "def": "Action by the central bank to influence interest rates, the supply of money and credit and the exchange rate.",
+  "module": "4.2.4.3a"
+ },
+ "monetary policy committee": {
+  "term": "monetary policy committee",
+  "def": "The Bank of England committee of nine that sets Bank Rate. Known as the MPC.",
+  "module": "4.2.4.3a"
+ },
+ "money": {
+  "term": "money",
+  "def": "Anything widely accepted as payment, which works as a medium of exchange, store of value, unit of account and standard of deferred payment.",
+  "module": "4.2.4.1"
+ },
+ "money supply": {
+  "term": "money supply",
+  "def": "The total amount of money in an economy.",
+  "module": "4.2.4.1"
+ },
  "monopolistic competition": {
   "term": "monopolistic competition",
   "def": "A market with many firms selling slightly different products, and low barriers to entry.",
@@ -694,10 +804,20 @@
   "def": "A market with a single buyer, such as one dominant employer in a labour market.",
   "module": "4.1.6.4"
  },
+ "moral hazard": {
+  "term": "moral hazard",
+  "def": "When people take more risk because they don't bear the full cost if things go wrong.",
+  "module": "4.2.4.4"
+ },
  "multiplier": {
   "term": "multiplier",
   "def": "The process by which a change in spending leads to a larger change in national income. Its size is 1 ÷ (1 − MPC).",
   "module": "4.2.2.4"
+ },
+ "narrow money": {
+  "term": "narrow money",
+  "def": "Notes, coins and balances that banks hold at the central bank.",
+  "module": "4.2.4.1"
  },
  "national income": {
   "term": "national income",
@@ -904,6 +1024,11 @@
   "def": "Legal rights to own and control a resource, and to be paid for its use.",
   "module": "4.1.8.4"
  },
+ "prudential regulation authority": {
+  "term": "prudential regulation authority",
+  "def": "The part of the Bank of England that supervises individual banks and insurers. Known as the PRA.",
+  "module": "4.2.4.4"
+ },
  "public good": {
   "term": "public good",
   "def": "A good that is non-rival and non-excludable.",
@@ -918,6 +1043,11 @@
   "term": "purchasing power parity",
   "def": "An exchange rate at which a given sum buys the same basket of goods in each country.",
   "module": "4.2.1.4"
+ },
+ "quantitative easing": {
+  "term": "quantitative easing",
+  "def": "When a central bank creates new money to buy financial assets, mainly government bonds.",
+  "module": "4.2.4.3b"
  },
  "quantity theory of money": {
   "term": "quantity theory of money",
@@ -1104,6 +1234,11 @@
   "def": "Growth that can continue over time without serious problems for the future.",
   "module": "4.2.3.1a"
  },
+ "systemic risk": {
+  "term": "systemic risk",
+  "def": "The risk that trouble at one institution spreads and threatens the whole financial system.",
+  "module": "4.2.4.2"
+ },
  "total revenue": {
   "term": "total revenue",
   "def": "The money a firm receives from sales: price × quantity sold.",
@@ -1128,6 +1263,11 @@
   "term": "tragedy of the commons",
   "def": "The overuse of a shared resource that nobody owns, since each user gains the full benefit and shares the cost.",
   "module": "4.1.8.3"
+ },
+ "transmission mechanism": {
+  "term": "transmission mechanism",
+  "def": "The way a change in Bank Rate spreads through the economy to affect inflation and output.",
+  "module": "4.2.4.3b"
  },
  "unemployment": {
   "term": "unemployment",

@@ -1,0 +1,184 @@
+{
+ "module": "4.2.4.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.4.1-functions",
+   "type": "match",
+   "topic": "functions of money",
+   "q": "Match each use of money to its function.",
+   "pairs": [
+    [
+     "Paying for a meal",
+     "Medium of exchange"
+    ],
+    [
+     "Keeping £100 for next year",
+     "Store of value"
+    ],
+    [
+     "Comparing the price of two phones",
+     "Unit of account"
+    ],
+    [
+     "Agreeing to pay a debt next year",
+     "Standard of deferred payment"
+    ]
+   ],
+   "why": "Money has four functions.",
+   "spec": "4.2.4.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.1-yield",
+   "type": "number",
+   "topic": "bond yields",
+   "q": "A bond has a coupon of £{c} a year, and its market price is £{p}. What is its yield, in %?",
+   "vars": {
+    "c": {
+     "choices": [
+      3,
+      4,
+      6
+     ],
+     "default": 4
+    },
+    "p": {
+     "choices": [
+      75,
+      120
+     ],
+     "default": 120
+    }
+   },
+   "answer": "c/p*100",
+   "tol": 0.01,
+   "unit": "%",
+   "dp": 2,
+   "why": "£{c} ÷ £{p} × 100 = {answer}%.",
+   "spec": "4.2.4.1",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.1-inverse",
+   "type": "mcq",
+   "topic": "bond prices",
+   "q": "If a bond's market price falls, what happens to its yield?",
+   "options": [
+    "It rises",
+    "It falls",
+    "It stays the same",
+    "It becomes zero"
+   ],
+   "answer": 0,
+   "why": "The coupon is fixed, so a lower price gives a higher return.",
+   "spec": "4.2.4.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.1-markets",
+   "type": "mcq",
+   "topic": "markets",
+   "q": "Long-term finance, through shares and bonds, is raised in the:",
+   "options": [
+    "Capital market",
+    "Money market",
+    "Foreign exchange market",
+    "Labour market"
+   ],
+   "answer": 0,
+   "why": "The money market is for short-term funds.",
+   "spec": "4.2.4.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.1-debt",
+   "type": "tf",
+   "topic": "debt and equity",
+   "q": "Shareholders are paid before lenders if a firm fails.",
+   "answer": false,
+   "why": "Debt is paid first, which is why it's less risky.",
+   "spec": "4.2.4.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.1-explain",
+   "type": "explain",
+   "topic": "bond prices",
+   "q": "Explain why the price of an existing bond falls when market interest rates rise.",
+   "ideas": [
+    {
+     "label": "The bond's coupon is fixed, so it's less attractive than new rates",
+     "any": [
+      "fixed",
+      "less attractive",
+      "better return",
+      "higher return elsewhere",
+      "higher returns elsewhere",
+      "earn more elsewhere",
+      "elsewhere",
+      "new bonds"
+     ]
+    },
+    {
+     "label": "So holders sell, or buyers pay less, until the yield matches",
+     "any": [
+      "sell",
+      "demand falls",
+      "lower demand",
+      "less demand",
+      "pay less",
+      "yield rises",
+      "yield match*",
+      "higher yield",
+      "price falls",
+      "price must fall",
+      "fall until"
+     ]
+    }
+   ],
+   "model": "The coupon is fixed, so the bond pays less than the new rates on offer elsewhere. Holders sell and demand falls, so the price falls until the yield matches.",
+   "why": "The coupon can't change, so the price has to.",
+   "tests": [
+    {
+     "answer": "The coupon is fixed, so the bond is less attractive and holders sell, which lowers the price.",
+     "marks": 2
+    },
+    {
+     "answer": "The coupon is fixed.",
+     "marks": 1
+    },
+    {
+     "answer": "Bonds are old.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.4.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

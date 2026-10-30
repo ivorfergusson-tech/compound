@@ -1,0 +1,163 @@
+{
+ "module": "4.2.4.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.4.2-diff",
+   "type": "mcq",
+   "topic": "types of bank",
+   "q": "What mainly distinguishes an investment bank?",
+   "options": [
+    "It helps firms issue shares and bonds, and trades in financial assets",
+    "It takes small deposits from households",
+    "It sets interest rates",
+    "It issues banknotes"
+   ],
+   "answer": 0,
+   "why": "Commercial banks serve households and firms.",
+   "spec": "4.2.4.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.2-sheet",
+   "type": "mcq",
+   "topic": "balance sheet",
+   "q": "On a commercial bank's balance sheet, a customer's deposit is:",
+   "options": [
+    "A liability",
+    "An asset",
+    "Capital",
+    "A coupon"
+   ],
+   "answer": 0,
+   "why": "The bank owes it to the customer.",
+   "spec": "4.2.4.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.2-objectives",
+   "type": "match",
+   "topic": "objectives",
+   "q": "Match each objective to its meaning.",
+   "pairs": [
+    [
+     "Having cash to meet withdrawals",
+     "Liquidity"
+    ],
+    [
+     "Earning a return for shareholders",
+     "Profitability"
+    ],
+    [
+     "Avoiding losses that threaten the bank",
+     "Security"
+    ]
+   ],
+   "why": "These objectives can conflict.",
+   "spec": "4.2.4.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.2-create",
+   "type": "tf",
+   "topic": "credit creation",
+   "q": "Banks create new money when they make loans.",
+   "answer": true,
+   "why": "The loan creates a matching deposit.",
+   "spec": "4.2.4.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.2-limit",
+   "type": "mcq",
+   "topic": "credit creation",
+   "q": "Which limits how much a bank can lend?",
+   "options": [
+    "Rules on capital and liquidity",
+    "The number of its branches",
+    "The price of gold",
+    "The inflation target"
+   ],
+   "answer": 0,
+   "why": "Banks also need willing borrowers who can repay.",
+   "spec": "4.2.4.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.2-explain",
+   "type": "explain",
+   "topic": "objectives",
+   "q": "Explain why a bank that does both commercial and investment banking may increase systemic risk.",
+   "ideas": [
+    {
+     "label": "Investment banking is risky, so losses could arise",
+     "any": [
+      "risky",
+      "risk*",
+      "losses",
+      "lose money",
+      "speculat*",
+      "trading"
+     ]
+    },
+    {
+     "label": "This could threaten deposits, or spread to the wider system",
+     "any": [
+      "deposit*",
+      "savers",
+      "savings",
+      "wider",
+      "whole system",
+      "spread*",
+      "other banks",
+      "financial system",
+      "too big to fail",
+      "taxpayer*"
+     ]
+    }
+   ],
+   "model": "Investment banking activities are risky, so large losses could arise. These could threaten ordinary deposits and spread to other banks in the financial system.",
+   "why": "Trouble in one part of the bank can reach the savers in another.",
+   "tests": [
+    {
+     "answer": "Risky trading could cause losses that threaten savers' deposits.",
+     "marks": 2
+    },
+    {
+     "answer": "Investment banking is risky.",
+     "marks": 1
+    },
+    {
+     "answer": "Banks are big.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.4.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

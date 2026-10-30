@@ -300,6 +300,14 @@ with sync_playwright() as p:
     check("below the natural rate, inflation is higher", page.locator('[data-v="pi"]').inner_text() == "6.0%" and "shifts the short-run curve up" in page.locator("[data-desc]").inner_text())
     page.locator(".calc").screenshot(path=str(SHOTS / "econ-phillips.png"))
     axe(page, "the Phillips curve lesson")
+    # Bonds
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.4.1")
+    page.wait_for_selector(".chart svg")
+    check("a bond at face value yields its coupon", page.locator('[data-v="y"]').inner_text() == "5.00%")
+    page.locator('[data-in="p"]').fill("125")
+    check("a higher bond price means a lower yield", page.locator('[data-v="y"]').inner_text() == "4.00%")
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-bond.png"))
+    axe(page, "the financial markets lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

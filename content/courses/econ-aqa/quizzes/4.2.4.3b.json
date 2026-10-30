@@ -1,0 +1,171 @@
+{
+ "module": "4.2.4.3b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.4.3-rise",
+   "type": "mcq",
+   "topic": "transmission mechanism",
+   "q": "A rise in Bank Rate is likely to cause:",
+   "options": [
+    "A lower AD and lower inflation",
+    "A higher AD and higher inflation",
+    "A weaker pound",
+    "Higher house prices"
+   ],
+   "answer": 0,
+   "why": "Borrowing falls and saving rises, so AD falls.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-ex",
+   "type": "mcq",
+   "topic": "exchange rate",
+   "q": "Why does a rise in UK interest rates tend to raise the value of the pound?",
+   "options": [
+    "Foreign savers want to buy UK assets",
+    "Exports get cheaper",
+    "Imports rise",
+    "Prices rise"
+   ],
+   "answer": 0,
+   "why": "This raises demand for the pound.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-qe",
+   "type": "mcq",
+   "topic": "quantitative easing",
+   "q": "In quantitative easing, the central bank:",
+   "options": [
+    "Creates money to buy bonds, which lowers long-term interest rates",
+    "Sells bonds to raise rates",
+    "Raises Bank Rate",
+    "Cuts government spending"
+   ],
+   "answer": 0,
+   "why": "Higher bond prices mean lower yields.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-guidance",
+   "type": "tf",
+   "topic": "forward guidance",
+   "q": "Forward guidance works by influencing expectations.",
+   "answer": true,
+   "why": "People act on what they expect rates to do.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-tools",
+   "type": "match",
+   "topic": "instruments",
+   "q": "Match each instrument to its description.",
+   "pairs": [
+    [
+     "Buying bonds with new money",
+     "Quantitative easing"
+    ],
+    [
+     "Cheap funding for banks that keep lending",
+     "Funding for Lending"
+    ],
+    [
+     "Saying where rates are likely to go",
+     "Forward guidance"
+    ]
+   ],
+   "why": "These are recent tools alongside Bank Rate.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-qex",
+   "type": "explain",
+   "topic": "quantitative easing",
+   "q": "Explain how quantitative easing could increase aggregate demand.",
+   "ideas": [
+    {
+     "label": "Buying bonds raises their prices and lowers yields or interest rates",
+     "any": [
+      "lower yield*",
+      "yields fall",
+      "lowers yields",
+      "bond prices rise",
+      "higher bond prices",
+      "raises bond prices",
+      "lower interest rates",
+      "lower long-term",
+      "interest rates fall",
+      "lowers interest rates",
+      "lower borrowing costs",
+      "cheaper borrowing",
+      "borrowing cheaper"
+     ]
+    },
+    {
+     "label": "So borrowing and spending rise, which raises AD",
+     "any": [
+      "consumption",
+      "investment",
+      "spending rises",
+      "spend more",
+      "more spending",
+      "borrow more",
+      "more borrowing",
+      "ad rises",
+      "aggregate demand rises",
+      "wealth",
+      "invest more"
+     ]
+    }
+   ],
+   "model": "Buying bonds raises their prices and lowers yields, so long-term interest rates fall. Borrowing is cheaper, so consumption and investment rise, which raises AD.",
+   "why": "Bond prices up, yields down, spending up.",
+   "tests": [
+    {
+     "answer": "It lowers long-term interest rates, so consumption and investment rise.",
+     "marks": 2
+    },
+    {
+     "answer": "It lowers interest rates.",
+     "marks": 1
+    },
+    {
+     "answer": "It prints money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.4.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

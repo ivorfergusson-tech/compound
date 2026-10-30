@@ -1,0 +1,157 @@
+{
+ "module": "4.2.4.3a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.4.3-mpc",
+   "type": "mcq",
+   "topic": "MPC",
+   "q": "Who sets Bank Rate in the UK?",
+   "options": [
+    "The Monetary Policy Committee",
+    "The Chancellor",
+    "The Prime Minister",
+    "The commercial banks"
+   ],
+   "answer": 0,
+   "why": "The Bank has been independent on this since 1997.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-who",
+   "type": "mcq",
+   "topic": "objectives",
+   "q": "Who sets the inflation target?",
+   "options": [
+    "The government",
+    "The MPC",
+    "Commercial banks",
+    "The ONS"
+   ],
+   "answer": 0,
+   "why": "The government sets the target, and the Bank decides how to meet it.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-function",
+   "type": "mcq",
+   "topic": "central bank",
+   "q": "What does \"lender of last resort\" mean?",
+   "options": [
+    "The central bank lends to banks in a crisis",
+    "Banks lend only to rich people",
+    "The government borrows from savers",
+    "Firms lend to each other"
+   ],
+   "answer": 0,
+   "why": "It helps to stop a bank run from spreading.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-lag",
+   "type": "tf",
+   "topic": "time lags",
+   "q": "A change in Bank Rate has its full effect on inflation straight away.",
+   "answer": false,
+   "why": "It can take up to about two years.",
+   "spec": "4.2.4.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-factor",
+   "type": "mcq",
+   "topic": "factors considered",
+   "q": "Which would most likely lead the MPC to cut Bank Rate?",
+   "options": [
+    "Forecast inflation well below 2% and a weak economy",
+    "Rapid pay growth",
+    "A large positive output gap",
+    "A surge in consumer spending"
+   ],
+   "answer": 0,
+   "why": "The target works both ways.",
+   "spec": "4.2.4.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.3-explain",
+   "type": "explain",
+   "topic": "independence",
+   "q": "Explain why an independent central bank may be better at controlling inflation.",
+   "ideas": [
+    {
+     "label": "It's free from short-term political pressure",
+     "any": [
+      "political",
+      "politician*",
+      "elections",
+      "elected",
+      "government interference",
+      "short-term",
+      "short term",
+      "votes"
+     ]
+    },
+    {
+     "label": "So it's more credible, which keeps inflation expectations low",
+     "any": [
+      "credib*",
+      "expectation*",
+      "trust*",
+      "believe*",
+      "wage demands",
+      "anchor*",
+      "unpopular",
+      "raise rates",
+      "raise interest rates"
+     ]
+    }
+   ],
+   "model": "An independent bank is free from short-term political pressure, such as elections. This makes the target more credible, so inflation expectations stay low.",
+   "why": "People believe a target that politicians can't bend.",
+   "tests": [
+    {
+     "answer": "It is free from political pressure, so its target is credible and expectations stay low.",
+     "marks": 2
+    },
+    {
+     "answer": "It is free from political pressure.",
+     "marks": 1
+    },
+    {
+     "answer": "It has more money.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.4.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

@@ -153,6 +153,8 @@ export const NATURAL_RATE = 5;
 export const phillips = (u, expected) => expected + 30 / u - 6;
 // Fisher: MV = PQ, so P = MV / Q.
 export const fisherP = (m, v, q) => (m * v) / q;
+// A bond's yield: the fixed coupon as a percentage of its market price.
+export const bondYield = (coupon, price) => (coupon / price) * 100;
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -589,6 +591,25 @@ export const econCharts = {
     wire(root, specs, ({ m, v, q }, set) => {
       set('p', `£${fisherP(m, v, q).toFixed(2)}`); set('y', `£${m * v}bn`);
       root.querySelector('[data-desc]').textContent = 'Monetarists assume that V and Q are fairly stable. Hold them still and raise M: P rises in proportion.';
+    });
+  },
+  bond(root, a) {
+    const specs = {
+      p: { min: 60, max: 140, step: 5, value: a.p ?? 100, fmt: v => `£${v}` },
+      c: { min: 2, max: 8, step: 1, value: a.c ?? 5, fmt: v => `£${v}` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Bond prices and yields</h3>${slider('p', 'Market price of the bond', specs.p)}${slider('c', 'Coupon each year', specs.c)}`
+      + `<div class="stats">${stat('Yield', 'y', 'good')}${stat('Face value', 'f')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ p, c }, set) => {
+      const y = bondYield(c, p);
+      set('y', `${y.toFixed(2)}%`); set('f', '£100');
+      root.querySelector('[data-chart]').innerHTML = lineChart({
+        label: `Yield falls as the price of the bond rises. At a price of £${p}, the yield is ${y.toFixed(2)} percent.`,
+        series: [{ name: 'Yield at each price', tone: 'a', points: Array.from({ length: 17 }, (_, i) => [60 + i * 5, +bondYield(c, 60 + i * 5).toFixed(2)]) }],
+        yFmt: v => `${v}%`, xFmt: v => `£${v}`, xTicks: [60, 100, 140],
+      });
+      root.querySelector('[data-desc]').textContent = `The coupon stays at £${c}, so paying more for the bond means a lower return. Price up, yield down.`;
     });
   },
   costs(root, a) {

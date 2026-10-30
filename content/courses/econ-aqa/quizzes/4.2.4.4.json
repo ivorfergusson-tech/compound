@@ -1,0 +1,167 @@
+{
+ "module": "4.2.4.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.4.4-short",
+   "type": "mcq",
+   "topic": "bank failure",
+   "q": "What does it mean to say that banks \"borrow short and lend long\"?",
+   "options": [
+    "Deposits can be withdrawn at any time, while loans last for years",
+    "Banks only lend for a day",
+    "Banks don't take deposits",
+    "Loans are always repaid early"
+   ],
+   "answer": 0,
+   "why": "This mismatch creates liquidity risk.",
+   "spec": "4.2.4.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.4-reg",
+   "type": "match",
+   "topic": "regulators",
+   "q": "Match each body to its main focus.",
+   "pairs": [
+    [
+     "Risks to the whole system",
+     "FPC"
+    ],
+    [
+     "Safety of individual banks and insurers",
+     "PRA"
+    ],
+    [
+     "How firms treat customers",
+     "FCA"
+    ]
+   ],
+   "why": "You only need an outline of their roles.",
+   "spec": "4.2.4.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.4-moral",
+   "type": "mcq",
+   "topic": "moral hazard",
+   "q": "Which is an example of moral hazard?",
+   "options": [
+    "A bank takes big risks, expecting a government rescue if it fails",
+    "A bank holds more capital",
+    "Savers compare interest rates",
+    "A regulator fines a firm"
+   ],
+   "answer": 0,
+   "why": "It keeps the gains, and others bear the losses.",
+   "spec": "4.2.4.4",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.4.4-capital",
+   "type": "tf",
+   "topic": "capital ratios",
+   "q": "A higher capital ratio helps a bank to absorb losses.",
+   "answer": true,
+   "why": "Shareholders' funds take the first losses.",
+   "spec": "4.2.4.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.4-sys",
+   "type": "mcq",
+   "topic": "systemic risk",
+   "q": "What is systemic risk?",
+   "options": [
+    "The risk that one failure spreads through the financial system",
+    "The risk of one customer not repaying",
+    "The risk of a computer failing",
+    "The risk that interest rates change"
+   ],
+   "answer": 0,
+   "why": "Banks are linked by their loans to each other, and by confidence.",
+   "spec": "4.2.4.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.4.4-explain",
+   "type": "explain",
+   "topic": "bank failure",
+   "q": "Explain how a bank that holds sound loans could still fail.",
+   "ideas": [
+    {
+     "label": "Savers lose confidence and withdraw, in a bank run",
+     "any": [
+      "bank run",
+      "run on",
+      "withdraw*",
+      "lose confidence",
+      "loss of confidence",
+      "take out their",
+      "take their money",
+      "funding dries up",
+      "markets freeze",
+      "cannot borrow",
+      "can't borrow"
+     ]
+    },
+    {
+     "label": "Its loans are long term, so it lacks the cash or liquidity to pay",
+     "any": [
+      "liquid*",
+      "cash",
+      "long term",
+      "long-term",
+      "tied up",
+      "lend long",
+      "can't call in",
+      "cannot call in",
+      "borrow short"
+     ]
+    }
+   ],
+   "model": "If savers lose confidence and withdraw, the bank faces a run. Its loans are long term and tied up, so it lacks the cash to pay, even if the loans are sound.",
+   "why": "Sound isn't the same as liquid.",
+   "tests": [
+    {
+     "answer": "Savers lose confidence and withdraw, but the loans are long term so it lacks the cash.",
+     "marks": 2
+    },
+    {
+     "answer": "There is a bank run.",
+     "marks": 1
+    },
+    {
+     "answer": "Banks are risky.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.4.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

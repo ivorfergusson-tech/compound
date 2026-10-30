@@ -90,6 +90,11 @@
    "name": "Economic performance",
    "emoji": "🌡️",
    "blurb": "Growth, the cycle, jobs and prices, and why they can pull against each other."
+  },
+  "4.2.4": {
+   "name": "Financial markets and monetary policy",
+   "emoji": "🏦",
+   "blurb": "Money, banks, the Bank of England and how the financial system is kept safe."
   }
  },
  "items": [
@@ -1652,6 +1657,124 @@
     "long-run phillips curve"
    ],
    "summary": "Output gaps, the Phillips curves and how to reconcile policy conflicts."
+  },
+  {
+   "id": "4.2.4.1",
+   "kind": "module",
+   "num": 72,
+   "strand": "4.2.4",
+   "title": "The structure of financial markets and financial assets",
+   "short": "Financial markets",
+   "level": "A-level",
+   "spec": [
+    "4.2.4.1"
+   ],
+   "buildsOn": [
+    71
+   ],
+   "introduces": [
+    "money",
+    "money supply",
+    "narrow money",
+    "broad money",
+    "debt",
+    "equity shares",
+    "bond",
+    "coupon",
+    "maturity"
+   ],
+   "summary": "Money, markets, debt and equity, and why bond prices and yields move apart."
+  },
+  {
+   "id": "4.2.4.2",
+   "kind": "module",
+   "num": 73,
+   "strand": "4.2.4",
+   "title": "Commercial banks and investment banks",
+   "short": "Banks",
+   "level": "A-level",
+   "spec": [
+    "4.2.4.2"
+   ],
+   "buildsOn": [
+    72
+   ],
+   "introduces": [
+    "commercial bank",
+    "investment bank",
+    "liquidity",
+    "credit creation",
+    "systemic risk"
+   ],
+   "summary": "What banks do, their balance sheets and how they create money."
+  },
+  {
+   "id": "4.2.4.3a",
+   "kind": "module",
+   "num": 74,
+   "strand": "4.2.4",
+   "title": "The Bank of England, the MPC and bank rate",
+   "short": "The Bank of England",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.4.3"
+   ],
+   "buildsOn": [
+    73
+   ],
+   "introduces": [
+    "central bank",
+    "monetary policy",
+    "monetary policy committee",
+    "bank rate"
+   ],
+   "summary": "What the Bank does, and how the MPC sets Bank Rate."
+  },
+  {
+   "id": "4.2.4.3b",
+   "kind": "module",
+   "num": 75,
+   "strand": "4.2.4",
+   "title": "The transmission mechanism, exchange rates and quantitative easing",
+   "short": "How monetary policy works",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.4.3"
+   ],
+   "buildsOn": [
+    74
+   ],
+   "introduces": [
+    "transmission mechanism",
+    "quantitative easing",
+    "forward guidance",
+    "exchange rate"
+   ],
+   "summary": "The transmission mechanism, the exchange rate, QE and other tools."
+  },
+  {
+   "id": "4.2.4.4",
+   "kind": "module",
+   "num": 76,
+   "strand": "4.2.4",
+   "title": "The regulation of the financial system",
+   "short": "Financial regulation",
+   "level": "A-level",
+   "spec": [
+    "4.2.4.4"
+   ],
+   "buildsOn": [
+    75
+   ],
+   "introduces": [
+    "liquidity ratio",
+    "capital ratio",
+    "moral hazard",
+    "financial policy committee",
+    "prudential regulation authority",
+    "financial conduct authority"
+   ],
+   "summary": "Why banks fail, and who keeps the system safe."
   }
  ]
 }
