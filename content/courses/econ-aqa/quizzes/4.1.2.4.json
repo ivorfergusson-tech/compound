@@ -1,0 +1,213 @@
+{
+ "module": "4.1.2.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.2.4-architecture",
+   "type": "mcq",
+   "topic": "choice architecture",
+   "q": "What is choice architecture?",
+   "options": [
+    "The design of shops and offices",
+    "The way choices are presented to people",
+    "The law on consumer rights",
+    "The range of goods a firm makes"
+   ],
+   "answer": 1,
+   "why": "How options are laid out affects what people pick.",
+   "spec": "4.1.2.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-framing",
+   "type": "mcq",
+   "topic": "framing",
+   "q": "A yoghurt is labelled \"95% fat free\" and not \"5% fat\". What is this an example of?",
+   "options": [
+    "Framing",
+    "Mandated choice",
+    "Anchoring",
+    "Restricted choice"
+   ],
+   "answer": 0,
+   "why": "The facts are the same, but the wording makes them sound better.",
+   "spec": "4.1.2.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-nudge",
+   "type": "mcq",
+   "topic": "nudges",
+   "q": "Which of these is a nudge?",
+   "options": [
+    "A ban on smoking in cars with children",
+    "A tax on sugary drinks",
+    "Putting healthy food at eye level in a canteen",
+    "A minimum price for alcohol"
+   ],
+   "answer": 2,
+   "why": "A nudge changes how a choice is presented without banning anything or significantly changing incentives.",
+   "spec": "4.1.2.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-types",
+   "type": "match",
+   "topic": "default, restricted and mandated choice",
+   "q": "Match each type of choice to its meaning.",
+   "pairs": [
+    [
+     "Default choice",
+     "What happens if you do nothing"
+    ],
+    [
+     "Restricted choice",
+     "Some options are removed"
+    ],
+    [
+     "Mandated choice",
+     "You must actively decide"
+    ]
+   ],
+   "why": "Defaults rely on inertia, restrictions limit options, and mandates force a decision.",
+   "spec": "4.1.2.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-pension",
+   "type": "tf",
+   "topic": "default choices",
+   "q": "UK automatic enrolment into workplace pensions is an example of a default choice.",
+   "answer": true,
+   "why": "Eligible workers are put in unless they opt out, so doing nothing means saving.",
+   "spec": "4.1.2.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-why-default",
+   "type": "mcq",
+   "topic": "why defaults work",
+   "q": "Why do default choices tend to have such a big effect?",
+   "options": [
+    "They raise people's incomes",
+    "Many people stick with whatever happens if they do nothing",
+    "They make the alternative illegal",
+    "They are always the cheapest option"
+   ],
+   "answer": 1,
+   "why": "Inertia and bounded self-control mean many people never change the default.",
+   "spec": "4.1.2.4",
+   "ao": "AO1",
+   "command": "Explain",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-limit",
+   "type": "mcq",
+   "topic": "limits of nudges",
+   "q": "Which is a valid criticism of government nudges?",
+   "options": [
+    "They are always more expensive than taxes",
+    "They remove all freedom of choice",
+    "They rest on a value judgement about what is best for people",
+    "They only work on firms"
+   ],
+   "answer": 2,
+   "why": "Someone has to decide what is \"better\", which is a normative question. Nudges are usually cheap and keep freedom of choice.",
+   "spec": "4.1.2.4",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.2.4-compare",
+   "type": "explain",
+   "topic": "nudges compared with bans",
+   "q": "Explain one advantage and one disadvantage of using a nudge rather than a ban to reduce unhealthy eating.",
+   "ideas": [
+    {
+     "label": "Advantage: keeps freedom of choice, or is cheap and easy to bring in",
+     "any": [
+      "freedom",
+      "free to choose",
+      "still choose",
+      "choice remains",
+      "keeps choice",
+      "keep choice",
+      "still have a choice",
+      "cheap*",
+      "low cost",
+      "less expensive",
+      "costs less",
+      "easy to"
+     ]
+    },
+    {
+     "label": "Disadvantage: the effect may be small, fade, or be ignored",
+     "any": [
+      "small",
+      "weak",
+      "may not work",
+      "might not work",
+      "not work",
+      "fade*",
+      "wear off",
+      "ignore*",
+      "less effective",
+      "not as effective",
+      "limited effect",
+      "still eat",
+      "paternalis*",
+      "manipulat*"
+     ]
+    }
+   ],
+   "model": "A nudge keeps freedom of choice and is usually cheap to bring in, unlike a ban. But its effect may be small, because people can ignore it and still eat unhealthy food, so it may not solve the problem.",
+   "why": "A good answer gives one point on each side.",
+   "tests": [
+    {
+     "answer": "People keep their freedom to choose, but the effect may be small as they can ignore it.",
+     "marks": 2
+    },
+    {
+     "answer": "It is cheaper for the government.",
+     "marks": 1
+    },
+    {
+     "answer": "Bans are against the law.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.2.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

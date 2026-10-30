@@ -527,7 +527,7 @@ for (const e of registry.courses.filter(c => c.board)) {
     for (const sec of ['## Guess first', ':::callout idea', ':::callout exam', '## Key terms']) check(`${e.id}/${item.id}: has ${sec}`, md.includes(sec));
     for (const [, body] of md.matchAll(/:::check\n([\s\S]*?)\n:::/g)) {
       const q = instantiate(JSON.parse(body));
-      check(`${e.id}/${item.id}: quick check marks its answer right`, mark(q, { mcq: q.answer, tf: q.answer, match: Object.fromEntries((q.pairs || []).map(([l, r]) => [l, r])) }[q.type]).correct);
+      check(`${e.id}/${item.id}: quick check marks its answer right`, mark(q, { mcq: q.answer, tf: q.answer, number: String(q.answerValue), match: Object.fromEntries((q.pairs || []).map(([l, r]) => [l, r])) }[q.type]).correct);
     }
     for (const [, name] of md.matchAll(/^:::chart (\w+)/gm)) check(`${e.id}/${item.id}: chart ${name} exists`, name in econCharts);
     const qz = JSON.parse(readFileSync(new URL(`quizzes/${item.id}.json`, dir)));

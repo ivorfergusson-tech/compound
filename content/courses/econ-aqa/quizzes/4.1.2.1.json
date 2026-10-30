@@ -1,0 +1,220 @@
+{
+ "module": "4.1.2.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.2.1-rational",
+   "type": "mcq",
+   "topic": "rational decision making",
+   "q": "What does traditional economic theory mean by a rational consumer?",
+   "options": [
+    "Someone who never makes a mistake",
+    "Someone who weighs up costs and benefits to get the most satisfaction from their income",
+    "Someone who always buys the cheapest option",
+    "Someone who saves most of their income"
+   ],
+   "answer": 1,
+   "why": "Rational means choosing the option that best meets your own aims after weighing costs and benefits. It does not mean perfect or cheapest.",
+   "spec": "4.1.2.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.1-mu-calc",
+   "type": "number",
+   "topic": "calculating marginal utility",
+   "q": "A consumer's total utility from {n} cups of tea is {a} units, and from one more cup it is {b} units. What is the marginal utility of the extra cup?",
+   "vars": {
+    "n": {
+     "min": 2,
+     "max": 5,
+     "step": 1,
+     "default": 3
+    },
+    "a": {
+     "min": 20,
+     "max": 40,
+     "step": 2,
+     "default": 30
+    },
+    "m": {
+     "min": 2,
+     "max": 8,
+     "step": 1,
+     "default": 5
+    }
+   },
+   "calc": {
+    "b": "a + m"
+   },
+   "calcFmt": {},
+   "answer": "m",
+   "tol": 0.01,
+   "unit": "units",
+   "dp": 0,
+   "why": "{b} − {a} = {answer}. Marginal utility is the change in total utility from one more unit.",
+   "spec": "4.1.2.1",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.1-tu-calc",
+   "type": "number",
+   "topic": "calculating total utility",
+   "q": "The marginal utility of the first three slices of cake is {a}, {b} and {c} units. What is the total utility of the three slices?",
+   "vars": {
+    "a": {
+     "min": 14,
+     "max": 20,
+     "step": 1,
+     "default": 16
+    },
+    "b": {
+     "min": 9,
+     "max": 12,
+     "step": 1,
+     "default": 10
+    },
+    "c": {
+     "min": 3,
+     "max": 7,
+     "step": 1,
+     "default": 5
+    }
+   },
+   "answer": "a+b+c",
+   "tol": 0.01,
+   "unit": "units",
+   "dp": 0,
+   "why": "Total utility is the sum of the marginal utilities: {answer} units.",
+   "spec": "4.1.2.1",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.1-tu-peak",
+   "type": "tf",
+   "topic": "total and marginal utility",
+   "q": "Total utility is at its highest when marginal utility is zero.",
+   "answer": true,
+   "why": "While marginal utility is positive, total utility is still rising. Once it hits zero, one more unit adds nothing, and below zero total utility falls.",
+   "spec": "4.1.2.1",
+   "ao": "AO2",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.1-dmu",
+   "type": "mcq",
+   "topic": "diminishing marginal utility",
+   "q": "Which statement describes the hypothesis of diminishing marginal utility?",
+   "options": [
+    "As more of a good is consumed in a period, total satisfaction falls",
+    "As more of a good is consumed in a period, the extra satisfaction from each additional unit eventually falls",
+    "As price rises, satisfaction falls",
+    "As income rises, people buy less of every good"
+   ],
+   "answer": 1,
+   "why": "It is the extra (marginal) satisfaction that falls. Total utility can go on rising.",
+   "spec": "4.1.2.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.1-margin",
+   "type": "mcq",
+   "topic": "the importance of the margin",
+   "q": "A student has already revised for two hours. A third hour would be worth £5 to them, but they would give up a £7 shift to do it. What does thinking at the margin suggest?",
+   "options": [
+    "Revise, because the first two hours were useful",
+    "Take the shift, because the extra benefit of the third hour is less than its extra cost",
+    "Revise, because two hours have already been spent",
+    "Take the shift, because revision has no value"
+   ],
+   "answer": 1,
+   "why": "The choice depends only on the extra benefit and extra cost of the next hour, not on the hours already spent.",
+   "spec": "4.1.2.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.1-demand",
+   "type": "explain",
+   "topic": "diminishing marginal utility and demand",
+   "q": "Explain why diminishing marginal utility supports a downward-sloping demand curve.",
+   "ideas": [
+    {
+     "label": "Each extra unit gives less satisfaction (marginal utility falls)",
+     "any": [
+      "marginal utility",
+      "less satisfaction",
+      "less utility",
+      "less benefit",
+      "extra satisfaction",
+      "satisfaction falls",
+      "extra benefit",
+      "each extra",
+      "each additional",
+      "less enjoyment"
+     ]
+    },
+    {
+     "label": "So consumers will only buy more at a lower price",
+     "any": [
+      "lower price",
+      "price falls",
+      "price is lower",
+      "price fall",
+      "price lower",
+      "price drops",
+      "cheaper",
+      "pay less",
+      "less willing",
+      "willing to pay",
+      "price decreases",
+      "price is reduced"
+     ]
+    }
+   ],
+   "model": "As more of a good is consumed, each extra unit gives less satisfaction, so marginal utility falls. Because the extra unit is worth less to them, consumers will only buy more if the price is lower, so quantity demanded rises as price falls.",
+   "why": "Falling extra satisfaction means a lower price is needed to persuade people to buy more.",
+   "tests": [
+    {
+     "answer": "Each extra unit gives less satisfaction so people will only buy more at a lower price.",
+     "marks": 2
+    },
+    {
+     "answer": "Marginal utility falls as you have more of something.",
+     "marks": 1
+    },
+    {
+     "answer": "Firms supply more when they can charge more.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.2.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

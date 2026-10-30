@@ -26,6 +26,11 @@
    "name": "Economic methodology and the economic problem",
    "emoji": "🧭",
    "blurb": "What economics is, scarcity, opportunity cost and production possibility diagrams."
+  },
+  "4.1.2": {
+   "name": "Individual economic decision making",
+   "emoji": "🧠",
+   "blurb": "Rational choice and utility, imperfect information, and what behavioural economics adds."
   }
  },
  "items": [
@@ -151,6 +156,103 @@
     "role": "Owner",
     "date": "2026-10-30"
    }
+  },
+  {
+   "id": "4.1.2.1",
+   "kind": "module",
+   "num": 5,
+   "strand": "4.1.2",
+   "title": "Consumer behaviour",
+   "short": "Consumer behaviour",
+   "level": "A-level",
+   "spec": [
+    "4.1.2.1"
+   ],
+   "buildsOn": [
+    4
+   ],
+   "introduces": [
+    "rational decision making",
+    "economic incentive",
+    "utility",
+    "total utility",
+    "marginal utility",
+    "diminishing marginal utility",
+    "utility maximisation"
+   ],
+   "summary": "Rational choice, utility and why decisions are made at the margin."
+  },
+  {
+   "id": "4.1.2.2",
+   "kind": "module",
+   "num": 6,
+   "strand": "4.1.2",
+   "title": "Imperfect information",
+   "short": "Imperfect information",
+   "level": "A-level",
+   "spec": [
+    "4.1.2.2"
+   ],
+   "buildsOn": [
+    5
+   ],
+   "introduces": [
+    "imperfect information",
+    "asymmetric information",
+    "market failure"
+   ],
+   "summary": "Why information matters, and what happens when one side knows more."
+  },
+  {
+   "id": "4.1.2.3",
+   "kind": "module",
+   "num": 7,
+   "strand": "4.1.2",
+   "title": "Aspects of behavioural economic theory",
+   "short": "Behavioural economic theory",
+   "level": "A-level",
+   "spec": [
+    "4.1.2.3"
+   ],
+   "buildsOn": [
+    6
+   ],
+   "introduces": [
+    "behavioural economics",
+    "bounded rationality",
+    "bounded self-control",
+    "rules of thumb",
+    "anchoring",
+    "availability bias",
+    "social norms",
+    "altruism",
+    "perceptions of fairness"
+   ],
+   "summary": "Why real people aren't always rational: limits, biases, altruism and fairness."
+  },
+  {
+   "id": "4.1.2.4",
+   "kind": "module",
+   "num": 8,
+   "strand": "4.1.2",
+   "title": "Behavioural economics and economic policy",
+   "short": "Behavioural economics and policy",
+   "level": "A-level",
+   "spec": [
+    "4.1.2.4"
+   ],
+   "buildsOn": [
+    7
+   ],
+   "introduces": [
+    "choice architecture",
+    "framing",
+    "nudge",
+    "default choice",
+    "restricted choice",
+    "mandated choice"
+   ],
+   "summary": "How choice architecture, nudges and defaults are used to steer decisions."
   }
  ]
 }

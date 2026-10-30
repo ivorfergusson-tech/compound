@@ -9,6 +9,41 @@
   "def": "Allocating resources to produce the combination of goods and services people value most.",
   "module": "4.1.1.5"
  },
+ "altruism": {
+  "term": "altruism",
+  "def": "Caring about the welfare of others, even at a cost to yourself.",
+  "module": "4.1.2.3"
+ },
+ "anchoring": {
+  "term": "anchoring",
+  "def": "A bias in which people rely too much on the first number or piece of information they see.",
+  "module": "4.1.2.3"
+ },
+ "asymmetric information": {
+  "term": "asymmetric information",
+  "def": "When one party to a deal has more information than the other.",
+  "module": "4.1.2.2"
+ },
+ "availability bias": {
+  "term": "availability bias",
+  "def": "Judging how likely something is by how easily examples come to mind.",
+  "module": "4.1.2.3"
+ },
+ "behavioural economics": {
+  "term": "behavioural economics",
+  "def": "The study of how people really make decisions, using ideas from psychology to question the assumption that people are rational.",
+  "module": "4.1.2.3"
+ },
+ "bounded rationality": {
+  "term": "bounded rationality",
+  "def": "Rational decision making limited by the information people have, their ability to process it and the time available.",
+  "module": "4.1.2.3"
+ },
+ "bounded self-control": {
+  "term": "bounded self-control",
+  "def": "Limited willpower: people may know what's best for them but not do it.",
+  "module": "4.1.2.3"
+ },
  "capital": {
   "term": "capital",
   "def": "Man-made goods used to produce other goods and services, such as machines, tools and buildings. Not money. Its reward is interest.",
@@ -24,10 +59,25 @@
   "def": "Latin for 'all other things being equal': the assumption that only one thing changes while you look at its effect.",
   "module": "4.1.1.1"
  },
+ "choice architecture": {
+  "term": "choice architecture",
+  "def": "The way choices are presented to people, which influences what they choose.",
+  "module": "4.1.2.4"
+ },
  "consumer goods": {
   "term": "consumer goods",
   "def": "Goods bought by households to use up for their own satisfaction, such as food and clothes.",
   "module": "4.1.1.2"
+ },
+ "default choice": {
+  "term": "default choice",
+  "def": "The option that applies if a person takes no action.",
+  "module": "4.1.2.4"
+ },
+ "diminishing marginal utility": {
+  "term": "diminishing marginal utility",
+  "def": "The idea that as more of a good is consumed in a given period, the extra satisfaction from each additional unit eventually falls.",
+  "module": "4.1.2.1"
  },
  "economic good": {
   "term": "economic good",
@@ -38,6 +88,11 @@
   "term": "economic growth",
   "def": "An increase in an economy's productive capacity, shown by an outward shift of the production possibility frontier.",
   "module": "4.1.1.5"
+ },
+ "economic incentive": {
+  "term": "economic incentive",
+  "def": "Something that encourages or discourages a choice by changing its costs or benefits, such as a price, bonus or tax.",
+  "module": "4.1.2.1"
  },
  "economic model": {
   "term": "economic model",
@@ -64,6 +119,11 @@
   "def": "The four kinds of resources used to produce goods and services: land, labour, capital and enterprise.",
   "module": "4.1.1.2"
  },
+ "framing": {
+  "term": "framing",
+  "def": "The way information is worded, which affects how people respond to the same facts.",
+  "module": "4.1.2.4"
+ },
  "free good": {
   "term": "free good",
   "def": "A good with no opportunity cost, because there's enough for everyone without anyone going short, such as air.",
@@ -74,6 +134,11 @@
   "def": "Physical products that can be touched, such as food, cars and phones.",
   "module": "4.1.1.2"
  },
+ "imperfect information": {
+  "term": "imperfect information",
+  "def": "When buyers, sellers or both don't have all the information they need to make a rational decision.",
+  "module": "4.1.2.2"
+ },
  "labour": {
   "term": "labour",
   "def": "The physical and mental work people put into production. Its reward is wages.",
@@ -83,6 +148,21 @@
   "term": "land",
   "def": "Natural resources used in production, such as the ground, minerals, water, oil and fish. Its reward is rent.",
   "module": "4.1.1.2"
+ },
+ "mandated choice": {
+  "term": "mandated choice",
+  "def": "Requiring people to make an active decision, with no default.",
+  "module": "4.1.2.4"
+ },
+ "marginal utility": {
+  "term": "marginal utility",
+  "def": "The extra satisfaction from consuming one more unit of a good.",
+  "module": "4.1.2.1"
+ },
+ "market failure": {
+  "term": "market failure",
+  "def": "When the price mechanism allocates resources inefficiently, so society's welfare is not as high as it could be.",
+  "module": "4.1.2.2"
  },
  "needs": {
   "term": "needs",
@@ -99,10 +179,20 @@
   "def": "A statement about what ought to be. It contains a value judgement, so it can't be proved true or false.",
   "module": "4.1.1.1"
  },
+ "nudge": {
+  "term": "nudge",
+  "def": "A small change to how a choice is presented that steers people without banning options or significantly changing incentives.",
+  "module": "4.1.2.4"
+ },
  "opportunity cost": {
   "term": "opportunity cost",
   "def": "The value of the next best alternative given up when a choice is made.",
   "module": "4.1.1.4"
+ },
+ "perceptions of fairness": {
+  "term": "perceptions of fairness",
+  "def": "People's views on what's fair, which can lead them to turn down deals they see as unfair, even at a cost to themselves.",
+  "module": "4.1.2.3"
  },
  "positive statement": {
   "term": "positive statement",
@@ -119,10 +209,25 @@
   "def": "Producing the most output possible from the resources available, with nothing wasted. Every point on the PPF is productively efficient.",
   "module": "4.1.1.5"
  },
+ "rational decision making": {
+  "term": "rational decision making",
+  "def": "Weighing up the costs and benefits of each option and choosing the one that best meets your aims.",
+  "module": "4.1.2.1"
+ },
  "renewable resource": {
   "term": "renewable resource",
   "def": "A natural resource that can be replaced over time, such as fish or forests, though it can still run out if used too fast.",
   "module": "4.1.1.2"
+ },
+ "restricted choice": {
+  "term": "restricted choice",
+  "def": "Limiting the options available to steer people's decisions.",
+  "module": "4.1.2.4"
+ },
+ "rules of thumb": {
+  "term": "rules of thumb",
+  "def": "Simple mental shortcuts used to make decisions quickly, which aren't always right.",
+  "module": "4.1.2.3"
  },
  "scarcity": {
   "term": "scarcity",
@@ -134,15 +239,35 @@
   "def": "Things done for people rather than physical products, such as haircuts, transport and teaching.",
   "module": "4.1.1.2"
  },
+ "social norms": {
+  "term": "social norms",
+  "def": "The behaviour seen as normal or acceptable in a group, which influences what people choose.",
+  "module": "4.1.2.3"
+ },
  "social science": {
   "term": "social science",
   "def": "A subject that studies how people and societies behave. Economics is one, because it studies people's choices.",
   "module": "4.1.1.1"
  },
+ "total utility": {
+  "term": "total utility",
+  "def": "The total satisfaction from all the units of a good consumed.",
+  "module": "4.1.2.1"
+ },
  "trade-off": {
   "term": "trade-off",
   "def": "Accepting less of one thing to get more of another.",
   "module": "4.1.1.4"
+ },
+ "utility": {
+  "term": "utility",
+  "def": "The satisfaction or benefit a person gets from consuming a good or service.",
+  "module": "4.1.2.1"
+ },
+ "utility maximisation": {
+  "term": "utility maximisation",
+  "def": "Getting the greatest possible total satisfaction from a limited income.",
+  "module": "4.1.2.1"
  },
  "value judgement": {
   "term": "value judgement",

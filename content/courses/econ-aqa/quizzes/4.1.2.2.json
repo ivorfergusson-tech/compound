@@ -1,0 +1,190 @@
+{
+ "module": "4.1.2.2",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.2.2-imperfect",
+   "type": "mcq",
+   "topic": "imperfect information",
+   "q": "What is imperfect information?",
+   "options": [
+    "When prices are too high",
+    "When economic agents do not have all the information needed to make a rational decision",
+    "When a firm has a monopoly",
+    "When the government keeps statistics secret"
+   ],
+   "answer": 1,
+   "why": "Without full information, people struggle to compare options and judge true costs and benefits.",
+   "spec": "4.1.2.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.2-asymmetric",
+   "type": "mcq",
+   "topic": "asymmetric information",
+   "q": "Which of these best describes asymmetric information?",
+   "options": [
+    "Both sides of a deal lack information",
+    "One party to a deal has more information than the other",
+    "Information is expensive to buy",
+    "Information is shared equally"
+   ],
+   "answer": 1,
+   "why": "Asymmetric means uneven: one side knows more than the other.",
+   "spec": "4.1.2.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.2-example",
+   "type": "mcq",
+   "topic": "asymmetric information in practice",
+   "q": "Which is an example of asymmetric information?",
+   "options": [
+    "A car insurer cannot tell how carefully a new customer drives",
+    "A shopper forgets to bring a shopping list",
+    "Nobody knows who will win an election",
+    "A firm has to pay a higher wage"
+   ],
+   "answer": 0,
+   "why": "The customer knows how they drive and the insurer does not.",
+   "spec": "4.1.2.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.2-failure",
+   "type": "tf",
+   "topic": "information and market failure",
+   "q": "Imperfect information is a potential source of market failure.",
+   "answer": true,
+   "why": "If people cannot judge true costs and benefits, they consume too much or too little, so resources are misallocated.",
+   "spec": "4.1.2.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.2-effect",
+   "type": "mcq",
+   "topic": "effects of imperfect information",
+   "q": "People underestimate the long-term benefits of exercise. What is the likely result if this is left to the market?",
+   "options": [
+    "Too much exercise",
+    "Too little exercise",
+    "The right amount, as prices adjust",
+    "No change in behaviour at all"
+   ],
+   "answer": 1,
+   "why": "If the benefit is underestimated, people take too little of it compared with what would be best for them.",
+   "spec": "4.1.2.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.2-remedy",
+   "type": "mcq",
+   "topic": "reducing asymmetric information",
+   "q": "Which of these would most directly reduce asymmetric information in the used car market?",
+   "options": [
+    "A subsidy for new cars",
+    "A legal requirement to show a car's full service and accident history",
+    "A higher tax on fuel",
+    "A rise in interest rates"
+   ],
+   "answer": 1,
+   "why": "Making the history available gives buyers the information the seller already has.",
+   "spec": "4.1.2.2",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.2-cars",
+   "type": "explain",
+   "topic": "the significance of asymmetric information",
+   "q": "Explain why asymmetric information can cause buyers of second-hand cars to be worse off.",
+   "ideas": [
+    {
+     "label": "The seller knows more about the car's faults or quality than the buyer",
+     "any": [
+      "seller knows",
+      "sellers know",
+      "seller has more",
+      "sellers have more",
+      "more information",
+      "knows more",
+      "know more",
+      "hidden",
+      "hide",
+      "faults",
+      "fault",
+      "quality",
+      "can't tell",
+      "cannot tell"
+     ]
+    },
+    {
+     "label": "So the buyer may pay too much for a bad car, or avoid buying at all",
+     "any": [
+      "pay too much",
+      "paying too much",
+      "overpay*",
+      "pay more",
+      "too much",
+      "bad car",
+      "poor car",
+      "worse car",
+      "faulty car",
+      "ripped off",
+      "rip off",
+      "wrong car",
+      "not buy",
+      "don't buy",
+      "avoid",
+      "not worth"
+     ]
+    }
+   ],
+   "model": "The seller knows more about the car's quality and faults than the buyer. The buyer cannot tell a good car from a bad one, so they may pay too much for a faulty car, or avoid buying at all and miss out on a good one.",
+   "why": "Uneven knowledge means the buyer can pay more than the car is worth to them.",
+   "tests": [
+    {
+     "answer": "The seller knows more about the faults, so the buyer may pay too much for a bad car.",
+     "marks": 2
+    },
+    {
+     "answer": "The seller has more information than the buyer.",
+     "marks": 1
+    },
+    {
+     "answer": "Second-hand cars lose value quickly.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.2.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

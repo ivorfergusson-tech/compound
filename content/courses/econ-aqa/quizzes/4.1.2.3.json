@@ -1,0 +1,211 @@
+{
+ "module": "4.1.2.3",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.2.3-bounded",
+   "type": "mcq",
+   "topic": "bounded rationality",
+   "q": "What is bounded rationality?",
+   "options": [
+    "Choosing irrationally on purpose",
+    "Rational choice limited by information, brain power and time",
+    "Refusing to buy anything over a set price",
+    "A law limiting consumer choice"
+   ],
+   "answer": 1,
+   "why": "People try to choose well but are limited in what they know, what they can process and the time they have.",
+   "spec": "4.1.2.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-self-control",
+   "type": "mcq",
+   "topic": "bounded self-control",
+   "q": "Which is the best example of bounded self-control?",
+   "options": [
+    "Comparing three phone contracts and picking one",
+    "Knowing you should stop eating crisps, but finishing the bag anyway",
+    "Giving money to charity",
+    "Copying what a friend bought"
+   ],
+   "answer": 1,
+   "why": "You know what is best but lack the willpower to do it.",
+   "spec": "4.1.2.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-biases",
+   "type": "match",
+   "topic": "biases in decision making",
+   "q": "Match each bias to its meaning.",
+   "pairs": [
+    [
+     "Rule of thumb",
+     "A simple mental shortcut"
+    ],
+    [
+     "Anchoring",
+     "Relying too much on the first number seen"
+    ],
+    [
+     "Availability",
+     "Judging likelihood by how easily examples come to mind"
+    ],
+    [
+     "Social norms",
+     "Doing what others around you do"
+    ]
+   ],
+   "why": "These are the four biases named in the specification.",
+   "spec": "4.1.2.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-anchoring",
+   "type": "mcq",
+   "topic": "anchoring",
+   "q": "A restaurant puts a £90 steak at the top of its menu so that a £35 steak seems reasonable. Which bias is it using?",
+   "options": [
+    "Availability",
+    "Anchoring",
+    "Altruism",
+    "Bounded self-control"
+   ],
+   "answer": 1,
+   "why": "The first high number sets a reference point that makes later prices feel low.",
+   "spec": "4.1.2.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-availability",
+   "type": "mcq",
+   "topic": "availability",
+   "q": "After a burglary in the street, residents think burglaries are far more common than the data shows. Which bias is this?",
+   "options": [
+    "Anchoring",
+    "Availability",
+    "Social norms",
+    "Rule of thumb"
+   ],
+   "answer": 1,
+   "why": "A recent, vivid example comes to mind easily, so it seems more likely than it is.",
+   "spec": "4.1.2.3",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-altruism",
+   "type": "tf",
+   "topic": "altruism",
+   "q": "Giving blood for no reward is difficult to explain if people only ever act in their own self-interest.",
+   "answer": true,
+   "why": "Altruism, caring about others at a cost to yourself, challenges the assumption of pure self-interest.",
+   "spec": "4.1.2.3",
+   "ao": "AO2",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-fairness",
+   "type": "mcq",
+   "topic": "perceptions of fairness",
+   "q": "In an experiment, Person A splits £10 with Person B. If B rejects the offer, both get nothing. B rejects an offer of £1. What does this suggest?",
+   "options": [
+    "B is maximising their money",
+    "B cares about fairness as well as money",
+    "B is anchored on £1",
+    "B has bounded self-control"
+   ],
+   "answer": 1,
+   "why": "A purely self-interested person would accept £1 over nothing. Rejecting it shows that fairness matters.",
+   "spec": "4.1.2.3",
+   "ao": "AO3",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.2.3-challenge",
+   "type": "explain",
+   "topic": "behavioural economics vs traditional theory",
+   "q": "Explain one way in which behavioural economics challenges the traditional assumption that consumers are rational.",
+   "ideas": [
+    {
+     "label": "Traditional theory assumes people weigh costs and benefits to maximise utility",
+     "any": [
+      "maximis*",
+      "utility",
+      "costs and benefits",
+      "cost and benefit",
+      "rational",
+      "traditional"
+     ]
+    },
+    {
+     "label": "But real people are limited or biased, e.g. bounded rationality, bounded self-control, anchoring",
+     "any": [
+      "bounded",
+      "bias*",
+      "anchor*",
+      "rule of thumb",
+      "rules of thumb",
+      "availability",
+      "social norm*",
+      "self-control",
+      "self control",
+      "willpower",
+      "limited information",
+      "shortcut*",
+      "altruis*",
+      "fairness"
+     ]
+    }
+   ],
+   "model": "Traditional theory assumes consumers are rational and maximise their utility. Behavioural economics shows that people have bounded rationality and use biased shortcuts such as anchoring, so their choices can differ from what the rational model predicts.",
+   "why": "Set out the assumption, then the real behaviour that breaks it.",
+   "tests": [
+    {
+     "answer": "Traditional theory says people maximise utility, but they have bounded self-control so they overspend.",
+     "marks": 2
+    },
+    {
+     "answer": "People use rules of thumb when they shop.",
+     "marks": 1
+    },
+    {
+     "answer": "Prices go up when demand goes up.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.2.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}
