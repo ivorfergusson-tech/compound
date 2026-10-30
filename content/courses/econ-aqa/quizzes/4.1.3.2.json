@@ -218,7 +218,7 @@
    "answer": 1,
    "why": "Quantity falls by a smaller percentage than the price rises, so revenue rises.",
    "spec": "4.1.3.2",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 1,

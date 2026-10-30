@@ -250,6 +250,11 @@ export function courseStatus(items, progress, ready, { unlockAll = false, key = 
       out[item.id] = { state: progress.state.read[key(item.id)] ? 'done' : 'open' };
       continue;
     }
+    // A guide sits outside the order: it never locks and never holds anything back.
+    if (item.kind === 'guide') {
+      out[item.id] = { state: !ready.includes(item.id) ? 'soon' : progress.state.read[key(item.id)] ? 'done' : 'open', reason: 'Coming soon' };
+      continue;
+    }
     const unlocked = unlockAll || !gate || progress.passed(key(gate.id));
     const best = progress.best(key(item.id));
     let s;

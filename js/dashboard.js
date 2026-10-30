@@ -31,7 +31,7 @@ export function lastActive(state, defaultId) {
 // A learner who hasn't started gets the first item (the introduction).
 export function nextItem(course, st, started) {
   if (!started) return course.items[0];
-  return course.items.find(i => i.kind !== 'intro' && st[i.id].state === 'open') || null;
+  return course.items.find(i => i.kind !== 'intro' && i.kind !== 'guide' && st[i.id].state === 'open') || null;
 }
 
 export function coursePercent(course, st) {
@@ -80,7 +80,7 @@ export function weakSpots(state, course, key, st, { limit = 5 } = {}) {
     if (!cur || Date.parse(a.at) >= Date.parse(cur.at)) latest.set(a.id, a);
   }
   const modules = course.items
-    .filter(i => i.kind !== 'intro' && st[i.id] && st[i.id].state === 'open' && st[i.id].best != null)
+    .filter(i => i.kind !== 'intro' && i.kind !== 'guide' && st[i.id] && st[i.id].state === 'open' && st[i.id].best != null)
     .map(i => ({ item: i, best: st[i.id].best }))
     .sort((a, b) => a.best - b.best);
   const best = id => (st[id] && st[id].best != null ? st[id].best : 101);

@@ -97,7 +97,7 @@
    "answer": 0,
    "why": "The others belong to floating rates.",
    "spec": "4.2.6.4",
-   "ao": "AO3",
+   "ao": "AO4",
    "command": "Evaluate",
    "marks": 1,
    "paper": 2,

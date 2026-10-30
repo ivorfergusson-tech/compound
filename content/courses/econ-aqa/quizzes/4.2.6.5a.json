@@ -90,7 +90,7 @@
    "answer": 0,
    "why": "Averages can hide large gaps.",
    "spec": "4.2.6.5",
-   "ao": "AO3",
+   "ao": "AO4",
    "command": "Evaluate",
    "marks": 1,
    "paper": 2,

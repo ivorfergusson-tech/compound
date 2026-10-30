@@ -129,7 +129,7 @@
    "answer": 0,
    "why": "Firm A makes 50 units per worker and Firm B makes 40. B produces more in total, but A is more productive.",
    "spec": "4.1.4.1",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 1,

@@ -145,9 +145,9 @@ export function buildAttempt(pool, pick, { rng = Math.random, randomise = false 
 }
 
 // Checkpoint: `size` questions from the covered modules, `recentShare` of them from the latest 8.
-export function buildCheckpoint(poolsByModule, covers, { size = 18, recentShare = 0.6, rng = Math.random } = {}) {
+export function buildCheckpoint(poolsByModule, covers, { size = 18, recentShare = 0.6, recentSpan = 8, rng = Math.random } = {}) {
   const [from, to] = covers;
-  const recentFrom = Math.max(from, to - 7);
+  const recentFrom = Math.max(from, to - recentSpan + 1);
   const recent = [], earlier = [];
   for (const [num, pool] of Object.entries(poolsByModule)) {
     const n = Number(num);

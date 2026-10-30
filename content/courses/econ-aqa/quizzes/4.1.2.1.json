@@ -148,7 +148,7 @@
    "answer": 1,
    "why": "The choice depends only on the extra benefit and extra cost of the next hour, not on the hours already spent.",
    "spec": "4.1.2.1",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 1,

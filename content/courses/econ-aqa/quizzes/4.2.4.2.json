@@ -97,7 +97,7 @@
    "answer": 0,
    "why": "Banks also need willing borrowers who can repay.",
    "spec": "4.2.4.2",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 2,

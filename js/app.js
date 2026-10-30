@@ -4,6 +4,8 @@
 import { esc, el, niceDate } from './util.js';
 import { loadRegistry, loadFigures, courseFiles } from './content.js';
 import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf } from './progress.js';
+
+const UnitOf = c => (unitOf(c) === 'lesson' ? 'Lesson' : 'Module');
 import { REFRESH_ID, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, upcoming, weekPlan } from './dashboard.js';
 import * as exams from './exams.js';
 import { buildAttempt, buildCheckpoint, instantiate } from './quiz.js';
@@ -152,7 +154,7 @@ function itemCard(item, s) {
   const href = hrefItem(item);
   const icon = item.kind === 'checkpoint' ? '✏️' : item.kind === 'intro' ? '👋' : strand.emoji;
   const kicker = item.kind === 'checkpoint' ? `Checkpoint · ${unitOf(course)}s ${item.covers[0]}–${item.covers[1]}`
-    : item.kind === 'intro' ? 'Start here' : `${item.num} · ${strand.name}${item.strand === 'trading' ? ' (paper only)' : ''}`;
+    : item.kind === 'intro' ? 'Start here' : item.kind === 'guide' ? strand.name : `${item.num} · ${strand.name}${item.strand === 'trading' ? ' (paper only)' : ''}`;
   const right = s.state === 'locked' ? lockIcon()
     : s.state === 'soon' ? '<span class="tag">Soon</span>'
     : s.state === 'passed' ? `<span class="tag good">Passed${s.best != null ? ` · ${s.best}%` : ''}</span>`
@@ -162,7 +164,7 @@ function itemCard(item, s) {
     <span class="txt"><span class="kicker strand-text-${item.strand || item.kind}">${esc(kicker)}</span><span class="name">${esc(item.short || item.title)}</span>${locked ? `<span class="why-locked">${esc(s.reason)}</span>` : ''}</span>${right}`;
   return locked
     ? `<div class="item locked ${item.kind}">${inner}</div>`
-    : `<a class="item ${item.kind} ${s.state === 'open' && s.best == null && item.kind !== 'intro' ? 'current' : ''}" href="${href}">${inner}</a>`;
+    : `<a class="item ${item.kind} ${s.state === 'open' && s.best == null && item.kind !== 'intro' && item.kind !== 'guide' ? 'current' : ''}" href="${href}">${inner}</a>`;
 }
 
 // ---------- views ----------
@@ -176,12 +178,11 @@ function viewHome(params) {
   const nextStrand = strandOf(next);
   const ns = st[next.id];
 
-  const levels = ['Start here', 'Beginner', 'Intermediate', 'Advanced', 'Expert'];
+  const levels = ['Start here', 'Beginner', 'Intermediate', 'Advanced', 'Expert', 'Exam technique'];
   let lastLevel = null;
   let list = '';
   for (const item of course.items) {
-    if (filter !== 'all' && item.kind === 'module' && item.strand !== filter) continue;
-    if (filter !== 'all' && item.kind !== 'module') continue;
+    if (filter !== 'all' && item.strand !== filter) continue;
     const lvl = item.level || lastLevel;
     if (item.kind !== 'checkpoint' && lvl !== lastLevel && levels.includes(lvl)) {
       list += `<h3 class="section-label">${esc(lvl === 'Expert' ? 'Capstones' : lvl)}</h3>`;
@@ -195,6 +196,7 @@ function viewHome(params) {
 
   const strandTotals = Object.entries(course.strands).map(([k, s]) => {
     const mine = modules.filter(m => m.strand === k);
+    if (!mine.length) return '';
     const done = mine.filter(m => st[m.id].state === 'passed').length;
     return `<a class="strand-tile strand-${k}" href="${base()}?strand=${k}"><span aria-hidden="true">${s.emoji}</span><span>${esc(s.name)}</span><strong>${done} / ${mine.length}</strong></a>`;
   }).join('');
@@ -251,7 +253,7 @@ async function questionBank(courses) {
 }
 
 const itemHref = (c, it) => `#/c/${c.course.id}/${it.kind === 'checkpoint' ? `cp/${it.num}` : `m/${it.id}`}`;
-const itemName = it => (it.kind === 'checkpoint' ? it.title : it.kind === 'intro' ? 'Introduction' : `Module ${it.num}: ${it.short || it.title}`);
+const itemName = it => (it.kind === 'checkpoint' ? it.title : it.kind === 'intro' ? 'Introduction' : it.kind === 'guide' ? it.short : `${UnitOf(course)} ${it.num}: ${it.short || it.title}`);
 
 async function viewDashboard() {
   const courses = await liveCourses();
@@ -450,7 +452,7 @@ async function viewModule(id) {
   shell(`
     <article class="lesson">
       <header class="lesson-head">
-        ${strand ? `<span class="pill strand-pill-${item.strand}">${strand.emoji} ${esc(strand.name)} · ${esc(item.level)}</span>` : '<span class="pill">Start here</span>'}
+        ${strand ? `<span class="pill strand-pill-${item.strand}">${strand.emoji} ${esc(strand.name)}${item.kind === 'guide' ? '' : ` · ${esc(item.level)}`}</span>` : '<span class="pill">Start here</span>'}
         <h1>${esc(item.title)}</h1>
         ${canSpeak() ? '<div class="read-aloud" data-no-speak><button type="button" class="btn ghost listen" aria-label="Listen to this lesson">🔊 Listen</button><button type="button" class="btn ghost pause-read" hidden>Pause</button><button type="button" class="btn ghost stop-read" hidden>Stop</button></div>' : ''}
         <p class="muted">About ${minutes} minutes${item.buildsOn.length ? ` · builds on ${item.buildsOn.map(n => n === 0 ? 'the introduction' : `${unitOf(course)} ${n}`).join(', ')}` : ''}</p>
@@ -464,7 +466,7 @@ async function viewModule(id) {
         <textarea rows="6" aria-label="In my own words">${esc(progress.state.notes[K(id)]?.text || '')}</textarea>
         <span class="saved-note" aria-live="polite"></span>
       </section>
-      ${quiz ? `<section class="quiz-wrap" id="quiz"><h2>${unitOf(course) === 'lesson' ? 'Lesson' : 'Module'} quiz</h2><p class="muted quiz-rule">${quiz.pick} questions. Score ${Math.round(course.passMark * 100)}% to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.</p><div class="quiz"></div></section>` : ''}
+      ${quiz ? `<section class="quiz-wrap" id="quiz"><h2>${UnitOf(course)} quiz</h2><p class="muted quiz-rule">${quiz.pick} questions. Score ${Math.round(course.passMark * 100)}% to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.</p><div class="quiz"></div></section>` : ''}
       ${nav(item)}
     </article>`, { title: item.short || item.title });
 
@@ -532,7 +534,7 @@ function wireReading(root, id) {
     const total = end.offsetTop - window.innerHeight * 0.6;
     const p = Math.min(1, Math.max(0, window.scrollY / Math.max(1, total)));
     fill.style.width = `${p * 100}%`;
-    if (p >= 1 && progress.markRead(id)) { refreshStrip(); sync.pushSoon(); toast(`${unitOf(course) === 'lesson' ? 'Lesson' : 'Module'} read: +20 XP`); }
+    if (p >= 1 && progress.markRead(id)) { refreshStrip(); sync.pushSoon(); toast(`${UnitOf(course)} read: +20 XP`); }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   cleanup.push(() => window.removeEventListener('scroll', onScroll));
@@ -608,7 +610,7 @@ async function mountModuleTest(article, item, quiz) {
         if (s.passed && !wasPassed && next) {
           html += `<a class="btn wide" href="${hrefItem(next)}">Unlocked: ${esc(next.short || next.title)} →</a>`;
         } else if (!s.passed && next) {
-          html += `<p>${esc(next.kind === 'checkpoint' ? next.title : `Module ${next.num}`)} stays locked until you pass. Retries use ${hasRecall ? 'a new recall check, ' : ''}new questions and new numbers.</p>`;
+          html += `<p>${esc(next.kind === 'checkpoint' ? next.title : `${UnitOf(course)} ${next.num}`)} stays locked until you pass. Retries use ${hasRecall ? 'a new recall check, ' : ''}new questions and new numbers.</p>`;
         }
         return html;
       },
@@ -652,7 +654,7 @@ async function viewCheckpoint(num) {
   const start = () => {
     const xpBefore = progress.xp().total;
     const wasPassed = progress.passed(key);
-    const qs = buildCheckpoint(pools, item.covers, { size: item.num === 4 ? 20 : 18 });
+    const qs = buildCheckpoint(pools, item.covers, { size: item.size || (item.num === 4 ? 20 : 18), recentSpan: item.even ? Infinity : 8 });
     runQuiz(box, qs, {
       kind: 'checkpoint', title: item.title, passMark: course.passMark, onRetry: start,
       onFinish: s => {
@@ -665,13 +667,13 @@ async function viewCheckpoint(num) {
           html += next ? `<a class="btn wide" href="${hrefItem(next)}">Unlocked: ${esc(next.short || next.title)} →</a>`
             : `<p><strong>That's the whole course done.</strong> Retake any quiz to keep it fresh.</p>`;
         } else if (!s.passed && next) {
-          html += `<p>Module ${next.num} stays locked until you pass. Retries use new questions and new numbers.</p>`;
+          html += `<p>${UnitOf(course)} ${next.num} stays locked until you pass. Retries use new questions and new numbers.</p>`;
         }
         return html;
       },
     });
   };
-  box.innerHTML = `<div class="card"><p>Questions from every ${unitOf(course)} so far, mostly the latest eight.</p><button type="button" class="btn wide">Start the checkpoint</button></div>`;
+  box.innerHTML = `<div class="card"><p>${item.even ? `Questions from across ${unitOf(course)}s ${item.covers[0]} to ${item.covers[1]}.` : `Questions from every ${unitOf(course)} so far, mostly the latest eight.`}</p><button type="button" class="btn wide">Start the checkpoint</button></div>`;
   box.querySelector('button').addEventListener('click', start);
 }
 
@@ -733,7 +735,7 @@ async function viewAccount() {
   shell(`<h1>Your account</h1>
     <section class="card" id="auth-box">${await sync.authPanel()}</section>
     <section class="card"><h2>My notes</h2>${notes.length ? notes.map(({ c, item: m, n }) => {
-      const label = `${many ? `${c.entry.title} · ` : ''}${m.kind === 'intro' ? 'Introduction' : `Module ${m.num}: ${m.short || m.title}`}`;
+      const label = `${many ? `${c.entry.title} · ` : ''}${m.kind === 'intro' ? 'Introduction' : m.kind === 'guide' ? m.short : `${UnitOf(c.course)} ${m.num}: ${m.short || m.title}`}`;
       return `<div class="note"><a href="#/c/${c.course.id}/m/${m.id}">${esc(label)}</a><p>${esc(n.text)}</p><span class="small muted">${esc(niceDate(n.at))}</span></div>`;
     }).join('') : '<p class="muted">Your "In my own words" notes will show here.</p>'}</section>
     <section class="card"><h2>Your data</h2>

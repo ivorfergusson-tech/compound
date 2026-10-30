@@ -13,6 +13,7 @@ import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
 import { unitOf } from '../js/progress.js';
+import { buildCheckpoint as buildCp } from '../js/quiz.js';
 import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield, ukIncomeTax, budgetDeficit, comparative, tariff, poundRate } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
@@ -575,6 +576,16 @@ check('tariff: a £20 tariff stops imports', tariff(20).imports === 0 && tariff(
 check('pound: starts at $1.20', poundRate(0, 0) === 1.2);
 check('pound: more demand appreciates it, more supply depreciates it', poundRate(20, 0) > 1.2 && poundRate(0, 20) < 1.2);
 check('unit: Money has modules and A-levels have lessons', unitOf({}) === 'module' && unitOf({ unit: 'lesson' }) === 'lesson');
+{
+  const q = n => ({ id: `q${n}`, type: 'tf', q: 'x', answer: true, why: 'y' });
+  const pools = Object.fromEntries(Array.from({ length: 30 }, (_, i) => [i + 1, [q(i + 1)]]));
+  const even = buildCp(pools, [1, 30], { size: 30, recentSpan: Infinity });
+  check('checkpoint: an even one can use the whole range', new Set(even.map(x => x.module)).size === 30);
+  const inRange = buildCp(pools, [11, 20], { size: 10, recentSpan: Infinity });
+  check('checkpoint: stays inside its section', inRange.length === 10 && inRange.every(x => x.module >= 11 && x.module <= 20));
+  const recent = buildCp(pools, [1, 30], { size: 10 });
+  check('checkpoint: the default still leans to the latest eight', recent.filter(x => x.module >= 23).length === 6);
+}
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);
@@ -638,8 +649,8 @@ for (const e of registry.courses.filter(c => c.board)) {
     }
   }
   for (const pt of lessons.flatMap(i => i.spec)) check(`${e.id}: spec point ${pt} has at least ${N_BANK} questions`, (perPoint[pt] || 0) >= N_BANK, perPoint[pt] || 0);
-  for (const [k, g] of Object.entries(gl)) check(`${e.id} glossary ${k}: lesson exists`, lessons.some(i => i.id === g.module));
-  for (const id of c.ready) check(`${e.id}/${id}: ready lesson exists`, lessons.some(i => i.id === id));
+  for (const [k, g] of Object.entries(gl)) check(`${e.id} glossary ${k}: lesson exists`, c.items.some(i => i.id === g.module));
+  for (const id of c.ready) check(`${e.id}/${id}: ready item exists`, c.items.some(i => i.id === id));
 }
 
 // --- reading pages (m/<id>/) and sitemap.xml match the content

@@ -43,7 +43,7 @@
    "answer": 0,
    "why": "AD rises when the economy has little spare capacity.",
    "spec": "4.2.3.3",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 2,

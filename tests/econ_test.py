@@ -73,7 +73,7 @@ lessons = [i["id"] for i in course["items"] if i["kind"] == "module"]
 
 def passed_all():
     at = [{"uid": f"t{i}", "at": "2026-10-20T10:00:00Z", "day": "2026-10-20", "kind": "quiz", "id": f"econ-aqa:{i}", "auto": 6, "claimed": 0,
-           "outOf": 6, "passed": True, "autoPassed": True, "missed": [], "wrong": [], "right": []} for i in lessons]
+           "outOf": 6, "passed": True, "autoPassed": True, "missed": [], "wrong": [], "right": []} for i in lessons + ["cp1", "cp2", "cp3", "cp4"]]
     return {"v": 1, "nickname": None, "read": {}, "srs": {}, "notes": {}, "guesses": {}, "days": [], "attempts": at}
 
 
@@ -97,8 +97,8 @@ with sync_playwright() as p:
     ctx, page = new_page(browser)
     page.goto(BASE + "#/c/econ-aqa")
     page.wait_for_selector(".item")
-    check("course map lists every written lesson", page.locator(".item").count() == len(lessons))
-    check("only the first lesson is open to a new learner", page.locator(f'.item[href="#/c/econ-aqa/m/{lessons[0]}"]').count() == 1 and page.locator(".item:not([href])").count() == len(lessons) - 1)
+    check("course map lists every written lesson", page.locator(".item").count() == len(course["items"]))
+    check("only the first lesson is open to a new learner", page.locator(f'.item[href="#/c/econ-aqa/m/{lessons[0]}"]').count() == 1 and page.locator(".item:not([href])").count() == len(lessons) + 3)
     ctx.close()
 
     ctx, page = new_page(browser, progress=passed_all())
@@ -346,6 +346,37 @@ with sync_playwright() as p:
     text = page.locator("main").inner_text()
     check("Economics says lesson", "Lesson quiz" in text and "Module quiz" not in text and "earlier modules" not in text)
     check("builds on says lesson", "builds on lesson 1" in text)
+    ctx.close()
+
+    # Checkpoints: they hold back the next section, and draw only on their own section
+    fresh = {k: v for k, v in passed_all().items()}
+    fresh["attempts"] = [x for x in fresh["attempts"] if x["id"] != "econ-aqa:cp1"]
+    ctx, page = new_page(browser, progress=fresh)
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.5.1")
+    page.wait_for_selector(".locked-view")
+    check("a checkpoint holds back the next section", "checkpoint 1" in page.locator(".locked-view").inner_text().lower())
+    page.goto(BASE + "#/c/econ-aqa/cp/1")
+    page.wait_for_selector(".quiz .btn")
+    check("the checkpoint names its range", "lessons 1 to 21" in page.locator(".quiz").inner_text())
+    page.locator(".quiz .btn").click()
+    page.wait_for_selector(".quiz .question")
+    answer_all(page, ".quiz", right=True)
+    check("passing the checkpoint works", "Passed" in page.locator(".quiz .result").inner_text())
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.5.1")
+    page.wait_for_selector(".lesson-section")
+    check("passing it opens the next section", page.locator(".locked-view").count() == 0)
+    ctx.close()
+
+    # Exam technique: open at any point once approved, hidden from learners until then
+    ctx, page = new_page(browser)
+    page.goto(BASE + "#/c/econ-aqa?strand=exam")
+    page.wait_for_selector(".item")
+    check("the exam technique filter lists four guides", page.locator(".item").count() == 4 and "Exam technique" in page.locator("main").inner_text())
+    page.goto(BASE + "#/c/econ-aqa/m/exam-3")
+    page.wait_for_selector(".lesson-section")
+    check("a guide opens with no lessons passed", page.locator(".locked-view").count() == 0 and page.locator("#quiz").count() == 0)
+    page.screenshot(path=str(SHOTS / "econ-guide.png"), full_page=False)
+    axe(page, "an exam technique guide")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

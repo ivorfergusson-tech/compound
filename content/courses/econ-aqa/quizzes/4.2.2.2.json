@@ -83,7 +83,7 @@
    "answer": 0,
    "why": "SRAS shifts left, so prices and unemployment worsen together.",
    "spec": "4.2.2.2",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 2,

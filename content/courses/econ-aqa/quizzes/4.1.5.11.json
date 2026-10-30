@@ -125,7 +125,7 @@
    "answer": 0,
    "why": "Restricting output removes those gains from trade.",
    "spec": "4.1.5.11",
-   "ao": "AO2",
+   "ao": "AO3",
    "command": "Analyse",
    "marks": 1,
    "paper": 1,

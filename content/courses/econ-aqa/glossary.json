@@ -54,6 +54,11 @@
   "def": "Buying something where it's cheap and selling it where it's dearer.",
   "module": "4.1.5.7"
  },
+ "assessment objectives": {
+  "term": "assessment objectives",
+  "def": "The four skills AQA marks: AO1 knowledge, AO2 application, AO3 analysis and AO4 evaluation.",
+  "module": "exam-1"
+ },
  "asymmetric information": {
   "term": "asymmetric information",
   "def": "When one party to a deal has more information than the other.",
@@ -164,6 +169,11 @@
   "def": "Latin for 'all other things being equal': the assumption that only one thing changes while you look at its effect.",
   "module": "4.1.1.1"
  },
+ "chain of reasoning": {
+  "term": "chain of reasoning",
+  "def": "A linked series of steps from a cause to an effect, with each step explained.",
+  "module": "exam-3"
+ },
  "choice architecture": {
   "term": "choice architecture",
   "def": "The way choices are presented to people, which influences what they choose.",
@@ -178,6 +188,11 @@
   "term": "collusion",
   "def": "Firms working together to limit competition, such as by fixing prices.",
   "module": "4.1.5.5a"
+ },
+ "command word": {
+  "term": "command word",
+  "def": "The word in a question that tells you what to do, such as explain or assess.",
+  "module": "exam-1"
  },
  "commercial bank": {
   "term": "commercial bank",
@@ -468,6 +483,11 @@
   "term": "equity shares",
   "def": "Ownership of a firm. Shareholders get a share of the profit, and the firm need not repay them.",
   "module": "4.2.4.1"
+ },
+ "evaluation": {
+  "term": "evaluation",
+  "def": "Weighing arguments and evidence to reach a supported judgement.",
+  "module": "exam-3"
  },
  "excess capacity": {
   "term": "excess capacity",
