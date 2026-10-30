@@ -15,7 +15,12 @@
   "date": null
  },
  "passMark": 0.6,
- "ready": [],
+ "ready": [
+  "4.1.1.1",
+  "4.1.1.2",
+  "4.1.1.4",
+  "4.1.1.5"
+ ],
  "strands": {
   "4.1.1": {
    "name": "Economic methodology and the economic problem",
@@ -44,7 +49,13 @@
     "normative statement",
     "value judgement"
    ],
-   "summary": "Why economics is a social science, and how to tell positive statements from normative ones."
+   "summary": "Why economics is a social science, and how to tell positive statements from normative ones.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.1.2",
@@ -73,7 +84,13 @@
     "enterprise",
     "entrepreneur"
    ],
-   "summary": "What economies are for, the three key questions, and the four factors of production."
+   "summary": "What economies are for, the three key questions, and the four factors of production.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.1.4",
@@ -97,7 +114,13 @@
     "opportunity cost",
     "trade-off"
    ],
-   "summary": "Limited resources, unlimited wants, and the cost of every choice."
+   "summary": "Limited resources, unlimited wants, and the cost of every choice.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.1.5",
@@ -121,7 +144,13 @@
     "productive efficiency",
     "allocative efficiency"
    ],
-   "summary": "Scarcity, opportunity cost, unemployment and growth on one diagram."
+   "summary": "Scarcity, opportunity cost, unemployment and growth on one diagram.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   }
  ]
 }
