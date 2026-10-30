@@ -23,7 +23,87 @@
   "4.1.2.1",
   "4.1.2.2",
   "4.1.2.3",
-  "4.1.2.4"
+  "4.1.2.4",
+  "4.1.3.1",
+  "4.1.3.2",
+  "4.1.3.3",
+  "4.1.3.4",
+  "4.1.3.5",
+  "4.1.3.6",
+  "4.1.4.1",
+  "4.1.4.3",
+  "4.1.4.4",
+  "4.1.4.5",
+  "4.1.4.6",
+  "4.1.4.7",
+  "4.1.4.8",
+  "4.1.5.1",
+  "4.1.5.2",
+  "4.1.5.3",
+  "4.1.5.4",
+  "4.1.5.5a",
+  "4.1.5.5b",
+  "4.1.5.6",
+  "4.1.5.7",
+  "4.1.5.8",
+  "4.1.5.9",
+  "4.1.5.10",
+  "4.1.5.11",
+  "4.1.6.1",
+  "4.1.6.2",
+  "4.1.6.3",
+  "4.1.6.4",
+  "4.1.6.5",
+  "4.1.6.6",
+  "4.1.6.7",
+  "4.1.7.1",
+  "4.1.7.2",
+  "4.1.7.3",
+  "4.1.8.1",
+  "4.1.8.2",
+  "4.1.8.3",
+  "4.1.8.4",
+  "4.1.8.5",
+  "4.1.8.6",
+  "4.1.8.7",
+  "4.1.8.8",
+  "4.1.8.9a",
+  "4.1.8.9b",
+  "4.1.8.10",
+  "4.2.1.1",
+  "4.2.1.2",
+  "4.2.1.3",
+  "4.2.1.4",
+  "4.2.2.1",
+  "4.2.2.2",
+  "4.2.2.3",
+  "4.2.2.4",
+  "4.2.2.5",
+  "4.2.2.6",
+  "4.2.3.1a",
+  "4.2.3.1b",
+  "4.2.3.2a",
+  "4.2.3.2b",
+  "4.2.3.3a",
+  "4.2.3.3b",
+  "4.2.3.4",
+  "4.2.4.1",
+  "4.2.4.2",
+  "4.2.4.3a",
+  "4.2.4.3b",
+  "4.2.4.4",
+  "4.2.5.1a",
+  "4.2.5.1b",
+  "4.2.5.1c",
+  "4.2.5.2",
+  "4.2.6.1",
+  "4.2.6.2a",
+  "4.2.6.2b",
+  "4.2.6.3a",
+  "4.2.6.3b",
+  "4.2.6.4",
+  "4.2.6.5a",
+  "4.2.6.5b"
  ],
  "strands": {
   "4.1.1": {
@@ -372,7 +452,13 @@
     "substitutes",
     "complements"
    ],
-   "summary": "What the demand curve shows, and what shifts it."
+   "summary": "What the demand curve shows, and what shifts it.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.3.2",
@@ -396,7 +482,13 @@
     "inferior good",
     "total revenue"
    ],
-   "summary": "Calculating and using PED, YED and XED."
+   "summary": "Calculating and using PED, YED and XED.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.3.3",
@@ -418,7 +510,13 @@
     "subsidy",
     "indirect tax"
    ],
-   "summary": "Why supply curves slope upwards, and what shifts them."
+   "summary": "Why supply curves slope upwards, and what shifts them.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.3.4",
@@ -440,7 +538,13 @@
     "long run",
     "spare capacity"
    ],
-   "summary": "How quickly firms can respond to a change in price."
+   "summary": "How quickly firms can respond to a change in price.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.3.5",
@@ -462,7 +566,13 @@
     "excess demand",
     "excess supply"
    ],
-   "summary": "How demand and supply set prices, and how to analyse any market."
+   "summary": "How demand and supply set prices, and how to analyse any market.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.3.6",
@@ -485,7 +595,13 @@
     "derived demand",
     "joint supply"
    ],
-   "summary": "How a change in one market spreads to others."
+   "summary": "How a change in one market spreads to others.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.1",
@@ -510,7 +626,13 @@
     "division of labour",
     "medium of exchange"
    ],
-   "summary": "Productivity, the division of labour and why it needs money."
+   "summary": "Productivity, the division of labour and why it needs money.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.3",
@@ -530,7 +652,13 @@
     "law of diminishing returns",
     "returns to scale"
    ],
-   "summary": "Short run and long run, diminishing returns and returns to scale."
+   "summary": "Short run and long run, diminishing returns and returns to scale.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.4",
@@ -552,7 +680,13 @@
     "average cost",
     "marginal cost"
    ],
-   "summary": "Calculating costs and explaining the shape of the cost curves."
+   "summary": "Calculating costs and explaining the shape of the cost curves.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.5",
@@ -575,7 +709,13 @@
     "minimum efficient scale",
     "barriers to entry"
    ],
-   "summary": "Why big firms can have lower costs, and when they stop."
+   "summary": "Why big firms can have lower costs, and when they stop.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.6",
@@ -595,7 +735,13 @@
     "average revenue",
     "marginal revenue"
    ],
-   "summary": "Total, average and marginal revenue, and how they link."
+   "summary": "Total, average and marginal revenue, and how they link.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.7",
@@ -616,7 +762,13 @@
     "normal profit",
     "abnormal profit"
    ],
-   "summary": "Normal and abnormal profit, and what profit does in a market economy."
+   "summary": "Normal and abnormal profit, and what profit does in a market economy.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.4.8",
@@ -637,7 +789,13 @@
     "innovation",
     "creative destruction"
    ],
-   "summary": "How technology changes production, markets and competition."
+   "summary": "How technology changes production, markets and competition.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.1",
@@ -660,7 +818,13 @@
     "monopoly",
     "product differentiation"
    ],
-   "summary": "The spectrum of competition and how to tell structures apart."
+   "summary": "The spectrum of competition and how to tell structures apart.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.2",
@@ -682,7 +846,13 @@
     "sales revenue maximisation",
     "satisficing"
    ],
-   "summary": "MC = MR, and why real firms may aim for something else."
+   "summary": "MC = MR, and why real firms may aim for something else.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.3",
@@ -701,7 +871,13 @@
    "introduces": [
     "price taker"
    ],
-   "summary": "Price takers, the short and long run, and the efficiency yardstick."
+   "summary": "Price takers, the short and long run, and the efficiency yardstick.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.4",
@@ -722,7 +898,13 @@
     "excess capacity",
     "non-price competition"
    ],
-   "summary": "Many firms, different products and normal profit in the long run."
+   "summary": "Many firms, different products and normal profit in the long run.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.5a",
@@ -744,7 +926,13 @@
     "collusion",
     "cooperation"
    ],
-   "summary": "Concentration ratios, interdependence, collusion and cooperation."
+   "summary": "Concentration ratios, interdependence, collusion and cooperation.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.5b",
@@ -766,7 +954,13 @@
     "price leadership",
     "price war"
    ],
-   "summary": "Kinked demand, cartels, price wars and non-price competition."
+   "summary": "Kinked demand, cartels, price wars and non-price competition.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.6",
@@ -785,7 +979,13 @@
    "introduces": [
     "monopoly power"
    ],
-   "summary": "The monopoly diagram, monopoly power and its costs and benefits."
+   "summary": "The monopoly diagram, monopoly power and its costs and benefits.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.7",
@@ -805,7 +1005,13 @@
     "price discrimination",
     "arbitrage"
    ],
-   "summary": "Different prices for the same product: conditions, diagram and effects."
+   "summary": "Different prices for the same product: conditions, diagram and effects.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.8",
@@ -822,7 +1028,13 @@
     29
    ],
    "introduces": [],
-   "summary": "Competition as a process, and how creative destruction wears down monopoly."
+   "summary": "Competition as a process, and how creative destruction wears down monopoly.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.9",
@@ -843,7 +1055,13 @@
     "sunk costs",
     "hit-and-run competition"
    ],
-   "summary": "Why the threat of entry can discipline even a monopolist."
+   "summary": "Why the threat of entry can discipline even a monopolist.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.10",
@@ -864,7 +1082,13 @@
     "dynamic efficiency",
     "human capital"
    ],
-   "summary": "Efficiency now and over time, compared across market structures."
+   "summary": "Efficiency now and over time, compared across market structures.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.5.11",
@@ -886,7 +1110,13 @@
     "economic welfare",
     "deadweight loss"
    ],
-   "summary": "Measuring welfare and the deadweight loss of monopoly."
+   "summary": "Measuring welfare and the deadweight loss of monopoly.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.1",
@@ -905,7 +1135,13 @@
    "introduces": [
     "marginal revenue product"
    ],
-   "summary": "Derived demand, MRP and why the demand for labour shifts."
+   "summary": "Derived demand, MRP and why the demand for labour shifts.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.2",
@@ -925,7 +1161,13 @@
     "labour supply",
     "non-monetary considerations"
    ],
-   "summary": "Why people choose jobs, and what shifts labour supply."
+   "summary": "Why people choose jobs, and what shifts labour supply.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.3",
@@ -944,7 +1186,13 @@
    "introduces": [
     "relative wages"
    ],
-   "summary": "How demand and supply set wages and explain pay gaps."
+   "summary": "How demand and supply set wages and explain pay gaps.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.4",
@@ -964,7 +1212,13 @@
     "monopsony",
     "marginal cost of labour"
    ],
-   "summary": "Monopsony power and why it lowers both wages and jobs."
+   "summary": "Monopsony power and why it lowers both wages and jobs.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.5",
@@ -984,7 +1238,13 @@
     "trade union",
     "collective bargaining"
    ],
-   "summary": "What gives unions power, and their effect in two kinds of market."
+   "summary": "What gives unions power, and their effect in two kinds of market.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.6",
@@ -1003,7 +1263,13 @@
    "introduces": [
     "national minimum wage"
    ],
-   "summary": "The effects of a legal wage floor, with its pros and cons."
+   "summary": "The effects of a legal wage floor, with its pros and cons.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.6.7",
@@ -1023,7 +1289,13 @@
     "wage discrimination",
     "occupational crowding"
    ],
-   "summary": "Wage discrimination, and the costs of unfair treatment at work."
+   "summary": "Wage discrimination, and the costs of unfair treatment at work.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.7.1",
@@ -1047,7 +1319,13 @@
     "lorenz curve",
     "gini coefficient"
    ],
-   "summary": "Measuring inequality, and why fairness is a value judgement."
+   "summary": "Measuring inequality, and why fairness is a value judgement.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.7.2",
@@ -1067,7 +1345,13 @@
     "absolute poverty",
     "relative poverty"
    ],
-   "summary": "Absolute and relative poverty, their causes and their effects."
+   "summary": "Absolute and relative poverty, their causes and their effects.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.7.3",
@@ -1090,7 +1374,13 @@
     "poverty trap",
     "unemployment trap"
    ],
-   "summary": "Taxes, benefits and services, with their costs and moral questions."
+   "summary": "Taxes, benefits and services, with their costs and moral questions.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.1",
@@ -1109,7 +1399,13 @@
    "introduces": [
     "price mechanism"
    ],
-   "summary": "The rationing, signalling and incentive functions of prices, and their limits."
+   "summary": "The rationing, signalling and incentive functions of prices, and their limits.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.2",
@@ -1128,7 +1424,13 @@
    "introduces": [
     "missing market"
    ],
-   "summary": "Complete and partial market failure, and what causes each."
+   "summary": "Complete and partial market failure, and what causes each.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.3",
@@ -1150,7 +1452,13 @@
     "quasi-public good",
     "tragedy of the commons"
    ],
-   "summary": "Why markets don't provide public goods, and how shared resources get overused."
+   "summary": "Why markets don't provide public goods, and how shared resources get overused.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.4",
@@ -1170,7 +1478,13 @@
     "externality",
     "property rights"
    ],
-   "summary": "Private and social costs and benefits, with the diagrams."
+   "summary": "Private and social costs and benefits, with the diagrams.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.5",
@@ -1190,7 +1504,13 @@
     "merit good",
     "demerit good"
    ],
-   "summary": "Goods consumed too little or too much, and the judgement behind the labels."
+   "summary": "Goods consumed too little or too much, and the judgement behind the labels.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.6",
@@ -1209,7 +1529,13 @@
    "introduces": [
     "factor immobility"
    ],
-   "summary": "Poor information, monopoly power and resources that can't move."
+   "summary": "Poor information, monopoly power and resources that can't move.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.7",
@@ -1229,7 +1555,13 @@
     "competition policy",
     "competition and markets authority"
    ],
-   "summary": "How the UK and EU promote competition, with the costs and benefits."
+   "summary": "How the UK and EU promote competition, with the costs and benefits.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.8",
@@ -1252,7 +1584,13 @@
     "deregulation",
     "regulatory capture"
    ],
-   "summary": "Public ownership, privatisation, regulation and the risk of capture."
+   "summary": "Public ownership, privatisation, regulation and the risk of capture.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.9a",
@@ -1273,7 +1611,13 @@
     "maximum price",
     "minimum price"
    ],
-   "summary": "Why governments intervene, and how they change prices."
+   "summary": "Why governments intervene, and how they change prices.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.9b",
@@ -1292,7 +1636,13 @@
    "introduces": [
     "pollution permit"
    ],
-   "summary": "Other tools, and how to choose between them."
+   "summary": "Other tools, and how to choose between them.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.1.8.10",
@@ -1311,7 +1661,13 @@
    "introduces": [
     "government failure"
    ],
-   "summary": "When intervention makes the allocation of resources worse."
+   "summary": "When intervention makes the allocation of resources worse.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.1.1",
@@ -1332,7 +1688,13 @@
     "unemployment",
     "balance of payments on current account"
    ],
-   "summary": "Growth, prices, jobs and the current account, and how they can clash."
+   "summary": "Growth, prices, jobs and the current account, and how they can clash.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.1.2",
@@ -1353,7 +1715,13 @@
     "real GDP",
     "inflation"
    ],
-   "summary": "Real GDP, CPI, unemployment, productivity and the UK's latest figures."
+   "summary": "Real GDP, CPI, unemployment, productivity and the UK's latest figures.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.1.3",
@@ -1374,7 +1742,13 @@
     "base year",
     "consumer prices index"
    ],
-   "summary": "Base years, weights and how to read a price index."
+   "summary": "Base years, weights and how to read a price index.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.1.4",
@@ -1395,7 +1769,13 @@
     "living standards",
     "purchasing power parity"
    ],
-   "summary": "What GDP can and can't say about living standards, and why PPP matters."
+   "summary": "What GDP can and can't say about living standards, and why PPP matters.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.2.1",
@@ -1415,7 +1795,13 @@
     "injections",
     "withdrawals"
    ],
-   "summary": "Income, output and spending, and what makes national income rise."
+   "summary": "Income, output and spending, and what makes national income rise.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.2.2",
@@ -1437,7 +1823,13 @@
     "long-run aggregate supply",
     "macroeconomic equilibrium"
    ],
-   "summary": "The diagram for the whole economy, and demand and supply shocks."
+   "summary": "The diagram for the whole economy, and demand and supply shocks.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.2.3",
@@ -1460,7 +1852,13 @@
     "accelerator",
     "net exports"
    ],
-   "summary": "What drives C, I, G and net exports, and how saving differs from investment."
+   "summary": "What drives C, I, G and net exports, and how saving differs from investment.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.2.4",
@@ -1480,7 +1878,13 @@
     "multiplier",
     "marginal propensity to consume"
    ],
-   "summary": "Why spending can raise income by more than itself."
+   "summary": "Why spending can raise income by more than itself.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.2.5",
@@ -1499,7 +1903,13 @@
    "introduces": [
     "cost-push inflation"
    ],
-   "summary": "How costs shift the short-run AS curve."
+   "summary": "How costs shift the short-run AS curve.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.2.6",
@@ -1518,7 +1928,13 @@
    "introduces": [
     "keynesian as curve"
    ],
-   "summary": "What sets an economy's capacity, and the Keynesian view of AS."
+   "summary": "What sets an economy's capacity, and the Keynesian view of AS.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.1a",
@@ -1539,7 +1955,13 @@
     "long-run growth",
     "sustainable growth"
    ],
-   "summary": "Short-run and long-run growth, what drives them and what they cost."
+   "summary": "Short-run and long-run growth, what drives them and what they cost.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.1b",
@@ -1560,7 +1982,13 @@
     "output gap",
     "recession"
    ],
-   "summary": "The phases of the cycle, output gaps and why booms turn to busts."
+   "summary": "The phases of the cycle, output gaps and why booms turn to busts.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.2a",
@@ -1584,7 +2012,13 @@
     "structural unemployment",
     "cyclical unemployment"
    ],
-   "summary": "How unemployment is measured, and the four main types."
+   "summary": "How unemployment is measured, and the four main types.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.2b",
@@ -1604,7 +2038,13 @@
     "real wage unemployment",
     "natural rate of unemployment"
    ],
-   "summary": "Demand and supply causes, the natural rate and the consequences."
+   "summary": "Demand and supply causes, the natural rate and the consequences.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.3a",
@@ -1626,7 +2066,13 @@
     "demand-pull inflation",
     "quantity theory of money"
    ],
-   "summary": "Demand-pull, cost-push, MV = PQ and expectations."
+   "summary": "Demand-pull, cost-push, MV = PQ and expectations.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.3b",
@@ -1646,7 +2092,13 @@
     "real wages",
     "international competitiveness"
    ],
-   "summary": "Who wins and loses from inflation and deflation, and how world events matter."
+   "summary": "Who wins and loses from inflation and deflation, and how world events matter.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.3.4",
@@ -1666,7 +2118,13 @@
     "short-run phillips curve",
     "long-run phillips curve"
    ],
-   "summary": "Output gaps, the Phillips curves and how to reconcile policy conflicts."
+   "summary": "Output gaps, the Phillips curves and how to reconcile policy conflicts.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.4.1",
@@ -1693,7 +2151,13 @@
     "coupon",
     "maturity"
    ],
-   "summary": "Money, markets, debt and equity, and why bond prices and yields move apart."
+   "summary": "Money, markets, debt and equity, and why bond prices and yields move apart.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.4.2",
@@ -1716,7 +2180,13 @@
     "credit creation",
     "systemic risk"
    ],
-   "summary": "What banks do, their balance sheets and how they create money."
+   "summary": "What banks do, their balance sheets and how they create money.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.4.3a",
@@ -1738,7 +2208,13 @@
     "monetary policy committee",
     "bank rate"
    ],
-   "summary": "What the Bank does, and how the MPC sets Bank Rate."
+   "summary": "What the Bank does, and how the MPC sets Bank Rate.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.4.3b",
@@ -1760,7 +2236,13 @@
     "forward guidance",
     "exchange rate"
    ],
-   "summary": "The transmission mechanism, the exchange rate, QE and other tools."
+   "summary": "The transmission mechanism, the exchange rate, QE and other tools.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.4.4",
@@ -1784,7 +2266,13 @@
     "prudential regulation authority",
     "financial conduct authority"
    ],
-   "summary": "Why banks fail, and who keeps the system safe."
+   "summary": "Why banks fail, and who keeps the system safe.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.5.1a",
@@ -1805,7 +2293,13 @@
     "automatic stabilisers",
     "transfer payments"
    ],
-   "summary": "Using spending and tax to change AD, AS and the pattern of activity."
+   "summary": "Using spending and tax to change AD, AS and the pattern of activity.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.5.1b",
@@ -1826,7 +2320,13 @@
     "proportional tax",
     "regressive tax"
    ],
-   "summary": "Direct and indirect taxes, fairness and the main UK taxes."
+   "summary": "Direct and indirect taxes, fairness and the main UK taxes.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.5.1c",
@@ -1850,7 +2350,13 @@
     "crowding out",
     "office for budget responsibility"
    ],
-   "summary": "Deficits, debt, and whether they matter."
+   "summary": "Deficits, debt, and whether they matter.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.5.2",
@@ -1870,7 +2376,13 @@
     "supply-side policies",
     "supply-side improvements"
    ],
-   "summary": "Free market and interventionist ways to raise capacity."
+   "summary": "Free market and interventionist ways to raise capacity.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.1",
@@ -1891,7 +2403,13 @@
     "multinational corporation",
     "foreign direct investment"
    ],
-   "summary": "What drives globalisation, and who gains and loses from it."
+   "summary": "What drives globalisation, and who gains and loses from it.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.2a",
@@ -1911,7 +2429,13 @@
     "absolute advantage",
     "comparative advantage"
    ],
-   "summary": "Why countries gain from trade, and why UK trade patterns have changed."
+   "summary": "Why countries gain from trade, and why UK trade patterns have changed.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.2b",
@@ -1936,7 +2460,13 @@
     "single european market",
     "world trade organisation"
    ],
-   "summary": "Tariffs and quotas, customs unions, the Single Market and the WTO."
+   "summary": "Tariffs and quotas, customs unions, the Single Market and the WTO.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.3a",
@@ -1958,7 +2488,13 @@
     "primary income",
     "secondary income"
    ],
-   "summary": "The structure of the accounts, and what drives the current account."
+   "summary": "The structure of the accounts, and what drives the current account.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.3b",
@@ -1978,7 +2514,13 @@
     "expenditure-switching",
     "expenditure-reducing"
    ],
-   "summary": "How to correct a deficit or surplus, and whether it matters."
+   "summary": "How to correct a deficit or surplus, and whether it matters.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.4",
@@ -2000,7 +2542,13 @@
     "currency union",
     "depreciation"
    ],
-   "summary": "Floating and fixed rates, intervention and currency unions."
+   "summary": "Floating and fixed rates, intervention and currency unions.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.5a",
@@ -2020,7 +2568,13 @@
     "economic development",
     "human development index"
    ],
-   "summary": "What development means, and how it's measured."
+   "summary": "What development means, and how it's measured.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   },
   {
    "id": "4.2.6.5b",
@@ -2039,7 +2593,13 @@
    "introduces": [
     "aid"
    ],
-   "summary": "Barriers to development, and the roles of markets, the state, aid and trade."
+   "summary": "Barriers to development, and the roles of markets, the state, aid and trade.",
+   "review": {
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-30"
+   }
   }
  ]
 }
