@@ -1,0 +1,152 @@
+{
+ "module": "4.2.6.5a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.5-hdi",
+   "type": "mcq",
+   "topic": "HDI",
+   "q": "The HDI combines measures of:",
+   "options": [
+    "Health, education and income",
+    "Trade, inflation and debt",
+    "Population, land and capital",
+    "Wages, prices and profit"
+   ],
+   "answer": 0,
+   "why": "It looks beyond income alone.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-range",
+   "type": "mcq",
+   "topic": "HDI",
+   "q": "What is the range of the HDI?",
+   "options": [
+    "0 to 1",
+    "0 to 100",
+    "1 to 10",
+    "−1 to 1"
+   ],
+   "answer": 0,
+   "why": "A higher value means more development.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-char",
+   "type": "mcq",
+   "topic": "characteristics",
+   "q": "Which is a common characteristic of less-developed economies?",
+   "options": [
+    "Reliance on primary products",
+    "A large share of workers in finance",
+    "Very old populations",
+    "High saving rates"
+   ],
+   "answer": 0,
+   "why": "Farming and mining often dominate.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-link",
+   "type": "tf",
+   "topic": "growth and development",
+   "q": "Economic growth always leads to economic development.",
+   "answer": false,
+   "why": "If gains are narrow, most people may see little change.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-limit",
+   "type": "mcq",
+   "topic": "HDI",
+   "q": "Which is a limit of the HDI?",
+   "options": [
+    "It leaves out inequality within a country",
+    "It ignores income",
+    "It ignores health",
+    "It only covers rich countries"
+   ],
+   "answer": 0,
+   "why": "Averages can hide large gaps.",
+   "spec": "4.2.6.5",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-explain",
+   "type": "explain",
+   "topic": "factors",
+   "q": "Explain how better education could promote economic development.",
+   "ideas": [
+    {
+     "label": "It raises human capital, skills or productivity",
+     "any": [
+      "human capital",
+      "skills",
+      "productiv*",
+      "literacy"
+     ]
+    },
+    {
+     "label": "So incomes and living standards rise, or poverty falls",
+     "any": [
+      "income*",
+      "wages",
+      "living standards",
+      "poverty",
+      "better jobs",
+      "health",
+      "growth",
+      "attract*"
+     ]
+    }
+   ],
+   "model": "Education raises human capital and productivity, so people can earn higher incomes, which reduces poverty and raises living standards.",
+   "why": "Development is about what people can do.",
+   "tests": [
+    {
+     "answer": "It raises skills, so people earn higher incomes and poverty falls.",
+     "marks": 2
+    },
+    {
+     "answer": "It raises skills.",
+     "marks": 1
+    },
+    {
+     "answer": "School is good.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

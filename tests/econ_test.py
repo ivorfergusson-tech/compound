@@ -321,6 +321,23 @@ with sync_playwright() as p:
     page.locator('[data-in="g"]').fill("4")
     check("a boom can hide a structural deficit", page.locator('[data-v="t"]').inner_text() == "0.0%")
     axe(page, "the budget lesson")
+    # International diagrams
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.6.2a")
+    page.wait_for_selector("[data-in='ax']")
+    check("the lower opportunity cost specialises", page.locator('[data-v="who"]').inner_text() == "UK")
+    page.locator('[data-in="ax"]').fill("3")
+    check("changing output changes the specialism", page.locator('[data-v="who"]').inner_text() == "France")
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.6.2b")
+    page.wait_for_selector(".chart svg")
+    page.locator('[data-in="t"]').fill("10")
+    check("a tariff cuts imports and raises revenue", page.locator('[data-v="m"]').inner_text() == "20" and page.locator('[data-v="r"]').inner_text() == "£200" and page.locator('[data-v="l"]').inner_text() == "£100")
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-tariff.png"))
+    page.goto(BASE + "#/c/econ-aqa/m/4.2.6.4")
+    page.wait_for_selector(".chart svg")
+    page.locator('[data-in="d"]').fill("20")
+    check("more demand for pounds appreciates the pound", page.locator('[data-v="c"]').inner_text() == "Appreciates")
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-forex.png"))
+    axe(page, "the exchange rates lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

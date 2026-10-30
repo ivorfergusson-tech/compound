@@ -1,0 +1,162 @@
+{
+ "module": "4.2.6.1",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.1-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "Globalisation is best described as:",
+   "options": [
+    "The growing integration of the world's economies",
+    "A single world government",
+    "A fall in world trade",
+    "The end of all tariffs"
+   ],
+   "answer": 0,
+   "why": "It works through trade, investment, people and ideas.",
+   "spec": "4.2.6.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.1-cause",
+   "type": "mcq",
+   "topic": "causes",
+   "q": "Which has helped to cause globalisation?",
+   "options": [
+    "Container shipping",
+    "Higher tariffs",
+    "Capital controls",
+    "Falling migration"
+   ],
+   "answer": 0,
+   "why": "Cheap transport makes long supply chains possible.",
+   "spec": "4.2.6.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.1-mnc",
+   "type": "mcq",
+   "topic": "multinationals",
+   "q": "How might an MNC use transfer pricing?",
+   "options": [
+    "To move profits to a low-tax country",
+    "To lower the price of all its goods",
+    "To pay its workers more",
+    "To avoid all costs"
+   ],
+   "answer": 0,
+   "why": "Prices charged between its own branches can shift profit.",
+   "spec": "4.2.6.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.2.6.1-losers",
+   "type": "tf",
+   "topic": "consequences",
+   "q": "Globalisation can lead to job losses in more-developed countries.",
+   "answer": true,
+   "why": "Some industries move to lower-cost countries.",
+   "spec": "4.2.6.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.1-ldc",
+   "type": "mcq",
+   "topic": "consequences",
+   "q": "Which is a likely benefit of globalisation for less-developed countries?",
+   "options": [
+    "More foreign investment and technology",
+    "More reliance on one export",
+    "The loss of skilled workers",
+    "Lower labour standards"
+   ],
+   "answer": 0,
+   "why": "The others are risks.",
+   "spec": "4.2.6.1",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.1-explain",
+   "type": "explain",
+   "topic": "consequences",
+   "q": "Explain how globalisation could harm workers in a more-developed country.",
+   "ideas": [
+    {
+     "label": "Production moves to countries with lower costs, or imports get cheaper",
+     "any": [
+      "lower-cost",
+      "lower cost*",
+      "lower wage*",
+      "cheaper labour",
+      "cheaper imports",
+      "cheap imports",
+      "move abroad",
+      "moves abroad",
+      "moved abroad",
+      "offshor*",
+      "relocat*",
+      "import competition"
+     ]
+    },
+    {
+     "label": "So jobs are lost or wages fall, particularly for the low skilled",
+     "any": [
+      "job losses",
+      "lose their jobs",
+      "lose jobs",
+      "jobs are lost",
+      "unemployment",
+      "wages fall",
+      "lower wages",
+      "wage pressure",
+      "downward pressure",
+      "structural"
+     ]
+    }
+   ],
+   "model": "Firms move production to countries with lower wages, and cheap imports compete with home firms. Jobs are lost and wages come under pressure, which causes structural unemployment.",
+   "why": "Think about who competes with whom.",
+   "tests": [
+    {
+     "answer": "Firms move production to lower-cost countries, so workers lose their jobs.",
+     "marks": 2
+    },
+    {
+     "answer": "Production moves abroad.",
+     "marks": 1
+    },
+    {
+     "answer": "People go on holiday abroad.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

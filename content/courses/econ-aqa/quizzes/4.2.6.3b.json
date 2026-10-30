@@ -1,0 +1,163 @@
+{
+ "module": "4.2.6.3b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.3-switch",
+   "type": "mcq",
+   "topic": "policies",
+   "q": "Which is an expenditure-switching policy?",
+   "options": [
+    "A tariff on imports",
+    "A rise in income tax",
+    "A cut in government spending",
+    "A rise in interest rates"
+   ],
+   "answer": 0,
+   "why": "It moves spending from imports to home goods.",
+   "spec": "4.2.6.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-reduce",
+   "type": "mcq",
+   "topic": "policies",
+   "q": "Which is an expenditure-reducing policy?",
+   "options": [
+    "A rise in income tax",
+    "A depreciation",
+    "A quota",
+    "An export subsidy"
+   ],
+   "answer": 0,
+   "why": "It cuts total spending, including on imports.",
+   "spec": "4.2.6.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-conflict",
+   "type": "mcq",
+   "topic": "conflicts",
+   "q": "What is the main conflict of using a depreciation to reduce a deficit?",
+   "options": [
+    "It can raise inflation",
+    "It cuts exports",
+    "It lowers import prices",
+    "It raises unemployment at once"
+   ],
+   "answer": 0,
+   "why": "Imports and raw materials get dearer.",
+   "spec": "4.2.6.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-surplus",
+   "type": "tf",
+   "topic": "significance",
+   "q": "A current account surplus is always good for a country.",
+   "answer": false,
+   "why": "It can reflect low consumption, and it may draw pressure from other countries.",
+   "spec": "4.2.6.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-matter",
+   "type": "mcq",
+   "topic": "significance",
+   "q": "When is a deficit likely to matter MOST?",
+   "options": [
+    "When it's large, lasting and funded by short-term flows",
+    "When it's small and temporary",
+    "When it's funded by long-term FDI",
+    "When it reflects imports of capital goods"
+   ],
+   "answer": 0,
+   "why": "Short-term funds can leave quickly.",
+   "spec": "4.2.6.3",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-explain",
+   "type": "explain",
+   "topic": "global imbalances",
+   "q": "Explain how action by a major economy to cut its current account deficit could affect other countries.",
+   "ideas": [
+    {
+     "label": "It buys fewer imports",
+     "any": [
+      "fewer imports",
+      "less imports",
+      "lower imports",
+      "imports fall",
+      "cut imports",
+      "cuts imports",
+      "reduce imports",
+      "reduces imports",
+      "buy less",
+      "buys less",
+      "buy fewer",
+      "buys fewer"
+     ]
+    },
+    {
+     "label": "So other countries' exports and growth fall",
+     "any": [
+      "other countries' exports",
+      "their exports",
+      "exports fall",
+      "lower exports",
+      "fewer exports",
+      "growth",
+      "ad falls",
+      "aggregate demand",
+      "unemployment",
+      "gdp",
+      "retaliat*"
+     ]
+    }
+   ],
+   "model": "It buys fewer imports, and these are other countries' exports. Their exports fall, so their AD and growth fall too.",
+   "why": "One country's imports are another's exports.",
+   "tests": [
+    {
+     "answer": "It buys fewer imports, so other countries' exports and growth fall.",
+     "marks": 2
+    },
+    {
+     "answer": "It buys fewer imports.",
+     "marks": 1
+    },
+    {
+     "answer": "It changes its policy.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

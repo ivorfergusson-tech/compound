@@ -4,6 +4,11 @@
   "def": "Profit above normal profit. Also called supernormal profit.",
   "module": "4.1.4.7"
  },
+ "absolute advantage": {
+  "term": "absolute advantage",
+  "def": "Being able to produce more of a good from the same resources.",
+  "module": "4.2.6.2a"
+ },
  "absolute poverty": {
   "term": "absolute poverty",
   "def": "Having too little income to afford basic needs, such as food, clothing and shelter.",
@@ -18,6 +23,11 @@
   "term": "aggregate demand",
   "def": "Total planned spending on an economy's output at a given price level. AD = C + I + G + (X − M).",
   "module": "4.2.2.2"
+ },
+ "aid": {
+  "term": "aid",
+  "def": "Help given to poorer countries, as money, goods or expertise.",
+  "module": "4.2.6.5b"
  },
  "allocation of resources": {
   "term": "allocation of resources",
@@ -68,6 +78,11 @@
   "term": "average revenue",
   "def": "Revenue per unit sold, which equals the price.",
   "module": "4.1.4.6"
+ },
+ "balance of payments": {
+  "term": "balance of payments",
+  "def": "The record of all transactions between a country and the rest of the world.",
+  "module": "4.2.6.3a"
  },
  "balance of payments on current account": {
   "term": "balance of payments on current account",
@@ -169,6 +184,11 @@
   "def": "A bank that takes deposits from and makes loans to households and firms.",
   "module": "4.2.4.2"
  },
+ "comparative advantage": {
+  "term": "comparative advantage",
+  "def": "Being able to produce a good at a lower opportunity cost.",
+  "module": "4.2.6.2a"
+ },
  "competition and markets authority": {
   "term": "competition and markets authority",
   "def": "The main UK body that enforces competition law. Known as the CMA.",
@@ -259,6 +279,16 @@
   "def": "When government borrowing or spending reduces private spending, such as by raising interest rates.",
   "module": "4.2.5.1c"
  },
+ "currency union": {
+  "term": "currency union",
+  "def": "A group of countries sharing one currency and one central bank.",
+  "module": "4.2.6.4"
+ },
+ "customs union": {
+  "term": "customs union",
+  "def": "A group of countries with free trade between them and a common external tariff.",
+  "module": "4.2.6.2b"
+ },
  "cyclical deficit": {
   "term": "cyclical deficit",
   "def": "The part of a budget deficit caused by the economic cycle.",
@@ -308,6 +338,11 @@
   "term": "demerit good",
   "def": "A good that society believes people should consume less of than they would in a free market.",
   "module": "4.1.8.5"
+ },
+ "depreciation": {
+  "term": "depreciation",
+  "def": "A fall in the value of a floating currency.",
+  "module": "4.2.6.4"
  },
  "deregulation": {
   "term": "deregulation",
@@ -363,6 +398,11 @@
   "term": "economic cycle",
   "def": "The pattern of ups and downs in real GDP around its long-run trend.",
   "module": "4.2.3.1b"
+ },
+ "economic development": {
+  "term": "economic development",
+  "def": "A wider improvement in people's lives, including health, education, living standards and freedom.",
+  "module": "4.2.6.5a"
  },
  "economic good": {
   "term": "economic good",
@@ -449,6 +489,21 @@
   "def": "The price of one currency in terms of another.",
   "module": "4.2.4.3b"
  },
+ "expenditure-reducing": {
+  "term": "expenditure-reducing",
+  "def": "Policies that reduce total spending, so that less goes on imports.",
+  "module": "4.2.6.3b"
+ },
+ "expenditure-switching": {
+  "term": "expenditure-switching",
+  "def": "Policies that move spending from imports to home-produced goods.",
+  "module": "4.2.6.3b"
+ },
+ "export subsidy": {
+  "term": "export subsidy",
+  "def": "A government payment that helps home firms sell abroad at lower prices.",
+  "module": "4.2.6.2b"
+ },
  "external economies of scale": {
   "term": "external economies of scale",
   "def": "Falling costs for firms that come from the growth of the whole industry, not the firm itself.",
@@ -489,6 +544,21 @@
   "def": "Costs that don't change with output in the short run, such as rent.",
   "module": "4.1.4.4"
  },
+ "fixed exchange rate": {
+  "term": "fixed exchange rate",
+  "def": "An exchange rate set by the government against another currency, and defended.",
+  "module": "4.2.6.4"
+ },
+ "floating exchange rate": {
+  "term": "floating exchange rate",
+  "def": "An exchange rate set by market demand and supply.",
+  "module": "4.2.6.4"
+ },
+ "foreign direct investment": {
+  "term": "foreign direct investment",
+  "def": "Long-term investment in productive assets in another country.",
+  "module": "4.2.6.1"
+ },
  "forward guidance": {
   "term": "forward guidance",
   "def": "When a central bank tells the public how interest rates are likely to change in future.",
@@ -519,6 +589,11 @@
   "def": "A measure of inequality from 0 (perfect equality) to 1 (perfect inequality).",
   "module": "4.1.7.1"
  },
+ "globalisation": {
+  "term": "globalisation",
+  "def": "The growing integration of the world's economies, through trade, investment, migration and ideas.",
+  "module": "4.2.6.1"
+ },
  "goods": {
   "term": "goods",
   "def": "Physical products that can be touched, such as food, cars and phones.",
@@ -543,6 +618,11 @@
   "term": "human capital",
   "def": "The skills, knowledge and experience of the workforce.",
   "module": "4.1.5.10"
+ },
+ "human development index": {
+  "term": "human development index",
+  "def": "A UN measure of development from 0 to 1, based on health, education and income.",
+  "module": "4.2.6.5a"
  },
  "imperfect information": {
   "term": "imperfect information",
@@ -839,6 +919,11 @@
   "def": "When people take more risk because they don't bear the full cost if things go wrong.",
   "module": "4.2.4.4"
  },
+ "multinational corporation": {
+  "term": "multinational corporation",
+  "def": "A firm that operates in more than one country.",
+  "module": "4.2.6.1"
+ },
  "multiplier": {
   "term": "multiplier",
   "def": "The process by which a change in spending leads to a larger change in national income. Its size is 1 ÷ (1 − MPC).",
@@ -954,6 +1039,11 @@
   "def": "A tradable right to emit a set amount of pollution, within a cap on the total.",
   "module": "4.1.8.9b"
  },
+ "portfolio investment": {
+  "term": "portfolio investment",
+  "def": "Buying financial assets abroad, such as shares and bonds, without taking control.",
+  "module": "4.2.6.3a"
+ },
  "positive statement": {
   "term": "positive statement",
   "def": "A statement about what is, was or will be, which can be tested against evidence (even if it turns out to be false).",
@@ -1008,6 +1098,11 @@
   "term": "price war",
   "def": "When firms repeatedly undercut each other's prices to win market share.",
   "module": "4.1.5.5b"
+ },
+ "primary income": {
+  "term": "primary income",
+  "def": "Income on assets and work across borders, such as interest, dividends, profits and wages.",
+  "module": "4.2.6.3a"
  },
  "privatisation": {
   "term": "privatisation",
@@ -1069,6 +1164,11 @@
   "def": "A tax that takes the same share of income at all income levels.",
   "module": "4.2.5.1b"
  },
+ "protectionism": {
+  "term": "protectionism",
+  "def": "Government policies that restrict imports or help home producers against foreign competition.",
+  "module": "4.2.6.2b"
+ },
  "prudential regulation authority": {
   "term": "prudential regulation authority",
   "def": "The part of the Bank of England that supervises individual banks and insurers. Known as the PRA.",
@@ -1103,6 +1203,11 @@
   "term": "quasi-public good",
   "def": "A good with some, but not all, of the features of a public good, such as a road.",
   "module": "4.1.8.3"
+ },
+ "quota": {
+  "term": "quota",
+  "def": "A limit on the quantity of a good that can be imported.",
+  "module": "4.2.6.2b"
  },
  "rational decision making": {
   "term": "rational decision making",
@@ -1199,6 +1304,11 @@
   "def": "Unemployment caused by changes in the demand for labour at certain times of year.",
   "module": "4.2.3.2a"
  },
+ "secondary income": {
+  "term": "secondary income",
+  "def": "Transfers across borders with nothing in return, such as foreign aid.",
+  "module": "4.2.6.3a"
+ },
  "services": {
   "term": "services",
   "def": "Things done for people rather than physical products, such as haircuts, transport and teaching.",
@@ -1223,6 +1333,11 @@
   "term": "short-run phillips curve",
   "def": "A curve showing an inverse link between unemployment and inflation in the short run.",
   "module": "4.2.3.4"
+ },
+ "single european market": {
+  "term": "single european market",
+  "def": "The EU market in which goods, services, people and capital move freely.",
+  "module": "4.2.6.2b"
  },
  "social norms": {
   "term": "social norms",
@@ -1303,6 +1418,11 @@
   "term": "systemic risk",
   "def": "The risk that trouble at one institution spreads and threatens the whole financial system.",
   "module": "4.2.4.2"
+ },
+ "tariff": {
+  "term": "tariff",
+  "def": "A tax on imports.",
+  "module": "4.2.6.2b"
  },
  "total revenue": {
   "term": "total revenue",
@@ -1398,5 +1518,10 @@
   "term": "withdrawals",
   "def": "Money leaving the circular flow: saving, taxes and imports.",
   "module": "4.2.2.1"
+ },
+ "world trade organisation": {
+  "term": "world trade organisation",
+  "def": "The international body that deals with the rules of trade between countries.",
+  "module": "4.2.6.2b"
  }
 }

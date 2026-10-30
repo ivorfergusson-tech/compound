@@ -163,6 +163,18 @@ export function ukIncomeTax(income) {
 }
 // The budget deficit, as % of GDP: the structural part stays at any point in the cycle, and the cyclical part moves with the output gap.
 export const budgetDeficit = (structural, gap) => ({ cyclical: -0.5 * gap, total: structural - 0.5 * gap });
+// Comparative advantage: output per worker of X and Y in two countries. The opportunity cost of 1 X is the Y given up.
+export function comparative(ax, ay, bx, by) {
+  const costA = ay / ax, costB = by / bx;
+  return { costA, costB, x: costA < costB ? 'A' : costB < costA ? 'B' : null, y: costA > costB ? 'A' : costB > costA ? 'B' : null, absX: ax > bx ? 'A' : bx > ax ? 'B' : null, absY: ay > by ? 'A' : by > ay ? 'B' : null };
+}
+// A tariff t on imports, with world price 40, demand P = 100 - Q and domestic supply P = 20 + Q.
+export function tariff(t) {
+  const price = 40 + t, qs = 20 + t, qd = 60 - t, imports = qd - qs;
+  return { price, qs, qd, imports, revenue: t * imports, loss: t * t };
+}
+// The pound in a floating system: the market model from 4.1.3 with the price read as dollars per pound.
+export const poundRate = (d, s) => equilibrium(d, s).p / 50;
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -651,6 +663,61 @@ export const econCharts = {
         ? 'A negative output gap adds to the deficit, as tax revenue falls and benefit spending rises. This part goes away as the economy recovers. The structural part does not.'
         : g > 0 ? 'A positive output gap reduces the deficit, as tax revenue rises and benefit spending falls. The structural part stays, and a boom can hide it.'
           : 'With no output gap, the whole deficit is structural.';
+    });
+  },
+  comparative(root, a) {
+    const names = { x: a.xName ?? 'Cars', y: a.yName ?? 'Wheat', A: a.aName ?? 'UK', B: a.bName ?? 'France' };
+    const n = (min, max, value) => ({ min, max, step: 1, value, fmt: v => `${v}` });
+    const specs = { ax: n(1, 20, a.ax ?? 8), ay: n(1, 20, a.ay ?? 4), bx: n(1, 20, a.bx ?? 6), by: n(1, 20, a.by ?? 6) };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Comparative advantage</h3>`
+      + slider('ax', `${names.A}: ${names.x} per worker`, specs.ax) + slider('ay', `${names.A}: ${names.y} per worker`, specs.ay)
+      + slider('bx', `${names.B}: ${names.x} per worker`, specs.bx) + slider('by', `${names.B}: ${names.y} per worker`, specs.by)
+      + `<div class="stats">${stat(`Cost of 1 ${names.x}, ${names.A}`, 'ca')}${stat(`Cost of 1 ${names.x}, ${names.B}`, 'cb')}${stat(`Makes ${names.x}`, 'who', 'good')}</div>`
+      + `<p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ ax, ay, bx, by }, set) => {
+      const r = comparative(ax, ay, bx, by), label = k => names[k];
+      set('ca', `${r.costA.toFixed(2)} ${names.y}`); set('cb', `${r.costB.toFixed(2)} ${names.y}`); set('who', r.x ? label(r.x) : 'Neither');
+      const abs = r.absX && r.absX === r.absY ? `${label(r.absX)} has an absolute advantage in both goods, but trade still pays. ` : '';
+      root.querySelector('[data-desc]').textContent = r.x
+        ? `${abs}${label(r.x)} gives up less ${names.y} to make ${names.x}, so it has the comparative advantage there, and ${label(r.y)} has it in ${names.y}. Each should specialise in that good.`
+        : 'Opportunity costs are the same in both countries, so neither has a comparative advantage, and specialising brings no gain.';
+    });
+  },
+  tariff(root, a) {
+    const specs = { t: { min: 0, max: 20, step: 5, value: a.t ?? 0, fmt: v => `£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The effect of a tariff</h3>${slider('t', 'Tariff per unit', specs.t)}`
+      + `<div class="stats">${stat('Domestic price', 'p')}${stat('Imports', 'm', 'good')}${stat('Tariff revenue', 'r')}${stat('Welfare loss', 'l', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ t }, set) => {
+      const r = tariff(t), pts = v => v.map(([x, y]) => `${mx(x).toFixed(1)},${my(y).toFixed(1)}`).join(' ');
+      set('p', `£${r.price}`); set('m', r.imports); set('r', money(r.revenue)); set('l', money(r.loss));
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Tariff diagram. The world price is £40. With a tariff of £${t}, the domestic price is £${r.price}, domestic firms supply ${r.qs}, consumers buy ${r.qd} and imports are ${r.imports}.">${axes()}`
+        + (t ? `<polygon class="ch-loss" points="${pts([[20, 40], [r.qs, 40], [r.qs, r.price]])}"/><polygon class="ch-loss" points="${pts([[r.qd, 40], [60, 40], [r.qd, r.price]])}"/>${box(r.qs, 40, r.qd, r.price, 'ch-gain')}` : '')
+        + demandLine(0, 'ch-line ch-a') + supplyLine(0, 'ch-line ch-b') + seg(0, 40, 125, 40, 'ch-line ch-c')
+        + (t ? seg(0, r.price, 125, r.price, 'ch-line ch-c ch-dash') : '') + `</svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'Domestic demand'], ['ch-b', 'Domestic supply'], ['ch-c', 'World price'], ['ch-c dash', 'World price + tariff']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = t
+        ? `The price rises to £${r.price}. Domestic firms supply ${r.qs}, up from 20, consumers buy ${r.qd}, down from 60, and imports fall to ${r.imports}. The box is the tariff revenue, and the two triangles are the welfare loss.`
+        : 'With free trade, the price is the world price of £40. Domestic firms supply 20, consumers buy 60 and imports fill the gap of 40.';
+    });
+  },
+  forex(root, a) {
+    const specs = {
+      d: { min: -30, max: 30, step: 10, value: a.d ?? 0, fmt: v => `${v > 0 ? '+' : ''}${v}` },
+      s: { min: -30, max: 30, step: 10, value: a.s ?? 0, fmt: v => `${v > 0 ? '+' : ''}${v}` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The market for pounds</h3>${slider('d', 'Demand for pounds', specs.d)}${slider('s', 'Supply of pounds', specs.s)}`
+      + `<div class="stats">${stat('Exchange rate', 'r', 'good')}${stat('Change', 'c')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ d, s }, set) => {
+      const { p, q } = equilibrium(d, s), rate = poundRate(d, s), base = poundRate(0, 0);
+      set('r', `$${rate.toFixed(2)}`); set('c', rate > base ? 'Appreciates' : rate < base ? 'Depreciates' : 'No change');
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Demand and supply of pounds. The exchange rate is ${rate.toFixed(2)} dollars per pound.">${axes('Quantity of pounds', '$ per £')}`
+        + demandLine(d, 'ch-line ch-a') + supplyLine(s, 'ch-line ch-b') + `<circle cx="${mx(q)}" cy="${my(p)}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'Demand for £'], ['ch-b', 'Supply of £']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = rate > base ? `The pound appreciates to $${rate.toFixed(2)}, so UK exports get dearer and imports cheaper.`
+        : rate < base ? `The pound depreciates to $${rate.toFixed(2)}, so UK exports get cheaper and imports dearer.`
+          : 'Demand for pounds equals the supply of pounds at $1.20.';
     });
   },
   costs(root, a) {

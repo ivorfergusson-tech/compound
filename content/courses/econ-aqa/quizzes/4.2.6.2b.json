@@ -1,0 +1,180 @@
+{
+ "module": "4.2.6.2b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.2-tools",
+   "type": "match",
+   "topic": "protectionist policies",
+   "q": "Match each policy to its description.",
+   "pairs": [
+    [
+     "A tax on imports",
+     "Tariff"
+    ],
+    [
+     "A limit on the quantity of imports",
+     "Quota"
+    ],
+    [
+     "A payment to help home firms sell abroad",
+     "Export subsidy"
+    ]
+   ],
+   "why": "These all protect home producers.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-tar",
+   "type": "mcq",
+   "topic": "tariff diagram",
+   "q": "A tariff on imports will:",
+   "options": [
+    "Raise the domestic price and reduce imports",
+    "Lower the domestic price",
+    "Raise imports",
+    "Reduce domestic production"
+   ],
+   "answer": 0,
+   "why": "Home firms supply more, and consumers buy less.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-rev",
+   "type": "number",
+   "topic": "tariff diagram",
+   "q": "A tariff of £{t} per unit applies to {m} imported units. What is the tariff revenue, in £?",
+   "vars": {
+    "t": {
+     "choices": [
+      5,
+      10
+     ],
+     "default": 10
+    },
+    "m": {
+     "choices": [
+      20,
+      100
+     ],
+     "default": 20
+    }
+   },
+   "answer": "t*m",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "£{t} × {m} = £{answer}.",
+   "spec": "4.2.6.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-cu",
+   "type": "mcq",
+   "topic": "customs union",
+   "q": "What makes a customs union different from a free trade area?",
+   "options": [
+    "A common external tariff",
+    "Free trade between members",
+    "A shared language",
+    "A single currency"
+   ],
+   "answer": 0,
+   "why": "Free trade areas keep their own outside tariffs.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-sem",
+   "type": "tf",
+   "topic": "Single Market",
+   "q": "The Single European Market allows the free movement of goods, services, people and capital.",
+   "answer": true,
+   "why": "These are the four freedoms.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-prot",
+   "type": "explain",
+   "topic": "consequences",
+   "q": "Explain one reason why a country might protect an infant industry, and one risk of doing so.",
+   "ideas": [
+    {
+     "label": "New firms need time to grow and gain economies of scale",
+     "any": [
+      "time to grow",
+      "economies of scale",
+      "can't yet compete",
+      "cannot yet compete",
+      "cannot compete",
+      "can't compete",
+      "time to develop",
+      "grow",
+      "become competitive",
+      "lower costs"
+     ]
+    },
+    {
+     "label": "The risk is that it stays inefficient, or that others retaliate",
+     "any": [
+      "inefficien*",
+      "retaliat*",
+      "no incentive",
+      "less incentive",
+      "reliant",
+      "depend*",
+      "higher prices",
+      "lack of competition",
+      "less competition",
+      "trade war"
+     ]
+    }
+   ],
+   "model": "New firms need time to grow and gain economies of scale before they can compete. The risk is that protection removes the pressure to improve, so they stay inefficient.",
+   "why": "Protection should have an end date.",
+   "tests": [
+    {
+     "answer": "New firms need time to gain economies of scale, but they may stay inefficient.",
+     "marks": 2
+    },
+    {
+     "answer": "New firms need time to grow.",
+     "marks": 1
+    },
+    {
+     "answer": "Countries like tariffs.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

@@ -1,0 +1,168 @@
+{
+ "module": "4.2.6.2a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.2-comp",
+   "type": "mcq",
+   "topic": "comparative advantage",
+   "q": "A country has a comparative advantage in a good if it can produce it:",
+   "options": [
+    "At a lower opportunity cost",
+    "In larger amounts",
+    "At a higher price",
+    "With more workers"
+   ],
+   "answer": 0,
+   "why": "Producing more from the same resources is absolute advantage.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-oc",
+   "type": "number",
+   "topic": "opportunity cost",
+   "q": "A worker can make {x} phones or {y} shirts. What is the opportunity cost of 1 phone, in shirts?",
+   "vars": {
+    "x": {
+     "choices": [
+      5,
+      10
+     ],
+     "default": 10
+    },
+    "y": {
+     "choices": [
+      20,
+      30
+     ],
+     "default": 20
+    }
+   },
+   "answer": "y/x",
+   "tol": 0.01,
+   "unit": "shirts",
+   "dp": 0,
+   "why": "{y} ÷ {x} = {answer} shirts.",
+   "spec": "4.2.6.2",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-both",
+   "type": "mcq",
+   "topic": "comparative advantage",
+   "q": "Country A is better at making both of two goods. Can trade still help both countries?",
+   "options": [
+    "Yes, if their opportunity costs differ",
+    "No, A should make everything",
+    "Only if tariffs are high",
+    "Only if they share a currency"
+   ],
+   "answer": 0,
+   "why": "Comparative advantage, not absolute advantage, is what matters.",
+   "spec": "4.2.6.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-assume",
+   "type": "tf",
+   "topic": "limits",
+   "q": "The simple model of comparative advantage ignores transport costs.",
+   "answer": true,
+   "why": "Real trade has transport costs and barriers.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-pattern",
+   "type": "mcq",
+   "topic": "UK trade",
+   "q": "Which best describes the UK's trade pattern?",
+   "options": [
+    "A deficit in goods and a surplus in services",
+    "A surplus in goods and a deficit in services",
+    "Surpluses in both",
+    "Deficits in both"
+   ],
+   "answer": 0,
+   "why": "The UK specialises heavily in services such as finance.",
+   "spec": "4.2.6.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.2-explain",
+   "type": "explain",
+   "topic": "benefits",
+   "q": "Explain how free trade can benefit consumers.",
+   "ideas": [
+    {
+     "label": "More competition or specialisation lowers costs and prices",
+     "any": [
+      "lower price*",
+      "prices fall",
+      "cheaper",
+      "competition",
+      "economies of scale",
+      "lower cost*"
+     ]
+    },
+    {
+     "label": "Consumers get more choice or better quality, or real incomes rise",
+     "any": [
+      "more choice",
+      "greater choice",
+      "wider choice",
+      "variety",
+      "quality",
+      "real income*",
+      "consumer surplus",
+      "buy more",
+      "living standards"
+     ]
+    }
+   ],
+   "model": "Competition from abroad lowers prices, so real incomes rise. Consumers also get more choice and better quality.",
+   "why": "More sellers means better deals.",
+   "tests": [
+    {
+     "answer": "Competition lowers prices and gives more choice.",
+     "marks": 2
+    },
+    {
+     "answer": "Goods are cheaper.",
+     "marks": 1
+    },
+    {
+     "answer": "Trade is good.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

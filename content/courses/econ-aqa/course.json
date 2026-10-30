@@ -100,6 +100,11 @@
    "name": "Fiscal policy and supply-side policies",
    "emoji": "🧾",
    "blurb": "How governments use spending, tax and reform to shape the economy."
+  },
+  "4.2.6": {
+   "name": "The international economy",
+   "emoji": "🌍",
+   "blurb": "Trade, exchange rates, globalisation and development: the UK in the world economy."
   }
  },
  "items": [
@@ -1866,6 +1871,175 @@
     "supply-side improvements"
    ],
    "summary": "Free market and interventionist ways to raise capacity."
+  },
+  {
+   "id": "4.2.6.1",
+   "kind": "module",
+   "num": 81,
+   "strand": "4.2.6",
+   "title": "Globalisation",
+   "short": "Globalisation",
+   "level": "A-level",
+   "spec": [
+    "4.2.6.1"
+   ],
+   "buildsOn": [
+    80
+   ],
+   "introduces": [
+    "globalisation",
+    "multinational corporation",
+    "foreign direct investment"
+   ],
+   "summary": "What drives globalisation, and who gains and loses from it."
+  },
+  {
+   "id": "4.2.6.2a",
+   "kind": "module",
+   "num": 82,
+   "strand": "4.2.6",
+   "title": "Trade: comparative advantage, benefits and costs",
+   "short": "Trade and comparative advantage",
+   "level": "A-level",
+   "spec": [
+    "4.2.6.2"
+   ],
+   "buildsOn": [
+    81
+   ],
+   "introduces": [
+    "absolute advantage",
+    "comparative advantage"
+   ],
+   "summary": "Why countries gain from trade, and why UK trade patterns have changed."
+  },
+  {
+   "id": "4.2.6.2b",
+   "kind": "module",
+   "num": 83,
+   "strand": "4.2.6",
+   "title": "Protectionism, customs unions, the Single Market and the WTO",
+   "short": "Protectionism and trade blocs",
+   "level": "A-level",
+   "spec": [
+    "4.2.6.2"
+   ],
+   "buildsOn": [
+    82
+   ],
+   "introduces": [
+    "protectionism",
+    "tariff",
+    "quota",
+    "export subsidy",
+    "customs union",
+    "single european market",
+    "world trade organisation"
+   ],
+   "summary": "Tariffs and quotas, customs unions, the Single Market and the WTO."
+  },
+  {
+   "id": "4.2.6.3a",
+   "kind": "module",
+   "num": 84,
+   "strand": "4.2.6",
+   "title": "The balance of payments: structure and the current account",
+   "short": "The balance of payments",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.6.3"
+   ],
+   "buildsOn": [
+    83
+   ],
+   "introduces": [
+    "balance of payments",
+    "portfolio investment",
+    "primary income",
+    "secondary income"
+   ],
+   "summary": "The structure of the accounts, and what drives the current account."
+  },
+  {
+   "id": "4.2.6.3b",
+   "kind": "module",
+   "num": 85,
+   "strand": "4.2.6",
+   "title": "Correcting imbalances and why they matter",
+   "short": "Correcting imbalances",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.6.3"
+   ],
+   "buildsOn": [
+    84
+   ],
+   "introduces": [
+    "expenditure-switching",
+    "expenditure-reducing"
+   ],
+   "summary": "How to correct a deficit or surplus, and whether it matters."
+  },
+  {
+   "id": "4.2.6.4",
+   "kind": "module",
+   "num": 86,
+   "strand": "4.2.6",
+   "title": "Exchange rate systems",
+   "short": "Exchange rate systems",
+   "level": "A-level",
+   "spec": [
+    "4.2.6.4"
+   ],
+   "buildsOn": [
+    85
+   ],
+   "introduces": [
+    "floating exchange rate",
+    "fixed exchange rate",
+    "currency union",
+    "depreciation"
+   ],
+   "summary": "Floating and fixed rates, intervention and currency unions."
+  },
+  {
+   "id": "4.2.6.5a",
+   "kind": "module",
+   "num": 87,
+   "strand": "4.2.6",
+   "title": "Growth and development: meaning and indicators",
+   "short": "Growth and development",
+   "level": "A-level",
+   "spec": [
+    "4.2.6.5"
+   ],
+   "buildsOn": [
+    86
+   ],
+   "introduces": [
+    "economic development",
+    "human development index"
+   ],
+   "summary": "What development means, and how it's measured."
+  },
+  {
+   "id": "4.2.6.5b",
+   "kind": "module",
+   "num": 88,
+   "strand": "4.2.6",
+   "title": "Barriers to development, policies, aid and trade",
+   "short": "Promoting development",
+   "level": "A-level",
+   "spec": [
+    "4.2.6.5"
+   ],
+   "buildsOn": [
+    87
+   ],
+   "introduces": [
+    "aid"
+   ],
+   "summary": "Barriers to development, and the roles of markets, the state, aid and trade."
   }
  ]
 }

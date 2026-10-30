@@ -1,0 +1,163 @@
+{
+ "module": "4.2.6.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.4-set",
+   "type": "mcq",
+   "topic": "floating rates",
+   "q": "In a freely floating system, the exchange rate is set by:",
+   "options": [
+    "Demand for and supply of the currency",
+    "The government",
+    "The WTO",
+    "The EU"
+   ],
+   "answer": 0,
+   "why": "It's a market price.",
+   "spec": "4.2.6.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.4-flows",
+   "type": "match",
+   "topic": "floating rates",
+   "q": "Sort each event by its effect on the pound.",
+   "pairs": [
+    [
+     "More foreign tourists visit the UK",
+     "Demand for pounds rises"
+    ],
+    [
+     "UK buyers want more imports",
+     "Supply of pounds rises"
+    ],
+    [
+     "Foreign firms invest in the UK",
+     "Demand for pounds rises"
+    ]
+   ],
+   "why": "Foreigners buying UK things need pounds. UK buyers of foreign things sell pounds.",
+   "spec": "4.2.6.4",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.4-intervene",
+   "type": "mcq",
+   "topic": "intervention",
+   "q": "How could a central bank raise the value of its currency?",
+   "options": [
+    "Use foreign reserves to buy its own currency",
+    "Sell its own currency",
+    "Cut interest rates",
+    "Print more money"
+   ],
+   "answer": 0,
+   "why": "This raises demand for it.",
+   "spec": "4.2.6.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.4-mon",
+   "type": "tf",
+   "topic": "currency unions",
+   "q": "A member of a currency union cannot set its own interest rate.",
+   "answer": true,
+   "why": "One central bank sets one rate for all.",
+   "spec": "4.2.6.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.4-fix",
+   "type": "mcq",
+   "topic": "fixed and floating",
+   "q": "Which is an advantage of a fixed exchange rate?",
+   "options": [
+    "Certainty for traders and investors",
+    "Free use of interest rates at home",
+    "Automatic current account adjustment",
+    "No need for reserves"
+   ],
+   "answer": 0,
+   "why": "The others belong to floating rates.",
+   "spec": "4.2.6.4",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.4-explain",
+   "type": "explain",
+   "topic": "currency unions",
+   "q": "Explain one advantage for a country of joining a currency union.",
+   "ideas": [
+    {
+     "label": "Removes exchange rate risk or the cost of changing money",
+     "any": [
+      "exchange rate risk",
+      "exchange rate uncertainty",
+      "currency risk",
+      "transaction cost*",
+      "changing money",
+      "exchange costs",
+      "no exchange rate",
+      "no currency",
+      "price transparency",
+      "certainty"
+     ]
+    },
+    {
+     "label": "So trade or investment between members rises",
+     "any": [
+      "trade",
+      "investment",
+      "invest",
+      "export*",
+      "competition",
+      "compare prices"
+     ]
+    }
+   ],
+   "model": "It removes exchange rate risk and the cost of changing money, so firms trade and invest more with other members.",
+   "why": "One currency, one less risk.",
+   "tests": [
+    {
+     "answer": "It removes exchange rate risk, so firms trade more with other members.",
+     "marks": 2
+    },
+    {
+     "answer": "There is no exchange rate risk.",
+     "marks": 1
+    },
+    {
+     "answer": "The notes look nice.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

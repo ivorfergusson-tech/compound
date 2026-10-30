@@ -1,0 +1,175 @@
+{
+ "module": "4.2.6.5b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.5-barrier",
+   "type": "mcq",
+   "topic": "barriers",
+   "q": "Which is a barrier to growth and development?",
+   "options": [
+    "Corruption",
+    "Strong property rights",
+    "Good infrastructure",
+    "High human capital"
+   ],
+   "answer": 0,
+   "why": "The others help development.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-strat",
+   "type": "match",
+   "topic": "strategies",
+   "q": "Sort each strategy into market-based or interventionist.",
+   "pairs": [
+    [
+     "Trade liberalisation",
+     "Market-based"
+    ],
+    [
+     "State spending on infrastructure",
+     "Interventionist"
+    ],
+    [
+     "Privatisation",
+     "Market-based"
+    ],
+    [
+     "Land reform",
+     "Interventionist"
+    ]
+   ],
+   "why": "Who leads: markets or the state?",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-tied",
+   "type": "mcq",
+   "topic": "aid",
+   "q": "Tied aid means that:",
+   "options": [
+    "It must be spent on the donor's goods or services",
+    "It must be repaid at once",
+    "It's given only in emergencies",
+    "It's given through the WTO"
+   ],
+   "answer": 0,
+   "why": "This can raise the cost.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-trade",
+   "type": "tf",
+   "topic": "trade",
+   "q": "\"Trade not aid\" is the view that access to markets helps poor countries more than aid.",
+   "answer": true,
+   "why": "Rich countries' barriers can limit that access.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-micro",
+   "type": "mcq",
+   "topic": "market-based strategies",
+   "q": "What is microfinance?",
+   "options": [
+    "Small loans to people without access to banks",
+    "Very small taxes",
+    "Aid from small countries",
+    "Trade in small goods"
+   ],
+   "answer": 0,
+   "why": "It helps people to start small businesses.",
+   "spec": "4.2.6.5",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.5-aid",
+   "type": "explain",
+   "topic": "aid",
+   "q": "Explain one reason why foreign aid may fail to promote development.",
+   "ideas": [
+    {
+     "label": "It may be lost to corruption, or create reliance, or be tied",
+     "any": [
+      "corrupt*",
+      "depend*",
+      "relian*",
+      "tied",
+      "wasted",
+      "misused",
+      "misuse",
+      "elite"
+     ]
+    },
+    {
+     "label": "So it doesn't reach those in need, or weakens incentives or local firms",
+     "any": [
+      "not reach",
+      "doesn't reach",
+      "does not reach",
+      "never reach",
+      "the poor",
+      "those in need",
+      "people who need",
+      "weaken*",
+      "less incentive",
+      "no incentive",
+      "local firms",
+      "local producers",
+      "higher cost*",
+      "diverted",
+      "stolen",
+      "lost"
+     ]
+    }
+   ],
+   "model": "Aid may be lost to corruption, so it does not reach those in need. It can also create reliance, which weakens incentives to build a tax system and local firms.",
+   "why": "Money only helps if it gets there.",
+   "tests": [
+    {
+     "answer": "Corruption means the aid does not reach the people who need it.",
+     "marks": 2
+    },
+    {
+     "answer": "There may be corruption.",
+     "marks": 1
+    },
+    {
+     "answer": "Aid is small.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.5",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

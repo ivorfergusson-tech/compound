@@ -1,0 +1,188 @@
+{
+ "module": "4.2.6.3a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.6.3-parts",
+   "type": "match",
+   "topic": "current account",
+   "q": "Match each flow to its part of the current account.",
+   "pairs": [
+    [
+     "A car exported to Germany",
+     "Trade in goods"
+    ],
+    [
+     "Insurance sold to a US firm",
+     "Trade in services"
+    ],
+    [
+     "Dividends from shares abroad",
+     "Primary income"
+    ],
+    [
+     "Foreign aid paid abroad",
+     "Secondary income"
+    ]
+   ],
+   "why": "Goods, services, income on assets, and transfers.",
+   "spec": "4.2.6.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-bal",
+   "type": "number",
+   "topic": "current account",
+   "q": "Exports of goods and services are £{x}bn, and imports are £{m}bn. Net income flows are −£{n}bn. What is the current account balance, in £bn?",
+   "vars": {
+    "x": {
+     "choices": [
+      700,
+      800
+     ],
+     "default": 800
+    },
+    "m": {
+     "choices": [
+      820,
+      850
+     ],
+     "default": 850
+    },
+    "n": {
+     "choices": [
+      10,
+      20
+     ],
+     "default": 20
+    }
+   },
+   "answer": "x-m-n",
+   "tol": 0.01,
+   "unit": "£bn",
+   "dp": 0,
+   "why": "£{x}bn − £{m}bn − £{n}bn = {answer}.",
+   "spec": "4.2.6.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-fdi",
+   "type": "mcq",
+   "topic": "investment flows",
+   "q": "How does FDI differ from portfolio investment?",
+   "options": [
+    "FDI is long-term investment in productive assets, with control",
+    "FDI is only in bonds",
+    "Portfolio investment means building factories",
+    "There is no difference"
+   ],
+   "answer": 0,
+   "why": "Portfolio flows can leave quickly.",
+   "spec": "4.2.6.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-out",
+   "type": "tf",
+   "topic": "investment flows",
+   "q": "Inward FDI can lead to future outflows on the primary income account.",
+   "answer": true,
+   "why": "Foreign owners take their profits home.",
+   "spec": "4.2.6.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-infl",
+   "type": "mcq",
+   "topic": "influences",
+   "q": "Higher UK inflation than abroad is likely to:",
+   "options": [
+    "Worsen the current account",
+    "Improve the current account",
+    "Have no effect",
+    "Lower import demand"
+   ],
+   "answer": 0,
+   "why": "UK goods become less competitive.",
+   "spec": "4.2.6.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.6.3-explain",
+   "type": "explain",
+   "topic": "influences",
+   "q": "Explain how higher productivity in the UK could improve the current account.",
+   "ideas": [
+    {
+     "label": "Unit costs fall, so UK goods are more competitive",
+     "any": [
+      "lower cost*",
+      "costs fall",
+      "unit costs",
+      "cheaper",
+      "competitive",
+      "lower price*",
+      "prices fall"
+     ]
+    },
+    {
+     "label": "So exports rise or imports fall",
+     "any": [
+      "exports rise",
+      "more exports",
+      "export more",
+      "higher exports",
+      "exports increase",
+      "imports fall",
+      "fewer imports",
+      "less imports",
+      "lower imports",
+      "net exports"
+     ]
+    }
+   ],
+   "model": "Higher productivity lowers unit costs, so UK goods are more competitive. Exports rise and imports fall, which improves the current account.",
+   "why": "Productivity feeds through to prices.",
+   "tests": [
+    {
+     "answer": "Costs fall, so goods are more competitive and exports rise.",
+     "marks": 2
+    },
+    {
+     "answer": "Goods are cheaper.",
+     "marks": 1
+    },
+    {
+     "answer": "Workers are happier.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.6.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

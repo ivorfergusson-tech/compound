@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield, ukIncomeTax, budgetDeficit } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield, ukIncomeTax, budgetDeficit, comparative, tariff, poundRate } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -565,6 +565,14 @@ check('income tax: £60,000 pays £11,432', Math.abs(ukIncomeTax(60000).tax - 11
 check('income tax: the average rate rises with income', ukIncomeTax(100000).average > ukIncomeTax(60000).average && ukIncomeTax(60000).average > ukIncomeTax(30000).average);
 check('budget: a negative gap adds a cyclical deficit', budgetDeficit(2, -4).cyclical === 2 && budgetDeficit(2, -4).total === 4);
 check('budget: a positive gap hides the structural deficit', budgetDeficit(2, 4).total === 0);
+check('comparative advantage: the lower opportunity cost specialises', comparative(8, 4, 6, 6).x === 'A' && comparative(8, 4, 6, 6).y === 'B' && comparative(8, 4, 6, 6).costA === 0.5 && comparative(8, 4, 6, 6).costB === 1);
+check('comparative advantage: holds with absolute advantage in both', comparative(10, 8, 2, 4).absX === 'A' && comparative(10, 8, 2, 4).absY === 'A' && comparative(10, 8, 2, 4).x === 'A' && comparative(10, 8, 2, 4).y === 'B');
+check('comparative advantage: equal costs mean none', comparative(4, 2, 8, 4).x === null);
+check('tariff: free trade', tariff(0).price === 40 && tariff(0).imports === 40 && tariff(0).revenue === 0 && tariff(0).loss === 0);
+check('tariff: £10 cuts imports and raises revenue', tariff(10).price === 50 && tariff(10).qs === 30 && tariff(10).qd === 50 && tariff(10).imports === 20 && tariff(10).revenue === 200 && tariff(10).loss === 100);
+check('tariff: a £20 tariff stops imports', tariff(20).imports === 0 && tariff(20).revenue === 0);
+check('pound: starts at $1.20', poundRate(0, 0) === 1.2);
+check('pound: more demand appreciates it, more supply depreciates it', poundRate(20, 0) > 1.2 && poundRate(0, 20) < 1.2);
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);
