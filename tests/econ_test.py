@@ -189,6 +189,18 @@ with sync_playwright() as p:
     check("a big cost rise moves the price", page.locator('[data-v="p"]').inner_text() != "£70")
     page.locator(".calc").screenshot(path=str(SHOTS / "econ-kinked.png"))
     axe(page, "the kinked demand lesson")
+    # Welfare and price discrimination
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.5.11")
+    page.wait_for_selector(".chart svg")
+    check("the competitive output has no deadweight loss", page.locator('[data-v="dwl"]').inner_text() == "£0" and page.locator('[data-v="cs"]').inner_text() == "£800")
+    page.locator('[data-in="q"]').fill("30")
+    check("restricting output creates a deadweight loss", page.locator('[data-v="dwl"]').inner_text() == "£100" and page.locator('[data-v="ps"]').inner_text() == "£1,050")
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-surplus.png"))
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.5.7")
+    page.wait_for_selector(".chart svg")
+    check("the less elastic market pays more", page.locator('[data-v="pa"]').inner_text() == "£60" and page.locator('[data-v="pb"]').inner_text() == "£35")
+    page.locator(".calc").screenshot(path=str(SHOTS / "econ-discrim.png"))
+    axe(page, "the price discrimination lesson")
     ctx.close()
 
     # Lesson 1's quiz on its own; it should pass when everything is right

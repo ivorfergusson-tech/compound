@@ -50,6 +50,11 @@
    "name": "Market structures: perfect competition to monopoly",
    "emoji": "🏪",
    "blurb": "From perfect competition to monopoly: how the number of rivals shapes prices and profits."
+  },
+  "4.1.5b": {
+   "name": "Competition, efficiency and welfare",
+   "emoji": "⚖️",
+   "blurb": "Who wins from competition: price discrimination, contestable markets, efficiency and welfare."
   }
  },
  "items": [
@@ -731,6 +736,107 @@
     "monopoly power"
    ],
    "summary": "The monopoly diagram, monopoly power and its costs and benefits."
+  },
+  {
+   "id": "4.1.5.7",
+   "kind": "module",
+   "num": 29,
+   "strand": "4.1.5b",
+   "title": "Price discrimination",
+   "short": "Price discrimination",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.7"
+   ],
+   "buildsOn": [
+    28
+   ],
+   "introduces": [
+    "price discrimination",
+    "arbitrage"
+   ],
+   "summary": "Different prices for the same product: conditions, diagram and effects."
+  },
+  {
+   "id": "4.1.5.8",
+   "kind": "module",
+   "num": 30,
+   "strand": "4.1.5b",
+   "title": "The dynamics of competition and competitive market processes",
+   "short": "The dynamics of competition",
+   "level": "AS and A-level",
+   "spec": [
+    "4.1.5.8"
+   ],
+   "buildsOn": [
+    29
+   ],
+   "introduces": [],
+   "summary": "Competition as a process, and how creative destruction wears down monopoly."
+  },
+  {
+   "id": "4.1.5.9",
+   "kind": "module",
+   "num": 31,
+   "strand": "4.1.5b",
+   "title": "Contestable and non-contestable markets",
+   "short": "Contestable markets",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.9"
+   ],
+   "buildsOn": [
+    30
+   ],
+   "introduces": [
+    "contestable market",
+    "sunk costs",
+    "hit-and-run competition"
+   ],
+   "summary": "Why the threat of entry can discipline even a monopolist."
+  },
+  {
+   "id": "4.1.5.10",
+   "kind": "module",
+   "num": 32,
+   "strand": "4.1.5b",
+   "title": "Market structure, static efficiency, dynamic efficiency and resource allocation",
+   "short": "Static and dynamic efficiency",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.10"
+   ],
+   "buildsOn": [
+    31
+   ],
+   "introduces": [
+    "static efficiency",
+    "dynamic efficiency",
+    "human capital"
+   ],
+   "summary": "Efficiency now and over time, compared across market structures."
+  },
+  {
+   "id": "4.1.5.11",
+   "kind": "module",
+   "num": 33,
+   "strand": "4.1.5b",
+   "title": "Consumer and producer surplus",
+   "short": "Consumer and producer surplus",
+   "level": "A-level",
+   "spec": [
+    "4.1.5.11"
+   ],
+   "buildsOn": [
+    32
+   ],
+   "introduces": [
+    "consumer surplus",
+    "producer surplus",
+    "economic welfare",
+    "deadweight loss"
+   ],
+   "summary": "Measuring welfare and the deadweight loss of monopoly."
   }
  ]
 }

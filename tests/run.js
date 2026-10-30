@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked } from '../js/charts-econ.js';
+import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
 let pass = 0, fail = 0;
@@ -512,6 +512,12 @@ check('monopoly: the efficient output is higher and cheaper', priceMaker(110).ef
 check('monopolistic competition: AR near 72 touches ATC, above the lowest-cost price', Math.abs(priceMaker(72).profit) < 15 && priceMaker(72).q < 60);
 check('kinked demand: cost rises inside the gap leave the price at £70', kinked(0).p === 70 && kinked(25).p === 70 && kinked(25).q === 50);
 check('kinked demand: a big cost rise raises the price', kinked(40).p > 70 && kinked(40).q < 50 && !kinked(40).inGap);
+check('surplus: competitive output has no deadweight loss', surplus(40).cs === 800 && surplus(40).ps === 800 && surplus(40).dwl === 0);
+check('surplus: restricted output shifts surplus and loses the triangle', surplus(30).cs === 450 && surplus(30).ps === 1050 && surplus(30).dwl === 100);
+for (const q of [20, 25, 30, 35, 40]) check(`surplus: welfare adds up at ${q}`, surplus(q).cs + surplus(q).ps + surplus(q).dwl === 1600);
+check('discrimination: the less elastic market pays more', discrim(20).pA === 60 && discrim(20).pB === 35 && discrim(20).qA === 40 && discrim(20).qB === 30);
+check('discrimination: earns more than one price', Math.abs(discrim(20).profit - 2050) < 1e-9 && Math.abs(discrim(20).singleProfit - 4900 / 3) < 1e-9);
+for (const c of [10, 15, 20, 25, 30]) check(`discrimination: never earns less, MC ${c}`, discrim(c).profit > discrim(c).singleProfit);
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

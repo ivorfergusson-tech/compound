@@ -1,0 +1,167 @@
+{
+ "module": "4.1.5.10",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.10-prod",
+   "type": "mcq",
+   "topic": "productive efficiency",
+   "q": "What is the condition for productive efficiency?",
+   "options": [
+    "Output at the lowest point of the ATC curve",
+    "P = MC",
+    "MC = MR",
+    "AR = AC"
+   ],
+   "answer": 0,
+   "why": "Average cost is as low as it can be.",
+   "spec": "4.1.5.10",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.10-alloc",
+   "type": "mcq",
+   "topic": "allocative efficiency",
+   "q": "What is the condition for allocative efficiency?",
+   "options": [
+    "P = MC",
+    "MC = MR",
+    "MR = 0",
+    "ATC at its lowest"
+   ],
+   "answer": 0,
+   "why": "The value of the last unit equals the cost of making it.",
+   "spec": "4.1.5.10",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.10-types",
+   "type": "match",
+   "topic": "static and dynamic",
+   "q": "Match each change to the kind of efficiency.",
+   "pairs": [
+    [
+     "A firm moves to the lowest point of ATC",
+     "Productive"
+    ],
+    [
+     "Price is brought down to equal MC",
+     "Allocative"
+    ],
+    [
+     "Research leads to a better product over ten years",
+     "Dynamic"
+    ]
+   ],
+   "why": "Productive and allocative are static, at a point in time. Dynamic is over time.",
+   "spec": "4.1.5.10",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.10-human",
+   "type": "tf",
+   "topic": "dynamic efficiency",
+   "q": "Dynamic efficiency is influenced by research and development, investment and technological change.",
+   "answer": true,
+   "why": "These improve resource use over time.",
+   "spec": "4.1.5.10",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.10-compare",
+   "type": "mcq",
+   "topic": "comparing structures",
+   "q": "Which structure is both productively and allocatively efficient in long-run equilibrium?",
+   "options": [
+    "Perfect competition",
+    "Monopolistic competition",
+    "Oligopoly",
+    "Monopoly"
+   ],
+   "answer": 0,
+   "why": "P = MC at the lowest point of ATC. The others have P above MC.",
+   "spec": "4.1.5.10",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.10-explain",
+   "type": "explain",
+   "topic": "comparing structures",
+   "q": "Explain why a firm in an oligopoly may be more dynamically efficient than one in perfect competition.",
+   "ideas": [
+    {
+     "label": "Oligopolists have abnormal profits to fund research",
+     "any": [
+      "abnormal profit*",
+      "supernormal",
+      "large profit*",
+      "high profit*",
+      "more profit*",
+      "fund*",
+      "finance",
+      "afford",
+      "retained"
+     ]
+    },
+    {
+     "label": "Firms in perfect competition make only normal profit, or rivalry and barriers reward innovation",
+     "any": [
+      "normal profit",
+      "barrier*",
+      "rival*",
+      "non-price",
+      "keep the gains",
+      "keep the profit*",
+      "perfect knowledge",
+      "patent*",
+      "reward*",
+      "copied",
+      "incentive"
+     ]
+    }
+   ],
+   "model": "Oligopolists can earn abnormal profits to fund research. Rivalry gives them a reason to innovate, and barriers let them keep the gains, while perfectly competitive firms make only normal profit.",
+   "why": "Dynamic efficiency needs the money and the motive.",
+   "tests": [
+    {
+     "answer": "Abnormal profits fund research, while firms in perfect competition only make normal profit.",
+     "marks": 2
+    },
+    {
+     "answer": "They have abnormal profits.",
+     "marks": 1
+    },
+    {
+     "answer": "They have more customers.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.10",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

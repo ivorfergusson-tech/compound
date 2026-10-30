@@ -1,0 +1,171 @@
+{
+ "module": "4.1.5.7",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.7-define",
+   "type": "mcq",
+   "topic": "meaning",
+   "q": "Price discrimination means:",
+   "options": [
+    "Charging different prices for the same product for reasons not linked to cost",
+    "Charging more for a better product",
+    "Selling below cost",
+    "Refusing to sell to some groups"
+   ],
+   "answer": 0,
+   "why": "The price gap does not come from a cost gap.",
+   "spec": "4.1.5.7",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.7-conditions",
+   "type": "match",
+   "topic": "conditions",
+   "q": "Match each fact about a rail firm to the condition it shows.",
+   "pairs": [
+    [
+     "It sets its own fares on a route",
+     "Price-setting power"
+    ],
+    [
+     "Commuters have fewer alternatives than leisure travellers",
+     "Different price elasticities"
+    ],
+    [
+     "Off-peak tickets aren't valid at peak times",
+     "Separated markets"
+    ]
+   ],
+   "why": "All three conditions must hold.",
+   "spec": "4.1.5.7",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.7-resale",
+   "type": "mcq",
+   "topic": "conditions",
+   "q": "Why must the markets be kept separate?",
+   "options": [
+    "So consumers who buy cheaply can't resell to those who pay more",
+    "To lower the firm's costs",
+    "Because the law requires it",
+    "To make demand more elastic"
+   ],
+   "answer": 0,
+   "why": "Resale, or arbitrage, would bring the two prices together.",
+   "spec": "4.1.5.7",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.7-higher",
+   "type": "tf",
+   "topic": "diagram",
+   "q": "A price-discriminating firm sets MR = MC in each separate market.",
+   "answer": true,
+   "why": "This gives a higher price where demand is less elastic.",
+   "spec": "4.1.5.7",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.7-winners",
+   "type": "mcq",
+   "topic": "advantages and disadvantages",
+   "q": "Which is a likely benefit of price discrimination?",
+   "options": [
+    "All consumers pay less",
+    "Some consumers who were priced out can now buy",
+    "The firm's profit falls",
+    "Consumer surplus always rises"
+   ],
+   "answer": 1,
+   "why": "Lower prices for some groups can bring them into the market, though others pay more.",
+   "spec": "4.1.5.7",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.7-explain",
+   "type": "explain",
+   "topic": "diagram",
+   "q": "Explain why a firm charges a higher price in a market where demand is price inelastic.",
+   "ideas": [
+    {
+     "label": "Consumers there aren't very sensitive to price",
+     "any": [
+      "not sensitive",
+      "less sensitive",
+      "aren't sensitive",
+      "few substitutes",
+      "fewer substitutes",
+      "not many substitutes",
+      "little response",
+      "fall by less",
+      "falls by less",
+      "fall only slightly",
+      "falls only slightly",
+      "lose few",
+      "lose only a few",
+      "lose few customers"
+     ]
+    },
+    {
+     "label": "So a higher price raises revenue and profit",
+     "any": [
+      "raise* revenue",
+      "more revenue",
+      "higher revenue",
+      "increase* revenue",
+      "revenue rises",
+      "raise* profit",
+      "more profit",
+      "higher profit",
+      "increase* profit",
+      "profit rises"
+     ]
+    }
+   ],
+   "model": "Consumers in that market are not very sensitive to price, so quantity falls by less than the price rises. A higher price therefore raises revenue and profit.",
+   "why": "Inelastic demand: the price rise outweighs the lost sales.",
+   "tests": [
+    {
+     "answer": "Consumers have few substitutes so a higher price raises revenue and profit.",
+     "marks": 2
+    },
+    {
+     "answer": "They have few substitutes.",
+     "marks": 1
+    },
+    {
+     "answer": "Costs are higher there.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.7",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

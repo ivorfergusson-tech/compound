@@ -1,0 +1,164 @@
+{
+ "module": "4.1.5.9",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.9-define",
+   "type": "mcq",
+   "topic": "contestability",
+   "q": "A contestable market is best described as one where:",
+   "options": [
+    "Entry and exit are easy, so the threat of entry affects behaviour",
+    "There are many firms",
+    "The government sets prices",
+    "Firms make large profits"
+   ],
+   "answer": 0,
+   "why": "What counts is the threat, not the number of firms.",
+   "spec": "4.1.5.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.9-sunk",
+   "type": "mcq",
+   "topic": "sunk costs",
+   "q": "Sunk costs are:",
+   "options": [
+    "Costs that can't be recovered if a firm leaves the market",
+    "Costs that change with output",
+    "The costs of labour",
+    "Costs paid by consumers"
+   ],
+   "answer": 0,
+   "why": "They make entering and leaving riskier.",
+   "spec": "4.1.5.9",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.9-hit",
+   "type": "tf",
+   "topic": "hit-and-run",
+   "q": "Hit-and-run competition is more likely when sunk costs are high.",
+   "answer": false,
+   "why": "A firm can only leave cheaply if it doesn't lose much on exit.",
+   "spec": "4.1.5.9",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.9-which",
+   "type": "mcq",
+   "topic": "contestability",
+   "q": "Which market is likely to be the MOST contestable?",
+   "options": [
+    "Local window cleaning",
+    "Nuclear power generation",
+    "A national rail network",
+    "Water supply"
+   ],
+   "answer": 0,
+   "why": "It needs little capital, and the costs can largely be recovered.",
+   "spec": "4.1.5.9",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.9-effect",
+   "type": "mcq",
+   "topic": "performance",
+   "q": "As a market becomes more contestable, we would expect:",
+   "options": [
+    "Prices to move closer to average cost",
+    "Abnormal profits to rise",
+    "Firms to raise prices",
+    "More barriers to entry"
+   ],
+   "answer": 0,
+   "why": "The threat of entry limits what firms can charge.",
+   "spec": "4.1.5.9",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.9-explain",
+   "type": "explain",
+   "topic": "sunk costs",
+   "q": "Explain how high sunk costs reduce the contestability of a market.",
+   "ideas": [
+    {
+     "label": "A firm would lose those costs if it left",
+     "any": [
+      "can't be recovered",
+      "cannot be recovered",
+      "not recover*",
+      "lose the money",
+      "lost if",
+      "lose those",
+      "lose them",
+      "can't get back",
+      "cannot get back",
+      "unrecoverable",
+      "not get back",
+      "can't recover",
+      "cannot recover"
+     ]
+    },
+    {
+     "label": "So entry is riskier, and the threat of entry is weaker",
+     "any": [
+      "risk*",
+      "deter*",
+      "barrier*",
+      "less likely to enter",
+      "fewer firms",
+      "put off",
+      "threat",
+      "hit-and-run",
+      "hit and run",
+      "not enter",
+      "won't enter"
+     ]
+    }
+   ],
+   "model": "Sunk costs cannot be recovered if a firm leaves, so entering is riskier. Fewer firms will enter, the threat of entry is weaker and existing firms can charge more.",
+   "why": "If you can't leave cheaply, you think twice about entering.",
+   "tests": [
+    {
+     "answer": "Sunk costs can't be recovered if a firm leaves, so entry is risky and the threat of entry is weak.",
+     "marks": 2
+    },
+    {
+     "answer": "Entry is risky.",
+     "marks": 1
+    },
+    {
+     "answer": "Costs go up with output.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.9",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

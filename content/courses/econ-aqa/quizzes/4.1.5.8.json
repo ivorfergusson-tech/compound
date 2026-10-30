@@ -1,0 +1,155 @@
+{
+ "module": "4.1.5.8",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.8-short",
+   "type": "mcq",
+   "topic": "benefits",
+   "q": "Which is a short-run benefit of competition?",
+   "options": [
+    "Lower prices as firms try to win customers",
+    "Decades of investment",
+    "A new industry",
+    "Higher long-run growth"
+   ],
+   "answer": 0,
+   "why": "Price and service respond quickly. Innovation takes longer.",
+   "spec": "4.1.5.8",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.8-nonprice",
+   "type": "mcq",
+   "topic": "beyond price",
+   "q": "Competition encourages firms to do which of these?",
+   "options": [
+    "Improve products, reduce costs and improve service",
+    "Only cut prices",
+    "Avoid new methods",
+    "Keep prices fixed"
+   ],
+   "answer": 0,
+   "why": "Firms compete on more than price.",
+   "spec": "4.1.5.8",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.8-temp",
+   "type": "tf",
+   "topic": "creative destruction",
+   "q": "High barriers to entry mean that monopoly power is always permanent.",
+   "answer": false,
+   "why": "New technology can make the barriers irrelevant.",
+   "spec": "4.1.5.8",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.8-chain",
+   "type": "mcq",
+   "topic": "creative destruction",
+   "q": "What gives outsiders the incentive to break into a monopolised market?",
+   "options": [
+    "The large profits on offer",
+    "The low prices in the market",
+    "Government rules",
+    "A lack of demand"
+   ],
+   "answer": 0,
+   "why": "Large profits are a signal, and they reward firms that find a way in.",
+   "spec": "4.1.5.8",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.8-limit",
+   "type": "mcq",
+   "topic": "limits",
+   "q": "Which is a limit on creative destruction as a check on monopoly?",
+   "options": [
+    "New firms always succeed",
+    "A dominant firm can buy up small rivals",
+    "Consumers dislike new products",
+    "Profits fall too fast"
+   ],
+   "answer": 1,
+   "why": "Buying rivals removes the threat before it grows.",
+   "spec": "4.1.5.8",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 3
+  },
+  {
+   "id": "econ-aqa:4.1.5.8-explain",
+   "type": "explain",
+   "topic": "creative destruction",
+   "q": "Explain why monopoly profits can lead to more competition in the long run.",
+   "ideas": [
+    {
+     "label": "High profits give new firms an incentive to enter",
+     "any": [
+      "incentive",
+      "attract*",
+      "reason to enter",
+      "want to enter",
+      "motivat*",
+      "encourage*"
+     ]
+    },
+    {
+     "label": "They innovate to overcome the barriers and take customers",
+     "any": [
+      "innovat*",
+      "new technology",
+      "new product*",
+      "overcome",
+      "get around",
+      "get past",
+      "new idea*",
+      "new way*",
+      "creative destruction"
+     ]
+    }
+   ],
+   "model": "High profits give outsiders an incentive to enter the market. If barriers block direct entry, they innovate with a new product or method to overcome them.",
+   "why": "Big profits are a big prize, and innovation is the way in.",
+   "tests": [
+    {
+     "answer": "Large profits give new firms an incentive to enter, and they innovate to overcome barriers.",
+     "marks": 2
+    },
+    {
+     "answer": "Large profits attract new firms.",
+     "marks": 1
+    },
+    {
+     "answer": "Monopolies are bad for consumers.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.8",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

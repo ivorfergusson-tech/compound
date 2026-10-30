@@ -79,6 +79,17 @@ export function kinked(c) {
   const q = mc > 45 ? (95 - c) / 1.4 : (120 - c) / 2.4;
   return { q, p: mc > 45 ? 95 - 0.5 * q : 120 - q, inGap: false };
 }
+// Welfare in the market D: P = 100 - Q, S: P = 20 + Q when output is held at q (40 is the competitive output).
+export function surplus(q) {
+  const p = 100 - q, cost = 20 + q;
+  return { p, cs: q * q / 2, ps: (p - cost) * q + q * q / 2, dwl: (40 - q) ** 2 };
+}
+// Third-degree price discrimination with constant MC c. Market A: P = 100 - q. Market B: P = 50 - 0.5q (more elastic).
+export function discrim(c) {
+  const qA = (100 - c) / 2, pA = 100 - qA, qB = 50 - c, pB = 50 - 0.5 * qB;
+  const single = (200 + 3 * c) / 6, both = (single - c) * (200 - 3 * single), onlyA = (pA - c) * qA;
+  return { pA, qA, pB, qB, profit: (pA - c) * qA + (pB - c) * qB, singleProfit: Math.max(both, onlyA), singlePrice: both >= onlyA ? single : pA };
+}
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -259,6 +270,40 @@ export const econCharts = {
       root.querySelector('[data-desc]').textContent = r.inGap
         ? 'MC passes through the gap in MR, so the firm keeps the price at £70 and output at 50. This is why prices in an oligopoly can be stable.'
         : 'MC has gone above the gap in MR, so this cost rise is large enough for the firm to raise its price.';
+    });
+  },
+  surplus(root, a) {
+    const specs = { q: { min: 20, max: 40, step: 5, value: a.q ?? 40, fmt: v => `${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Consumer and producer surplus</h3>${slider('q', 'Output', specs.q)}`
+      + `<div class="stats">${stat('Consumer surplus', 'cs', 'good')}${stat('Producer surplus', 'ps')}${stat('Deadweight loss', 'dwl', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    const tri = (pts, cls) => `<polygon class="${cls}" points="${pts.map(([x, y]) => `${mx(x).toFixed(1)},${my(y).toFixed(1)}`).join(' ')}"/>`;
+    wire(root, specs, ({ q }, set) => {
+      const r = surplus(q), mc = 20 + q;
+      set('cs', money(r.cs)); set('ps', money(r.ps)); set('dwl', money(r.dwl));
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Demand and supply diagram. Output is ${q}, the price is £${r.p}, consumer surplus is the area above the price and producer surplus the area below it${q < 40 ? ', with a deadweight loss triangle between that output and 40' : ''}.">${axes()}`
+        + tri([[0, 100], [0, r.p], [q, r.p]], 'ch-gain') + tri([[0, r.p], [q, r.p], [q, mc], [0, 20]], 'ch-prod')
+        + (q < 40 ? tri([[q, r.p], [q, mc], [40, 60]], 'ch-loss') : '')
+        + demandLine(0, 'ch-line ch-a') + supplyLine(0, 'ch-line ch-b') + seg(0, r.p, q, r.p, 'ch-line ch-dash ch-guide') + `</svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'Demand'], ['ch-b', 'Supply (MC)']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = q === 40
+        ? 'At the competitive output, price is £60 and total welfare is as large as it can be: £1,600 shared between consumers and producers.'
+        : `Holding output at ${q} raises the price to £${r.p}. Consumers lose, producers gain part of what consumers lose, and ${money(r.dwl)} of welfare is lost to everyone.`;
+    });
+  },
+  discrim(root, a) {
+    const specs = { c: { min: 10, max: 30, step: 5, value: a.c ?? 20, fmt: v => `£${v}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">Price discrimination in two markets</h3>${slider('c', 'Marginal cost', specs.c)}`
+      + `<div class="stats">${stat('Price in A (less elastic)', 'pa')}${stat('Price in B (more elastic)', 'pb')}${stat('Extra profit', 'gain', 'good')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    const panel = (name, top, slope, q, p, c) => `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Market ${name}: where marginal revenue equals marginal cost of £${c}, the firm sells ${q} units at £${p}.">${axes()}`
+      + seg(0, top, top / slope, 0, 'ch-line ch-b') + seg(0, top, top / slope / 2, 0, 'ch-line ch-b ch-dash') + seg(0, c, 125, c, 'ch-line ch-c')
+      + seg(q, 0, q, p, 'ch-line ch-dash ch-guide') + `<circle cx="${mx(q)}" cy="${my(p)}" r="5" class="ch-dot-b"/></svg>`;
+    wire(root, specs, ({ c }, set) => {
+      const r = discrim(c);
+      set('pa', `£${r.pA.toFixed(0)}`); set('pb', `£${r.pB.toFixed(0)}`); set('gain', money(r.profit - r.singleProfit));
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart"><div class="ch-pair"><div><strong>Market A</strong>${panel('A', 100, 1, r.qA, r.pA, c)}</div><div><strong>Market B</strong>${panel('B', 50, 0.5, r.qB, r.pB, c)}</div></div>${legend([['ch-b', 'AR'], ['ch-b dash', 'MR'], ['ch-c', 'MC']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = `Where MR = MC in each market, the firm sells ${r.qA} units at £${r.pA} in A and ${r.qB} units at £${r.pB} in B. Profit is ${money(r.profit)}, against ${money(r.singleProfit)} with one price (£${r.singlePrice.toFixed(2)}).`;
     });
   },
   costs(root, a) {

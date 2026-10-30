@@ -1,0 +1,195 @@
+{
+ "module": "4.1.5.11",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.1.5.11-cs",
+   "type": "number",
+   "topic": "consumer surplus",
+   "q": "Someone is willing to pay £{w} for a coat and pays £{p}. What is the consumer surplus, in £?",
+   "vars": {
+    "w": {
+     "choices": [
+      50,
+      60,
+      80
+     ],
+     "default": 60
+    },
+    "p": {
+     "choices": [
+      30,
+      35,
+      45
+     ],
+     "default": 45
+    }
+   },
+   "answer": "w-p",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "£{w} − £{p} = £{answer}.",
+   "spec": "4.1.5.11",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.11-area",
+   "type": "number",
+   "topic": "diagram",
+   "q": "A demand curve starts at a price of £{t} and the market price is £{p}, with {q} units sold. What is consumer surplus, in £?",
+   "vars": {
+    "t": {
+     "choices": [
+      50,
+      60
+     ],
+     "default": 50
+    },
+    "p": {
+     "choices": [
+      20,
+      30
+     ],
+     "default": 30
+    },
+    "q": {
+     "choices": [
+      100,
+      200
+     ],
+     "default": 200
+    }
+   },
+   "answer": "(t-p)*q/2",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "The triangle has an area of ½ × (£{t} − £{p}) × {q} = £{answer}.",
+   "spec": "4.1.5.11",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.11-ps",
+   "type": "mcq",
+   "topic": "producer surplus",
+   "q": "On a diagram, producer surplus is the area:",
+   "options": [
+    "Above the supply curve and below the price",
+    "Below the demand curve and above the price",
+    "Below the supply curve",
+    "Above the demand curve"
+   ],
+   "answer": 0,
+   "why": "It's the gap between the price and what firms would have accepted.",
+   "spec": "4.1.5.11",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.1.5.11-transfer",
+   "type": "tf",
+   "topic": "deadweight loss",
+   "q": "All of the consumer surplus lost to a monopolist is deadweight loss.",
+   "answer": false,
+   "why": "Part is transferred to the firm. Only the triangle is lost to everyone.",
+   "spec": "4.1.5.11",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.11-dwl",
+   "type": "mcq",
+   "topic": "deadweight loss",
+   "q": "Deadweight loss from monopoly arises because:",
+   "options": [
+    "Units that consumers value above their cost aren't made",
+    "The firm pays too much tax",
+    "Costs are too low",
+    "Consumers buy too much"
+   ],
+   "answer": 0,
+   "why": "Restricting output removes those gains from trade.",
+   "spec": "4.1.5.11",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 1,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.1.5.11-explain",
+   "type": "explain",
+   "topic": "price discrimination and welfare",
+   "q": "Explain how price discrimination can affect consumer and producer surplus.",
+   "ideas": [
+    {
+     "label": "Consumers who pay more lose surplus, which goes to the firm",
+     "any": [
+      "consumer surplus falls",
+      "lose consumer surplus",
+      "lose surplus",
+      "loses surplus",
+      "consumer surplus is reduced",
+      "reduces consumer surplus",
+      "reduce consumer surplus",
+      "transfer*",
+      "lower consumer surplus",
+      "less consumer surplus"
+     ]
+    },
+    {
+     "label": "Producer surplus rises, or some consumers gain by paying less",
+     "any": [
+      "producer surplus rises",
+      "producer surplus increases",
+      "increase* producer surplus",
+      "raise* producer surplus",
+      "more producer surplus",
+      "higher producer surplus",
+      "greater producer surplus",
+      "pay less",
+      "gain surplus",
+      "can now buy"
+     ]
+    }
+   ],
+   "model": "Consumers charged a higher price lose consumer surplus, which is transferred to the firm, so producer surplus rises. Consumers charged less can gain.",
+   "why": "Ask who pays more, who pays less and where the surplus goes.",
+   "tests": [
+    {
+     "answer": "Consumers who pay more lose surplus and it is transferred to the firm, so producer surplus rises.",
+     "marks": 2
+    },
+    {
+     "answer": "Consumer surplus falls.",
+     "marks": 1
+    },
+    {
+     "answer": "The price changes.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.1.5.11",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 1,
+   "difficulty": 2
+  }
+ ]
+}

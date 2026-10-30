@@ -24,6 +24,11 @@
   "def": "A bias in which people rely too much on the first number or piece of information they see.",
   "module": "4.1.2.3"
  },
+ "arbitrage": {
+  "term": "arbitrage",
+  "def": "Buying something where it's cheap and selling it where it's dearer.",
+  "module": "4.1.5.7"
+ },
  "asymmetric information": {
   "term": "asymmetric information",
   "def": "When one party to a deal has more information than the other.",
@@ -119,6 +124,16 @@
   "def": "Goods bought by households to use up for their own satisfaction, such as food and clothes.",
   "module": "4.1.1.2"
  },
+ "consumer surplus": {
+  "term": "consumer surplus",
+  "def": "The difference between what consumers are willing to pay and what they actually pay.",
+  "module": "4.1.5.11"
+ },
+ "contestable market": {
+  "term": "contestable market",
+  "def": "A market where the threat of new firms entering affects how existing firms behave, because entry and exit are easy.",
+  "module": "4.1.5.9"
+ },
  "cooperation": {
   "term": "cooperation",
   "def": "Firms working together in ways that can benefit consumers or the public, such as agreeing common standards.",
@@ -133,6 +148,11 @@
   "term": "cross elasticity of demand",
   "def": "How responsive demand for one good is to a change in the price of another.",
   "module": "4.1.3.2"
+ },
+ "deadweight loss": {
+  "term": "deadweight loss",
+  "def": "Welfare that is lost to everyone, because units worth more than they cost aren't made.",
+  "module": "4.1.5.11"
  },
  "default choice": {
   "term": "default choice",
@@ -179,6 +199,11 @@
   "def": "The separation between the shareholders who own a firm and the managers who run it.",
   "module": "4.1.5.2"
  },
+ "dynamic efficiency": {
+  "term": "dynamic efficiency",
+  "def": "Improvement in the use of resources over time, through better products and lower costs.",
+  "module": "4.1.5.10"
+ },
  "economic good": {
   "term": "economic good",
   "def": "A good that uses scarce resources, so producing it has an opportunity cost.",
@@ -203,6 +228,11 @@
   "term": "economic problem",
   "def": "How to allocate scarce resources between unlimited wants. Also called the fundamental economic problem.",
   "module": "4.1.1.4"
+ },
+ "economic welfare": {
+  "term": "economic welfare",
+  "def": "Well-being from economic activity, measured in a market by consumer surplus plus producer surplus.",
+  "module": "4.1.5.11"
  },
  "economies of scale": {
   "term": "economies of scale",
@@ -268,6 +298,16 @@
   "term": "goods",
   "def": "Physical products that can be touched, such as food, cars and phones.",
   "module": "4.1.1.2"
+ },
+ "hit-and-run competition": {
+  "term": "hit-and-run competition",
+  "def": "When a firm enters a market to take abnormal profits, then leaves when they've gone.",
+  "module": "4.1.5.9"
+ },
+ "human capital": {
+  "term": "human capital",
+  "def": "The skills, knowledge and experience of the workforce.",
+  "module": "4.1.5.10"
  },
  "imperfect information": {
   "term": "imperfect information",
@@ -454,6 +494,11 @@
   "def": "A statement about what is, was or will be, which can be tested against evidence (even if it turns out to be false).",
   "module": "4.1.1.1"
  },
+ "price discrimination": {
+  "term": "price discrimination",
+  "def": "Charging different consumers different prices for the same product, for reasons not linked to cost.",
+  "module": "4.1.5.7"
+ },
  "price elasticity of demand": {
   "term": "price elasticity of demand",
   "def": "How responsive quantity demanded is to a change in price: % change in quantity demanded ÷ % change in price.",
@@ -483,6 +528,11 @@
   "term": "price war",
   "def": "When firms repeatedly undercut each other's prices to win market share.",
   "module": "4.1.5.5b"
+ },
+ "producer surplus": {
+  "term": "producer surplus",
+  "def": "The difference between the price firms receive and the lowest price they'd accept.",
+  "module": "4.1.5.11"
  },
  "product differentiation": {
   "term": "product differentiation",
@@ -589,6 +639,11 @@
   "def": "People, firms, regions or countries concentrating on what they do best and producing only some goods.",
   "module": "4.1.4.1"
  },
+ "static efficiency": {
+  "term": "static efficiency",
+  "def": "Efficiency at a point in time, covering productive and allocative efficiency.",
+  "module": "4.1.5.10"
+ },
  "subsidy": {
   "term": "subsidy",
   "def": "A payment from the government to producers that lowers their costs and encourages output.",
@@ -598,6 +653,11 @@
   "term": "substitutes",
   "def": "Goods that can replace each other. A rise in the price of one raises demand for the other. XED is positive.",
   "module": "4.1.3.1"
+ },
+ "sunk costs": {
+  "term": "sunk costs",
+  "def": "Costs that can't be recovered if a firm leaves a market, such as advertising.",
+  "module": "4.1.5.9"
  },
  "supply": {
   "term": "supply",
