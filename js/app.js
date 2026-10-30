@@ -3,7 +3,7 @@
 // redirect to #/c/money/….
 import { esc, el, niceDate } from './util.js';
 import { loadRegistry, loadFigures, courseFiles } from './content.js';
-import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES } from './progress.js';
+import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf } from './progress.js';
 import { REFRESH_ID, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, upcoming, weekPlan } from './dashboard.js';
 import * as exams from './exams.js';
 import { buildAttempt, buildCheckpoint, instantiate } from './quiz.js';
@@ -97,7 +97,7 @@ const K = id => itemKey(course, id); // progress key for an item of this course
 const base = () => `#/c/${course.id}`;
 const hrefItem = it => (it.kind === 'checkpoint' ? `${base()}/cp/${it.num}` : `${base()}/m/${it.id}`);
 
-function statusMap() { return courseStatus(course.items, progress, course.ready, { unlockAll: sync.isAdmin(), key: K }); }
+function statusMap() { return courseStatus(course.items, progress, course.ready, { unit: unitOf(course), unlockAll: sync.isAdmin(), key: K }); }
 
 function gameStrip() {
   const xp = progress.xp().total;
@@ -151,7 +151,7 @@ function itemCard(item, s) {
   const locked = s.state === 'locked' || (s.state === 'soon' && !sync.isAdmin());
   const href = hrefItem(item);
   const icon = item.kind === 'checkpoint' ? '✏️' : item.kind === 'intro' ? '👋' : strand.emoji;
-  const kicker = item.kind === 'checkpoint' ? `Checkpoint · modules ${item.covers[0]}–${item.covers[1]}`
+  const kicker = item.kind === 'checkpoint' ? `Checkpoint · ${unitOf(course)}s ${item.covers[0]}–${item.covers[1]}`
     : item.kind === 'intro' ? 'Start here' : `${item.num} · ${strand.name}${item.strand === 'trading' ? ' (paper only)' : ''}`;
   const right = s.state === 'locked' ? lockIcon()
     : s.state === 'soon' ? '<span class="tag">Soon</span>'
@@ -203,7 +203,7 @@ function viewHome(params) {
     <section class="card hero">
       <a class="small back-link" href="#/">← Dashboard</a>
       <span class="eyebrow">${esc(entry.title)} · ${fresh ? 'Welcome' : 'Pick up where you left off'}</span>
-      ${nextStrand ? `<span class="pill strand-pill-${next.strand}">${nextStrand.emoji} ${esc(nextStrand.name)} · module ${next.num}</span>` : ''}
+      ${nextStrand ? `<span class="pill strand-pill-${next.strand}">${nextStrand.emoji} ${esc(nextStrand.name)} · ${unitOf(course)} ${next.num}</span>` : ''}
       <h1>${esc(next.title)}</h1>
       <p class="muted">${esc(next.summary)}</p>
       ${ns.best != null ? `<p>Best score <strong>${ns.best}%</strong>. Score ${Math.round(course.passMark * 100)}%${next.kind === 'module' && next.num > 1 ? ' across the recall check and the quiz' : ''} to unlock the next one.</p>` : ''}
@@ -229,7 +229,7 @@ async function liveCourses() {
   const list = await Promise.all(registry.courses.filter(e => e.live).map(e => loadCourseById(e.id)));
   return list.map(c => {
     const key = id => itemKey(c.course, id);
-    return { ...c, key, st: courseStatus(c.course.items, progress, c.course.ready, { unlockAll: sync.isAdmin(), key }) };
+    return { ...c, key, st: courseStatus(c.course.items, progress, c.course.ready, { unit: unitOf(c.course), unlockAll: sync.isAdmin(), key }) };
   });
 }
 
@@ -279,7 +279,7 @@ async function viewDashboard() {
     </section>`;
   } else {
     hero = `<section class="card hero continue"><span class="eyebrow">${esc(here.entry.title)}</span><h2 class="hero-title">Course finished</h2>
-      <p>You've passed every module. Retake any quiz or refresh what you got wrong to keep it fresh.</p><a class="btn wide" href="#/c/${here.course.id}">Open the course</a></section>`;
+      <p>You've passed every ${unitOf(here.course)}. Retake any quiz or refresh what you got wrong to keep it fresh.</p><a class="btn wide" href="#/c/${here.course.id}">Open the course</a></section>`;
   }
 
   // Refresh knowledge
@@ -302,7 +302,7 @@ async function viewDashboard() {
     return `<a class="course-card" href="#/c/${e.id}"><span class="eyebrow">${board}</span><strong class="cc-title">${esc(e.title)}</strong>
       <span class="muted small">${esc(registry.subjects[e.subject]?.blurb || '')}</span>
       <span class="bar" role="progressbar" aria-label="${esc(e.title)} complete" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p.pct}"><span style="width:${p.pct}%"></span></span>
-      <span class="small"><strong>${p.pct}%</strong> · ${p.passed} of ${p.total} modules passed${locked ? ' · needs a free account' : ''}</span></a>`;
+      <span class="small"><strong>${p.pct}%</strong> · ${p.passed} of ${p.total} ${unitOf(c.course)}s passed${locked ? ' · needs a free account' : ''}</span></a>`;
   }).join('');
 
   shell(`<div class="home dash">
@@ -453,7 +453,7 @@ async function viewModule(id) {
         ${strand ? `<span class="pill strand-pill-${item.strand}">${strand.emoji} ${esc(strand.name)} · ${esc(item.level)}</span>` : '<span class="pill">Start here</span>'}
         <h1>${esc(item.title)}</h1>
         ${canSpeak() ? '<div class="read-aloud" data-no-speak><button type="button" class="btn ghost listen" aria-label="Listen to this lesson">🔊 Listen</button><button type="button" class="btn ghost pause-read" hidden>Pause</button><button type="button" class="btn ghost stop-read" hidden>Stop</button></div>' : ''}
-        <p class="muted">About ${minutes} minutes${item.buildsOn.length ? ` · builds on ${item.buildsOn.map(n => n === 0 ? 'the introduction' : `module ${n}`).join(', ')}` : ''}</p>
+        <p class="muted">About ${minutes} minutes${item.buildsOn.length ? ` · builds on ${item.buildsOn.map(n => n === 0 ? 'the introduction' : `${unitOf(course)} ${n}`).join(', ')}` : ''}</p>
         ${isTrading ? `<aside class="callout callout-paper"><span class="eyebrow">Paper trading only</span><p>Education only, not financial advice. Practise with pretend money; most people who trade with real money lose it.</p></aside>` : ''}
       </header>
       ${item.num > 1 ? '<section class="recall" id="recall"></section>' : ''}
@@ -464,7 +464,7 @@ async function viewModule(id) {
         <textarea rows="6" aria-label="In my own words">${esc(progress.state.notes[K(id)]?.text || '')}</textarea>
         <span class="saved-note" aria-live="polite"></span>
       </section>
-      ${quiz ? `<section class="quiz-wrap" id="quiz"><h2>Module quiz</h2><p class="muted quiz-rule">${quiz.pick} questions. Score ${Math.round(course.passMark * 100)}% to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.</p><div class="quiz"></div></section>` : ''}
+      ${quiz ? `<section class="quiz-wrap" id="quiz"><h2>${unitOf(course) === 'lesson' ? 'Lesson' : 'Module'} quiz</h2><p class="muted quiz-rule">${quiz.pick} questions. Score ${Math.round(course.passMark * 100)}% to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.</p><div class="quiz"></div></section>` : ''}
       ${nav(item)}
     </article>`, { title: item.short || item.title });
 
@@ -502,7 +502,7 @@ function nextItemLabel(item) {
   const idx = course.items.indexOf(item);
   const next = course.items[idx + 1];
   if (!next || item.kind === 'intro') return '';
-  return next.kind === 'checkpoint' ? ` and unlock ${next.title.toLowerCase()}` : ` and unlock module ${next.num}`;
+  return next.kind === 'checkpoint' ? ` and unlock ${next.title.toLowerCase()}` : ` and unlock ${unitOf(course)} ${next.num}`;
 }
 
 function nav(item) {
@@ -532,7 +532,7 @@ function wireReading(root, id) {
     const total = end.offsetTop - window.innerHeight * 0.6;
     const p = Math.min(1, Math.max(0, window.scrollY / Math.max(1, total)));
     fill.style.width = `${p * 100}%`;
-    if (p >= 1 && progress.markRead(id)) { refreshStrip(); sync.pushSoon(); toast('Module read: +20 XP'); }
+    if (p >= 1 && progress.markRead(id)) { refreshStrip(); sync.pushSoon(); toast(`${unitOf(course) === 'lesson' ? 'Lesson' : 'Module'} read: +20 XP`); }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   cleanup.push(() => window.removeEventListener('scroll', onScroll));
@@ -552,7 +552,7 @@ async function mountModuleTest(article, item, quiz) {
   if (!hasRecall) top?.remove();
   if (!box) return;
   if (hasRecall) {
-    article.querySelector('.quiz-rule').textContent = `A ${recallSize}-question recall check from earlier modules, then ${quiz.pick} quiz questions. Score ${Math.round(course.passMark * 100)}% across both parts to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.`;
+    article.querySelector('.quiz-rule').textContent = `A ${recallSize}-question recall check from earlier ${unitOf(course)}s, then ${quiz.pick} quiz questions. Score ${Math.round(course.passMark * 100)}% across both parts to pass${nextItemLabel(item)}. Retry as often as you like; your best attempt counts.`;
   }
 
   const recallPart = () => {
@@ -579,8 +579,8 @@ async function mountModuleTest(article, item, quiz) {
     if (!top || !top.isConnected || top.querySelector('.question')) return; // mid-check: leave it
     const done = recallPart();
     top.innerHTML = done
-      ? `<div class="card recall-done"><span aria-hidden="true">✓</span><p><strong>Recall check done: ${done.auto + done.claimed} of ${done.outOf}.</strong> It counts towards this module's pass, with the quiz.</p></div>`
-      : `<div class="recall-intro card"><span class="eyebrow">Before you read · Recall check · ${recallSize} quick questions</span><p>Questions from earlier modules, starting with ones you've missed before. Recalling beats rereading. Your marks count towards this module's pass, with the quiz.</p><button type="button" class="btn start-recall">Start recall check</button><button type="button" class="btn ghost skip">Later</button></div>`;
+      ? `<div class="card recall-done"><span aria-hidden="true">✓</span><p><strong>Recall check done: ${done.auto + done.claimed} of ${done.outOf}.</strong> It counts towards this ${unitOf(course)}'s pass, with the quiz.</p></div>`
+      : `<div class="recall-intro card"><span class="eyebrow">Before you read · Recall check · ${recallSize} quick questions</span><p>Questions from earlier ${unitOf(course)}s, starting with ones you've missed before. Recalling beats rereading. Your marks count towards this ${unitOf(course)}'s pass, with the quiz.</p><button type="button" class="btn start-recall">Start recall check</button><button type="button" class="btn ghost skip">Later</button></div>`;
     top.querySelector('.skip')?.addEventListener('click', () => { top.innerHTML = `<p class="small muted">You'll do the recall check just before the quiz.</p>`; });
     top.querySelector('.start-recall')?.addEventListener('click', () => runRecall(top, '<p class="muted">Now on to the lesson. These marks count with your quiz.</p>'));
   }
@@ -630,7 +630,7 @@ async function mountModuleTest(article, item, quiz) {
     const done = recallPart();
     const steps = !hasRecall ? 'Each question shows the right answer and why straight after you answer.'
       : done ? `Recall check done (${done.auto + done.claimed} of ${done.outOf}); it counts with the quiz.`
-      : 'Part 1 is a quick recall check from earlier modules, part 2 is the quiz. Both count towards your pass.';
+      : `Part 1 is a quick recall check from earlier ${unitOf(course)}s, part 2 is the quiz. Both count towards your pass.`;
     box.innerHTML = `<div class="card"><p>${best ? `Your best: <strong>${Math.round(attemptPct(best) * 100)}%</strong>. ` : ''}${steps}</p><button type="button" class="btn wide">${hasRecall && !done ? 'Start the recall check' : best ? 'Retake the quiz' : 'Start the quiz'}</button></div>`;
     box.querySelector('button').addEventListener('click', begin);
   }
@@ -671,7 +671,7 @@ async function viewCheckpoint(num) {
       },
     });
   };
-  box.innerHTML = `<div class="card"><p>Questions from every module so far, mostly the latest eight.</p><button type="button" class="btn wide">Start the checkpoint</button></div>`;
+  box.innerHTML = `<div class="card"><p>Questions from every ${unitOf(course)} so far, mostly the latest eight.</p><button type="button" class="btn wide">Start the checkpoint</button></div>`;
   box.querySelector('button').addEventListener('click', start);
 }
 

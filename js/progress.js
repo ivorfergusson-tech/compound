@@ -239,7 +239,10 @@ export function levelFor(xp) {
 
 // Status of every item on the course map.
 // key(id) turns an item id into its progress key (see itemKey); Money's are the ids themselves.
-export function courseStatus(items, progress, ready, { unlockAll = false, key = id => id } = {}) {
+// What a course calls its numbered items: Money has modules, the A-levels have lessons.
+export const unitOf = course => course?.unit || 'module';
+
+export function courseStatus(items, progress, ready, { unlockAll = false, key = id => id, unit = 'module' } = {}) {
   const out = {};
   let gate = null;
   for (const item of items) {
@@ -251,7 +254,7 @@ export function courseStatus(items, progress, ready, { unlockAll = false, key = 
     const best = progress.best(key(item.id));
     let s;
     if (!unlocked) {
-      s = { state: 'locked', reason: gate.kind === 'checkpoint' ? `Pass ${gate.title.toLowerCase()} to unlock` : `Pass module ${gate.num}'s quiz to unlock` };
+      s = { state: 'locked', reason: gate.kind === 'checkpoint' ? `Pass ${gate.title.toLowerCase()} to unlock` : `Pass ${unit} ${gate.num}'s quiz to unlock` };
     } else if (!ready.includes(item.id)) {
       s = { state: 'soon', reason: 'Coming soon' };
     } else if (progress.passed(key(item.id))) {

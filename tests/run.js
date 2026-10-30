@@ -12,6 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
+import { unitOf } from '../js/progress.js';
 import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield, ukIncomeTax, budgetDeficit, comparative, tariff, poundRate } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
 
@@ -573,6 +574,7 @@ check('tariff: £10 cuts imports and raises revenue', tariff(10).price === 50 &&
 check('tariff: a £20 tariff stops imports', tariff(20).imports === 0 && tariff(20).revenue === 0);
 check('pound: starts at $1.20', poundRate(0, 0) === 1.2);
 check('pound: more demand appreciates it, more supply depreciates it', poundRate(20, 0) > 1.2 && poundRate(0, 20) < 1.2);
+check('unit: Money has modules and A-levels have lessons', unitOf({}) === 'module' && unitOf({ unit: 'lesson' }) === 'lesson');
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

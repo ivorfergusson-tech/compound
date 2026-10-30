@@ -1,8 +1,7 @@
 """The A-level Economics draft lessons, in the browser. Serve the site first:
     python -m http.server 8765 --bind 127.0.0.1
 then: python tests/econ_test.py [base_url] [screenshot_dir]
-The course isn't live yet, so the registry and course.json are answered as if it were published
-(live, every written lesson ready, no account needed). Checks every lesson renders with its parts,
+The registry and course.json are answered with no account needed, so every lesson can be opened. Checks every lesson renders with its parts,
 the PPF diagram responds, quizzes and the recall check run, and axe-core finds no serious issues.
 """
 import json
@@ -340,6 +339,15 @@ with sync_playwright() as p:
     axe(page, "the exchange rates lesson")
     ctx.close()
 
+    # Lessons, not modules
+    ctx, page = new_page(browser, progress=passed_all())
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.1.2")
+    page.wait_for_selector("#quiz")
+    text = page.locator("main").inner_text()
+    check("Economics says lesson", "Lesson quiz" in text and "Module quiz" not in text and "earlier modules" not in text)
+    check("builds on says lesson", "builds on lesson 1" in text)
+    ctx.close()
+
     # Lesson 1's quiz on its own; it should pass when everything is right
     ctx, page = new_page(browser)
     page.goto(BASE + f"#/c/econ-aqa/m/{lessons[0]}")
@@ -377,12 +385,12 @@ with sync_playwright() as p:
     axe(page, "the resources lesson with its table (dark)")
     ctx.close()
 
-    # Not live: nobody but an admin can open it
+    # Live: a learner with no account reaches the course, and it says lesson, not module
     ctx = browser.new_context()
     page = ctx.new_page()
     page.goto(BASE + "#/c/econ-aqa")
     page.wait_for_selector("main h1")
-    check("the draft course is hidden from learners", "not found" in page.locator("main h1").inner_text().lower())
+    check("the course is open to learners", "not found" not in page.locator("main h1").inner_text().lower())
     ctx.close()
     browser.close()
 
