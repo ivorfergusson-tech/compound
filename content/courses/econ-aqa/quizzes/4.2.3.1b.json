@@ -1,0 +1,178 @@
+{
+ "module": "4.2.3.1b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.1-phases",
+   "type": "match",
+   "topic": "phases",
+   "q": "Match each description to the phase of the cycle.",
+   "pairs": [
+    [
+     "Output is high and above trend",
+     "Boom"
+    ],
+    [
+     "Real GDP is falling",
+     "Recession"
+    ],
+    [
+     "The low point of output",
+     "Trough"
+    ],
+    [
+     "Growth picks up again",
+     "Recovery"
+    ]
+   ],
+   "why": "The cycle runs boom, downturn, trough, recovery.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-gap",
+   "type": "mcq",
+   "topic": "output gaps",
+   "q": "A positive output gap means:",
+   "options": [
+    "Real GDP is above productive potential",
+    "Real GDP is below productive potential",
+    "GDP is falling",
+    "Trade is in surplus"
+   ],
+   "answer": 0,
+   "why": "Resources are being overused.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-gapeffect",
+   "type": "mcq",
+   "topic": "output gaps",
+   "q": "With a negative output gap, we would expect:",
+   "options": [
+    "Cyclical unemployment and weak inflation",
+    "Very low unemployment",
+    "Rising inflation pressure",
+    "A shortage of workers"
+   ],
+   "answer": 0,
+   "why": "There is spare capacity.",
+   "spec": "4.2.3.1",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-bubble",
+   "type": "mcq",
+   "topic": "causes of instability",
+   "q": "Which is a cause of cyclical instability?",
+   "options": [
+    "Excessive growth in credit",
+    "A stable exchange rate",
+    "Steady productivity growth",
+    "A balanced budget"
+   ],
+   "answer": 0,
+   "why": "When debts can't be repaid, spending falls sharply.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-herd",
+   "type": "tf",
+   "topic": "causes of instability",
+   "q": "Animal spirits refers to swings of optimism and fear that affect spending decisions.",
+   "answer": true,
+   "why": "The term comes from Keynes.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-cycle",
+   "type": "explain",
+   "topic": "phases",
+   "q": "Explain why investment often falls sharply in a recession.",
+   "ideas": [
+    {
+     "label": "Firms expect lower sales, or confidence falls",
+     "any": [
+      "confidence",
+      "lower sales",
+      "falling sales",
+      "sales fall",
+      "fewer sales",
+      "expect*",
+      "demand falls",
+      "lower demand",
+      "falling demand",
+      "spare capacity",
+      "profits fall",
+      "lower profit*"
+     ]
+    },
+    {
+     "label": "So they don't need extra capital, as the accelerator suggests",
+     "any": [
+      "no need",
+      "don't need",
+      "do not need",
+      "less need",
+      "not need",
+      "accelerator",
+      "delay",
+      "cancel",
+      "postpone",
+      "put off",
+      "new machines",
+      "more machines",
+      "extra capacity",
+      "extra capital",
+      "new capital"
+     ]
+    }
+   ],
+   "model": "Firms expect lower sales and have spare capacity, so they do not need new machines. The accelerator shows that investment falls when demand stops growing.",
+   "why": "Why buy a new machine if the old ones are idle?",
+   "tests": [
+    {
+     "answer": "Firms expect lower sales, so they don't need new machines.",
+     "marks": 2
+    },
+    {
+     "answer": "Confidence falls.",
+     "marks": 1
+    },
+    {
+     "answer": "Machines are heavy.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

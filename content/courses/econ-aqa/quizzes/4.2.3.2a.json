@@ -1,0 +1,175 @@
+{
+ "module": "4.2.3.2a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.2-measure",
+   "type": "mcq",
+   "topic": "measures",
+   "q": "Which measure of unemployment is based on a survey?",
+   "options": [
+    "The Labour Force Survey",
+    "The claimant count",
+    "The CPI",
+    "The Gini coefficient"
+   ],
+   "answer": 0,
+   "why": "It uses the ILO definition.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-types",
+   "type": "match",
+   "topic": "types",
+   "q": "Match each cause to the type of unemployment.",
+   "pairs": [
+    [
+     "Low AD in a downturn",
+     "Cyclical"
+    ],
+    [
+     "Moving between jobs",
+     "Frictional"
+    ],
+    [
+     "Skills no longer match the jobs",
+     "Structural"
+    ],
+    [
+     "A time of year with less work",
+     "Seasonal"
+    ]
+   ],
+   "why": "Each has a different cause.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-link",
+   "type": "mcq",
+   "topic": "types",
+   "q": "A negative output gap is linked with which type of unemployment?",
+   "options": [
+    "Cyclical",
+    "Frictional",
+    "Seasonal",
+    "Voluntary"
+   ],
+   "answer": 0,
+   "why": "Too little demand means too few jobs.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-vol",
+   "type": "tf",
+   "topic": "voluntary and involuntary",
+   "q": "Involuntary unemployment means that people are unwilling to work at the going wage.",
+   "answer": false,
+   "why": "They're willing, but can't find a job.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-policy",
+   "type": "mcq",
+   "topic": "policy",
+   "q": "Which policy best suits structural unemployment?",
+   "options": [
+    "Retraining schemes",
+    "A cut in interest rates",
+    "A rise in tariffs",
+    "Lower exports"
+   ],
+   "answer": 0,
+   "why": "The problem is a mismatch of skills.",
+   "spec": "4.2.3.2",
+   "ao": "AO3",
+   "command": "Evaluate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-explain",
+   "type": "explain",
+   "topic": "types",
+   "q": "Explain why structural unemployment can last for a long time.",
+   "ideas": [
+    {
+     "label": "Workers lack the skills, or are in the wrong place, for new jobs",
+     "any": [
+      "skills",
+      "retrain*",
+      "immobil*",
+      "wrong place",
+      "wrong area",
+      "location",
+      "live far",
+      "move",
+      "mismatch"
+     ]
+    },
+    {
+     "label": "It takes a long time or is costly to retrain or relocate, or the old jobs don't come back",
+     "any": [
+      "long time",
+      "takes time",
+      "take time",
+      "takes years",
+      "take years",
+      "years",
+      "costly",
+      "expensive",
+      "don't return",
+      "do not return",
+      "not come back",
+      "won't come back",
+      "gone for good",
+      "permanent*",
+      "housing"
+     ]
+    }
+   ],
+   "model": "Workers lack the skills for the new jobs, or live in the wrong place. Retraining and moving take years and are costly, and the old jobs are not coming back.",
+   "why": "Demand alone can't fix a mismatch.",
+   "tests": [
+    {
+     "answer": "Workers lack the skills for new jobs, and retraining takes a long time.",
+     "marks": 2
+    },
+    {
+     "answer": "Workers lack the skills.",
+     "marks": 1
+    },
+    {
+     "answer": "People like their jobs.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

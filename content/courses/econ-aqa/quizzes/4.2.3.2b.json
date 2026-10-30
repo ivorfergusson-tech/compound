@@ -1,0 +1,152 @@
+{
+ "module": "4.2.3.2b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.2-real",
+   "type": "mcq",
+   "topic": "real wage unemployment",
+   "q": "Real wage unemployment is caused by:",
+   "options": [
+    "Real wages being held above the market-clearing level",
+    "Low AD alone",
+    "Workers moving between jobs",
+    "Winter weather"
+   ],
+   "answer": 0,
+   "why": "Labour supplied exceeds labour demanded at that wage.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-natural",
+   "type": "mcq",
+   "topic": "natural rate",
+   "q": "The natural rate of unemployment is made up of:",
+   "options": [
+    "Frictional and structural unemployment",
+    "Cyclical unemployment only",
+    "All types of unemployment",
+    "Seasonal unemployment only"
+   ],
+   "answer": 0,
+   "why": "It's what remains when there's no cyclical unemployment.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-lower",
+   "type": "mcq",
+   "topic": "natural rate",
+   "q": "Which would lower the natural rate of unemployment?",
+   "options": [
+    "Better training and job information",
+    "Higher government spending for a year",
+    "A rise in the money supply",
+    "A fall in the exchange rate"
+   ],
+   "answer": 0,
+   "why": "It needs a change on the supply side.",
+   "spec": "4.2.3.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-output",
+   "type": "tf",
+   "topic": "consequences",
+   "q": "Output lost through unemployment can't be regained later.",
+   "answer": true,
+   "why": "The chance to produce that output has gone.",
+   "spec": "4.2.3.2",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-cons",
+   "type": "mcq",
+   "topic": "consequences",
+   "q": "How does long-term unemployment harm the economy's long-run growth?",
+   "options": [
+    "Workers lose skills, so human capital falls",
+    "Wages rise",
+    "Exports rise",
+    "Prices fall"
+   ],
+   "answer": 0,
+   "why": "Lost skills reduce productive capacity.",
+   "spec": "4.2.3.2",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.2-consequence",
+   "type": "explain",
+   "topic": "consequences",
+   "q": "Explain how high unemployment can affect the government's budget.",
+   "ideas": [
+    {
+     "label": "Spending on benefits rises",
+     "any": [
+      "benefit*",
+      "welfare",
+      "universal credit"
+     ]
+    },
+    {
+     "label": "Tax revenue falls, so borrowing rises",
+     "any": [
+      "tax revenue",
+      "less tax",
+      "lower tax",
+      "fewer taxes",
+      "taxes fall",
+      "income tax",
+      "vat",
+      "borrow*",
+      "deficit"
+     ]
+    }
+   ],
+   "model": "Spending on benefits rises, and tax revenue falls because fewer people earn and spend. So the budget deficit widens.",
+   "why": "Both sides of the budget get worse.",
+   "tests": [
+    {
+     "answer": "Benefit spending rises and tax revenue falls.",
+     "marks": 2
+    },
+    {
+     "answer": "Benefit spending rises.",
+     "marks": 1
+    },
+    {
+     "answer": "People have less to do.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.2",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

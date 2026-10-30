@@ -139,6 +139,20 @@ export function keynesAt(a) {
   for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; if (keynesAS(m) < a - m) lo = m; else hi = m; }
   return { y: lo, p: keynesAS(lo), zone: lo > 92 ? 'capacity' : 'rising' };
 }
+// The economic cycle: actual output swings round a rising trend. t runs 0 to 100, and one full cycle is 50.
+export const trendAt = t => 40 + 0.5 * t;
+export const actualAt = t => trendAt(t) + 12 * Math.sin((t / 50) * 2 * Math.PI);
+export function cyclePhase(t) {
+  const f = ((t % 50) + 50) % 50;
+  if (f === 12.5) return 'Peak (boom)';
+  if (f === 37.5) return 'Trough';
+  return f < 12.5 || f > 37.5 ? 'Recovery' : 'Downturn';
+}
+// Short-run Phillips curve through the natural rate of 5%: inflation = expected + 30/u - 6.
+export const NATURAL_RATE = 5;
+export const phillips = (u, expected) => expected + 30 / u - 6;
+// Fisher: MV = PQ, so P = MV / Q.
+export const fisherP = (m, v, q) => (m * v) / q;
 const curve = (f, from, to, cls) => `<polyline fill="none" class="${cls}" points="${Array.from({ length: 41 }, (_, i) => from + (to - from) * i / 40).map(q => `${mx(q).toFixed(1)},${my(f(q)).toFixed(1)}`).join(' ')}"/>`;
 const box = (x1, y1, x2, y2, cls) => `<rect x="${mx(Math.min(x1, x2)).toFixed(1)}" y="${my(Math.max(y1, y2)).toFixed(1)}" width="${Math.abs(mx(x2) - mx(x1)).toFixed(1)}" height="${Math.abs(my(y2) - my(y1)).toFixed(1)}" class="${cls}"/>`;
 const money = v => `${v < 0 ? '−' : ''}£${Math.abs(Math.round(v)).toLocaleString('en-GB')}`;
@@ -521,6 +535,60 @@ export const econCharts = {
       root.querySelector('[data-desc]').textContent = r.zone === 'flat' ? 'There is plenty of spare capacity, so more demand raises output with no rise in prices.'
         : r.zone === 'rising' ? 'Spare capacity is running out, so more demand raises both output and prices.'
           : 'The economy is close to full capacity, so more demand mostly raises prices.';
+    });
+  },
+  cycle(root, a) {
+    const specs = { t: { min: 0, max: 100, step: 2.5, value: a.t ?? 12.5, fmt: v => `Year ${(v / 5).toFixed(1)}` } };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The economic cycle</h3>${slider('t', 'Move through time', specs.t)}`
+      + `<div class="stats">${stat('Phase', 'ph', 'good')}${stat('Output gap', 'gap', 'warm')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ t }, set) => {
+      const gap = actualAt(t) - trendAt(t), ph = cyclePhase(t), rising = ph === 'Recovery';
+      set('ph', ph); set('gap', `${gap >= 0 ? '+' : ''}${gap.toFixed(0)}`);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Real GDP swinging above and below a rising trend line. The current phase is ${ph.toLowerCase()}, with an output gap of ${gap.toFixed(0)}.">${axes('Time', 'Real GDP')}`
+        + seg(0, trendAt(0), 125, trendAt(100), 'ch-line ch-b ch-dash') + `<polyline fill="none" class="ch-line ch-a" points="${Array.from({ length: 81 }, (_, i) => i * 1.25).map(x => `${mx(x * 1.25).toFixed(1)},${my(actualAt(x)).toFixed(1)}`).join(' ')}"/>`
+        + `<circle cx="${mx(t * 1.25)}" cy="${my(actualAt(t))}" r="5" class="ch-dot-a"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'Actual real GDP'], ['ch-b dash', 'Trend growth']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = Math.abs(gap) < 0.5
+        ? `Actual output is on its trend, so the output gap is about zero, and the economy is ${rising ? 'recovering' : 'slowing'}.`
+        : gap > 0 ? `Output is above trend: a positive output gap. Expect low unemployment and rising inflation pressure. The economy is ${rising ? 'still speeding up' : ph === 'Peak (boom)' ? 'at its peak' : 'slowing'}.`
+          : `Output is below trend: a negative output gap. Expect higher unemployment and weak inflation. The economy is ${rising ? 'recovering' : ph === 'Trough' ? 'at its low point' : 'still slowing'}.`;
+    });
+  },
+  phillips(root, a) {
+    const specs = {
+      u: { min: 3, max: 8, step: 1, value: a.u ?? 5, fmt: v => `${v}%` },
+      e: { min: 0, max: 6, step: 2, value: a.e ?? 2, fmt: v => `${v}%` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">The Phillips curves</h3>${slider('u', 'Unemployment', specs.u)}${slider('e', 'Expected inflation', specs.e)}`
+      + `<div class="stats">${stat('Inflation', 'pi', 'warm')}${stat('Natural rate', 'n')}</div>`
+      + `<div data-chart></div><p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    const px = v => v * 10, py = v => Math.max(0, v * 5);
+    wire(root, specs, ({ u, e }, set) => {
+      const pi = phillips(u, e);
+      set('pi', `${pi.toFixed(1)}%`); set('n', `${NATURAL_RATE}%`);
+      const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Phillips curve diagram. At ${u} percent unemployment and ${e} percent expected inflation, inflation is ${pi.toFixed(1)} percent. The long-run Phillips curve is vertical at the natural rate of 5 percent.">${axes('Unemployment', 'Inflation')}`
+        + curve(x => py(phillips(x / 10, e)), 20, e < 6 ? Math.min(110, 300 / (6 - e)) : 110, 'ch-line ch-a') + seg(px(NATURAL_RATE), 0, px(NATURAL_RATE), 125, 'ch-line ch-c ch-dash')
+        + `<circle cx="${mx(px(u))}" cy="${my(py(pi))}" r="5" class="ch-dot-b"/></svg>`;
+      root.querySelector('[data-chart]').innerHTML = `<figure class="chart">${svg}${legend([['ch-a', 'Short-run Phillips curve'], ['ch-c dash', 'Long-run Phillips curve']], '')}</figure>`;
+      root.querySelector('[data-desc]').textContent = u < NATURAL_RATE
+        ? `Unemployment is below the natural rate, so inflation of ${pi.toFixed(1)}% is above what people expected. They will come to expect more, which shifts the short-run curve up, and unemployment drifts back to 5%.`
+        : u > NATURAL_RATE ? `Unemployment is above the natural rate, so inflation of ${pi.toFixed(1)}% is below what people expected. Expectations fall, and the short-run curve shifts down.`
+          : 'At the natural rate, inflation equals what people expect, so there is no pressure for it to change. Try a higher expected rate: the curve moves, and unemployment stays the same in the long run.';
+    });
+  },
+  fisher(root, a) {
+    const specs = {
+      m: { min: 100, max: 200, step: 10, value: a.m ?? 100, fmt: v => `£${v}bn` },
+      v: { min: 2, max: 5, step: 1, value: a.v ?? 3, fmt: v => `${v}` },
+      q: { min: 100, max: 200, step: 10, value: a.q ?? 150, fmt: v => `${v}bn units` },
+    };
+    root.innerHTML = `<div class="calc"><h3 class="calc-title">MV = PQ</h3>${slider('m', 'Money supply (M)', specs.m)}${slider('v', 'Velocity of circulation (V)', specs.v)}${slider('q', 'Real output (Q)', specs.q)}`
+      + `<div class="stats">${stat('Price level (P)', 'p', 'warm')}${stat('Nominal income (PQ)', 'y')}</div>`
+      + `<p class="calc-note" data-desc aria-live="polite"></p></div>`;
+    wire(root, specs, ({ m, v, q }, set) => {
+      set('p', `£${fisherP(m, v, q).toFixed(2)}`); set('y', `£${m * v}bn`);
+      root.querySelector('[data-desc]').textContent = 'Monetarists assume that V and Q are fairly stable. Hold them still and raise M: P rises in proportion.';
     });
   },
   costs(root, a) {

@@ -1,0 +1,180 @@
+{
+ "module": "4.2.3.1a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.1-long",
+   "type": "mcq",
+   "topic": "long-run growth",
+   "q": "Long-run economic growth is shown by:",
+   "options": [
+    "A rightward shift in LRAS",
+    "A rightward shift in AD",
+    "A movement along SRAS",
+    "A rise in the price level"
+   ],
+   "answer": 0,
+   "why": "Productive capacity has grown.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-ppf",
+   "type": "mcq",
+   "topic": "short-run growth",
+   "q": "On a PPF, short-run growth using spare capacity is shown by:",
+   "options": [
+    "A move from inside the curve towards it",
+    "An outward shift of the curve",
+    "A move along the curve",
+    "An inward shift of the curve"
+   ],
+   "answer": 0,
+   "why": "Capacity is unchanged, and idle resources are used.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-det",
+   "type": "match",
+   "topic": "determinants",
+   "q": "Match each factor to the type of growth it mainly drives.",
+   "pairs": [
+    [
+     "A cut in interest rates",
+     "Short-run, demand-side"
+    ],
+    [
+     "Better technical education",
+     "Long-run, supply-side"
+    ],
+    [
+     "More consumer confidence",
+     "Short-run, demand-side"
+    ],
+    [
+     "New technology",
+     "Long-run, supply-side"
+    ]
+   ],
+   "why": "Spending drives the short run, and capacity drives the long run.",
+   "spec": "4.2.3.1",
+   "ao": "AO2",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-benefit",
+   "type": "mcq",
+   "topic": "benefits",
+   "q": "How can growth help a government's finances?",
+   "options": [
+    "More tax revenue, with no rise in tax rates",
+    "Higher benefit spending",
+    "Lower exports",
+    "Lower wages"
+   ],
+   "answer": 0,
+   "why": "Incomes and spending rise, so taxes bring in more.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-sust",
+   "type": "tf",
+   "topic": "sustainability",
+   "q": "Sustainable growth means growth that can continue without serious problems for the future.",
+   "answer": true,
+   "why": "The kind of growth matters, as well as the rate.",
+   "spec": "4.2.3.1",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.1-explain",
+   "type": "explain",
+   "topic": "costs",
+   "q": "Explain one possible cost of rapid economic growth.",
+   "ideas": [
+    {
+     "label": "Names a cost, such as inflation, pollution or inequality",
+     "any": [
+      "inflation",
+      "pollution",
+      "environment*",
+      "emissions",
+      "inequal*",
+      "current account",
+      "imports",
+      "resources",
+      "stress"
+     ]
+    },
+    {
+     "label": "Explains why it follows from growth",
+     "any": [
+      "demand exceeds",
+      "demand grows",
+      "above capacity",
+      "positive output gap",
+      "more production",
+      "more output",
+      "use up",
+      "more imports",
+      "higher incomes",
+      "firms raise",
+      "spend more",
+      "more resources",
+      "harm*",
+      "third parties",
+      "externalit*",
+      "unequal*",
+      "uneven*",
+      "some people",
+      "rising demand",
+      "more spending"
+     ]
+    }
+   ],
+   "model": "Rapid growth can cause inflation, because demand rises above capacity and firms raise prices. More output can also add to pollution.",
+   "why": "Name the cost, then say how growth causes it.",
+   "tests": [
+    {
+     "answer": "More output causes more pollution, which harms third parties.",
+     "marks": 2
+    },
+    {
+     "answer": "There could be inflation.",
+     "marks": 1
+    },
+    {
+     "answer": "Growth is too fast.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.1",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

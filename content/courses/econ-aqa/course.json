@@ -85,6 +85,11 @@
    "name": "How the macroeconomy works: the circular flow of income, aggregate demand/aggregate supply analysis and related concepts",
    "emoji": "🔁",
    "blurb": "How the whole economy works: the circular flow, AD and AS, and the multiplier."
+  },
+  "4.2.3": {
+   "name": "Economic performance",
+   "emoji": "🌡️",
+   "blurb": "Growth, the cycle, jobs and prices, and why they can pull against each other."
   }
  },
  "items": [
@@ -1499,6 +1504,154 @@
     "keynesian as curve"
    ],
    "summary": "What sets an economy's capacity, and the Keynesian view of AS."
+  },
+  {
+   "id": "4.2.3.1a",
+   "kind": "module",
+   "num": 65,
+   "strand": "4.2.3",
+   "title": "Economic growth: short run and long run, causes, costs and benefits",
+   "short": "Economic growth",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.1"
+   ],
+   "buildsOn": [
+    64
+   ],
+   "introduces": [
+    "short-run growth",
+    "long-run growth",
+    "sustainable growth"
+   ],
+   "summary": "Short-run and long-run growth, what drives them and what they cost."
+  },
+  {
+   "id": "4.2.3.1b",
+   "kind": "module",
+   "num": 66,
+   "strand": "4.2.3",
+   "title": "The economic cycle and output gaps",
+   "short": "The economic cycle",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.1"
+   ],
+   "buildsOn": [
+    65
+   ],
+   "introduces": [
+    "economic cycle",
+    "output gap",
+    "recession"
+   ],
+   "summary": "The phases of the cycle, output gaps and why booms turn to busts."
+  },
+  {
+   "id": "4.2.3.2a",
+   "kind": "module",
+   "num": 67,
+   "strand": "4.2.3",
+   "title": "Unemployment: measures and types",
+   "short": "Types of unemployment",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.2"
+   ],
+   "buildsOn": [
+    66
+   ],
+   "introduces": [
+    "voluntary unemployment",
+    "involuntary unemployment",
+    "seasonal unemployment",
+    "frictional unemployment",
+    "structural unemployment",
+    "cyclical unemployment"
+   ],
+   "summary": "How unemployment is measured, and the four main types."
+  },
+  {
+   "id": "4.2.3.2b",
+   "kind": "module",
+   "num": 68,
+   "strand": "4.2.3",
+   "title": "Unemployment: causes, the natural rate and consequences",
+   "short": "Causes and costs of unemployment",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.2"
+   ],
+   "buildsOn": [
+    67
+   ],
+   "introduces": [
+    "real wage unemployment",
+    "natural rate of unemployment"
+   ],
+   "summary": "Demand and supply causes, the natural rate and the consequences."
+  },
+  {
+   "id": "4.2.3.3a",
+   "kind": "module",
+   "num": 69,
+   "strand": "4.2.3",
+   "title": "Inflation and deflation: meaning and causes, including MV = PQ",
+   "short": "Causes of inflation",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.3"
+   ],
+   "buildsOn": [
+    68
+   ],
+   "introduces": [
+    "deflation",
+    "disinflation",
+    "demand-pull inflation",
+    "quantity theory of money"
+   ],
+   "summary": "Demand-pull, cost-push, MV = PQ and expectations."
+  },
+  {
+   "id": "4.2.3.3b",
+   "kind": "module",
+   "num": 70,
+   "strand": "4.2.3",
+   "title": "Consequences of inflation and deflation, and world influences",
+   "short": "Consequences of inflation",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.3"
+   ],
+   "buildsOn": [
+    69
+   ],
+   "introduces": [
+    "real wages",
+    "international competitiveness"
+   ],
+   "summary": "Who wins and loses from inflation and deflation, and how world events matter."
+  },
+  {
+   "id": "4.2.3.4",
+   "kind": "module",
+   "num": 71,
+   "strand": "4.2.3",
+   "title": "Possible conflicts between macroeconomic policy objectives",
+   "short": "Conflicts between objectives",
+   "level": "AS and A-level",
+   "spec": [
+    "4.2.3.4"
+   ],
+   "buildsOn": [
+    70
+   ],
+   "introduces": [
+    "short-run phillips curve",
+    "long-run phillips curve"
+   ],
+   "summary": "Output gaps, the Phillips curves and how to reconcile policy conflicts."
   }
  ]
 }

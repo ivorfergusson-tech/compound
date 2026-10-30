@@ -1,0 +1,195 @@
+{
+ "module": "4.2.3.3a",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.3-terms",
+   "type": "match",
+   "topic": "meanings",
+   "q": "Match each term to its meaning.",
+   "pairs": [
+    [
+     "A sustained rise in the price level",
+     "Inflation"
+    ],
+    [
+     "A sustained fall in the price level",
+     "Deflation"
+    ],
+    [
+     "A fall in the rate of inflation",
+     "Disinflation"
+    ]
+   ],
+   "why": "Disinflation still means rising prices.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-dem",
+   "type": "mcq",
+   "topic": "demand-pull",
+   "q": "Which is most likely to cause demand-pull inflation?",
+   "options": [
+    "A big cut in income tax during a boom",
+    "A rise in the price of oil",
+    "A fall in AD",
+    "A rise in productivity"
+   ],
+   "answer": 0,
+   "why": "AD rises when the economy has little spare capacity.",
+   "spec": "4.2.3.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-fisher",
+   "type": "number",
+   "topic": "Fisher equation",
+   "q": "M = £{m}bn, V = {v} and Q = {q}bn units. What is P, in £?",
+   "vars": {
+    "m": {
+     "choices": [
+      100,
+      200
+     ],
+     "default": 100
+    },
+    "v": {
+     "choices": [
+      3,
+      6
+     ],
+     "default": 3
+    },
+    "q": {
+     "choices": [
+      50,
+      100
+     ],
+     "default": 50
+    }
+   },
+   "answer": "m*v/q",
+   "tol": 0.01,
+   "unit": "£",
+   "dp": 0,
+   "why": "{m} × {v} ÷ {q} = £{answer}.",
+   "spec": "4.2.3.3",
+   "ao": "AO2",
+   "command": "Calculate",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-mono",
+   "type": "mcq",
+   "topic": "monetarism",
+   "q": "Monetarists argue that inflation is mainly caused by:",
+   "options": [
+    "The money supply growing faster than output",
+    "Falling wages",
+    "A fall in imports",
+    "Rising unemployment"
+   ],
+   "answer": 0,
+   "why": "This is the Quantity Theory of Money.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-defl",
+   "type": "tf",
+   "topic": "meanings",
+   "q": "Deflationary policies always cause deflation.",
+   "answer": false,
+   "why": "They reduce AD, and may only slow inflation.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-expect",
+   "type": "explain",
+   "topic": "expectations",
+   "q": "Explain how expectations of higher inflation can cause higher inflation.",
+   "ideas": [
+    {
+     "label": "Workers ask for higher pay, or firms raise their prices",
+     "any": [
+      "higher pay",
+      "higher wages",
+      "more pay",
+      "pay rise*",
+      "wage rise*",
+      "demand higher",
+      "ask for more",
+      "raise prices",
+      "raise their prices",
+      "put up prices",
+      "increase prices",
+      "buy now"
+     ]
+    },
+    {
+     "label": "This raises costs or spending, so prices do rise",
+     "any": [
+      "costs rise",
+      "higher costs",
+      "raises costs",
+      "raise costs",
+      "wage-price",
+      "wage price",
+      "spiral",
+      "prices rise",
+      "pushes up prices",
+      "push up prices",
+      "pushing up prices",
+      "inflation rises",
+      "come true",
+      "self-fulfilling",
+      "more spending",
+      "demand rises"
+     ]
+    }
+   ],
+   "model": "Workers ask for higher pay to protect their real wages, and firms raise prices. Costs rise, so prices rise, which makes the expectation come true.",
+   "why": "A belief about prices can change what people do.",
+   "tests": [
+    {
+     "answer": "Workers demand higher wages, so firms' costs rise and prices rise.",
+     "marks": 2
+    },
+    {
+     "answer": "Workers demand higher wages.",
+     "marks": 1
+    },
+    {
+     "answer": "People are worried.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

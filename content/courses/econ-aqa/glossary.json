@@ -204,6 +204,11 @@
   "def": "How responsive demand for one good is to a change in the price of another.",
   "module": "4.1.3.2"
  },
+ "cyclical unemployment": {
+  "term": "cyclical unemployment",
+  "def": "Unemployment caused by too little aggregate demand. Also called demand-deficient unemployment.",
+  "module": "4.2.3.2a"
+ },
  "deadweight loss": {
   "term": "deadweight loss",
   "def": "Welfare that is lost to everyone, because units worth more than they cost aren't made.",
@@ -214,6 +219,11 @@
   "def": "The option that applies if a person takes no action.",
   "module": "4.1.2.4"
  },
+ "deflation": {
+  "term": "deflation",
+  "def": "A sustained fall in the general price level.",
+  "module": "4.2.3.3a"
+ },
  "demand": {
   "term": "demand",
   "def": "The quantity of a good or service consumers are willing and able to buy at a given price in a given period.",
@@ -223,6 +233,11 @@
   "term": "demand curve",
   "def": "A curve showing the relationship between price and quantity demanded.",
   "module": "4.1.3.1"
+ },
+ "demand-pull inflation": {
+  "term": "demand-pull inflation",
+  "def": "Inflation caused by aggregate demand growing faster than the economy can supply.",
+  "module": "4.2.3.3a"
  },
  "demerit good": {
   "term": "demerit good",
@@ -254,6 +269,11 @@
   "def": "When quantity demanded and quantity supplied are not equal, so the price is under pressure to change.",
   "module": "4.1.3.5"
  },
+ "disinflation": {
+  "term": "disinflation",
+  "def": "A fall in the rate of inflation, while prices are still rising.",
+  "module": "4.2.3.3a"
+ },
  "division of labour": {
   "term": "division of labour",
   "def": "Splitting production into separate tasks, with each worker specialising in one.",
@@ -268,6 +288,11 @@
   "term": "dynamic efficiency",
   "def": "Improvement in the use of resources over time, through better products and lower costs.",
   "module": "4.1.5.10"
+ },
+ "economic cycle": {
+  "term": "economic cycle",
+  "def": "The pattern of ups and downs in real GDP around its long-run trend.",
+  "module": "4.2.3.1b"
  },
  "economic good": {
   "term": "economic good",
@@ -384,6 +409,11 @@
   "def": "When people benefit from a good without paying, so firms can't earn a return from providing it.",
   "module": "4.1.8.3"
  },
+ "frictional unemployment": {
+  "term": "frictional unemployment",
+  "def": "Short-term unemployment of people moving between jobs.",
+  "module": "4.2.3.2a"
+ },
  "gini coefficient": {
   "term": "gini coefficient",
   "def": "A measure of inequality from 0 (perfect equality) to 1 (perfect inequality).",
@@ -464,6 +494,11 @@
   "def": "When a firm's best decision depends on what its rivals do.",
   "module": "4.1.5.5a"
  },
+ "international competitiveness": {
+  "term": "international competitiveness",
+  "def": "The ability of a country's firms to sell in world markets.",
+  "module": "4.2.3.3b"
+ },
  "invention": {
   "term": "invention",
   "def": "Creating a new product or process.",
@@ -473,6 +508,11 @@
   "term": "investment",
   "def": "Spending on capital goods, such as machines and factories.",
   "module": "4.2.2.3"
+ },
+ "involuntary unemployment": {
+  "term": "involuntary unemployment",
+  "def": "When people are willing to work at the going wage, but can't find a job.",
+  "module": "4.2.3.2a"
  },
  "joint demand": {
   "term": "joint demand",
@@ -533,6 +573,16 @@
   "term": "long-run aggregate supply",
   "def": "The economy's productive capacity, shown by a vertical curve at normal capacity output.",
   "module": "4.2.2.2"
+ },
+ "long-run growth": {
+  "term": "long-run growth",
+  "def": "A rise in the productive capacity of the economy. It's the trend rate of growth.",
+  "module": "4.2.3.1a"
+ },
+ "long-run phillips curve": {
+  "term": "long-run phillips curve",
+  "def": "A vertical curve at the natural rate of unemployment, showing no long-run trade-off with inflation.",
+  "module": "4.2.3.4"
  },
  "lorenz curve": {
   "term": "lorenz curve",
@@ -659,6 +709,11 @@
   "def": "The lowest hourly rate that employers can legally pay.",
   "module": "4.1.6.6"
  },
+ "natural rate of unemployment": {
+  "term": "natural rate of unemployment",
+  "def": "The rate of unemployment when the labour market is in equilibrium, with no cyclical unemployment.",
+  "module": "4.2.3.2b"
+ },
  "needs": {
   "term": "needs",
   "def": "Things people must have to survive, such as food, water and shelter.",
@@ -718,6 +773,11 @@
   "term": "opportunity cost",
   "def": "The value of the next best alternative given up when a choice is made.",
   "module": "4.1.1.4"
+ },
+ "output gap": {
+  "term": "output gap",
+  "def": "The difference between actual real GDP and the economy's productive potential.",
+  "module": "4.2.3.1b"
  },
  "perceptions of fairness": {
   "term": "perceptions of fairness",
@@ -859,6 +919,11 @@
   "def": "An exchange rate at which a given sum buys the same basket of goods in each country.",
   "module": "4.2.1.4"
  },
+ "quantity theory of money": {
+  "term": "quantity theory of money",
+  "def": "The theory that, with stable V and Q, a rise in the money supply leads to a rise in prices.",
+  "module": "4.2.3.3a"
+ },
  "quasi-public good": {
   "term": "quasi-public good",
   "def": "A good with some, but not all, of the features of a public good, such as a road.",
@@ -873,6 +938,21 @@
   "term": "real gdp",
   "def": "GDP adjusted for inflation, which shows the change in actual output.",
   "module": "4.2.1.2"
+ },
+ "real wage unemployment": {
+  "term": "real wage unemployment",
+  "def": "Unemployment caused by real wages being held above the level that clears the labour market.",
+  "module": "4.2.3.2b"
+ },
+ "real wages": {
+  "term": "real wages",
+  "def": "Wages adjusted for inflation, which show what pay can actually buy.",
+  "module": "4.2.3.3b"
+ },
+ "recession": {
+  "term": "recession",
+  "def": "A fall in real GDP, usually defined as two quarters in a row of negative growth.",
+  "module": "4.2.3.1b"
  },
  "regulation": {
   "term": "regulation",
@@ -934,6 +1014,11 @@
   "def": "The fundamental economic problem: resources are limited but wants are unlimited.",
   "module": "4.1.1.4"
  },
+ "seasonal unemployment": {
+  "term": "seasonal unemployment",
+  "def": "Unemployment caused by changes in the demand for labour at certain times of year.",
+  "module": "4.2.3.2a"
+ },
  "services": {
   "term": "services",
   "def": "Things done for people rather than physical products, such as haircuts, transport and teaching.",
@@ -948,6 +1033,16 @@
   "term": "short-run aggregate supply",
   "def": "The total output firms will supply at each price level, while some costs are fixed.",
   "module": "4.2.2.2"
+ },
+ "short-run growth": {
+  "term": "short-run growth",
+  "def": "A rise in real GDP, usually as an economy uses its spare capacity.",
+  "module": "4.2.3.1a"
+ },
+ "short-run phillips curve": {
+  "term": "short-run phillips curve",
+  "def": "A curve showing an inverse link between unemployment and inflation in the short run.",
+  "module": "4.2.3.4"
  },
  "social norms": {
   "term": "social norms",
@@ -974,6 +1069,11 @@
   "def": "Efficiency at a point in time, covering productive and allocative efficiency.",
   "module": "4.1.5.10"
  },
+ "structural unemployment": {
+  "term": "structural unemployment",
+  "def": "Unemployment caused by long-term changes in the economy, when skills or location don't match the jobs.",
+  "module": "4.2.3.2a"
+ },
  "subsidy": {
   "term": "subsidy",
   "def": "A payment from the government to producers that lowers their costs and encourages output.",
@@ -998,6 +1098,11 @@
   "term": "supply curve",
   "def": "A curve showing the relationship between price and quantity supplied.",
   "module": "4.1.3.3"
+ },
+ "sustainable growth": {
+  "term": "sustainable growth",
+  "def": "Growth that can continue over time without serious problems for the future.",
+  "module": "4.2.3.1a"
  },
  "total revenue": {
   "term": "total revenue",
@@ -1058,6 +1163,11 @@
   "term": "variable costs",
   "def": "Costs that change with output, such as raw materials.",
   "module": "4.1.4.4"
+ },
+ "voluntary unemployment": {
+  "term": "voluntary unemployment",
+  "def": "When people choose not to take a job at the going wage.",
+  "module": "4.2.3.2a"
  },
  "wage discrimination": {
   "term": "wage discrimination",

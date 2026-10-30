@@ -1,0 +1,157 @@
+{
+ "module": "4.2.3.4",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.4-sr",
+   "type": "mcq",
+   "topic": "short-run Phillips curve",
+   "q": "The short-run Phillips curve suggests:",
+   "options": [
+    "A trade-off between unemployment and inflation",
+    "That inflation never changes",
+    "That unemployment and inflation rise together",
+    "That the natural rate is zero"
+   ],
+   "answer": 0,
+   "why": "Lower unemployment comes with higher inflation.",
+   "spec": "4.2.3.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.4-lr",
+   "type": "mcq",
+   "topic": "long-run Phillips curve",
+   "q": "The long-run Phillips curve is vertical at:",
+   "options": [
+    "The natural rate of unemployment",
+    "Zero unemployment",
+    "The inflation target",
+    "10% unemployment"
+   ],
+   "answer": 0,
+   "why": "There is no long-run trade-off.",
+   "spec": "4.2.3.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.4-shift",
+   "type": "mcq",
+   "topic": "long-run Phillips curve",
+   "q": "What shifts the short-run Phillips curve upwards?",
+   "options": [
+    "A rise in inflation expectations",
+    "A fall in inflation expectations",
+    "A fall in the price of oil",
+    "Lower unemployment alone"
+   ],
+   "answer": 0,
+   "why": "If people expect more inflation, each level of unemployment comes with more inflation.",
+   "spec": "4.2.3.4",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.4-compat",
+   "type": "tf",
+   "topic": "reconciling conflicts",
+   "q": "Monetarists and supply-side economists argue that the main objectives are compatible in the long run.",
+   "answer": true,
+   "why": "Low inflation supports confidence, investment and growth.",
+   "spec": "4.2.3.4",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.4-gap",
+   "type": "mcq",
+   "topic": "output gaps",
+   "q": "A positive output gap is most closely linked with:",
+   "options": [
+    "Low unemployment and inflationary pressure",
+    "High unemployment and low inflation",
+    "Falling prices",
+    "Falling output"
+   ],
+   "answer": 0,
+   "why": "Resources are stretched, so wages and prices rise.",
+   "spec": "4.2.3.4",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.4-explain",
+   "type": "explain",
+   "topic": "implications",
+   "q": "Explain why a monetarist would favour supply-side policies to reduce unemployment.",
+   "ideas": [
+    {
+     "label": "The long-run Phillips curve is vertical, so raising AD only adds to inflation",
+     "any": [
+      "vertical",
+      "no trade-off",
+      "no long-run trade-off",
+      "only raises inflation",
+      "only inflation",
+      "just inflation",
+      "higher inflation",
+      "more inflation",
+      "accelerating inflation",
+      "only raise inflation"
+     ]
+    },
+    {
+     "label": "Supply-side policies lower the natural rate of unemployment",
+     "any": [
+      "natural rate",
+      "lower the natural",
+      "shift lras",
+      "lras",
+      "productive capacity",
+      "labour market",
+      "supply-side"
+     ]
+    }
+   ],
+   "model": "The long-run Phillips curve is vertical, so raising AD only adds to inflation. Supply-side policies lower the natural rate of unemployment.",
+   "why": "To move the vertical line, change the labour market.",
+   "tests": [
+    {
+     "answer": "The long-run Phillips curve is vertical, so supply-side policies are needed to lower the natural rate.",
+     "marks": 2
+    },
+    {
+     "answer": "Raising AD only causes more inflation.",
+     "marks": 1
+    },
+    {
+     "answer": "They like the market.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.4",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}

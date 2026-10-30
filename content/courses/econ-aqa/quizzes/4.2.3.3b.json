@@ -1,0 +1,163 @@
+{
+ "module": "4.2.3.3b",
+ "pick": 6,
+ "questions": [
+  {
+   "id": "econ-aqa:4.2.3.3-lose",
+   "type": "mcq",
+   "topic": "consequences of inflation",
+   "q": "Who is most likely to lose from unexpected inflation?",
+   "options": [
+    "Savers on low fixed interest rates",
+    "Borrowers on fixed rates",
+    "Firms with rising sales",
+    "Workers with strong unions"
+   ],
+   "answer": 0,
+   "why": "Their money buys less, and the interest doesn't make up for it.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 1
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-comp",
+   "type": "mcq",
+   "topic": "consequences of inflation",
+   "q": "What matters most for international competitiveness?",
+   "options": [
+    "UK inflation compared with inflation abroad",
+    "The size of the UK's money supply alone",
+    "The number of UK banks",
+    "The UK's population"
+   ],
+   "answer": 0,
+   "why": "What counts is whether UK prices rise faster than rivals' prices.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-delay",
+   "type": "mcq",
+   "topic": "consequences of deflation",
+   "q": "Why can deflation lower demand?",
+   "options": [
+    "Consumers delay spending, expecting lower prices",
+    "Wages rise too fast",
+    "Interest rates rise to 20%",
+    "Exports fall in price"
+   ],
+   "answer": 0,
+   "why": "This can start a deflationary spiral.",
+   "spec": "4.2.3.3",
+   "ao": "AO2",
+   "command": "Analyse",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-good",
+   "type": "tf",
+   "topic": "consequences of deflation",
+   "q": "A fall in prices caused by rising productivity can be good for an economy.",
+   "answer": true,
+   "why": "It comes from the supply side, with no fall in demand.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "State",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-oil",
+   "type": "mcq",
+   "topic": "world influences",
+   "q": "A sharp rise in world oil prices would cause what kind of UK inflation?",
+   "options": [
+    "Imported cost-push",
+    "Demand-pull",
+    "Monetarist",
+    "None"
+   ],
+   "answer": 0,
+   "why": "Firms' costs rise, because of events abroad.",
+   "spec": "4.2.3.3",
+   "ao": "AO1",
+   "command": "Identify",
+   "marks": 1,
+   "paper": 2,
+   "difficulty": 2
+  },
+  {
+   "id": "econ-aqa:4.2.3.3-debt",
+   "type": "explain",
+   "topic": "consequences of deflation",
+   "q": "Explain why deflation can be especially harmful to an economy with high levels of debt.",
+   "ideas": [
+    {
+     "label": "Debts stay the same while prices and incomes fall, so the real burden rises",
+     "any": [
+      "real value of debt*",
+      "real burden",
+      "real value",
+      "burden of debt",
+      "harder to repay",
+      "harder to pay",
+      "debt is worth more",
+      "debts are worth more",
+      "debts stay",
+      "debts remain",
+      "repay"
+     ]
+    },
+    {
+     "label": "So borrowers cut spending, which lowers AD",
+     "any": [
+      "cut spending",
+      "cut back",
+      "spend less",
+      "less spending",
+      "lower spending",
+      "lower consumption",
+      "consumption falls",
+      "ad falls",
+      "aggregate demand falls",
+      "lower ad",
+      "default*",
+      "spiral"
+     ]
+    }
+   ],
+   "model": "Debts stay the same in money terms while prices and incomes fall, so the real burden rises. Borrowers cut back on spending, which lowers AD.",
+   "why": "Debts don't shrink when wages do.",
+   "tests": [
+    {
+     "answer": "The real burden of debt rises, so people spend less and AD falls.",
+     "marks": 2
+    },
+    {
+     "answer": "Debts are harder to repay.",
+     "marks": 1
+    },
+    {
+     "answer": "Prices are lower.",
+     "marks": 0
+    }
+   ],
+   "spec": "4.2.3.3",
+   "ao": "AO2",
+   "command": "Explain",
+   "marks": 2,
+   "paper": 2,
+   "difficulty": 2
+  }
+ ]
+}
