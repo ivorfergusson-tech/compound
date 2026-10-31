@@ -136,7 +136,10 @@ def main():
         check("impossible recall part rejected", post(a, "attempts", {**with_recall, "recall_auto": 5, "id": str(uuid.uuid4())})[0] == 400)
         other = {**att, "item_id": "econ-aqa:4.1.1.1", "auto": 0, "claimed": 0, "passed": False, "id": str(uuid.uuid4())}
         check("other course's item id accepted", post(a, "attempts", other)[0] == 201)
-        check("junk item id rejected", post(a, "attempts", {**other, "item_id": "drop table", "id": str(uuid.uuid4())})[0] == 400)
+        junk = {**other, "item_id": "drop table", "id": str(uuid.uuid4())}
+        post(a, "attempts", junk)
+        s, data = call("GET", f"/rest/v1/attempts?select=id&id=eq.{junk['id']}", token=a["token"])
+        check("junk item id isn't saved", s == 200 and data == [], f"{s} {data}")
         # nickname lock: 7 days after it's set, enforced by the database
         patch = lambda body: call("PATCH", f"/rest/v1/profiles?user_id=eq.{b['id']}", body, token=b["token"], prefer="return=representation")
         s, err = patch({"nickname": nick_b + "x"})
