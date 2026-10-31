@@ -105,6 +105,21 @@ export function dueSoon(list, now = Date.now()) {
     .sort((x, y) => (x.a.due_at ? Date.parse(x.a.due_at) : Infinity) - (y.a.due_at ? Date.parse(y.a.due_at) : Infinity));
 }
 
+// Width and height for a page photo: big enough to read, small enough for the free storage limit.
+export function scaleTo(w, h, most = 1600) {
+  const k = Math.min(1, most / Math.max(w, h));
+  return [Math.round(w * k), Math.round(h * k)];
+}
+
+async function shrink(file) {
+  const bmp = await createImageBitmap(file);
+  const [w, h] = scaleTo(bmp.width, bmp.height);
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  c.getContext('2d').drawImage(bmp, 0, 0, w, h);
+  return new Promise((ok, no) => c.toBlob(b => (b ? ok(b) : no(new Error('no image'))), 'image/jpeg', 0.72));
+}
+
 export const clock = ms => {
   const s = Math.max(0, Math.ceil(ms / 1000));
   const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, x = String(s % 60).padStart(2, '0');
@@ -161,6 +176,54 @@ export async function viewWork(ctx, id) {
   });
 }
 
+const READ_SAYS = { off: "Reading handwriting isn't switched on yet. Your photos still go to your teacher, or you can type your answer.", budget: "Reading handwriting has reached its limit for this month. Your photos still go to your teacher.", cap: "You've reached today's limit for reading handwriting. Your photos still go to your teacher.", failed: "That didn't work. Try again, or type your answer." };
+
+// Photos of paper work, for a written question. The student checks the typed copy in the answer box.
+function photoBox(ctx, sub, q, card, changed) {
+  const { sync } = ctx;
+  const box = el(`<div class="photo-box"><label class="btn ghost photo-add">Add a photo of your work<input type="file" accept="image/jpeg,image/png,image/webp" multiple class="sr"></label>
+    <button type="button" class="btn ghost photo-read" hidden>Turn my photos into text</button>
+    <div class="photo-row"></div><p class="small muted">Up to 6 pages. Don't write your name on them. Your teacher sees your photos, which are deleted 90 days after marking.</p><p class="auth-msg" role="status" aria-live="polite"></p></div>`);
+  let photos = [...(sub.photos?.[String(q.position)] || [])];
+  const row = box.querySelector('.photo-row');
+  const draw = async () => {
+    const urls = await sync.photoUrls(photos.map(p => p.path)).catch(() => []);
+    row.innerHTML = photos.map((p, i) => `<figure data-id="${esc(p.id)}"><img src="${esc(urls[i] || '')}" alt="Page ${i + 1} of your work"><button type="button" class="linkish photo-del">Remove page ${i + 1}</button></figure>`).join('');
+    box.querySelector('.photo-read').hidden = !photos.length;
+  };
+  box.querySelector('input').addEventListener('change', async e => {
+    for (const file of e.target.files) {
+      say(box, 'Adding your photo…');
+      try {
+        const path = await sync.uploadPhoto(sub.id, q.position, await shrink(file));
+        photos.push({ id: await sync.rpc('add_photo', { p_sub: sub.id, p_position: q.position, p_path: path }), path });
+        say(box, '');
+      } catch (err) { say(box, err?.code ? problemFor(err) : "That photo didn't upload. Check your connection and try again."); break; }
+    }
+    e.target.value = '';
+    draw();
+  });
+  row.addEventListener('click', async e => {
+    const b = e.target.closest('.photo-del');
+    if (!b) return;
+    const id = b.closest('figure').dataset.id;
+    try { await sync.rpc('remove_photo', { p_id: id }); photos = photos.filter(p => p.id !== id); draw(); } catch (err) { say(box, problemFor(err)); }
+  });
+  box.querySelector('.photo-read').addEventListener('click', async e => {
+    e.target.disabled = true;
+    say(box, 'Reading your handwriting…');
+    const r = await sync.aiRead(sub.id, q.position).catch(() => ({ status: 'failed' }));
+    e.target.disabled = false;
+    if (r.status !== 'read') return say(box, READ_SAYS[r.status] || READ_SAYS.failed);
+    const t = card.querySelector('textarea');
+    t.value = t.value.trim() ? `${t.value.trim()}\n\n${r.text}` : r.text; // never overwrites what they've typed
+    changed();
+    say(box, 'Check the text against your work and fix anything wrong before you hand in. This is what gets marked.');
+  });
+  card.append(box);
+  draw();
+}
+
 function doWork(ctx, a, sub) {
   const { shell, app, sync, onLeave } = ctx;
   const local = readBackup(sub.id);
@@ -213,6 +276,7 @@ function doWork(ctx, a, sub) {
   box.addEventListener('click', e => { if (e.target.closest('button')) changed(); });
   box.addEventListener('pointerup', changed);
   count();
+  for (const c of cards) if (c.q.type === 'long') photoBox(ctx, sub, c.q, c.card, changed);
 
   const handIn = async () => {
     if (handedIn) return;
@@ -439,10 +503,13 @@ export async function viewSubmission(ctx, classId, id, subId) {
   try { d = await sync.rpc('submission_detail', { p_sub: subId }); } catch {
     return shell('<section class="card"><h1>Work not found</h1><a class="btn" href="#/teach">Back</a></section>', { title: 'Marking' });
   }
+  const urls = await sync.photoUrls(d.items.flatMap(q => (q.photos || []).map(p => p.path))).catch(() => []);
+  let shown = 0;
+  const pages = q => (q.photos || []).map((p, i) => `<a href="${esc(urls[shown] || '')}" target="_blank" rel="noopener"><img src="${esc(urls[shown++] || '')}" alt="Page ${i + 1} of the student's handwritten answer"></a>`).join('');
   shell(`<a class="small" href="#/teach/${esc(classId)}/a/${esc(id)}">← Back to the work</a><h1>Attempt ${esc(d.attempt)}</h1>
     <section class="card"><p class="join-big total">${esc(d.marks)}/${esc(d.out_of)}</p><p class="muted small">Handed in ${esc(when(d.submitted_at))}. Your mark replaces ours.</p></section>
     ${d.items.map((q, i) => `<section class="card" data-pos="${esc(q.position)}"><span class="eyebrow">Question ${i + 1}</span>
-      <p class="q">${esc(q.text)}</p><p><strong>Answer given:</strong> ${esc(showResponse(q))}</p>
+      <p class="q">${esc(q.text)}</p><div class="${q.photos?.length ? 'side-by-side' : ''}">${q.photos?.length ? `<div class="photo-row">${pages(q)}</div>` : ''}<p><strong>Answer given:</strong> ${esc(showResponse(q))}</p></div>
       ${q.scheme ? `<p><strong>Mark scheme:</strong> ${esc(q.scheme)}</p>` : ''}
       ${q.correct ? `<p><strong>${q.type === 'long' ? 'Model answer' : 'Answer'}:</strong> ${esc(q.correct)}</p>` : ''}${q.why ? `<p class="muted small">${esc(q.why)}</p>` : ''}
       ${aiBox(q.ai, q.marks)}${q.type === 'long' && !q.ai && q.teacher_marks === null ? '<button type="button" class="btn ghost ask-ai">Get an AI estimate</button>' : ''}

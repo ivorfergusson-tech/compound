@@ -37,6 +37,7 @@ ITEMS = [
     {"position": 4, "type": "order", "text": "Sort these.", "marks": 1, "shown": ["B", "A", "C"]},
     {"position": 5, "type": "match", "text": "Match up.", "marks": 1, "pairs": [["L1"], ["L2"]], "rightShown": ["R2", "R1"]},
     {"position": 6, "type": "explain", "text": "Why choose?", "marks": 2},
+    {"position": 7, "type": "long", "text": "Evaluate scarcity.", "marks": 9},
 ]
 
 
@@ -52,6 +53,7 @@ class Fake:
         self.marked = None
         self.bank = []
         self.ai = None
+        self.photos = []
         self.ai_calls = 0
 
     def row(self):
@@ -110,7 +112,15 @@ class Fake:
         if name == "submission_detail":
             return {"id": SID, "attempt": 1, "started_at": "2026-01-20T00:00:00Z", "submitted_at": "2026-01-20T00:10:00Z", "marks": 5, "out_of": 7,
                     "items": [{"position": 1, "marks": 2, "text": "Why choose?", "correct": "Scarcity", "why": "Because", "type": "explain", "response": "no idea", "auto": 0, "teacher_marks": None, "teacher_note": None},
-                              {"position": 2, "marks": 9, "text": "Evaluate.", "correct": "Model", "scheme": "Level 3", "type": "long", "response": "An essay", "auto": None, "teacher_marks": None, "teacher_note": None, "ai": self.ai}]}
+                              {"position": 2, "marks": 9, "text": "Evaluate.", "correct": "Model", "scheme": "Level 3", "type": "long", "response": "An essay", "auto": None, "teacher_marks": None, "teacher_note": None, "ai": self.ai, "photos": [{"id": "p", "path": "a/b/2/c.jpg"}]}]}
+        if name == "add_photo":
+            self.photos.append(a["p_path"])
+            return "55555555-0000-4000-8000-000000000001"
+        if name == "remove_photo":
+            self.photos = []
+            return None
+        if name == "fn:read-handwriting":
+            return {"status": "read", "text": "Typed from my photo"}
         if name == "fn:mark-answer":
             self.ai_calls += 1
             self.ai = {"level": 3, "marks": 6, "earned": "A clear chain", "missing": "No evaluation", "next_step": "Weigh it up"}
@@ -144,7 +154,19 @@ def new_page(browser, fake, width=1200):
         return route.fulfill(status=201 if route.request.method in ("POST", "PATCH") else 200, content_type="application/json", body="[]")
 
     page.route("**/rest/v1/**", rest)
-    page.route("**/functions/v1/**", lambda route: route.fulfill(status=200, content_type="application/json", headers={"Access-Control-Allow-Origin": "*"}, body=json.dumps(fake.rpc("fn:mark-answer", {}))) if route.request.method == "POST" else route.fulfill(status=200, headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"}))
+    page.route("**/functions/v1/**", lambda route: route.fulfill(status=200, content_type="application/json", headers={"Access-Control-Allow-Origin": "*"}, body=json.dumps(fake.rpc("fn:" + route.request.url.rsplit("/", 1)[1], {}))) if route.request.method == "POST" else route.fulfill(status=200, headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"}))
+
+    def bucket(route):
+        url = route.request.url
+        cors = {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"}
+        if route.request.method == "OPTIONS":
+            return route.fulfill(status=200, headers=cors)
+        if "/sign/" in url and route.request.method == "POST":
+            body = [{"path": p, "signedURL": "/object/sign/x", "error": None} for p in json.loads(route.request.post_data)["paths"]]
+            return route.fulfill(status=200, content_type="application/json", headers=cors, body=json.dumps(body))
+        return route.fulfill(status=200, content_type="application/json", headers=cors, body=json.dumps({"Key": "x", "Id": "x"}))
+
+    page.route("**/storage/v1/**", bucket)
     return ctx, page
 
 
@@ -175,9 +197,23 @@ with sync_playwright() as p:
     check("the intro shows the note, lessons and attempts", "Do it well" in text and "A lesson" in text and "2 attempts allowed" in text)
     page.locator(".start").click()
     page.wait_for_selector(".work-qs .question")
-    check("every question shows", page.locator(".work-qs .question").count() == 6)
+    check("every question shows", page.locator(".work-qs .question").count() == 7)
     check("there's no Check button", page.locator(".check-btn").count() == 0)
-    check("nothing counts as answered at the start", "0 of 6 answered" in page.locator(".work-count").inner_text())
+    check("nothing counts as answered at the start", "0 of 7 answered" in page.locator(".work-count").inner_text())
+    check("only written questions take photos", page.locator(".photo-box").count() == 1 and page.locator(".question[data-type=long] .photo-box").count() == 1)
+    check("the read button waits for a photo", not page.locator(".photo-read").is_visible())
+    png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    import base64
+    page.set_input_files(".photo-box input", {"name": "page.png", "mimeType": "image/png", "buffer": base64.b64decode(png)})
+    page.wait_for_selector(".photo-row img")
+    check("a photo is uploaded into the attempt", len(fake.photos) == 1 and f"/{SID}/7/" in fake.photos[0], fake.photos)
+    check("the name warning shows", "Don't write your name" in page.locator(".photo-box").inner_text())
+    page.locator(".question[data-type=long] textarea").fill("My typed start")
+    page.locator(".photo-read").click()
+    page.wait_for_function("document.querySelector('.question[data-type=long] textarea').value.includes('Typed from my photo')")
+    check("reading adds to what's typed, never replaces it", "My typed start" in page.locator(".question[data-type=long] textarea").input_value())
+    check("the student is told to check it", "Check the text" in page.locator(".photo-box").inner_text())
+    axe(page, "the photo box")
     page.screenshot(path=str(SHOTS / "work-doing.png"), full_page=True)
     axe(page, "doing the work")
     q = page.locator(".work-qs .question")
@@ -192,7 +228,7 @@ with sync_playwright() as p:
     page.wait_for_timeout(1800)
     check("answers autosave", fake.saved.get("1") == 1 and fake.saved.get("2") == "42" and fake.saved.get("6") == "Because of scarcity", fake.saved)
     check("the order is saved as moved", fake.saved.get("4") == ["A", "B", "C"], fake.saved.get("4"))
-    check("the count updates", "6 of 6 answered" in page.locator(".work-count").inner_text())
+    check("the count updates", "7 of 7 answered" in page.locator(".work-count").inner_text())
 
     # Resume, with the connection down for the last change
     fake.down = True
@@ -327,6 +363,7 @@ with sync_playwright() as p:
     page.locator(".roster a").first.click()
     page.wait_for_selector(".mark-form")
     check("the student's answer shows", "no idea" in page.locator("main").inner_text())
+    check("the teacher sees the photo beside the text", page.locator(".side-by-side img").count() == 1 and "An essay" in page.locator(".side-by-side").inner_text())
     page.locator(".ask-ai").click()
     page.wait_for_selector(".ai-mark")
     text = page.locator(".ai-mark").inner_text()

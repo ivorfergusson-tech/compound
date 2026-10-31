@@ -92,7 +92,10 @@ Don't set a key until an adult has answered these, because it sends students' wr
 - Does Compound need to register with the ICO?
 - What will `privacy.html` say? It must be updated before this goes on.
 
-Then: install the Supabase CLI, `supabase login`, `supabase link`, `supabase functions deploy mark-answer`, `supabase secrets set ANTHROPIC_API_KEY=...`. The key only ever goes there, never in `.env`, this repo or the browser. To change the limits, edit the one row in `ai_limits` in the SQL editor.
+Then: install the Supabase CLI, `supabase login`, `supabase link`, `supabase functions deploy mark-answer read-handwriting`, `supabase secrets set ANTHROPIC_API_KEY=...`. The key only ever goes there, never in `.env`, this repo or the browser. To change the limits, edit the one row in `ai_limits` in the SQL editor.
+
+## Photo deletion (P6b): do this before any real photos go up
+GitHub repo → Settings → Secrets and variables → Actions → add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (values from `.env`). Then Actions → "Delete old photos" → Run workflow, and check it goes green. It runs every night after that.
 
 ## Teachers and classes (P4)
 

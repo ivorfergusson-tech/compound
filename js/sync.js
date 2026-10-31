@@ -447,6 +447,27 @@ export async function aiMark(sub, position) {
   return data;
 }
 
+export async function aiRead(sub, position) {
+  const { data, error } = await sb.functions.invoke('read-handwriting', { body: { sub, position } });
+  if (error) throw error;
+  return data;
+}
+
+// A handed-in page. The storage rules in schema.sql check the path, so it can only go in the student's own open attempt.
+export async function uploadPhoto(sub, position, blob) {
+  const path = `${session.user.id}/${sub}/${position}/${crypto.randomUUID()}.jpg`;
+  const { error } = await sb.storage.from('handins').upload(path, blob, { contentType: 'image/jpeg' });
+  if (error) throw error;
+  return path;
+}
+
+export async function photoUrls(paths) {
+  if (!paths.length) return [];
+  const { data, error } = await sb.storage.from('handins').createSignedUrls(paths, 600);
+  if (error) throw error;
+  return data.map(d => d.signedUrl);
+}
+
 export async function teacher() {
   if (!sb || !session) return null;
   const { data } = await sb.from('teachers').select('display_name, school, status').eq('user_id', session.user.id).maybeSingle();

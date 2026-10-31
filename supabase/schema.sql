@@ -1008,7 +1008,8 @@ begin
   insert into answers (submission_id, position)
     select p_sub, i.position from assignment_items i where i.assignment_id = a and i.kind = 'question'
     on conflict do nothing;
-  update answers x set marks = mark_item(i.q, x.response)
+  update answers x set marks = case when i.q->>'type' = 'long' and to_regclass('public.answer_photos') is not null
+                                      and photo_count(p_sub, x.position) > 0 then null else mark_item(i.q, x.response) end
     from assignment_items i where x.submission_id = p_sub and i.assignment_id = a and i.position = x.position;
   update submissions s set submitted_at = p_at, auto_submitted = p_auto,
     marks = (select coalesce(sum(x.marks), 0) from answers x where x.submission_id = p_sub),
@@ -1155,7 +1156,7 @@ declare s public.submissions := require_own_sub(p_sub);
 begin
   return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'started_at', s.started_at, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
     'items', (select coalesce(jsonb_agg(jsonb_build_object('position', i.position, 'marks', i.marks, 'text', i.q->'text', 'correct', i.q->'correctText', 'why', i.q->'whyText', 'scheme', i.q->'scheme',
-                'type', i.q->'type', 'options', i.q->'options', 'response', x.response, 'auto', x.marks, 'teacher_marks', x.teacher_marks, 'teacher_note', x.teacher_note, 'ai', ai_for(s.id, i.position)) order by i.position), '[]')
+                'type', i.q->'type', 'options', i.q->'options', 'response', x.response, 'auto', x.marks, 'teacher_marks', x.teacher_marks, 'teacher_note', x.teacher_note, 'ai', ai_for(s.id, i.position), 'photos', photos_for(s.id, i.position)) order by i.position), '[]')
               from assignment_items i left join answers x on x.submission_id = s.id and x.position = i.position
               where i.assignment_id = s.assignment_id and i.kind = 'question'));
 end $$;
@@ -1273,7 +1274,8 @@ begin
   return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'deadline', s.deadline, 'now', now(),
     'items', (select coalesce(jsonb_agg(q_public(i.q) || jsonb_build_object('position', i.position) order by i.position), '[]')
               from assignment_items i where i.assignment_id = a.id and i.kind = 'question'),
-    'answers', (select coalesce(jsonb_object_agg(x.position::text, x.response), '{}') from answers x where x.submission_id = s.id));
+    'answers', (select coalesce(jsonb_object_agg(x.position::text, x.response), '{}') from answers x where x.submission_id = s.id),
+    'photos', (select coalesce(jsonb_object_agg(i.position::text, photos_for(s.id, i.position)), '{}') from assignment_items i where i.assignment_id = a.id and i.q->>'type' = 'long'));
 end $$;
 
 -- p_answers is { "position": response }. A timed attempt past its deadline keeps what was saved in time, and says so.
@@ -1460,5 +1462,172 @@ begin
   ] loop
     execute format('revoke execute on function public.%s from public, anon, authenticated', f);
     execute format('grant execute on function public.%s to service_role', f);
+  end loop;
+end $$;
+
+-- ---------- P6b: photo hand-in ----------
+-- Photos sit in a private bucket at <user>/<submission>/<position>/<file>.jpg, readable only by the student and their
+-- teacher. tools/purge_photos.py deletes them 90 days after marking. Files can only be deleted through the Storage API,
+-- so deleting a row here puts its path in photo_trash for that tool to finish the job.
+create table if not exists public.answer_photos (
+  id            uuid primary key default gen_random_uuid(),
+  submission_id uuid not null references public.submissions (id) on delete cascade,
+  position      int not null,
+  path          text not null unique,
+  created_at    timestamptz not null default now()
+);
+create index if not exists answer_photos_sub on public.answer_photos (submission_id, position);
+create table if not exists public.photo_trash (path text primary key);
+alter table public.answer_photos enable row level security;
+alter table public.photo_trash enable row level security;
+
+create or replace function public.photo_to_trash() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  insert into photo_trash (path) values (old.path) on conflict do nothing;
+  return old;
+end $$;
+revoke execute on function public.photo_to_trash() from public, anon, authenticated;
+drop trigger if exists answer_photos_trash on public.answer_photos;
+create trigger answer_photos_trash after delete on public.answer_photos for each row execute function public.photo_to_trash();
+
+-- Used by the storage rules below. An upload must be into the student's own open attempt, on a written question.
+create or replace function public.can_upload_photo(p_name text) returns boolean
+language plpgsql stable security definer set search_path = public as $$
+declare
+  m text[] := regexp_match(p_name, '^([0-9a-f-]{36})/([0-9a-f-]{36})/([0-9]{1,3})/[0-9a-f-]{36}\.jpg$');
+begin
+  if m is null or m[1] is distinct from auth.uid()::text then return false; end if;
+  return exists (select 1 from submissions s
+    join assignments a on a.id = s.assignment_id and a.archived_at is null
+    join class_members cm on cm.class_id = a.class_id and cm.user_id = s.user_id and cm.left_at is null
+    join assignment_items i on i.assignment_id = a.id and i.position = m[3]::int and i.q->>'type' = 'long'
+    where s.id = m[2]::uuid and s.user_id = auth.uid() and s.submitted_at is null and (s.deadline is null or s.deadline >= now()));
+end $$;
+
+create or replace function public.can_read_photo(p_name text) returns boolean
+language sql stable security definer set search_path = public as $$
+  select split_part(p_name, '/', 1) = auth.uid()::text or exists (select 1 from answer_photos p
+    join submissions s on s.id = p.submission_id
+    join assignments a on a.id = s.assignment_id
+    join classes c on c.id = a.class_id and c.teacher_id = auth.uid()
+    join class_members m on m.class_id = c.id and m.user_id = s.user_id
+    where p.path = p_name and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at))
+$$;
+
+do $$
+begin
+  if to_regclass('storage.objects') is not null then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+      values ('handins', 'handins', false, 3000000, array['image/jpeg']) on conflict (id) do nothing;
+    drop policy if exists "handins: upload own" on storage.objects;
+    create policy "handins: upload own" on storage.objects for insert to authenticated
+      with check (bucket_id = 'handins' and public.can_upload_photo(name));
+    drop policy if exists "handins: student and teacher read" on storage.objects;
+    create policy "handins: student and teacher read" on storage.objects for select to authenticated
+      using (bucket_id = 'handins' and public.can_read_photo(name));
+  end if;
+end $$;
+
+create or replace function public.add_photo(p_sub uuid, p_position int, p_path text) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  s public.submissions := require_open_sub(p_sub);
+  r uuid;
+begin
+  if not can_upload_photo(p_path) or split_part(p_path, '/', 2) <> s.id::text or split_part(p_path, '/', 3) <> p_position::text then
+    raise exception 'bad photo' using errcode = 'CN209';
+  end if;
+  if (select count(*) from answer_photos where submission_id = p_sub and position = p_position) >= 6 then
+    raise exception 'too many photos' using errcode = 'CN210';
+  end if;
+  insert into answer_photos (submission_id, position, path) values (p_sub, p_position, p_path) returning id into r;
+  return r;
+end $$;
+
+create or replace function public.remove_photo(p_id uuid) returns void
+language plpgsql security definer set search_path = public as $$
+declare s uuid;
+begin
+  select submission_id into s from answer_photos where id = p_id;
+  perform require_open_sub(s);
+  delete from answer_photos where id = p_id;
+end $$;
+
+create or replace function public.photo_count(p_sub uuid, p_position int) returns int
+language sql stable security definer set search_path = public as $$
+  select count(*)::int from answer_photos where submission_id = p_sub and position = p_position
+$$;
+revoke execute on function public.photo_count(uuid, int) from public, anon, authenticated;
+
+create or replace function public.photos_for(p_sub uuid, p_position int) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', id, 'path', path) order by created_at), '[]') from answer_photos where submission_id = p_sub and position = p_position
+$$;
+
+-- For the read-handwriting Edge Function only, with the same limits as AI marking.
+create or replace function public.ai_read_begin(p_user uuid, p_sub uuid, p_position int) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare
+  s public.submissions;
+  lim public.ai_limits;
+  paths jsonb;
+begin
+  select * into s from submissions where id = p_sub and user_id = p_user and submitted_at is null;
+  if not found then raise exception 'not allowed' using errcode = '42501'; end if;
+  select coalesce(jsonb_agg(path order by created_at), '[]') into paths from answer_photos where submission_id = p_sub and position = p_position;
+  if jsonb_array_length(paths) = 0 then return jsonb_build_object('ok', false, 'reason', 'no_photos'); end if;
+  select * into lim from ai_limits;
+  perform pg_advisory_xact_lock(hashtext('ai_budget'));
+  if (select coalesce(sum(pence), 0) from ai_usage where created_at >= date_trunc('month', now())) >= lim.monthly_pence then
+    return jsonb_build_object('ok', false, 'reason', 'budget');
+  end if;
+  if (select count(*) from ai_usage where student = p_user and created_at >= date_trunc('day', now())) >= lim.student_daily then
+    return jsonb_build_object('ok', false, 'reason', 'cap');
+  end if;
+  return jsonb_build_object('ok', true, 'paths', paths);
+end $$;
+
+create or replace function public.ai_read_finish(p_sub uuid, p_model text, p_input int, p_output int, p_pence numeric) returns void
+language sql security definer set search_path = public as $$
+  insert into ai_usage (student, input_tok, output_tok, pence, model) select user_id, p_input, p_output, p_pence, p_model from submissions where id = p_sub
+$$;
+
+-- For tools/purge_photos.py only. Due: 90 days after the last teacher mark or hand-in, the trash, and any file with no
+-- row after a day (an upload that was never registered).
+create or replace function public.photos_expired() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare out_paths text[];
+begin
+  select array_agg(path) into out_paths from (
+    select p.path from answer_photos p join submissions s on s.id = p.submission_id
+      where greatest(p.created_at, s.submitted_at, (select max(x.updated_at) from answers x where x.submission_id = s.id and x.teacher_marks is not null)) < now() - interval '90 days'
+    union select path from photo_trash
+  ) t;
+  if to_regclass('storage.objects') is not null then
+    out_paths := coalesce(out_paths, '{}') || array(select o.name from storage.objects o where o.bucket_id = 'handins' and o.created_at < now() - interval '1 day'
+      and not exists (select 1 from answer_photos p where p.path = o.name) and not exists (select 1 from photo_trash t where t.path = o.name));
+  end if;
+  return coalesce(to_jsonb(out_paths), '[]');
+end $$;
+
+create or replace function public.photos_purged(p_paths text[]) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  delete from answer_photos where path = any (p_paths);
+  delete from photo_trash where path = any (p_paths);
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['ai_read_begin(uuid, uuid, int)', 'ai_read_finish(uuid, text, int, int, numeric)', 'photos_expired()', 'photos_purged(text[])'] loop
+    execute format('revoke execute on function public.%s from public, anon, authenticated', f);
+    execute format('grant execute on function public.%s to service_role', f);
+  end loop;
+  execute 'revoke execute on function public.photos_for(uuid, int) from public, anon, authenticated';
+  foreach f in array array['add_photo(uuid, int, text)', 'remove_photo(uuid)', 'can_upload_photo(text)', 'can_read_photo(text)'] loop
+    execute format('revoke execute on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
   end loop;
 end $$;
