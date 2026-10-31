@@ -51,6 +51,8 @@ class Fake:
         self.created = None
         self.marked = None
         self.bank = []
+        self.ai = None
+        self.ai_calls = 0
 
     def row(self):
         return {"id": AID, "class_id": CID, "class_name": "13A", "title": "Scarcity homework", "note": "Do it well", "open_at": "2026-01-01T00:00:00Z",
@@ -107,7 +109,12 @@ class Fake:
                     {**base, "user_id": "c", "real_name": "Cal Cole", "attempts": 0, "best_sub": None, "best_marks": None, "first_submitted": None}]
         if name == "submission_detail":
             return {"id": SID, "attempt": 1, "started_at": "2026-01-20T00:00:00Z", "submitted_at": "2026-01-20T00:10:00Z", "marks": 5, "out_of": 7,
-                    "items": [{"position": 1, "marks": 2, "text": "Why choose?", "correct": "Scarcity", "why": "Because", "type": "explain", "response": "no idea", "auto": 0, "teacher_marks": None, "teacher_note": None}]}
+                    "items": [{"position": 1, "marks": 2, "text": "Why choose?", "correct": "Scarcity", "why": "Because", "type": "explain", "response": "no idea", "auto": 0, "teacher_marks": None, "teacher_note": None},
+                              {"position": 2, "marks": 9, "text": "Evaluate.", "correct": "Model", "scheme": "Level 3", "type": "long", "response": "An essay", "auto": None, "teacher_marks": None, "teacher_note": None, "ai": self.ai}]}
+        if name == "fn:mark-answer":
+            self.ai_calls += 1
+            self.ai = {"level": 3, "marks": 6, "earned": "A clear chain", "missing": "No evaluation", "next_step": "Weigh it up"}
+            return {"status": "marked"}
         if name == "set_answer_mark":
             self.marked = a
             return 7
@@ -137,6 +144,7 @@ def new_page(browser, fake, width=1200):
         return route.fulfill(status=201 if route.request.method in ("POST", "PATCH") else 200, content_type="application/json", body="[]")
 
     page.route("**/rest/v1/**", rest)
+    page.route("**/functions/v1/**", lambda route: route.fulfill(status=200, content_type="application/json", headers={"Access-Control-Allow-Origin": "*"}, body=json.dumps(fake.rpc("fn:mark-answer", {}))) if route.request.method == "POST" else route.fulfill(status=200, headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"}))
     return ctx, page
 
 
@@ -319,9 +327,14 @@ with sync_playwright() as p:
     page.locator(".roster a").first.click()
     page.wait_for_selector(".mark-form")
     check("the student's answer shows", "no idea" in page.locator("main").inner_text())
-    page.fill(".mark-form input[name=mark]", "2")
-    page.fill(".mark-form input[name=note]", "Good thinking")
-    page.locator(".mark-form .btn").click()
+    page.locator(".ask-ai").click()
+    page.wait_for_selector(".ai-mark")
+    text = page.locator(".ai-mark").inner_text()
+    check("an AI mark is labelled as an estimate", "AI estimate: 6/9" in text and "Only your teacher's mark counts" in text, text)
+    check("the mark box isn't filled in by the AI", page.locator(".mark-form input[name=mark]").nth(1).input_value() == "")
+    page.fill(".mark-form input[name=mark] >> nth=0", "2")
+    page.fill(".mark-form input[name=note] >> nth=0", "Good thinking")
+    page.locator(".mark-form .btn").first.click()
     page.wait_for_function("document.querySelector('.total').textContent === '7/7'")
     check("the mark goes in", fake.marked["p_marks"] == 2 and fake.marked["p_note"] == "Good thinking" and fake.marked["p_position"] == 1)
     axe(page, "the marking page")

@@ -85,6 +85,15 @@ The leaderboard is worked out on the server from stored attempts, and the databa
 - **Admin account:** sign in on the live site with a second account (use a private window so your own progress isn't touched). Don't pick a nickname. Then add it in Supabase → **SQL Editor**: `insert into public.admins (user_id) select id from auth.users where email = 'that@email';` Signed in as admin, everything is unlocked, nothing is saved, and it never shows on the leaderboard.
 - **Dashboard:** `python tools/admin_dashboard.py` writes `.tmp/admin.html` (gitignored) from the live database and opens it. Accounts, how each module is going, most-missed topics. It never goes online.
 
+## AI marking (P6): off until this is done
+Don't set a key until an adult has answered these, because it sends students' written work to Anthropic:
+- Who pays for the API, and whose name is on the account?
+- Who signs the data processing agreement with Anthropic?
+- Does Compound need to register with the ICO?
+- What will `privacy.html` say? It must be updated before this goes on.
+
+Then: install the Supabase CLI, `supabase login`, `supabase link`, `supabase functions deploy mark-answer`, `supabase secrets set ANTHROPIC_API_KEY=...`. The key only ever goes there, never in `.env`, this repo or the browser. To change the limits, edit the one row in `ai_limits` in the SQL editor.
+
 ## Teachers and classes (P4)
 
 Run `supabase/schema.sql` again before pushing this code. Then:

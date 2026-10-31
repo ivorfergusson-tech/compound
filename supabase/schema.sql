@@ -1155,7 +1155,7 @@ declare s public.submissions := require_own_sub(p_sub);
 begin
   return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'started_at', s.started_at, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
     'items', (select coalesce(jsonb_agg(jsonb_build_object('position', i.position, 'marks', i.marks, 'text', i.q->'text', 'correct', i.q->'correctText', 'why', i.q->'whyText', 'scheme', i.q->'scheme',
-                'type', i.q->'type', 'options', i.q->'options', 'response', x.response, 'auto', x.marks, 'teacher_marks', x.teacher_marks, 'teacher_note', x.teacher_note) order by i.position), '[]')
+                'type', i.q->'type', 'options', i.q->'options', 'response', x.response, 'auto', x.marks, 'teacher_marks', x.teacher_marks, 'teacher_note', x.teacher_note, 'ai', ai_for(s.id, i.position)) order by i.position), '[]')
               from assignment_items i left join answers x on x.submission_id = s.id and x.position = i.position
               where i.assignment_id = s.assignment_id and i.kind = 'question'));
 end $$;
@@ -1320,7 +1320,7 @@ begin
   return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
     'title', a.title, 'due_at', a.due_at, 'released', open_up,
     'items', (select coalesce(jsonb_agg(q_public(i.q) || jsonb_build_object('position', i.position, 'response', x.response, 'got', coalesce(x.teacher_marks, x.marks),
-                'teacher_note', x.teacher_note) || case when open_up then jsonb_build_object('correct', i.q->'correctText', 'why', i.q->'whyText') else '{}'::jsonb end order by i.position), '[]')
+                'teacher_note', x.teacher_note, 'ai', ai_for(s.id, i.position)) || case when open_up then jsonb_build_object('correct', i.q->'correctText', 'why', i.q->'whyText') else '{}'::jsonb end order by i.position), '[]')
               from assignment_items i left join answers x on x.submission_id = s.id and x.position = i.position
               where i.assignment_id = a.id and i.kind = 'question'));
 end $$;
@@ -1351,5 +1351,114 @@ begin
   ] loop
     execute format('revoke execute on function public.%s from public, anon', f);
     execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+end $$;
+
+-- ---------- P6: AI marking ----------
+-- AI marks are estimates and never change a total: the teacher's mark is the only one that counts. These functions are
+-- for the mark-answer Edge Function alone (service role). They take the user id it has checked, and browsers can't call them.
+create table if not exists public.ai_limits (
+  id             int primary key default 1 check (id = 1),
+  monthly_pence  int not null default 1000, -- the hard budget: £10 to start
+  student_daily  int not null default 20    -- set work, per student
+);
+insert into public.ai_limits (id) values (1) on conflict do nothing;
+
+create table if not exists public.ai_marks (
+  submission_id uuid not null references public.submissions (id) on delete cascade,
+  position      int not null,
+  status        text not null default 'pending' check (status in ('pending', 'done')),
+  level         int,
+  marks         int,
+  earned        text,
+  missing       text,
+  next_step     text,
+  model         text,
+  created_at    timestamptz not null default now(),
+  primary key (submission_id, position)
+);
+
+-- Kept when work or an account is deleted (no link to either), as it's the spending record. It names nobody.
+create table if not exists public.ai_usage (
+  id         bigint generated always as identity primary key,
+  student    uuid not null,
+  input_tok  int not null,
+  output_tok int not null,
+  pence      numeric(10, 4) not null,
+  model      text,
+  created_at timestamptz not null default now()
+);
+create index if not exists ai_usage_student on public.ai_usage (student, created_at);
+
+alter table public.ai_limits enable row level security;
+alter table public.ai_marks enable row level security;
+alter table public.ai_usage enable row level security;
+
+-- Checks everything, then holds the answer so two calls can't both pay for it. A hold over 5 minutes old was a crash.
+create or replace function public.ai_begin(p_user uuid, p_sub uuid, p_position int) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare
+  s public.submissions;
+  q jsonb;
+  ans public.answers;
+  top int;
+  lim public.ai_limits;
+  ins int;
+begin
+  select * into s from submissions where id = p_sub and submitted_at is not null;
+  if not found or not (s.user_id = p_user or exists (
+       select 1 from assignments a join classes c on c.id = a.class_id join class_members m on m.class_id = c.id and m.user_id = s.user_id
+       where a.id = s.assignment_id and c.teacher_id = p_user and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at))) then
+    raise exception 'not allowed' using errcode = '42501';
+  end if;
+  select i.q, i.marks into q, top from assignment_items i where i.assignment_id = s.assignment_id and i.position = p_position and i.kind = 'question';
+  if q->>'type' is distinct from 'long' then return jsonb_build_object('ok', false, 'reason', 'not_written'); end if;
+  select * into ans from answers where submission_id = p_sub and position = p_position;
+  if jsonb_typeof(ans.response) is distinct from 'string' then return jsonb_build_object('ok', false, 'reason', 'blank'); end if;
+  if ans.teacher_marks is not null then return jsonb_build_object('ok', false, 'reason', 'teacher_marked'); end if;
+  select * into lim from ai_limits;
+  perform pg_advisory_xact_lock(hashtext('ai_budget')); -- one at a time, so the check and the hold can't race
+  if (select coalesce(sum(pence), 0) from ai_usage where created_at >= date_trunc('month', now())) >= lim.monthly_pence then
+    return jsonb_build_object('ok', false, 'reason', 'budget');
+  end if;
+  if (select count(*) from ai_usage where student = s.user_id and created_at >= date_trunc('day', now())) >= lim.student_daily then
+    return jsonb_build_object('ok', false, 'reason', 'cap');
+  end if;
+  insert into ai_marks (submission_id, position) values (p_sub, p_position)
+    on conflict (submission_id, position) do update set created_at = now()
+    where ai_marks.status = 'pending' and ai_marks.created_at < now() - interval '5 minutes';
+  get diagnostics ins = row_count;
+  if ins = 0 then return jsonb_build_object('ok', false, 'reason', 'done'); end if;
+  return jsonb_build_object('ok', true, 'marks', top, 'text', q->'text', 'scheme', q->'scheme', 'model_answer', q->'correctText', 'answer', ans.response);
+end $$;
+
+create or replace function public.ai_finish(p_sub uuid, p_position int, p_user uuid, p_mark jsonb, p_model text, p_input int, p_output int, p_pence numeric) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  update ai_marks set status = 'done', level = (p_mark->>'level')::int, marks = (p_mark->>'marks')::int, earned = p_mark->>'earned', missing = p_mark->>'missing',
+    next_step = p_mark->>'next_step', model = p_model where submission_id = p_sub and position = p_position;
+  insert into ai_usage (student, input_tok, output_tok, pence, model)
+    select user_id, p_input, p_output, p_pence, p_model from submissions where id = p_sub;
+end $$;
+
+create or replace function public.ai_fail(p_sub uuid, p_position int) returns void
+language sql security definer set search_path = public as $$
+  delete from ai_marks where submission_id = p_sub and position = p_position and status = 'pending'
+$$;
+
+create or replace function public.ai_for(p_sub uuid, p_position int) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('level', level, 'marks', marks, 'earned', earned, 'missing', missing, 'next_step', next_step)
+  from ai_marks where submission_id = p_sub and position = p_position and status = 'done'
+$$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array[
+    'ai_begin(uuid, uuid, int)', 'ai_finish(uuid, int, uuid, jsonb, text, int, int, numeric)', 'ai_fail(uuid, int)', 'ai_for(uuid, int)'
+  ] loop
+    execute format('revoke execute on function public.%s from public, anon, authenticated', f);
+    execute format('grant execute on function public.%s to service_role', f);
   end loop;
 end $$;

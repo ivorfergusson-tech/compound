@@ -440,6 +440,13 @@ export async function rpc(fn, args = {}) {
   return data;
 }
 
+// One written answer to the mark-answer Edge Function. Fails quietly if it isn't deployed; the work waits for the teacher.
+export async function aiMark(sub, position) {
+  const { data, error } = await sb.functions.invoke('mark-answer', { body: { sub, position } });
+  if (error) throw error;
+  return data;
+}
+
 export async function teacher() {
   if (!sb || !session) return null;
   const { data } = await sb.from('teachers').select('display_name, school, status').eq('user_id', session.user.id).maybeSingle();

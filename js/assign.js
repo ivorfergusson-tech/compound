@@ -222,6 +222,8 @@ function doWork(ctx, a, sub) {
     try {
       await sync.rpc('submit_attempt', { p_sub: sub.id, p_answers: dirty });
       writeBackup(sub.id, {});
+      // Teachers get an estimate to start from. If AI marking is off or fails, the work simply waits for them.
+      for (const c of cards) if (c.q.type === 'long') sync.aiMark(sub.id, c.q.position).catch(() => {});
       showResult();
     } catch (err) {
       handedIn = false;
@@ -271,8 +273,13 @@ export async function viewResult(ctx, id, subId) {
     ${r.items.map((q, i) => `<section class="card question"><span class="eyebrow">Question ${i + 1} · ${q.got === null || q.got === undefined ? `Waiting for your teacher · ${esc(q.marks)} marks` : `${esc(q.got)}/${esc(q.marks)}`}</span>
       <p class="q">${esc(q.text)}</p><p><strong>Your answer:</strong> ${esc(showResponse(q))}</p>
       ${q.correct ? `<p><strong>Answer:</strong> ${esc(q.correct)}</p>` : ''}${q.why ? `<p class="muted">${esc(q.why)}</p>` : ''}
-      ${q.teacher_note ? `<p><strong>Your teacher:</strong> ${esc(q.teacher_note)}</p>` : ''}</section>`).join('')}`, { title: r.title });
+      ${q.teacher_note ? `<p><strong>Your teacher:</strong> ${esc(q.teacher_note)}</p>` : ''}${aiBox(q.ai, q.marks)}</section>`).join('')}`, { title: r.title });
 }
+
+// An AI mark, always labelled as an estimate.
+const aiBox = (ai, top) => (ai ? `<div class="ai-mark"><p><strong>AI estimate: ${esc(ai.marks)}/${esc(top)}${ai.level ? `, level ${esc(ai.level)}` : ''}.</strong> Only your teacher's mark counts.</p>
+  <p><strong>Earned marks:</strong> ${esc(ai.earned)}</p><p><strong>Missing:</strong> ${esc(ai.missing)}</p><p><strong>Next time:</strong> ${esc(ai.next_step)}</p></div>` : '');
+const AI_SAYS = { budget: 'AI marking has reached its limit for this month.', cap: 'AI marking has reached its daily limit for this student.', failed: "That didn't work. Try again.", off: "AI marking isn't switched on yet.", denied: "You don't have access to that." };
 
 // ---------- teachers ----------
 export async function drawWork({ sync }, box, classId) {
@@ -438,9 +445,19 @@ export async function viewSubmission(ctx, classId, id, subId) {
       <p class="q">${esc(q.text)}</p><p><strong>Answer given:</strong> ${esc(showResponse(q))}</p>
       ${q.scheme ? `<p><strong>Mark scheme:</strong> ${esc(q.scheme)}</p>` : ''}
       ${q.correct ? `<p><strong>${q.type === 'long' ? 'Model answer' : 'Answer'}:</strong> ${esc(q.correct)}</p>` : ''}${q.why ? `<p class="muted small">${esc(q.why)}</p>` : ''}
+      ${aiBox(q.ai, q.marks)}${q.type === 'long' && !q.ai && q.teacher_marks === null ? '<button type="button" class="btn ghost ask-ai">Get an AI estimate</button>' : ''}
       <form class="mark-form"><div class="set-row"><label class="field">Mark out of ${esc(q.marks)}<input type="number" name="mark" min="0" max="${esc(q.marks)}" value="${esc(q.teacher_marks ?? q.auto ?? '')}" required></label>
         <label class="field">Comment (optional)<input name="note" maxlength="500" value="${esc(q.teacher_note || '')}"></label></div>
         <button class="btn ghost">Save mark</button><p class="auth-msg" role="status" aria-live="polite"></p></form></section>`).join('')}`, { title: 'Marking' });
+  app.querySelectorAll('.ask-ai').forEach(b => b.addEventListener('click', async () => {
+    b.disabled = true;
+    b.textContent = 'Marking…';
+    const r = await sync.aiMark(subId, Number(b.closest('[data-pos]').dataset.pos)).catch(() => ({ status: 'failed' }));
+    if (r.status === 'marked' || r.status === 'done') return viewSubmission(ctx, classId, id, subId);
+    b.disabled = false;
+    b.textContent = 'Get an AI estimate';
+    say(b.closest('[data-pos]'), AI_SAYS[r.status] || AI_SAYS.failed);
+  }));
   app.querySelectorAll('.mark-form').forEach(f => f.addEventListener('submit', async e => {
     e.preventDefault();
     try {

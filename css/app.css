@@ -522,6 +522,7 @@ a.course-card:hover { border-color: var(--accent); }
 .set-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 0 12px; }
 .field textarea { border: 1px solid var(--border-2); border-radius: 12px; padding: 10px 14px; background: var(--surface); color: var(--text); font: inherit; font-weight: 400; }
 .row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ai-mark { border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; margin: 12px 0; }
 .pick { border-bottom: 1px solid var(--border); padding: 8px 0; }
 .pick summary { cursor: pointer; font-weight: 600; }
 .pick .check { align-items: flex-start; }
