@@ -3,6 +3,7 @@
 import { esc } from './util.js';
 import { workList, drawWork } from './assign.js';
 import { drawInsightsLink } from './teacher.js';
+import { drawReserved } from './papers.js';
 
 const QR_LIB = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/+esm';
 export const CONSENT = 'Your teacher will see your real name, your scores, time spent and work you hand in.';
@@ -24,6 +25,7 @@ const PROBLEMS = {
   CN206: "You've used all your attempts.",
   CN207: 'One of your answers is too long.',
   CN209: "That photo couldn't be added.",
+  CN211: 'Check your marks and the date.',
   CN210: 'You can add up to 6 pages for each answer.',
   CN208: "You've reached the limit of 2000 questions.",
 };
@@ -275,6 +277,7 @@ export async function viewTeachClass(ctx, id) {
     <section class="card" id="work"></section>
     <section class="card" id="insights"></section>
     <section class="card" id="plan"></section>
+    <section class="card" id="reserved"></section>
     <section class="card"><h2>Settings</h2>
       <label class="check"><input type="checkbox" class="lb-on"${c.leaderboard_on ? ' checked' : ''}> Class leaderboard (students see nicknames and XP)</label>
       <a class="btn ghost" href="#/classes/${esc(id)}">See the class leaderboard</a>
@@ -283,6 +286,7 @@ export async function viewTeachClass(ctx, id) {
   drawWork(ctx, app.querySelector('#work'), id);
   drawInsightsLink(app.querySelector('#insights'), id);
   drawPlan(ctx, app.querySelector('#plan'), id, c.course);
+  drawReserved(ctx, app.querySelector('#reserved'), id, c.course);
   const update = (open, lb) => sync.rpc('update_class', { p_class: id, p_name: c.name, p_joining_open: open, p_leaderboard_on: lb });
   app.querySelector('.toggle-join').addEventListener('click', async () => { await update(!c.joining_open, c.leaderboard_on); viewTeachClass(ctx, id); });
   app.querySelector('.lb-on').addEventListener('change', async e => { await update(c.joining_open, e.target.checked); viewTeachClass(ctx, id); });

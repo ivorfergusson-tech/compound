@@ -9,6 +9,7 @@
  "specDate": "2022-06-29",
  "legacyIds": false,
  "papers": [1, 2],
+ "pastPapers": true,
  "review": {
   "status": "ai-draft",
   "by": null,

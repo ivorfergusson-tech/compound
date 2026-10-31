@@ -978,7 +978,7 @@ end $$;
 create or replace function public.q_public(q jsonb) returns jsonb
 language sql immutable as $$
   select jsonb_strip_nulls(jsonb_build_object('type', q->'type', 'text', q->'text', 'marks', q->'marks', 'options', q->'options',
-    'unit', q->'unit', 'shown', q->'shown', 'rightShown', q->'rightShown',
+    'unit', q->'unit', 'shown', q->'shown', 'rightShown', q->'rightShown', 'links', q->'links',
     'pairs', case when q ? 'pairs' then (select jsonb_agg(jsonb_build_array(p->0)) from jsonb_array_elements(q->'pairs') p) end))
 $$;
 
@@ -1416,7 +1416,7 @@ begin
     raise exception 'not allowed' using errcode = '42501';
   end if;
   select i.q, i.marks into q, top from assignment_items i where i.assignment_id = s.assignment_id and i.position = p_position and i.kind = 'question';
-  if q->>'type' is distinct from 'long' then return jsonb_build_object('ok', false, 'reason', 'not_written'); end if;
+  if q->>'type' is distinct from 'long' or q ? 'links' then return jsonb_build_object('ok', false, 'reason', 'not_written'); end if;
   select * into ans from answers where submission_id = p_sub and position = p_position;
   if jsonb_typeof(ans.response) is distinct from 'string' then return jsonb_build_object('ok', false, 'reason', 'blank'); end if;
   if ans.teacher_marks is not null then return jsonb_build_object('ok', false, 'reason', 'teacher_marked'); end if;
@@ -1547,7 +1547,8 @@ begin
   if not can_upload_photo(p_path) or split_part(p_path, '/', 2) <> s.id::text or split_part(p_path, '/', 3) <> p_position::text then
     raise exception 'bad photo' using errcode = 'CN209';
   end if;
-  if (select count(*) from answer_photos where submission_id = p_sub and position = p_position) >= 6 then
+  if (select count(*) from answer_photos where submission_id = p_sub and position = p_position)
+     >= (select case when i.q ? 'links' then 40 else 6 end from assignment_items i where i.assignment_id = s.assignment_id and i.position = p_position) then
     raise exception 'too many photos' using errcode = 'CN210';
   end if;
   insert into answer_photos (submission_id, position, path) values (p_sub, p_position, p_path) returning id into r;
@@ -1585,6 +1586,9 @@ begin
   select * into s from submissions where id = p_sub and user_id = p_user and submitted_at is null;
   if not found then raise exception 'not allowed' using errcode = '42501'; end if;
   select coalesce(jsonb_agg(path order by created_at), '[]') into paths from answer_photos where submission_id = p_sub and position = p_position;
+  if exists (select 1 from assignment_items i where i.assignment_id = s.assignment_id and i.position = p_position and i.q ? 'links') then
+    return jsonb_build_object('ok', false, 'reason', 'not_written');
+  end if;
   if jsonb_array_length(paths) = 0 then return jsonb_build_object('ok', false, 'reason', 'no_photos'); end if;
   select * into lim from ai_limits;
   perform pg_advisory_xact_lock(hashtext('ai_budget'));
@@ -1739,6 +1743,8 @@ begin
                'attempt', s.attempt, 'seconds', s.active_seconds) order by s.submitted_at), '[]')
              from submissions s join assignments a on a.id = s.assignment_id
              where a.class_id = p_class and s.user_id = p_user and s.submitted_at is not null and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
+    'papers', (select coalesce(jsonb_agg(jsonb_build_object('paper_id', a.paper_id, 'done_on', a.done_on, 'got', a.got, 'out_of', a.out_of, 'items', a.items) order by a.done_on), '[]')
+               from paper_attempts a where a.user_id = p_user and a.course = c.course and a.created_at >= m.joined_at and (m.left_at is null or a.created_at <= m.left_at)),
     'topics', (select coalesce(jsonb_agg(jsonb_build_object('spec', t.spec, 'got', t.got, 'out_of', t.out_of)), '[]')
                from (select coalesce(x.q->>'spec', '') as spec, sum(x.got) as got, sum(x.top) as out_of from class_answers(p_class) x
                      where x.user_id = p_user and x.got is not null group by 1) t));
@@ -1762,6 +1768,105 @@ do $$
 declare f text;
 begin
   foreach f in array array['beat(uuid, jsonb)', 'class_heatmap(uuid)', 'question_stats(uuid)', 'student_profile(uuid, uuid)', 'class_marks(uuid)'] loop
+    execute format('revoke execute on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+end $$;
+
+-- ---------- P8: past papers ----------
+-- Paper marks are logged by the learner, so they're a guide. Papers themselves are never stored: only links, in papers.json.
+create table if not exists public.paper_attempts (
+  id         uuid primary key default gen_random_uuid(),
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  course     text not null check (course ~ '^[a-z0-9-]{2,30}$'),
+  paper_id   text not null check (paper_id ~ '^[A-Z0-9-]{3,20}$'),
+  done_on    date not null,
+  items      jsonb not null,
+  got        int not null,
+  out_of     int not null,
+  cons_got   int not null default 0,
+  cons_of    int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index if not exists paper_attempts_user on public.paper_attempts (user_id, course);
+create table if not exists public.reserved_papers (
+  class_id uuid not null references public.classes (id) on delete cascade,
+  paper_id text not null check (paper_id ~ '^[A-Z0-9-]{3,20}$'),
+  primary key (class_id, paper_id)
+);
+alter table public.paper_attempts enable row level security;
+alter table public.reserved_papers enable row level security;
+
+-- A whole paper is worth 80, and a teacher can set one as a single question.
+alter table public.assignment_items drop constraint if exists assignment_items_marks_check;
+alter table public.assignment_items add constraint assignment_items_marks_check check (marks between 0 and 120);
+
+create or replace function public.log_paper(p_course text, p_paper text, p_done date, p_items jsonb) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  n int := jsonb_array_length(p_items);
+  bad boolean;
+  g int; o int; r uuid;
+begin
+  if n < 1 or n > 60 or p_done > current_date + 1 or p_done < date '2015-01-01' then raise exception 'bad log' using errcode = 'CN211'; end if;
+  select bool_or(not coalesce((x->>'got') ~ '^\d{1,3}$' and (x->>'out_of') ~ '^\d{1,3}$' and (x->>'got')::int <= (x->>'out_of')::int and (x->>'out_of')::int between 1 and 50 and length(coalesce(x->>'q', '')) <= 10 and length(coalesce(x->>'spec', '')) <= 30, false))
+    into bad from jsonb_array_elements(p_items) x;
+  if bad then raise exception 'bad log' using errcode = 'CN211'; end if;
+  select sum((x->>'got')::int), sum((x->>'out_of')::int) into g, o from jsonb_array_elements(p_items) x;
+  if o > 120 then raise exception 'bad log' using errcode = 'CN211'; end if;
+  if (select count(*) from paper_attempts where user_id = uid) >= 500 then raise exception 'too many' using errcode = 'CN211'; end if;
+  insert into paper_attempts (user_id, course, paper_id, done_on, items, got, out_of) values (uid, p_course, p_paper, p_done, p_items, g, o) returning id into r;
+  return r;
+end $$;
+
+create or replace function public.my_papers(p_course text)
+returns table (id uuid, paper_id text, done_on date, items jsonb, got int, out_of int, cons_got int, cons_of int)
+language sql stable security definer set search_path = public as $$
+  select a.id, a.paper_id, a.done_on, a.items, a.got, a.out_of, a.cons_got, a.cons_of from paper_attempts a
+  where a.user_id = require_user() and a.course = p_course order by a.done_on desc, a.created_at desc
+$$;
+
+create or replace function public.delete_paper(p_id uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  delete from paper_attempts where id = p_id and user_id = require_user();
+end $$;
+
+create or replace function public.set_consolidation(p_id uuid, p_got int, p_of int) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if p_of < 1 or p_of > 100 or p_got < 0 or p_got > p_of then raise exception 'bad score' using errcode = 'CN211'; end if;
+  update paper_attempts set cons_got = p_got, cons_of = p_of where id = p_id and user_id = require_user();
+end $$;
+
+create or replace function public.set_reserved(p_class uuid, p_paper text, p_on boolean) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  if p_on then insert into reserved_papers (class_id, paper_id) values (p_class, p_paper) on conflict do nothing;
+  else delete from reserved_papers where class_id = p_class and paper_id = p_paper; end if;
+end $$;
+
+create or replace function public.class_reserved(p_class uuid) returns setof text
+language plpgsql stable security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  return query select r.paper_id from reserved_papers r where r.class_id = p_class;
+end $$;
+
+-- Which papers to leave off the student's list. Only ids, and only for classes they're in.
+create or replace function public.my_reserved_papers(p_course text) returns table (paper_id text)
+language sql stable security definer set search_path = public as $$
+  select distinct r.paper_id from reserved_papers r join classes c on c.id = r.class_id and c.course = p_course
+  join class_members m on m.class_id = c.id and m.user_id = require_user() and m.left_at is null
+$$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['log_paper(text, text, date, jsonb)', 'my_papers(text)', 'delete_paper(uuid)', 'set_consolidation(uuid, int, int)',
+    'set_reserved(uuid, text, boolean)', 'class_reserved(uuid)', 'my_reserved_papers(text)'] loop
     execute format('revoke execute on function public.%s from public, anon', f);
     execute format('grant execute on function public.%s to authenticated', f);
   end loop;

@@ -5,6 +5,7 @@ import { instantiate, shuffle } from './quiz.js';
 import { answerCard, readResponse } from './quizui.js';
 import { gate, problemFor, say, twoStep, date } from './classes.js';
 import { minutes, pct } from './teacher.js';
+import { paperItem } from './papers.js';
 
 const when = iso => (iso ? new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '');
 const plural = (n, word) => `${n} ${word}${Number(n) === 1 ? '' : 's'}`;
@@ -121,6 +122,9 @@ async function shrink(file) {
   return new Promise((ok, no) => c.toBlob(b => (b ? ok(b) : no(new Error('no image'))), 'image/jpeg', 0.72));
 }
 
+// Set questions come from a teacher, so only plain web links are ever shown.
+export const safeLinks = q => (q.links || []).filter(l => /^https:\/\//.test(l.url));
+
 export const clock = ms => {
   const s = Math.max(0, Math.ceil(ms / 1000));
   const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, x = String(s % 60).padStart(2, '0');
@@ -182,15 +186,16 @@ const READ_SAYS = { off: "Reading handwriting isn't switched on yet. Your photos
 // Photos of paper work, for a written question. The student checks the typed copy in the answer box.
 function photoBox(ctx, sub, q, card, changed) {
   const { sync } = ctx;
-  const box = el(`<div class="photo-box"><label class="btn ghost photo-add">Add a photo of your work<input type="file" accept="image/jpeg,image/png,image/webp" multiple class="sr"></label>
+  const whole = Boolean(q.links);
+  const box = el(`<div class="photo-box"><p class="row-actions paper-links">${safeLinks(q).map(l => `<a class="btn ghost" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</p><label class="btn ghost photo-add">Add a photo of your work<input type="file" accept="image/jpeg,image/png,image/webp" multiple class="sr"></label>
     <button type="button" class="btn ghost photo-read" hidden>Turn my photos into text</button>
-    <div class="photo-row"></div><p class="small muted">Up to 6 pages. Don't write your name on them. Your teacher sees your photos, which are deleted 90 days after marking.</p><p class="auth-msg" role="status" aria-live="polite"></p></div>`);
+    <div class="photo-row"></div><p class="small muted">Up to ${whole ? 40 : 6} pages. Don't write your name on them. Your teacher sees your photos, which are deleted 90 days after marking.</p><p class="auth-msg" role="status" aria-live="polite"></p></div>`);
   let photos = [...(sub.photos?.[String(q.position)] || [])];
   const row = box.querySelector('.photo-row');
   const draw = async () => {
     const urls = await sync.photoUrls(photos.map(p => p.path)).catch(() => []);
     row.innerHTML = photos.map((p, i) => `<figure data-id="${esc(p.id)}"><img src="${esc(urls[i] || '')}" alt="Page ${i + 1} of your work"><button type="button" class="linkish photo-del">Remove page ${i + 1}</button></figure>`).join('');
-    box.querySelector('.photo-read').hidden = !photos.length;
+    box.querySelector('.photo-read').hidden = !photos.length || whole;
   };
   box.querySelector('input').addEventListener('change', async e => {
     for (const file of e.target.files) {
@@ -384,6 +389,7 @@ export async function viewSetWork(ctx, classId) {
   const chosen = new Map(); // key -> { kind, id, title, src or q }
   const mine = await sync.rpc('my_teacher_questions', { p_course: c.course });
   const papers = course.papers || [];
+  const past = course.pastPapers ? await ctx.loadPapers(c.course).catch(() => null) : null;
   shell(`<a class="small" href="#/teach/${esc(classId)}">← ${esc(c.name)}</a><h1>Set work</h1>
     <form class="set-form">
       <section class="card">
@@ -399,6 +405,10 @@ export async function viewSetWork(ctx, classId) {
         <label class="field">Topic<select class="topic"><option value="">Choose a topic</option>${mine.length ? `<option value="${MINE}">Your questions (${esc(mine.length)})</option>` : ''}${strands.map(s => `<option value="${esc(s)}">${esc(course.strands[s]?.name || s)}</option>`).join('')}</select></label>
         <div class="picker"></div>
       </section>
+      ${past ? `<section class="card"><h2>Or set a past paper</h2>
+        <p class="small muted">Students sit it on paper, then photograph it for you to mark. AI doesn't mark whole papers. It's 2 hours, and you can still change the time above.</p>
+        <label class="field">Paper<select class="past"><option value="">Choose a paper</option>${past.papers.map(p => `<option value="${esc(p.id)}">${esc(p.series)}, ${esc(p.name)}</option>`).join('')}</select></label>
+        <button type="button" class="btn ghost add-past">Add this paper</button></section>` : ''}
       <section class="card"><h2>Or build a mock paper</h2>
         <p class="small muted">Picks bank questions at random across every topic, and sets the time at 1.5 minutes a mark. The bank has short questions only, so add your own written questions for a full paper.</p>
         <div class="set-row"><label class="field">Marks<input type="number" class="mock-marks" min="5" max="100" value="40"></label>
@@ -424,6 +434,16 @@ export async function viewSetWork(ctx, classId) {
       picker.append(row);
     }
   };
+  app.querySelector('.add-past')?.addEventListener('click', () => {
+    const p = past.papers.find(x => x.id === app.querySelector('.past').value);
+    if (!p) return say(app, 'Choose a paper first.');
+    const it = paperItem(p);
+    chosen.set(`p:${p.id}`, { kind: 'question', id: it.id, q: it.q, marks: p.marks });
+    const f = app.querySelector('.set-form');
+    if (!f.title.value.trim()) f.title.value = `${p.series}, Paper ${p.paper}`;
+    f.minutes.value = Math.min(300, Number(f.minutes.value || 0) + p.minutes);
+    total();
+  });
   app.querySelector('.build-mock').addEventListener('click', async () => {
     const quizzes = await Promise.all(lessons.map(l => loadQuiz(c.course, l.id)));
     const pools = Object.fromEntries(lessons.map((l, i) => [l.id, quizzes[i]?.questions || []]));
@@ -533,9 +553,9 @@ export async function viewSubmission(ctx, classId, id, subId) {
     <section class="card"><p class="join-big total">${esc(d.marks)}/${esc(d.out_of)}</p><p class="muted small">Handed in ${esc(when(d.submitted_at))}. Your mark replaces ours.</p></section>
     ${d.items.map((q, i) => `<section class="card" data-pos="${esc(q.position)}"><span class="eyebrow">Question ${i + 1}</span>
       <p class="q">${esc(q.text)}</p><div class="${q.photos?.length ? 'side-by-side' : ''}">${q.photos?.length ? `<div class="photo-row">${pages(q)}</div>` : ''}<p><strong>Answer given:</strong> ${esc(showResponse(q))}</p></div>
-      ${q.scheme ? `<p><strong>Mark scheme:</strong> ${esc(q.scheme)}</p>` : ''}
+      ${q.scheme ? `<p><strong>Mark scheme:</strong> ${/^https:\/\/\S+$/.test(q.scheme) ? `<a href="${esc(q.scheme)}" target="_blank" rel="noopener">Open the mark scheme</a>` : esc(q.scheme)}</p>` : ''}
       ${q.correct ? `<p><strong>${q.type === 'long' ? 'Model answer' : 'Answer'}:</strong> ${esc(q.correct)}</p>` : ''}${q.why ? `<p class="muted small">${esc(q.why)}</p>` : ''}
-      ${aiBox(q.ai, q.marks)}${q.type === 'long' && !q.ai && q.teacher_marks === null ? '<button type="button" class="btn ghost ask-ai">Get an AI estimate</button>' : ''}
+      ${aiBox(q.ai, q.marks)}${q.type === 'long' && !q.ai && q.teacher_marks === null && !/^https:/.test(q.scheme || '') ? '<button type="button" class="btn ghost ask-ai">Get an AI estimate</button>' : ''}
       <form class="mark-form"><div class="set-row"><label class="field">Mark out of ${esc(q.marks)}<input type="number" name="mark" min="0" max="${esc(q.marks)}" value="${esc(q.teacher_marks ?? q.auto ?? '')}" required></label>
         <label class="field">Comment (optional)<input name="note" maxlength="500" value="${esc(q.teacher_note || '')}"></label></div>
         <button class="btn ghost">Save mark</button><p class="auth-msg" role="status" aria-live="polite"></p></form></section>`).join('')}`, { title: 'Marking' });

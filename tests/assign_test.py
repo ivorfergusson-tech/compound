@@ -131,7 +131,7 @@ class Fake:
         if name == "class_marks":
             return [{"real_name": "=Amy", "left_at": None, "title": "Week 1", "due_at": "2026-02-01T00:00:00Z", "attempts": 1, "best": 5, "out_of": 7, "first_submitted": "2026-01-20T00:00:00Z", "seconds": 600}]
         if name == "student_profile":
-            return {"real_name": "Amy Ames", "joined_at": "2026-01-01T00:00:00Z", "left_at": None, "streak": 4, "passed": 3, "last_active": "2026-01-20T00:00:00Z",
+            return {"real_name": "Amy Ames", "joined_at": "2026-01-01T00:00:00Z", "left_at": None, "streak": 4, "passed": 3, "papers": [], "last_active": "2026-01-20T00:00:00Z",
                     "work": [{"title": "Week 1", "due_at": None, "submitted_at": "2026-01-20T00:00:00Z", "marks": 5, "out_of": 7, "attempt": 1, "seconds": 600}],
                     "topics": [{"spec": "4.1.1", "got": 3, "out_of": 4}, {"spec": "4.1.2", "got": 1, "out_of": 4}]}
         if name == "fn:read-handwriting":
@@ -365,7 +365,12 @@ with sync_playwright() as p:
     page.locator(".build-mock").click()
     page.wait_for_function("document.querySelector('input[name=minutes]').value !== ''")
     check("a mock fills the time and the title", page.input_value("input[name=minutes]") == "83" and page.input_value("input[name=title]").startswith("Mock paper"), page.input_value("input[name=minutes]"))
-    check("a mock keeps own questions", "55 marks" in page.locator(".set-total").inner_text(), page.locator(".set-total").inner_text())
+    if page.locator(".past").count():
+        page.select_option(".past", "E-J17-P1")
+        page.locator(".add-past").click()
+        check("a past paper counts as 80 marks", "135 marks" in page.locator(".set-total").inner_text(), page.locator(".set-total").inner_text())
+    page.fill("input[name=minutes]", "83")
+    check("a mock keeps own questions", "135 marks" in page.locator(".set-total").inner_text(), page.locator(".set-total").inner_text())
     page.locator(".set-form .btn.wide").click()
     page.wait_for_selector(".roster")
     check("the own question goes in as written", fake.created["p_items"][0]["q"]["type"] == "long" and fake.created["p_items"][0]["id"].startswith("t:"), fake.created["p_items"][0])

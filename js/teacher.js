@@ -2,6 +2,7 @@
 // only answer the class's own teacher. Real names stay on these pages and in the teacher's own download.
 import { esc } from './util.js';
 import { date, problemFor, say } from './classes.js';
+import { roughGrade } from './papers.js';
 
 // ---------- pure helpers (tested in tools/analytics_test.mjs) ----------
 export const pct = (got, outOf) => (Number(outOf) ? Math.round((Number(got) / Number(outOf)) * 100) : null);
@@ -102,20 +103,24 @@ export async function viewInsights(ctx, id) {
 }
 
 export async function viewStudent(ctx, id, user) {
-  const { shell, sync, loadCourse } = ctx;
+  const { shell, sync, loadCourse, loadPapers } = ctx;
   const c = await classFor(ctx, id);
   if (!c) return notFound(ctx);
   let p;
   try { p = await sync.rpc('student_profile', { p_class: id, p_user: user }); } catch { return notFound(ctx); }
   const course = await loadCourse(c.course);
-  const low = weakest(p.topics);
+  const low = weakest([...p.topics, ...p.papers.flatMap(x => x.items)]);
+  const past = course.pastPapers ? await loadPapers(c.course).catch(() => null) : null;
+  const rough = roughGrade(p.papers, past?.boundaries);
   const all = p.work.reduce((n, w) => [n[0] + w.marks, n[1] + w.out_of], [0, 0]);
   shell(`<a class="small" href="#/teach/${esc(id)}/insights">← Class results</a><h1>${esc(p.real_name)}</h1>
     <p class="muted">Joined ${esc(date(p.joined_at))}${p.left_at ? `, left ${esc(date(p.left_at))}` : ''}</p>
     <section class="card profile-facts"><div><strong>${esc(p.passed)}</strong><span class="small muted">lessons passed</span></div>
       <div><strong>${esc(p.streak)}</strong><span class="small muted">day streak</span></div>
       <div><strong>${esc(date(p.last_active)) || '–'}</strong><span class="small muted">last active</span></div>
-      <div><strong>${all[1] ? `${pct(all[0], all[1])}%` : '–'}</strong><span class="small muted">of marks on set work</span></div></section>
+      <div><strong>${all[1] ? `${pct(all[0], all[1])}%` : '–'}</strong><span class="small muted">of marks on set work</span></div>
+      <div><strong>${esc(rough?.grade || '–')}</strong><span class="small muted">working at, roughly</span></div></section>
+    ${past ? `<p class="small muted">The rough grade uses the last 3 past papers the student logged and marked themselves, with ${esc(past.boundaries.series)} boundaries. It needs 3 papers, and it's an estimate.</p>` : ''}
     <section class="card"><h2>Weakest topics</h2>${low.length ? `<ol>${low.map(t => `<li>${esc(topicName(course, t.topic))}: ${esc(t.pct)}% (${esc(t.got)} of ${esc(t.outOf)} marks)</li>`).join('')}</ol>` : '<p class="muted">Nothing to go on yet.</p>'}</section>
     <section class="card"><h2>Marks over time</h2>${p.work.length ? `<div class="table-scroll" tabindex="0" role="region" aria-label="Marks over time"><table class="roster">
       <thead><tr><th scope="col">Handed in</th><th scope="col">Work</th><th scope="col">Mark</th><th scope="col">Percent</th><th scope="col">Time</th></tr></thead>

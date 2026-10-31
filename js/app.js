@@ -7,6 +7,7 @@ import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_R
 
 import { viewClasses, viewJoin, viewClassBoard, viewTeach, viewTeachClass } from './classes.js';
 import { viewInsights, viewStudent } from './teacher.js';
+import { viewPapers, viewLogPaper, viewPaperAttempt } from './papers.js';
 import { viewWork, viewResult, viewSetWork, viewAssignment, viewSubmission, viewBank, dueCard } from './assign.js';
 
 const UnitOf = c => (unitOf(c) === 'lesson' ? 'Lesson' : 'Module');
@@ -211,7 +212,7 @@ function viewHome(params) {
 
   shell(`<div class="home">
     <section class="card hero">
-      <a class="small back-link" href="#/">← Dashboard</a>
+      <a class="small back-link" href="#/">← Dashboard</a>${course.pastPapers ? ` · <a class="small papers-link" href="${base()}/papers">Past papers</a>` : ''}
       <span class="eyebrow">${esc(entry.title)} · ${fresh ? 'Welcome' : 'Pick up where you left off'}</span>
       ${nextStrand ? `<span class="pill strand-pill-${next.strand}">${nextStrand.emoji} ${esc(nextStrand.name)} · ${unitOf(course)} ${next.num}</span>` : ''}
       <h1>${esc(next.title)}</h1>
@@ -908,6 +909,11 @@ async function route() {
       else if (sub === 'm') await viewModule(parts[3]);
       else if (sub === 'cp') await viewCheckpoint(parts[3]);
       else if (sub === 'glossary') viewGlossary(params);
+      else if (sub === 'papers' && course.pastPapers) {
+        await sync.settled();
+        const ctx = { shell, app, sync, course, files };
+        await (parts[3] === 'log' ? viewLogPaper(ctx, parts[4]) : parts[3] === 'a' ? viewPaperAttempt(ctx, parts[4]) : viewPapers(ctx));
+      }
       else viewNotFound();
     }
     else if (parts[0] === 'leaderboard') { await useCourse(registry.default); await viewLeaderboard(); }
@@ -915,7 +921,8 @@ async function route() {
       await useCourse(registry.default);
       await sync.settled();
       const ctx = { shell, app, sync, registry, onLeave: fn => cleanup.push(fn), loadCourse: async id => (await loadCourseById(id))?.course,
-        loadQuiz: async (id, item) => (await loadCourseById(id))?.files.quiz(item) };
+        loadQuiz: async (id, item) => (await loadCourseById(id))?.files.quiz(item),
+        loadPapers: async id => { const c = await loadCourseById(id); return c?.course.pastPapers ? c.files.papers() : null; } };
       if (parts[0] === 'join') await viewJoin(ctx, parts[1]);
       else if (parts[0] === 'work') await (parts[2] === 'r' ? viewResult(ctx, parts[1], parts[3]) : viewWork(ctx, parts[1]));
       else if (parts[0] === 'teach' && parts[2] === 'set') await viewSetWork(ctx, parts[1]);

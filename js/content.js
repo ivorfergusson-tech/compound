@@ -23,6 +23,7 @@ export function courseFiles(entry) {
     glossary: () => get(`${dir}glossary.json`),
     lesson: id => get(`${dir}modules/${id}.md`, 'text'),
     quiz: id => get(`${dir}quizzes/${id}.json`).catch(() => null),
+    papers: () => get(`${dir}papers.json`),
     // Quiz pools for every ready module, keyed by module number.
     async pools(course, upTo = 99, only = null) {
       const ids = course.items.filter(i => i.kind === 'module' && i.num <= upTo && course.ready.includes(i.id) && (!only || only.has(i.num)));
