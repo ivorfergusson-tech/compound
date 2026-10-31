@@ -94,8 +94,11 @@ Don't set a key until an adult has answered these, because it sends students' wr
 
 Then: install the Supabase CLI, `supabase login`, `supabase link`, `supabase functions deploy mark-answer read-handwriting`, `supabase secrets set ANTHROPIC_API_KEY=...`. The key only ever goes there, never in `.env`, this repo or the browser. To change the limits, edit the one row in `ai_limits` in the SQL editor.
 
+## Photo storage rules (P6b)
+`schema.sql` tries to make the private `handins` bucket and its two rules. If Supabase refuses, the rest still runs and uploads stay blocked. Then add them by hand in Storage → Policies, on `storage.objects`: an INSERT rule for `authenticated` with check `bucket_id = 'handins' and public.can_upload_photo(name)`, and a SELECT rule for `authenticated` using `bucket_id = 'handins' and public.can_read_photo(name)`.
+
 ## Photo deletion (P6b): do this before any real photos go up
-GitHub repo → Settings → Secrets and variables → Actions → add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (values from `.env`). Then Actions → "Delete old photos" → Run workflow, and check it goes green. It runs every night after that.
+GitHub repo → Settings → Secrets and variables → Actions → add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (values from `.env`). Once this code is on `main`, Actions → "Delete old photos" → Run workflow, and check it goes green. It runs every night after that. GitHub only shows the workflow once it is on `main`.
 
 ## Teachers and classes (P4)
 

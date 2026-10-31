@@ -1517,18 +1517,25 @@ language sql stable security definer set search_path = public as $$
     where p.path = p_name and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at))
 $$;
 
+-- Hosted Supabase can refuse these from the SQL editor, as storage belongs to another role. One refusal mustn't undo the
+-- whole file, so each step stands alone. Without the rules, uploads are simply refused. SETUP.md has the way to add them by hand.
 do $$
 begin
-  if to_regclass('storage.objects') is not null then
+  if to_regclass('storage.objects') is null then return; end if;
+  begin
     insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
       values ('handins', 'handins', false, 3000000, array['image/jpeg']) on conflict (id) do nothing;
+  exception when insufficient_privilege then raise warning 'handins bucket not made: create it by hand';
+  end;
+  begin
     drop policy if exists "handins: upload own" on storage.objects;
     create policy "handins: upload own" on storage.objects for insert to authenticated
       with check (bucket_id = 'handins' and public.can_upload_photo(name));
     drop policy if exists "handins: student and teacher read" on storage.objects;
     create policy "handins: student and teacher read" on storage.objects for select to authenticated
       using (bucket_id = 'handins' and public.can_read_photo(name));
-  end if;
+  exception when insufficient_privilege then raise warning 'handins storage rules not made: add them by hand';
+  end;
 end $$;
 
 create or replace function public.add_photo(p_sub uuid, p_position int, p_path text) returns uuid
