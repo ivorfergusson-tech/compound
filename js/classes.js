@@ -1,6 +1,7 @@
 // Classes: students join with a code, teachers run classes and see a roster. All data goes through the
 // database functions in supabase/schema.sql, which check who is asking; nothing here is trusted by the server.
 import { esc } from './util.js';
+import { workList, drawWork } from './assign.js';
 
 const QR_LIB = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/+esm';
 export const CONSENT = 'Your teacher will see your real name, your scores, time spent and work you hand in.';
@@ -14,16 +15,23 @@ const PROBLEMS = {
   CN106: 'You need to agree before you can join.',
   CN107: "You've reached the limit of 30 classes.",
   CN108: 'Pick a nickname on your account page first.',
+  CN201: 'This attempt has closed.',
+  CN202: "Those items couldn't be set. Check them and try again.",
+  CN203: 'This class has reached its limit of 500 pieces of work.',
+  CN204: "This work hasn't been handed in yet.",
+  CN205: 'That mark is out of range.',
+  CN206: "You've used all your attempts.",
+  CN207: 'One of your answers is too long.',
 };
 export const problemFor = e => PROBLEMS[e?.code] || (e?.code === '42501' ? "You don't have access to that." : "That didn't work. Try again.");
 export const cleanCode = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
 export const validCode = s => /^[A-HJ-NP-Z2-9]{6}$/.test(s);
 
-const date = iso => (iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '');
-const say = (root, text) => { const m = root.querySelector('.auth-msg'); if (m) m.textContent = text; };
+export const date = iso => (iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '');
+export const say = (root, text) => { const m = root.querySelector('.auth-msg'); if (m) m.textContent = text; };
 
 // Destructive buttons ask once, on the button itself.
-function twoStep(btn, label, action) {
+export function twoStep(btn, label, action) {
   const first = btn.textContent;
   btn.addEventListener('click', async () => {
     if (!btn.dataset.armed) {
@@ -37,7 +45,7 @@ function twoStep(btn, label, action) {
   });
 }
 
-function gate({ shell, sync }, title) {
+export function gate({ shell, sync }, title) {
   if (!sync.enabled() || !sync.available()) {
     shell(`<section class="card"><h1>${esc(title)}</h1><p>Accounts aren't available right now. Try again soon.</p></section>`, { title });
     return false;
@@ -57,8 +65,9 @@ const courseName = (registry, id) => registry.courses.find(c => c.id === id)?.ti
 export async function viewClasses(ctx) {
   const { shell, app, sync, registry } = ctx;
   if (!gate(ctx, 'Your classes')) return;
-  const mine = await sync.rpc('my_classes');
+  const [mine, work] = await Promise.all([sync.rpc('my_classes'), sync.rpc('my_assignments')]);
   shell(`<h1>Your classes</h1>
+    ${workList(work)}
     <section class="card"><h2>Join a class</h2>
       <form class="join-code"><label class="field">Class code<input name="code" maxlength="6" autocomplete="off" autocapitalize="characters" required></label>
       <button class="btn wide">Continue</button></form><p class="auth-msg" role="status" aria-live="polite"></p></section>
@@ -259,12 +268,14 @@ export async function viewTeachClass(ctx, id) {
         <tbody>${active.map(row).join('')}${past.map(row).join('')}</tbody></table></div>
         <p class="small muted">Work counts from the day a student joined. Quizzes are marked in the student's browser, so treat these as a guide, not an assessment. Real names are only shown to you.</p>` : '<p class="muted">Nobody has joined yet. Share the code, the link or the QR code.</p>'}
       <p class="auth-msg" role="status" aria-live="polite"></p></section>
+    <section class="card" id="work"></section>
     <section class="card" id="plan"></section>
     <section class="card"><h2>Settings</h2>
       <label class="check"><input type="checkbox" class="lb-on"${c.leaderboard_on ? ' checked' : ''}> Class leaderboard (students see nicknames and XP)</label>
       <a class="btn ghost" href="#/classes/${esc(id)}">See the class leaderboard</a>
       <div class="account-actions"><button type="button" class="btn ghost delete-class">Delete class</button></div></section>`, { title: c.name, wide: true });
   drawQr(app.querySelector('.qr'), link);
+  drawWork(ctx, app.querySelector('#work'), id);
   drawPlan(ctx, app.querySelector('#plan'), id, c.course);
   const update = (open, lb) => sync.rpc('update_class', { p_class: id, p_name: c.name, p_joining_open: open, p_leaderboard_on: lb });
   app.querySelector('.toggle-join').addEventListener('click', async () => { await update(!c.joining_open, c.leaderboard_on); viewTeachClass(ctx, id); });

@@ -459,6 +459,7 @@ export async function exportAll(state) {
       const { data } = await sb.from(t).select('*').eq('user_id', uid);
       out.account[t] = data;
     }
+    out.account.work = (await sb.rpc('my_work_export')).data;
   }
   return out;
 }

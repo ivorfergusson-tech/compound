@@ -40,6 +40,8 @@ class Fake:
 
     def rpc(self, name, a):
         self.calls.append((name, a))
+        if name in ("my_assignments", "class_assignments"):
+            return []
         if name == "class_plan":
             return [self.plan] if self.plan else []
         if name == "set_class_plan":

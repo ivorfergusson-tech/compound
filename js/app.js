@@ -6,6 +6,7 @@ import { loadRegistry, loadFigures, courseFiles } from './content.js';
 import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf, planItems } from './progress.js';
 
 import { viewClasses, viewJoin, viewClassBoard, viewTeach, viewTeachClass } from './classes.js';
+import { viewWork, viewResult, viewSetWork, viewAssignment, viewSubmission } from './assign.js';
 
 const UnitOf = c => (unitOf(c) === 'lesson' ? 'Lesson' : 'Module');
 import { REFRESH_ID, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, upcoming, weekPlan } from './dashboard.js';
@@ -900,11 +901,15 @@ async function route() {
       else viewNotFound();
     }
     else if (parts[0] === 'leaderboard') { await useCourse(registry.default); await viewLeaderboard(); }
-    else if (['classes', 'join', 'teach'].includes(parts[0])) {
+    else if (['classes', 'join', 'teach', 'work'].includes(parts[0])) {
       await useCourse(registry.default);
       await sync.settled();
-      const ctx = { shell, app, sync, registry, loadCourse: async id => (await loadCourseById(id))?.course };
+      const ctx = { shell, app, sync, registry, onLeave: fn => cleanup.push(fn), loadCourse: async id => (await loadCourseById(id))?.course,
+        loadQuiz: async (id, item) => (await loadCourseById(id))?.files.quiz(item) };
       if (parts[0] === 'join') await viewJoin(ctx, parts[1]);
+      else if (parts[0] === 'work') await (parts[2] === 'r' ? viewResult(ctx, parts[1], parts[3]) : viewWork(ctx, parts[1]));
+      else if (parts[0] === 'teach' && parts[2] === 'set') await viewSetWork(ctx, parts[1]);
+      else if (parts[0] === 'teach' && parts[2] === 'a') await (parts[4] === 's' ? viewSubmission(ctx, parts[1], parts[3], parts[5]) : viewAssignment(ctx, parts[1], parts[3]));
       else if (parts[0] === 'teach') await (parts[1] ? viewTeachClass(ctx, parts[1]) : viewTeach(ctx));
       else await (parts[1] ? viewClassBoard(ctx, parts[1]) : viewClasses(ctx));
     }

@@ -23,7 +23,7 @@ function inputFor(q) {
   return '';
 }
 
-function readResponse(card, q) {
+export function readResponse(card, q) {
   switch (q.type) {
     case 'mcq': { const s = card.querySelector('.option[aria-checked="true"]'); return s ? +s.dataset.v : null; }
     case 'tf': { const s = card.querySelector('.option[aria-checked="true"]'); return s ? s.dataset.v === 'true' : null; }
@@ -38,20 +38,8 @@ function readResponse(card, q) {
   }
 }
 
-// One question. onResult(result) fires when marked, and again if marks are claimed.
-export function questionCard(q, { label, onResult, number } = {}) {
-  const card = el(`<div class="card question" data-type="${q.type}">
-    <div class="q-head"><span class="eyebrow">${esc(label || `${number ? `Question ${number} · ` : ''}${TYPE_LABEL[q.type]}${q.marks > 1 ? ` · ${q.marks} marks` : ''}`)}</span>${canSpeak() ? '<button type="button" class="icon-btn speak-btn" aria-label="Read the question aloud">🔊</button>' : ''}</div>
-    <p class="q">${esc(q.text)}</p>
-    <div class="answer">${inputFor(q)}</div>
-    <button type="button" class="btn check-btn">Check</button>
-    <div class="feedback" aria-live="polite"></div>
-  </div>`);
-
-  card.querySelector('.speak-btn')?.addEventListener('click', () => {
-    const opts = q.type === 'mcq' ? q.options.map((o, i) => `Option ${i + 1}: ${o}.`).join(' ') : q.type === 'tf' ? 'True or false?' : '';
-    speak([{ text: `${q.text} ${opts}` }]);
-  });
+// The clicks and dragging that any answer needs. Nothing moves once a card has the class "marked".
+function wireAnswer(card, q) {
   card.addEventListener('click', e => {
     const opt = e.target.closest('.option');
     if (opt && !card.classList.contains('marked')) {
@@ -68,6 +56,51 @@ export function questionCard(q, { label, onResult, number } = {}) {
     }
   });
   if (q.type === 'order') makeSortable(card.querySelector('.order'), () => card.classList.contains('marked'));
+}
+
+function fillResponse(card, q, value) {
+  if (value === null || value === undefined) return;
+  switch (q.type) {
+    case 'mcq': case 'tf': card.querySelector(`.option[data-v="${value}"]`)?.setAttribute('aria-checked', 'true'); break;
+    case 'number': card.querySelector('input').value = value; break;
+    case 'explain': card.querySelector('textarea').value = value; break;
+    case 'order': {
+      const list = card.querySelector('.order');
+      for (const item of value) { const li = [...list.children].find(x => x.dataset.item === item); if (li) list.append(li); }
+      break;
+    }
+    case 'match': for (const s of card.querySelectorAll('select')) s.value = value[s.dataset.left] ?? ''; break;
+  }
+}
+
+// One question for set work: no Check button and no answers here, because the database does the marking.
+export function answerCard(q, { number, initial } = {}) {
+  const card = el(`<div class="card question" data-type="${q.type}">
+    <div class="q-head"><span class="eyebrow">Question ${number} · ${TYPE_LABEL[q.type]} · ${q.marks} mark${q.marks > 1 ? 's' : ''}</span></div>
+    <p class="q">${esc(q.text)}</p>
+    <div class="answer">${inputFor(q)}</div>
+  </div>`);
+  card.querySelector('textarea')?.setAttribute('maxlength', '2000');
+  wireAnswer(card, q);
+  fillResponse(card, q, initial);
+  return card;
+}
+
+// One question. onResult(result) fires when marked, and again if marks are claimed.
+export function questionCard(q, { label, onResult, number } = {}) {
+  const card = el(`<div class="card question" data-type="${q.type}">
+    <div class="q-head"><span class="eyebrow">${esc(label || `${number ? `Question ${number} · ` : ''}${TYPE_LABEL[q.type]}${q.marks > 1 ? ` · ${q.marks} marks` : ''}`)}</span>${canSpeak() ? '<button type="button" class="icon-btn speak-btn" aria-label="Read the question aloud">🔊</button>' : ''}</div>
+    <p class="q">${esc(q.text)}</p>
+    <div class="answer">${inputFor(q)}</div>
+    <button type="button" class="btn check-btn">Check</button>
+    <div class="feedback" aria-live="polite"></div>
+  </div>`);
+
+  card.querySelector('.speak-btn')?.addEventListener('click', () => {
+    const opts = q.type === 'mcq' ? q.options.map((o, i) => `Option ${i + 1}: ${o}.`).join(' ') : q.type === 'tf' ? 'True or false?' : '';
+    speak([{ text: `${q.text} ${opts}` }]);
+  });
+  wireAnswer(card, q);
   const num = card.querySelector('input');
   if (num) num.addEventListener('keydown', e => { if (e.key === 'Enter') card.querySelector('.check-btn').click(); });
 

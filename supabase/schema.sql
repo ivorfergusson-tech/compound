@@ -776,3 +776,530 @@ begin
     execute format('grant execute on function public.%s to authenticated', f);
   end loop;
 end $$;
+
+-- ---------- P5: assignments ----------
+-- Privacy model: as with classes, nothing here can be read or written directly; every call goes through a function
+-- below. When a teacher sets work, each question is frozen here with its answer (assignment_items.q), so later course
+-- edits don't change it. Students only ever get q_public(), and marking happens here, so a browser can't forge a mark.
+-- Questions from the public bank can still be looked up in the site's files; only marks are protected, not the answers.
+create table if not exists public.assignments (
+  id           uuid primary key default gen_random_uuid(),
+  class_id     uuid not null references public.classes (id) on delete cascade,
+  title        text not null check (length(btrim(title)) between 1 and 80),
+  note         text check (length(note) <= 1000),
+  open_at      timestamptz not null default now(),
+  due_at       timestamptz,
+  max_attempts int not null default 1 check (max_attempts between 1 and 10),
+  minutes      int check (minutes between 1 and 300),
+  archived_at  timestamptz,
+  created_at   timestamptz not null default now(),
+  check (due_at is null or due_at > open_at)
+);
+create index if not exists assignments_class on public.assignments (class_id);
+
+create table if not exists public.assignment_items (
+  assignment_id uuid not null references public.assignments (id) on delete cascade,
+  position      int not null,
+  kind          text not null check (kind in ('question', 'lesson')),
+  item_id       text not null check (length(item_id) <= 120), -- a question id, or a lesson's progress key
+  q             jsonb not null,                               -- the frozen question, or { title } for a lesson
+  marks         int not null default 0 check (marks between 0 and 50),
+  primary key (assignment_id, position)
+);
+
+create table if not exists public.submissions (
+  id             uuid primary key default gen_random_uuid(),
+  assignment_id  uuid not null references public.assignments (id) on delete cascade,
+  user_id        uuid not null references auth.users (id) on delete cascade,
+  attempt        int not null,
+  started_at     timestamptz not null default now(),
+  deadline       timestamptz,
+  submitted_at   timestamptz,
+  auto_submitted boolean not null default false,
+  marks          int,
+  out_of         int,
+  unique (assignment_id, user_id, attempt)
+);
+create unique index if not exists submissions_one_open on public.submissions (assignment_id, user_id) where submitted_at is null;
+create index if not exists submissions_user on public.submissions (user_id);
+
+create table if not exists public.answers (
+  submission_id uuid not null references public.submissions (id) on delete cascade,
+  position      int not null,
+  response      jsonb,
+  marks         int,          -- the server's mark
+  teacher_marks int,          -- replaces it when set
+  teacher_note  text check (length(teacher_note) <= 500),
+  updated_at    timestamptz not null default now(),
+  primary key (submission_id, position)
+);
+
+alter table public.assignments enable row level security;
+alter table public.assignment_items enable row level security;
+alter table public.submissions enable row level security;
+alter table public.answers enable row level security;
+
+-- ---------- marking: must give the same marks as js/marking.js and mark() in js/quiz.js ----------
+-- tools/classes_sql_test.mjs runs every question and test answer in the bank through both.
+create or replace function public.mk_normalise(t text) returns text
+language sql immutable as $$
+  select btrim(regexp_replace(regexp_replace(regexp_replace(regexp_replace(lower(coalesce(t, '')),
+    '[’'']', '', 'g'), '[^a-z0-9£%.*\s-]', ' ', 'g'), '(\D)\.|\.(\D)', '\1 \2', 'g'), '\s+', ' ', 'g'))
+$$;
+
+create or replace function public.mk_tokens(t text) returns text[]
+language sql immutable as $$
+  select coalesce(array_agg(w), '{}') from unnest(string_to_array(public.mk_normalise(t), ' ')) w where w <> ''
+$$;
+
+create or replace function public.mk_stem(w text) returns text
+language plpgsql immutable as $$
+declare e text;
+begin
+  foreach e in array array['ing', 'ed', 'es', 's'] loop
+    if length(w) - length(e) >= 4 and right(w, length(e)) = e then return left(w, length(w) - length(e)); end if;
+  end loop;
+  return w;
+end $$;
+
+-- Damerau-Levenshtein (optimal string alignment), kept in rows of a flat array.
+create or replace function public.mk_distance(a text, b text) returns int
+language plpgsql immutable as $$
+declare
+  la int := length(a);
+  lb int := length(b);
+  w int := lb + 1;
+  d int[] := array_fill(0, array[(la + 1) * w]);
+  i int; j int; v int;
+begin
+  for i in 0..la loop d[i * w + 1] := i; end loop;
+  for j in 0..lb loop d[j + 1] := j; end loop;
+  for i in 1..la loop
+    for j in 1..lb loop
+      v := least(d[(i - 1) * w + j + 1] + 1, d[i * w + j] + 1,
+                 d[(i - 1) * w + j] + case when substr(a, i, 1) = substr(b, j, 1) then 0 else 1 end);
+      if i > 1 and j > 1 and substr(a, i, 1) = substr(b, j - 1, 1) and substr(a, i - 1, 1) = substr(b, j, 1) then
+        v := least(v, d[(i - 2) * w + j - 1] + 1);
+      end if;
+      d[i * w + j + 1] := v;
+    end loop;
+  end loop;
+  return d[la * w + lb + 1];
+end $$;
+
+create or replace function public.mk_allowed(w text) returns int
+language sql immutable as $$ select case when length(w) >= 8 then 2 when length(w) >= 5 then 1 else 0 end $$;
+
+create or replace function public.mk_word(a text, p text) returns boolean
+language plpgsql immutable as $$
+declare
+  sa text; sp text; n int;
+begin
+  if right(p, 1) = '*' then return left(a, length(p) - 1) = left(p, -1); end if;
+  sa := public.mk_stem(a); sp := public.mk_stem(p);
+  if sa = sp then return true; end if;
+  if sp ~ '\d' then return false; end if;
+  n := public.mk_allowed(sp);
+  if n > 0 and abs(length(sa) - length(sp)) <= n and public.mk_distance(sa, sp) <= n then return true; end if;
+  n := public.mk_allowed(p);
+  return n > 0 and abs(length(a) - length(p)) <= n and public.mk_distance(a, p) <= n;
+end $$;
+
+create or replace function public.mk_phrase(ans text[], phrase text) returns boolean
+language plpgsql immutable as $$
+declare
+  p text[] := public.mk_tokens(phrase);
+  np int := coalesce(array_length(p, 1), 0);
+  na int := coalesce(array_length(ans, 1), 0);
+  i int; k int; hit boolean;
+begin
+  if np = 0 then return false; end if;
+  for i in 1..(na - np + 1) loop
+    hit := true;
+    for k in 1..np loop
+      if not public.mk_word(ans[i + k - 1], p[k]) then hit := false; exit; end if;
+    end loop;
+    if hit and not coalesce(ans[greatest(i - 2, 1):i - 1] && array['not', 'no', 'never', 'dont', 'doesnt', 'isnt', 'wont', 'cant', 'without'], false) then
+      return true;
+    end if;
+  end loop;
+  return false;
+end $$;
+
+create or replace function public.mk_explain(answer text, ideas jsonb) returns int
+language plpgsql immutable as $$
+declare
+  t text[] := public.mk_tokens(left(answer, 2000));
+  idea jsonb; ph text; n int := 0;
+begin
+  for idea in select * from jsonb_array_elements(ideas) loop
+    for ph in select * from jsonb_array_elements_text(idea->'any') loop
+      if public.mk_phrase(t, ph) then n := n + 1; exit; end if;
+    end loop;
+  end loop;
+  return n;
+end $$;
+
+create or replace function public.mk_number(s text) returns numeric
+language sql immutable as $$
+  select replace((regexp_match(replace(translate(coalesce(s, ''), '−–—', '---'), ',', ''), '-?\s*\d*\.?\d+'))[1], ' ', '')::numeric
+$$;
+
+-- q is a frozen question; r is the saved response: mcq an index, tf a boolean, number or explain text,
+-- order a list, match { left: right }. Anything else scores nothing.
+create or replace function public.mark_item(q jsonb, r jsonb) returns int
+language plpgsql immutable as $$
+declare
+  full_marks int := coalesce((q->>'marks')::int, 1);
+  right_answer boolean := false;
+  n numeric;
+begin
+  if r is null or jsonb_typeof(r) = 'null' then return 0; end if;
+  case q->>'type'
+    when 'mcq', 'tf' then right_answer := r = q->'answer';
+    when 'number' then
+      if jsonb_typeof(r) not in ('string', 'number') then return 0; end if;
+      n := public.mk_number(r #>> '{}');
+      right_answer := n is not null and abs(n - (q->>'answerValue')::numeric) <= coalesce((q->>'tol')::numeric, 0.01) + 0.000000001;
+    when 'order' then right_answer := r = q->'items';
+    when 'match' then
+      if jsonb_typeof(r) <> 'object' then return 0; end if;
+      right_answer := not exists (select 1 from jsonb_array_elements(q->'pairs') p where (r->>(p->>0)) is distinct from (p->>1));
+    when 'explain' then
+      if jsonb_typeof(r) <> 'string' then return 0; end if;
+      return public.mk_explain(r #>> '{}', q->'ideas');
+    else return 0;
+  end case;
+  return case when right_answer then full_marks else 0 end;
+end $$;
+
+-- What a student may see before marks are released. A list of allowed fields, so nothing new can leak by accident.
+create or replace function public.q_public(q jsonb) returns jsonb
+language sql immutable as $$
+  select jsonb_strip_nulls(jsonb_build_object('type', q->'type', 'text', q->'text', 'marks', q->'marks', 'options', q->'options',
+    'unit', q->'unit', 'shown', q->'shown', 'rightShown', q->'rightShown',
+    'pairs', case when q ? 'pairs' then (select jsonb_agg(jsonb_build_array(p->0)) from jsonb_array_elements(q->'pairs') p) end))
+$$;
+
+create or replace function public.q_ok(q jsonb) returns boolean
+language plpgsql immutable as $$
+begin
+  if jsonb_typeof(q) is distinct from 'object' or jsonb_typeof(q->'text') is distinct from 'string' then return false; end if;
+  case q->>'type'
+    when 'mcq' then return jsonb_typeof(q->'options') = 'array' and jsonb_typeof(q->'answer') = 'number';
+    when 'tf' then return jsonb_typeof(q->'answer') = 'boolean';
+    when 'number' then return jsonb_typeof(q->'answerValue') = 'number';
+    when 'order' then return jsonb_typeof(q->'items') = 'array' and jsonb_typeof(q->'shown') = 'array';
+    when 'match' then return jsonb_typeof(q->'pairs') = 'array' and jsonb_typeof(q->'rightShown') = 'array';
+    when 'explain' then return jsonb_typeof(q->'ideas') = 'array' and jsonb_array_length(q->'ideas') > 0;
+    else return false;
+  end case;
+end $$;
+
+-- ---------- closing an attempt ----------
+create or replace function public.finish_submission(p_sub uuid, p_at timestamptz, p_auto boolean) returns void
+language plpgsql security definer set search_path = public as $$
+declare a uuid;
+begin
+  select assignment_id into a from submissions where id = p_sub and submitted_at is null;
+  if not found then return; end if;
+  insert into answers (submission_id, position)
+    select p_sub, i.position from assignment_items i where i.assignment_id = a and i.kind = 'question'
+    on conflict do nothing;
+  update answers x set marks = mark_item(i.q, x.response)
+    from assignment_items i where x.submission_id = p_sub and i.assignment_id = a and i.position = x.position;
+  update submissions s set submitted_at = p_at, auto_submitted = p_auto,
+    marks = (select coalesce(sum(x.marks), 0) from answers x where x.submission_id = p_sub),
+    out_of = (select coalesce(sum(i.marks), 0) from assignment_items i where i.assignment_id = a and i.kind = 'question')
+  where s.id = p_sub;
+end $$;
+
+-- A timed attempt nobody handed in is closed at its deadline the next time anyone looks. 30 seconds' grace covers the last save.
+create or replace function public.close_expired(p_assignment uuid, p_user uuid) returns void
+language plpgsql security definer set search_path = public as $$
+declare r record;
+begin
+  for r in select id, deadline from submissions
+           where submitted_at is null and deadline < now() - interval '30 seconds'
+             and (p_assignment is null or assignment_id = p_assignment) and (p_user is null or user_id = p_user)
+  loop
+    perform finish_submission(r.id, r.deadline, true);
+  end loop;
+end $$;
+
+-- The student's own unfinished attempt, while they're still in the class and the work is still set.
+create or replace function public.require_open_sub(p_sub uuid) returns public.submissions
+language plpgsql security definer set search_path = public as $$
+declare s public.submissions;
+begin
+  select x.* into s from submissions x
+    join assignments a on a.id = x.assignment_id and a.archived_at is null
+    join class_members m on m.class_id = a.class_id and m.user_id = x.user_id and m.left_at is null
+    where x.id = p_sub and x.user_id = require_user() and x.submitted_at is null
+    for update of x;
+  if not found then raise exception 'not an open attempt' using errcode = 'CN201'; end if;
+  return s;
+end $$;
+
+-- The class's teacher, and only for work done while the student was in the class.
+create or replace function public.require_own_sub(p_sub uuid) returns public.submissions
+language plpgsql stable security definer set search_path = public as $$
+declare s public.submissions;
+begin
+  select x.* into s from submissions x
+    join assignments a on a.id = x.assignment_id
+    join classes c on c.id = a.class_id and c.teacher_id = require_user()
+    join class_members m on m.class_id = a.class_id and m.user_id = x.user_id
+    where x.id = p_sub and x.started_at >= m.joined_at and (m.left_at is null or x.started_at <= m.left_at);
+  if not found then raise exception 'not your student''s work' using errcode = '42501'; end if;
+  return s;
+end $$;
+
+-- ---------- teachers ----------
+create or replace function public.create_assignment(p_class uuid, p_title text, p_note text, p_open timestamptz, p_due timestamptz,
+                                                     p_attempts int, p_minutes int, p_items jsonb) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  c public.classes := require_own_class(p_class);
+  a uuid;
+  it jsonb;
+  pos int := 0;
+  m int;
+  n int := jsonb_array_length(p_items);
+begin
+  if n < 1 or n > 100 then raise exception 'pick 1 to 100 items' using errcode = 'CN202'; end if;
+  if octet_length(p_items::text) > 1000000 then raise exception 'too large' using errcode = 'CN202'; end if;
+  if (select count(*) from assignments where class_id = p_class) >= 500 then raise exception 'too many assignments' using errcode = 'CN203'; end if;
+  insert into assignments (class_id, title, note, open_at, due_at, max_attempts, minutes)
+    values (p_class, btrim(p_title), nullif(btrim(p_note), ''), coalesce(p_open, now()), p_due, p_attempts, p_minutes) returning id into a;
+  for it in select * from jsonb_array_elements(p_items) loop
+    pos := pos + 1;
+    if it->>'kind' = 'lesson' then
+      if not item_in_course(it->>'id', c.course) or not exists (select 1 from known_items k where k.item_id = it->>'id') then
+        raise exception 'unknown lesson' using errcode = 'CN202';
+      end if;
+      insert into assignment_items (assignment_id, position, kind, item_id, q)
+        values (a, pos, 'lesson', it->>'id', jsonb_build_object('title', left(it->>'title', 120)));
+    else
+      if it->>'kind' is distinct from 'question' or not coalesce(q_ok(it->'q'), false) then raise exception 'bad question' using errcode = 'CN202'; end if;
+      -- An explain question is worth one mark for each idea, the same as the browser's marking.
+      m := case when it->'q'->>'type' = 'explain' then jsonb_array_length(it->'q'->'ideas') else coalesce((it->'q'->>'marks')::int, 1) end;
+      insert into assignment_items (assignment_id, position, kind, item_id, q, marks)
+        values (a, pos, 'question', left(it->>'id', 120), jsonb_set(it->'q', '{marks}', to_jsonb(m)), m);
+    end if;
+  end loop;
+  return a;
+end $$;
+
+create or replace function public.archive_assignment(p_assignment uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  update assignments a set archived_at = now() from classes c
+    where a.id = p_assignment and c.id = a.class_id and c.teacher_id = require_user() and a.archived_at is null;
+end $$;
+
+create or replace function public.class_assignments(p_class uuid)
+returns table (id uuid, title text, open_at timestamptz, due_at timestamptz, max_attempts int, minutes int,
+               questions bigint, lessons bigint, out_of bigint, started bigint, submitted bigint)
+language plpgsql stable security definer set search_path = public as $$
+declare c public.classes := require_own_class(p_class);
+begin
+  return query
+    select a.id, a.title, a.open_at, a.due_at, a.max_attempts, a.minutes,
+      (select count(*) from assignment_items i where i.assignment_id = a.id and i.kind = 'question'),
+      (select count(*) from assignment_items i where i.assignment_id = a.id and i.kind = 'lesson'),
+      (select coalesce(sum(i.marks), 0)::bigint from assignment_items i where i.assignment_id = a.id),
+      (select count(distinct s.user_id) from submissions s join class_members m on m.class_id = c.id and m.user_id = s.user_id
+        where s.assignment_id = a.id and m.left_at is null and s.started_at >= m.joined_at),
+      (select count(distinct s.user_id) from submissions s join class_members m on m.class_id = c.id and m.user_id = s.user_id
+        where s.assignment_id = a.id and m.left_at is null and s.started_at >= m.joined_at and s.submitted_at is not null)
+    from assignments a where a.class_id = c.id and a.archived_at is null order by coalesce(a.due_at, a.open_at) desc;
+end $$;
+
+-- One row per student. Facts only: js/assign.js turns them into "late", "overdue" and so on.
+create or replace function public.assignment_overview(p_assignment uuid)
+returns table (user_id uuid, real_name text, left_at timestamptz, attempts bigint, in_progress boolean, best_sub uuid,
+               best_marks int, out_of int, first_submitted timestamptz, auto_submitted boolean, lessons_done bigint, lessons_at timestamptz)
+language plpgsql security definer set search_path = public as $$
+declare a public.assignments; c public.classes;
+begin
+  select * into a from assignments x where x.id = p_assignment;
+  c := require_own_class(a.class_id);
+  perform close_expired(p_assignment, null);
+  return query
+    select m.user_id, m.real_name, m.left_at,
+      (select count(*) from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
+      exists (select 1 from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is null and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
+      b.id, b.marks, b.out_of,
+      (select min(s.submitted_at) from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
+      b.auto_submitted, l.done, l.finished
+    from class_members m
+    left join lateral (select s.* from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is not null
+                         and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)
+                       order by s.marks desc, s.submitted_at limit 1) b on true
+    left join lateral (select count(*) as done, max(p.first_pass) as finished from (
+        select min(t.received_at) as first_pass from attempts t join assignment_items i on i.item_id = t.item_id
+        where i.assignment_id = a.id and i.kind = 'lesson' and t.user_id = m.user_id and t.kind = 'quiz' and t.passed
+          and t.received_at >= m.joined_at and (m.left_at is null or t.received_at <= m.left_at)
+        group by t.item_id) p) l on true
+    where m.class_id = c.id order by m.left_at nulls first, m.real_name;
+end $$;
+
+create or replace function public.submission_detail(p_sub uuid) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare s public.submissions := require_own_sub(p_sub);
+begin
+  return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'started_at', s.started_at, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
+    'items', (select coalesce(jsonb_agg(jsonb_build_object('position', i.position, 'marks', i.marks, 'text', i.q->'text', 'correct', i.q->'correctText', 'why', i.q->'whyText',
+                'type', i.q->'type', 'options', i.q->'options', 'response', x.response, 'auto', x.marks, 'teacher_marks', x.teacher_marks, 'teacher_note', x.teacher_note) order by i.position), '[]')
+              from assignment_items i left join answers x on x.submission_id = s.id and x.position = i.position
+              where i.assignment_id = s.assignment_id and i.kind = 'question'));
+end $$;
+
+-- The teacher's mark is final. A null mark goes back to the server's.
+create or replace function public.set_answer_mark(p_sub uuid, p_position int, p_marks int, p_note text) returns int
+language plpgsql security definer set search_path = public as $$
+declare
+  s public.submissions := require_own_sub(p_sub);
+  top int;
+  total int;
+begin
+  if s.submitted_at is null then raise exception 'not handed in yet' using errcode = 'CN204'; end if;
+  select marks into top from assignment_items where assignment_id = s.assignment_id and position = p_position and kind = 'question';
+  if not found or p_marks < 0 or p_marks > top then raise exception 'mark out of range' using errcode = 'CN205'; end if;
+  update answers set teacher_marks = p_marks, teacher_note = nullif(btrim(p_note), ''), updated_at = now() where submission_id = p_sub and position = p_position;
+  select coalesce(sum(coalesce(teacher_marks, marks)), 0) into total from answers where submission_id = p_sub;
+  update submissions set marks = total where id = p_sub;
+  return total;
+end $$;
+
+-- ---------- students ----------
+create or replace function public.my_assignments()
+returns table (id uuid, class_id uuid, class_name text, title text, note text, open_at timestamptz, due_at timestamptz, max_attempts int, minutes int,
+               questions bigint, out_of bigint, lessons jsonb, attempts bigint, open_sub uuid, best_sub uuid, best_marks int, first_submitted timestamptz)
+language plpgsql security definer set search_path = public as $$
+declare uid uuid := require_user();
+begin
+  perform close_expired(null, uid);
+  return query
+    select a.id, c.id, c.name, a.title, a.note, a.open_at, a.due_at, a.max_attempts, a.minutes,
+      (select count(*) from assignment_items i where i.assignment_id = a.id and i.kind = 'question'),
+      (select coalesce(sum(i.marks), 0)::bigint from assignment_items i where i.assignment_id = a.id),
+      (select coalesce(jsonb_agg(jsonb_build_object('id', i.item_id, 'title', i.q->'title',
+                'done', exists (select 1 from attempts t where t.user_id = uid and t.item_id = i.item_id and t.kind = 'quiz' and t.passed and t.received_at >= m.joined_at)) order by i.position), '[]')
+         from assignment_items i where i.assignment_id = a.id and i.kind = 'lesson'),
+      (select count(*) from submissions s where s.assignment_id = a.id and s.user_id = uid),
+      (select s.id from submissions s where s.assignment_id = a.id and s.user_id = uid and s.submitted_at is null),
+      b.id, b.marks,
+      (select min(s.submitted_at) from submissions s where s.assignment_id = a.id and s.user_id = uid)
+    from class_members m
+    join classes c on c.id = m.class_id
+    join assignments a on a.class_id = c.id and a.archived_at is null and a.open_at <= now()
+    left join lateral (select s.id, s.marks from submissions s where s.assignment_id = a.id and s.user_id = uid and s.submitted_at is not null
+                       order by s.marks desc, s.submitted_at limit 1) b on true
+    where m.user_id = uid and m.left_at is null order by a.due_at nulls last, a.open_at;
+end $$;
+
+-- Starts an attempt, or picks the open one up again, with the student's saved answers.
+create or replace function public.start_attempt(p_assignment uuid) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  a public.assignments;
+  s public.submissions;
+  used int;
+begin
+  select x.* into a from assignments x join class_members m on m.class_id = x.class_id
+    where x.id = p_assignment and m.user_id = uid and m.left_at is null and x.archived_at is null and x.open_at <= now()
+    for update of m; -- holds this student's row, so two tabs can't start two attempts
+  if not found then raise exception 'not set for you' using errcode = '42501'; end if;
+  perform close_expired(p_assignment, uid);
+  select * into s from submissions where assignment_id = a.id and user_id = uid and submitted_at is null;
+  if not found then
+    select count(*) into used from submissions where assignment_id = a.id and user_id = uid;
+    if used >= a.max_attempts then raise exception 'no attempts left' using errcode = 'CN206'; end if;
+    insert into submissions (assignment_id, user_id, attempt, deadline)
+      values (a.id, uid, used + 1, case when a.minutes is not null then now() + make_interval(mins => a.minutes) end) returning * into s;
+  end if;
+  return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'deadline', s.deadline, 'now', now(),
+    'items', (select coalesce(jsonb_agg(q_public(i.q) || jsonb_build_object('position', i.position) order by i.position), '[]')
+              from assignment_items i where i.assignment_id = a.id and i.kind = 'question'),
+    'answers', (select coalesce(jsonb_object_agg(x.position::text, x.response), '{}') from answers x where x.submission_id = s.id));
+end $$;
+
+-- p_answers is { "position": response }. A timed attempt past its deadline keeps what was saved in time, and says so.
+create or replace function public.save_answers(p_sub uuid, p_answers jsonb) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare s public.submissions := require_open_sub(p_sub);
+begin
+  if s.deadline < now() - interval '30 seconds' then
+    perform finish_submission(s.id, s.deadline, true);
+    return jsonb_build_object('closed', true);
+  end if;
+  if octet_length(p_answers::text) > 200000 or exists (select 1 from jsonb_each(p_answers) e where octet_length(e.value::text) > 8000) then
+    raise exception 'answer too long' using errcode = 'CN207';
+  end if;
+  insert into answers (submission_id, position, response)
+    select s.id, i.position, e.value from jsonb_each(p_answers) e
+    join assignment_items i on i.assignment_id = s.assignment_id and i.kind = 'question' and i.position::text = e.key
+    on conflict (submission_id, position) do update set response = excluded.response, updated_at = now();
+  return jsonb_build_object('closed', false, 'saved_at', now());
+end $$;
+
+create or replace function public.submit_attempt(p_sub uuid, p_answers jsonb) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare r jsonb := save_answers(p_sub, p_answers);
+begin
+  if not (r->>'closed')::boolean then perform finish_submission(p_sub, now(), false); end if;
+  return (select jsonb_build_object('id', id, 'marks', marks, 'out_of', out_of) from submissions where id = p_sub);
+end $$;
+
+-- A student's marked work. Right answers wait until the due date (or, with no due date, until their attempts run out),
+-- so they can't be passed round while others are still working.
+create or replace function public.my_result(p_sub uuid) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare
+  s public.submissions;
+  a public.assignments;
+  open_up boolean;
+begin
+  select * into s from submissions where id = p_sub and user_id = require_user() and submitted_at is not null;
+  if not found then raise exception 'not your work' using errcode = '42501'; end if;
+  select * into a from assignments where id = s.assignment_id;
+  open_up := case when a.due_at is not null then now() >= a.due_at
+                  else (select count(*) from submissions x where x.assignment_id = a.id and x.user_id = s.user_id and x.submitted_at is not null) >= a.max_attempts end;
+  return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
+    'title', a.title, 'due_at', a.due_at, 'released', open_up,
+    'items', (select coalesce(jsonb_agg(q_public(i.q) || jsonb_build_object('position', i.position, 'response', x.response, 'got', coalesce(x.teacher_marks, x.marks),
+                'teacher_note', x.teacher_note) || case when open_up then jsonb_build_object('correct', i.q->'correctText', 'why', i.q->'whyText') else '{}'::jsonb end order by i.position), '[]')
+              from assignment_items i left join answers x on x.submission_id = s.id and x.position = i.position
+              where i.assignment_id = a.id and i.kind = 'question'));
+end $$;
+
+-- For "download my data": the work saved under this account.
+create or replace function public.my_work_export() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_agg(jsonb_build_object('assignment', a.title, 'attempt', s.attempt, 'started_at', s.started_at, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
+    'answers', (select coalesce(jsonb_agg(jsonb_build_object('position', x.position, 'response', x.response, 'marks', coalesce(x.teacher_marks, x.marks), 'note', x.teacher_note)), '[]') from answers x where x.submission_id = s.id))), '[]')
+  from submissions s join assignments a on a.id = s.assignment_id where s.user_id = require_user()
+$$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array[
+    'mk_normalise(text)', 'mk_tokens(text)', 'mk_stem(text)', 'mk_distance(text, text)', 'mk_allowed(text)', 'mk_word(text, text)', 'mk_phrase(text[], text)',
+    'mk_explain(text, jsonb)', 'mk_number(text)', 'mark_item(jsonb, jsonb)', 'q_public(jsonb)', 'q_ok(jsonb)', 'finish_submission(uuid, timestamptz, boolean)',
+    'close_expired(uuid, uuid)', 'require_open_sub(uuid)', 'require_own_sub(uuid)'
+  ] loop
+    execute format('revoke execute on function public.%s from public, anon, authenticated', f);
+  end loop;
+  foreach f in array array[
+    'create_assignment(uuid, text, text, timestamptz, timestamptz, int, int, jsonb)', 'archive_assignment(uuid)', 'class_assignments(uuid)',
+    'assignment_overview(uuid)', 'submission_detail(uuid)', 'set_answer_mark(uuid, int, int, text)', 'my_assignments()', 'start_attempt(uuid)',
+    'save_answers(uuid, jsonb)', 'submit_attempt(uuid, jsonb)', 'my_result(uuid)', 'my_work_export()'
+  ] loop
+    execute format('revoke execute on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+end $$;
