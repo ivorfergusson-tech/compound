@@ -242,9 +242,31 @@ export function levelFor(xp) {
 // What a course calls its numbered items: Money has modules, the A-levels have lessons.
 export const unitOf = course => course?.unit || 'module';
 
-export function courseStatus(items, progress, ready, { unlockAll = false, key = id => id, unit = 'module' } = {}) {
+// A teacher's plan for a class: { order: [strand ids], held: [strand ids] }. Topics follow the teacher's order, with
+// any topic the plan doesn't name (added to the course later) after them; checkpoints follow the topics.
+export function planItems(items, plan) {
+  if (!plan) return items;
+  const rank = id => { const i = plan.order.indexOf(id); return i < 0 ? plan.order.length : i; };
+  const place = it => (it.kind === 'intro' ? -2 : it.kind === 'guide' ? 1e6 + 1 : it.kind === 'checkpoint' ? 1e6 : rank(it.strand));
+  return items.map((it, i) => [it, i]).sort((a, b) => place(a[0]) - place(b[0]) || a[1] - b[1]).map(x => x[0]);
+}
+
+// Merges the plans of every class a student has for one course: the first order wins, and a topic stays held only
+// if all of those classes hold it, so a second class can't take away what the first has released.
+export function mergePlans(rows) {
+  const out = new Map();
+  for (const r of rows) {
+    const had = out.get(r.course);
+    const held = r.held_units || [];
+    out.set(r.course, had ? { ...had, held: had.held.filter(h => held.includes(h)) } : { order: r.unit_order || [], held });
+  }
+  return out;
+}
+
+export function courseStatus(items, progress, ready, { unlockAll = false, key = id => id, unit = 'module', plan = null } = {}) {
   const out = {};
-  let gate = null;
+  let gate = null, topic = null;
+  const passedNum = new Set(items.filter(i => i.kind === 'module' && progress.passed(key(i.id))).map(i => i.num));
   for (const item of items) {
     if (item.kind === 'intro') {
       out[item.id] = { state: progress.state.read[key(item.id)] ? 'done' : 'open' };
@@ -255,10 +277,22 @@ export function courseStatus(items, progress, ready, { unlockAll = false, key = 
       out[item.id] = { state: !ready.includes(item.id) ? 'soon' : progress.state.read[key(item.id)] ? 'done' : 'open', reason: 'Coming soon' };
       continue;
     }
+    // With a plan, each topic starts afresh: the teacher decides when it opens, and lessons unlock in order inside it.
+    if (plan && item.kind === 'module' && item.strand !== topic) { topic = item.strand; gate = null; }
     const unlocked = unlockAll || !gate || progress.passed(key(gate.id));
     const best = progress.best(key(item.id));
     let s;
-    if (!unlocked) {
+    if (plan && !unlockAll && item.kind === 'checkpoint') {
+      const need = items.filter(i => i.kind === 'module' && i.num >= item.covers[0] && i.num <= item.covers[1]);
+      const ok = need.every(i => passedNum.has(i.num));
+      s = ok ? { state: progress.passed(key(item.id)) ? 'passed' : 'open' } : { state: 'locked', reason: `Pass ${unit}s ${item.covers[0]} to ${item.covers[1]} to unlock` };
+      s.best = best ? Math.round(attemptPct(best) * 100) : null;
+      out[item.id] = s;
+      continue;
+    }
+    if (plan && !unlockAll && plan.held.includes(item.strand) && !progress.passed(key(item.id))) {
+      s = { state: 'locked', reason: "Your teacher hasn't released this yet" };
+    } else if (!unlocked) {
       s = { state: 'locked', reason: gate.kind === 'checkpoint' ? `Pass ${gate.title.toLowerCase()} to unlock` : `Pass ${unit} ${gate.num}'s quiz to unlock` };
     } else if (!ready.includes(item.id)) {
       s = { state: 'soon', reason: 'Coming soon' };

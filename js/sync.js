@@ -1,7 +1,7 @@
 // Accounts, sync and the leaderboard (Supabase). Without keys in js/config.js everything stays local.
 // Progress always lives in this browser first; when signed in it is merged with the account and pushed back.
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
-import { mergeStates, emptyState } from './progress.js';
+import { mergeStates, emptyState, mergePlans } from './progress.js';
 import { nicknameProblem, nicknameLock, lockMessage, passwordProblem } from './nickname.js';
 import * as display from './display.js';
 import * as exams from './exams.js';
@@ -13,6 +13,8 @@ let sb = null, session = null, progress = null, notify = () => {};
 let profile = { ...NO_PROFILE }, rank = null, syncing = null, pushTimer = null, authError = null, admin = false;
 // recovery: signed in from a password reset link, so the account page asks for a new password.
 let recovery = false;
+// Teachers' plans for the classes this learner is in, by course.
+let plans = new Map();
 // Where to go back to after leaving the site to sign in (Google, Microsoft, email links).
 const RETURN_KEY = 'compound.returnTo';
 // Gap between emails (confirm, reset). Supabase → Auth → Rate Limits → "Minimum interval per user" must not be longer.
@@ -80,6 +82,7 @@ function syncNow() {
         else if (mine.updatedAt && mine.updatedAt !== remote.exams?.updatedAt) await pushExams();
         await push();
         await refreshRank();
+        await refreshPlans();
       } catch (e) {
         console.warn('Sync failed; progress is safe in this browser and will sync later', e);
       } finally {
@@ -405,6 +408,7 @@ export function wireAuthPanel(box, rerender, onSaved = rerender) {
     await sb.auth.signOut();
     if (admin) return location.reload(); // back to this browser's own saved progress
     session = null; profile = { ...NO_PROFILE }; rank = null; recovery = false;
+    plans = new Map();
     progress.replace(emptyState()); // don't leave notes on a shared device
     notify();
     rerender();
@@ -415,6 +419,17 @@ async function loadProfile() {
   const { data } = await sb.from('profiles').select('nickname, nickname_changed_at, nickname_must_change').eq('user_id', session.user.id).maybeSingle();
   profile = data ? { nickname: data.nickname, changedAt: data.nickname_changed_at, mustChange: data.nickname_must_change } : { ...NO_PROFILE };
   return profile;
+}
+
+export const planFor = id => plans.get(id) || null;
+export const plansKey = () => JSON.stringify([...plans]);
+
+// Plans only shape what a learner sees next, so failing to load one must never get in the way.
+export async function refreshPlans() {
+  if (!sb || !session || admin) { plans = new Map(); return; }
+  const { data, error } = await sb.rpc('my_class_plans');
+  if (error) { console.warn('Class plans not loaded', error); return; }
+  plans = mergePlans(data || []);
 }
 
 // Class and teacher data all goes through database functions, which check who is asking.

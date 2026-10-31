@@ -32,12 +32,21 @@ class Fake:
         self.joined = []
         self.calls = []
         self.teacher = None
+        self.plan = None
+        self.student_plan = []
         self.klass = {"id": CID, "name": "13A Economics", "course": "econ-aqa", "year_group": "Year 13", "join_code": "ABC234",
                       "joining_open": True, "leaderboard_on": True, "students": 1}
         self.roster = [{"user_id": USER, "real_name": "Amy Ames", "nickname": "Alpha", "joined_at": "2026-10-01T10:00:00Z", "left_at": None, "passed": 3, "last_active": "2026-10-20T10:00:00Z"}]
 
     def rpc(self, name, a):
         self.calls.append((name, a))
+        if name == "class_plan":
+            return [self.plan] if self.plan else []
+        if name == "set_class_plan":
+            self.plan = {"unit_order": a["p_order"], "held_units": a["p_held"]} if a["p_order"] else None
+            return None
+        if name == "my_class_plans":
+            return self.student_plan
         if name == "class_preview":
             return [{"name": "13A Economics", "teacher": "Ms Tan", "school": "Hill School", "course": "econ-aqa", "year_group": "Year 13", "joining_open": True, "already": False}] if a["p_code"] == "ABC234" else []
         if name == "join_class":
@@ -187,6 +196,43 @@ with sync_playwright() as p:
     page.wait_for_function("document.querySelector('main').innerText.includes('Left ')")
     check("a removed student stays on the roster as left", "Amy Ames" in page.locator("main").inner_text())
     ctx.close()
+
+    # The teacher's lesson order
+    ctx, page = new_page(browser, fake, width=1100)
+    page.goto(BASE + f"#/teach/{CID}")
+    page.wait_for_selector(".plan-list")
+    topics = page.locator(".plan-list li span:first-child")
+    first = topics.nth(0).inner_text()
+    check("a new class follows the course order", "following the course order" in page.locator("#plan").inner_text() and page.locator(".clear-plan").count() == 0)
+    check("exam technique isn't a topic to move", page.locator(".plan-list").inner_text().count("Exam technique") == 0)
+    page.locator(".plan-list .down").first.click()
+    check("a topic moves down", topics.nth(1).inner_text() == first)
+    page.locator(".plan-list .rel").nth(2).uncheck()
+    page.locator(".save-plan").click()
+    page.wait_for_selector(".clear-plan")
+    check("the plan saves", fake.plan and fake.plan["unit_order"][1] == "4.1.1" and fake.plan["held_units"] == ["4.1.3"], fake.plan)
+    check("it reloads as saved", topics.nth(1).inner_text() == first and not page.locator(".plan-list .rel").nth(2).is_checked())
+    page.locator("#plan").screenshot(path=str(SHOTS / "class-plan.png"))
+    axe(page, "the class page with a lesson order")
+    ctx.close()
+
+    # What a student in that class sees
+    fake.student_plan = [{"course": "econ-aqa", "unit_order": fake.plan["unit_order"], "held_units": fake.plan["held_units"]}]
+    ctx, page = new_page(browser, fake)
+    page.goto(BASE + "#/c/econ-aqa")
+    page.wait_for_selector(".item")
+    items = page.locator(".item")
+    check("the course follows the teacher's order", "href" in page.evaluate("document.querySelector('.item').outerHTML") and "/m/4.1.2.1" in items.first.get_attribute("href"), items.first.get_attribute("href"))
+    check("the second topic's first lesson is open", page.locator('.item[href="#/c/econ-aqa/m/4.1.1.1"]').count() == 1)
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.3.1")
+    page.wait_for_selector(".locked-view")
+    check("a held topic says the teacher hasn't released it", "released" in page.locator(".locked-view").inner_text())
+    page.goto(BASE + "#/c/econ-aqa/m/4.1.2.1")
+    page.wait_for_selector("#quiz")
+    page.wait_for_function("!document.querySelector('#recall')")
+    check("no recall on lessons not yet taught", True)
+    ctx.close()
+    fake.student_plan = []
 
     # Phone width
     ctx, page = new_page(browser, fake)

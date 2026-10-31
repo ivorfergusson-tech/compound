@@ -153,6 +153,27 @@ for (let i = 0; i < 35; i++) {
 }
 check('unverified class stops at 35', await fail(C, `select public.join_class('${smallCode}', 'Cat Cole', true)`) === 'CN102');
 
+// Teaching plans
+const planClass = (await as(T2, `select public.create_class('Plan', 'econ-aqa') id`))[0].id;
+const planCode = (await as(T2, 'select * from public.teacher_classes()')).find(c => c.id === planClass).join_code;
+await as(C, `select public.join_class('${planCode}', 'Cat Cole', true)`);
+check('a class starts with no plan', (await as(C, 'select * from public.my_class_plans()')).length === 0);
+check('a student can\'t set a plan', Boolean(await fail(C, `select public.set_class_plan('${planClass}', '{a}', '{}')`)));
+check('another teacher can\'t set a plan', Boolean(await fail(T, `select public.set_class_plan('${planClass}', '{a}', '{}')`)));
+check('another teacher can\'t read a plan', Boolean(await fail(T, `select * from public.class_plan('${planClass}')`)));
+check('a bad topic is refused', Boolean(await fail(T2, `select public.set_class_plan('${planClass}', '{"<b>"}', '{}')`)));
+await as(T2, `select public.set_class_plan('${planClass}', '{4.1.2,4.1.1}', '{4.1.3}')`);
+let cp = await as(C, 'select * from public.my_class_plans()');
+check('a member gets the plan', cp.length === 1 && cp[0].unit_order[0] === '4.1.2' && cp[0].held_units[0] === '4.1.3' && cp[0].course === 'econ-aqa', JSON.stringify(cp));
+check('the teacher reads it back', (await as(T2, `select * from public.class_plan('${planClass}')`))[0].held_units[0] === '4.1.3');
+check('a non-member gets no plan', (await as(A, 'select * from public.my_class_plans()')).length === 0);
+await as(C, `select public.leave_class('${planClass}')`);
+check('leaving drops the plan', (await as(C, 'select * from public.my_class_plans()')).length === 0);
+await as(C, `select public.join_class('${planCode}', 'Cat Cole', true)`);
+await as(T2, `select public.set_class_plan('${planClass}', null, null)`);
+check('clearing goes back to the course order', (await as(C, 'select * from public.my_class_plans()')).length === 0);
+await as(C, `select public.leave_class('${planClass}')`);
+
 // Score guards: what a student could try from the browser's own connection
 const fid = () => crypto.randomUUID();
 const put = (u, item, extra = '') => as(u, `insert into public.attempts (id, user_id, kind, item_id, auto, out_of, passed, auto_passed, day${extra ? ', at' : ''})

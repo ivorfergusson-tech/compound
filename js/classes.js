@@ -78,6 +78,7 @@ export async function viewClasses(ctx) {
   });
   app.querySelectorAll('.leave').forEach(b => twoStep(b, 'Sure? Leave', async () => {
     await sync.rpc('leave_class', { p_class: b.closest('[data-id]').dataset.id });
+    await sync.refreshPlans();
     viewClasses(ctx);
   }));
 }
@@ -111,6 +112,7 @@ export async function viewJoin(ctx, raw) {
     if (!f.ok.checked) return say(app, PROBLEMS.CN106);
     try {
       await sync.rpc('join_class', { p_code: code, p_real_name: f.real.value.trim(), p_consent: true });
+      await sync.refreshPlans();
       location.hash = '#/classes';
     } catch (err) { say(app, problemFor(err)); }
   });
@@ -174,6 +176,51 @@ export async function viewTeach(ctx) {
   });
 }
 
+// Topics the plan can move: those with lessons. Exam technique guides are always open, so they aren't listed.
+export function planTopics(course) {
+  const has = new Set(course.items.filter(i => i.kind === 'module').map(i => i.strand));
+  return Object.entries(course.strands).filter(([k]) => has.has(k)).map(([k, v]) => ({ id: k, name: v.name }));
+}
+
+// The teacher's lesson order. A class with no plan follows the course's own order.
+async function drawPlan(ctx, box, id, courseId) {
+  const { sync, loadCourse } = ctx;
+  const course = await loadCourse(courseId);
+  if (!course) return;
+  const topics = planTopics(course);
+  const saved = (await sync.rpc('class_plan', { p_class: id }))[0];
+  const named = saved?.unit_order;
+  let order = named ? [...named.filter(k => topics.some(t => t.id === k)), ...topics.map(t => t.id).filter(k => !named.includes(k))] : topics.map(t => t.id);
+  let held = new Set(saved?.held_units || []);
+  const name = k => topics.find(t => t.id === k).name;
+  const draw = () => {
+    box.innerHTML = `<h2>Lesson order</h2>
+      <p class="small muted">${named ? 'Your students follow this order. Lessons unlock one by one inside a topic, and a topic opens once you release it. Work already passed stays open.' : 'Your students are following the course order, one lesson at a time. Change the order or hold topics back, then save.'}</p>
+      <ol class="plan-list">${order.map((k, i) => `<li data-k="${esc(k)}"><span>${esc(name(k))}</span>
+        <span class="plan-tools"><button type="button" class="btn ghost up" aria-label="Move ${esc(name(k))} up"${i ? '' : ' disabled'}>↑</button>
+        <button type="button" class="btn ghost down" aria-label="Move ${esc(name(k))} down"${i < order.length - 1 ? '' : ' disabled'}>↓</button>
+        <label class="check"><input type="checkbox" class="rel"${held.has(k) ? '' : ' checked'}> Released</label></span></li>`).join('')}</ol>
+      <div class="row-between account-actions"><button type="button" class="btn save-plan">Save order</button>
+      ${named ? '<button type="button" class="btn ghost clear-plan">Use the course order</button>' : '<span></span>'}</div>
+      <p class="auth-msg" role="status" aria-live="polite"></p>`;
+    const move = (k, by) => { const i = order.indexOf(k); order.splice(i, 1); order.splice(i + by, 0, k); draw(); };
+    box.querySelectorAll('.up').forEach(b => b.addEventListener('click', () => move(b.closest('li').dataset.k, -1)));
+    box.querySelectorAll('.down').forEach(b => b.addEventListener('click', () => move(b.closest('li').dataset.k, 1)));
+    box.querySelectorAll('.rel').forEach(b => b.addEventListener('change', () => { const k = b.closest('li').dataset.k; if (b.checked) held.delete(k); else held.add(k); }));
+    box.querySelector('.save-plan').addEventListener('click', async () => {
+      try {
+        await sync.rpc('set_class_plan', { p_class: id, p_order: order, p_held: [...held] });
+        drawPlan(ctx, box, id, courseId);
+      } catch (err) { say(box, problemFor(err)); }
+    });
+    box.querySelector('.clear-plan')?.addEventListener('click', async () => {
+      await sync.rpc('set_class_plan', { p_class: id, p_order: null, p_held: null });
+      drawPlan(ctx, box, id, courseId);
+    });
+  };
+  draw();
+}
+
 async function drawQr(box, url) {
   try {
     const { default: qrcode } = await import(QR_LIB);
@@ -212,11 +259,13 @@ export async function viewTeachClass(ctx, id) {
         <tbody>${active.map(row).join('')}${past.map(row).join('')}</tbody></table></div>
         <p class="small muted">Work counts from the day a student joined. Quizzes are marked in the student's browser, so treat these as a guide, not an assessment. Real names are only shown to you.</p>` : '<p class="muted">Nobody has joined yet. Share the code, the link or the QR code.</p>'}
       <p class="auth-msg" role="status" aria-live="polite"></p></section>
+    <section class="card" id="plan"></section>
     <section class="card"><h2>Settings</h2>
       <label class="check"><input type="checkbox" class="lb-on"${c.leaderboard_on ? ' checked' : ''}> Class leaderboard (students see nicknames and XP)</label>
       <a class="btn ghost" href="#/classes/${esc(id)}">See the class leaderboard</a>
       <div class="account-actions"><button type="button" class="btn ghost delete-class">Delete class</button></div></section>`, { title: c.name, wide: true });
   drawQr(app.querySelector('.qr'), link);
+  drawPlan(ctx, app.querySelector('#plan'), id, c.course);
   const update = (open, lb) => sync.rpc('update_class', { p_class: id, p_name: c.name, p_joining_open: open, p_leaderboard_on: lb });
   app.querySelector('.toggle-join').addEventListener('click', async () => { await update(!c.joining_open, c.leaderboard_on); viewTeachClass(ctx, id); });
   app.querySelector('.lb-on').addEventListener('change', async e => { await update(c.joining_open, e.target.checked); viewTeachClass(ctx, id); });

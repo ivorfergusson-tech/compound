@@ -12,7 +12,7 @@ import { sma, rsi, streakChance, tradeStats, makeCandles } from '../js/calcs-tra
 import { mortgagePayment, bondPrice, lbo, optionPnl } from '../js/calcs-industry.js';
 import { build } from '../tools/build_pages.mjs';
 import { REFRESH_ID, courseOfKey, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, daysUntil, upcoming, weekPlan } from '../js/dashboard.js';
-import { unitOf } from '../js/progress.js';
+import { unitOf, planItems, mergePlans, courseStatus as csPlan, Progress as PPlan } from '../js/progress.js';
 import { buildCheckpoint as buildCp } from '../js/quiz.js';
 import { econCharts, ppfY, ppfCost, equilibrium, marketGap, pedRevenue, costsAt, lowestAtc, firmAtc, firmMc, priceTaker, priceMaker, kinked, surplus, discrim, labourFloor, monopsony, lorenzShare, externality, pigouTax, basketIndex, adas, multiplierK, multiplierRounds, keynesAS, keynesAt, trendAt, actualAt, cyclePhase, phillips, fisherP, bondYield, ukIncomeTax, budgetDeficit, comparative, tariff, poundRate } from '../js/charts-econ.js';
 import { clean as cleanExams, cleanList as cleanExamList, newer as newerExams, load as loadExams, save as saveExams, MAX_EXAMS } from '../js/exams.js';
@@ -596,6 +596,34 @@ check('unit: Money has modules and A-levels have lessons', unitOf({}) === 'modul
       check(`known_items has ${key} (run tools/known_items.py)`, schema.includes(`('${key}', `));
     }
   }
+}
+{
+  // A teacher's plan
+  const mem2 = () => ({ s: {}, getItem(k) { return this.s[k] ?? null; }, setItem(k, v) { this.s[k] = v; }, removeItem(k) { delete this.s[k]; } });
+  const its = [{ id: 'a1', kind: 'module', num: 1, strand: 'a' }, { id: 'a2', kind: 'module', num: 2, strand: 'a' }, { id: 'cp1', kind: 'checkpoint', num: 1, title: 'Checkpoint 1', covers: [1, 2] },
+    { id: 'b1', kind: 'module', num: 3, strand: 'b' }, { id: 'b2', kind: 'module', num: 4, strand: 'b' }, { id: 'c1', kind: 'module', num: 5, strand: 'c' }, { id: 'g', kind: 'guide', strand: 'exam' }];
+  const all = its.map(i => i.id);
+  const plan = { order: ['b', 'a'], held: ['c'] };
+  check('plan: topics take the teacher order', planItems(its, plan).map(i => i.id).join() === 'b1,b2,a1,a2,c1,cp1,g');
+  check('plan: none leaves the course alone', planItems(its, null) === its);
+  const pp = new PPlan({ storage: mem2() });
+  const st = csPlan(planItems(its, plan), pp, all, { plan });
+  check('plan: the first lesson of a topic is open, in any order', st.b1.state === 'open' && st.a1.state === 'open');
+  check('plan: lessons inside a topic still unlock in turn', st.b2.state === 'locked' && st.a2.state === 'locked');
+  check('plan: a held topic is locked, with the reason', st.c1.state === 'locked' && st.c1.reason.includes('released'));
+  check('plan: guides stay open', st.g.state === 'open');
+  check('plan: a checkpoint waits for its lessons', st.cp1.state === 'locked');
+  const pass = id => pp.recordAttempt({ kind: 'quiz', id, auto: 6, claimed: 0, outOf: 6, passed: true, autoPassed: true, results: [] });
+  ['a1', 'a2', 'c1'].forEach(pass);
+  const st2 = csPlan(planItems(its, plan), pp, all, { plan });
+  check('plan: a checkpoint opens when its lessons are passed', st2.cp1.state === 'open');
+  check('plan: work already passed stays open when held', st2.c1.state === 'passed');
+  const nonPlan = csPlan(its, new PPlan({ storage: mem2() }), all, {});
+  check('no plan: the normal order still applies', nonPlan.a1.state === 'open' && nonPlan.a2.state === 'locked' && nonPlan.b1.state === 'locked');
+  const admin = csPlan(planItems(its, plan), new PPlan({ storage: mem2() }), all, { plan, unlockAll: true });
+  check('plan: admins see everything', admin.c1.state === 'open' && admin.cp1.state === 'open');
+  const merged = mergePlans([{ course: 'x', unit_order: ['a'], held_units: ['b', 'c'] }, { course: 'x', unit_order: ['z'], held_units: ['c'] }, { course: 'y', unit_order: ['q'], held_units: null }]);
+  check('plan: two classes merge, and only shared holds stay', merged.get('x').order[0] === 'a' && merged.get('x').held.join() === 'c' && merged.get('y').held.length === 0);
 }
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);

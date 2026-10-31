@@ -3,7 +3,7 @@
 // redirect to #/c/money/….
 import { esc, el, niceDate } from './util.js';
 import { loadRegistry, loadFigures, courseFiles } from './content.js';
-import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf } from './progress.js';
+import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf, planItems } from './progress.js';
 
 import { viewClasses, viewJoin, viewClassBoard, viewTeach, viewTeachClass } from './classes.js';
 
@@ -35,10 +35,14 @@ function loadCourseById(id) {
   return loaded.get(id);
 }
 
+// A student in a class sees that class's order. The course on file is never changed.
+const withPlan = c => { const plan = sync.planFor(c.id); return plan ? { ...c, items: planItems(c.items, plan) } : c; };
+
 async function useCourse(id) {
   const c = await loadCourseById(id);
   if (!c) return false;
-  ({ entry, files, course, glossary } = c);
+  ({ entry, files, glossary } = c);
+  course = withPlan(c.course);
   return true;
 }
 
@@ -101,7 +105,7 @@ const K = id => itemKey(course, id); // progress key for an item of this course
 const base = () => `#/c/${course.id}`;
 const hrefItem = it => (it.kind === 'checkpoint' ? `${base()}/cp/${it.num}` : `${base()}/m/${it.id}`);
 
-function statusMap() { return courseStatus(course.items, progress, course.ready, { unit: unitOf(course), unlockAll: sync.isAdmin(), key: K }); }
+function statusMap() { return courseStatus(course.items, progress, course.ready, { unit: unitOf(course), unlockAll: sync.isAdmin(), key: K, plan: sync.planFor(course.id) }); }
 
 function gameStrip() {
   const xp = progress.xp().total;
@@ -231,9 +235,10 @@ function viewHome(params) {
 // Every live course, loaded, with its progress keys and status.
 async function liveCourses() {
   const list = await Promise.all(registry.courses.filter(e => e.live).map(e => loadCourseById(e.id)));
-  return list.map(c => {
+  return list.map(raw => {
+    const c = { ...raw, course: withPlan(raw.course) };
     const key = id => itemKey(c.course, id);
-    return { ...c, key, st: courseStatus(c.course.items, progress, c.course.ready, { unit: unitOf(c.course), unlockAll: sync.isAdmin(), key }) };
+    return { ...c, key, st: courseStatus(c.course.items, progress, c.course.ready, { unit: unitOf(c.course), unlockAll: sync.isAdmin(), key, plan: sync.planFor(c.course.id) }) };
   });
 }
 
@@ -552,8 +557,12 @@ async function mountModuleTest(article, item, quiz) {
   const key = K(item.id);
   const top = article.querySelector('#recall');
   const box = article.querySelector('#quiz .quiz');
-  const pools = item.num > 1 ? await files.pools(course, item.num - 1) : {};
-  const recallSize = pickRecall(progress, pools, item.num, 4).length;
+  // In a class with its own order, "earlier" means lessons this student has passed, not lower numbers.
+  const plan = sync.planFor(course.id);
+  const before = plan ? Infinity : item.num;
+  const done = plan && new Set(course.items.filter(i => i.kind === 'module' && i.id !== item.id && progress.passed(K(i.id))).map(i => i.num));
+  const pools = plan ? await files.pools(course, Infinity, done) : item.num > 1 ? await files.pools(course, item.num - 1) : {};
+  const recallSize = pickRecall(progress, pools, before, 4).length;
   const hasRecall = recallSize > 0;
   if (!hasRecall) top?.remove();
   if (!box) return;
@@ -568,7 +577,7 @@ async function mountModuleTest(article, item, quiz) {
 
   // Runs a fresh recall check in container. nextHtml shows under its result; then(container) wires it.
   function runRecall(container, nextHtml, then) {
-    const qs = pickRecall(progress, pools, item.num, 4).map(q => ({ ...instantiate(q, { randomise: true }), module: q.module }));
+    const qs = pickRecall(progress, pools, before, 4).map(q => ({ ...instantiate(q, { randomise: true }), module: q.module }));
     runQuiz(container, qs, {
       kind: 'recall', title: 'Recall check', passMark: 0,
       onFinish: s => {
@@ -894,7 +903,7 @@ async function route() {
     else if (['classes', 'join', 'teach'].includes(parts[0])) {
       await useCourse(registry.default);
       await sync.settled();
-      const ctx = { shell, app, sync, registry };
+      const ctx = { shell, app, sync, registry, loadCourse: async id => (await loadCourseById(id))?.course };
       if (parts[0] === 'join') await viewJoin(ctx, parts[1]);
       else if (parts[0] === 'teach') await (parts[1] ? viewTeachClass(ctx, parts[1]) : viewTeach(ctx));
       else await (parts[1] ? viewClassBoard(ctx, parts[1]) : viewClasses(ctx));
@@ -913,8 +922,9 @@ async function start() {
   [registry, figures] = await Promise.all([loadRegistry(), loadFigures()]);
   await useCourse(registry.default);
   let wasAdmin = false;
+  let plansWere = sync.plansKey();
   await sync.init(progress, () => {
-    if (sync.isAdmin() !== wasAdmin) { wasAdmin = sync.isAdmin(); route(); } else refreshStrip();
+    if (sync.isAdmin() !== wasAdmin || sync.plansKey() !== plansWere) { wasAdmin = sync.isAdmin(); plansWere = sync.plansKey(); route(); } else refreshStrip();
   });
   window.addEventListener('hashchange', route);
   route();

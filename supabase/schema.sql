@@ -732,6 +732,37 @@ begin
     from totals t join profiles p on p.user_id = t.user_id order by t.x desc, p.nickname;
 end $$;
 
+-- ---------- P4b: a teacher's lesson order. Null means the class follows the course order. ----------
+-- These only shape what a learner is shown next. Lessons are public files, so this is teaching, not security.
+alter table public.classes add column if not exists unit_order text[];
+alter table public.classes add column if not exists held_units text[];
+
+create or replace function public.set_class_plan(p_class uuid, p_order text[], p_held text[]) returns void
+language plpgsql security definer set search_path = public as $$
+declare k text;
+begin
+  perform require_own_class(p_class);
+  if coalesce(array_length(p_order, 1), 0) > 40 or coalesce(array_length(p_held, 1), 0) > 40 then raise exception 'too many topics' using errcode = '22023'; end if;
+  foreach k in array coalesce(p_order, '{}') || coalesce(p_held, '{}') loop
+    if k !~ '^[a-z0-9._-]{1,30}$' then raise exception 'bad topic' using errcode = '22023'; end if;
+  end loop;
+  update classes set unit_order = p_order, held_units = case when p_order is null then null else coalesce(p_held, '{}') end where id = p_class;
+end $$;
+
+create or replace function public.class_plan(p_class uuid) returns table (unit_order text[], held_units text[])
+language plpgsql stable security definer set search_path = public as $$
+declare c public.classes := require_own_class(p_class);
+begin
+  return query select c.unit_order, c.held_units;
+end $$;
+
+create or replace function public.my_class_plans() returns table (course text, unit_order text[], held_units text[])
+language sql stable security definer set search_path = public as $$
+  select c.course, c.unit_order, c.held_units
+  from class_members m join classes c on c.id = m.class_id
+  where m.user_id = require_user() and m.left_at is null and c.unit_order is not null order by m.joined_at
+$$;
+
 do $$
 declare f text;
 begin
@@ -739,7 +770,7 @@ begin
     'become_teacher(text, text)', 'create_class(text, text, text)', 'update_class(uuid, text, boolean, boolean)',
     'renew_join_code(uuid)', 'delete_class(uuid)', 'teacher_classes()', 'class_preview(text)', 'join_class(text, text, boolean)',
     'leave_class(uuid)', 'my_classes()', 'class_roster(uuid)', 'remove_from_class(uuid, uuid)', 'reset_nickname(uuid, uuid)',
-    'class_leaderboard(uuid)'
+    'class_leaderboard(uuid)', 'set_class_plan(uuid, text[], text[])', 'class_plan(uuid)', 'my_class_plans()'
   ] loop
     execute format('revoke execute on function public.%s from public, anon', f);
     execute format('grant execute on function public.%s to authenticated', f);
