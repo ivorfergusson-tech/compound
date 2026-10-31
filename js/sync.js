@@ -417,6 +417,20 @@ async function loadProfile() {
   return profile;
 }
 
+// Class and teacher data all goes through database functions, which check who is asking.
+export async function rpc(fn, args = {}) {
+  if (!sb) throw new Error('Accounts unavailable');
+  const { data, error } = await sb.rpc(fn, args);
+  if (error) throw error;
+  return data;
+}
+
+export async function teacher() {
+  if (!sb || !session) return null;
+  const { data } = await sb.from('teachers').select('display_name, school, status').eq('user_id', session.user.id).maybeSingle();
+  return data;
+}
+
 // For pages that need an account with a nickname (the A-level courses).
 export const hasNickname = () => Boolean(session && profile.nickname && !profile.mustChange);
 
@@ -426,7 +440,7 @@ export async function exportAll(state) {
   if (sb && session) {
     const uid = session.user.id;
     out.account = { email: session.user.email, userId: uid };
-    for (const t of ['profiles', 'module_reads', 'attempts', 'srs', 'notes', 'guesses', 'active_days', 'settings']) {
+    for (const t of ['profiles', 'module_reads', 'attempts', 'srs', 'notes', 'guesses', 'active_days', 'settings', 'class_members', 'teachers']) {
       const { data } = await sb.from(t).select('*').eq('user_id', uid);
       out.account[t] = data;
     }

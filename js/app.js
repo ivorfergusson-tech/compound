@@ -5,6 +5,8 @@ import { esc, el, niceDate } from './util.js';
 import { loadRegistry, loadFigures, courseFiles } from './content.js';
 import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf } from './progress.js';
 
+import { viewClasses, viewJoin, viewClassBoard, viewTeach, viewTeachClass } from './classes.js';
+
 const UnitOf = c => (unitOf(c) === 'lesson' ? 'Lesson' : 'Module');
 import { REFRESH_ID, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, upcoming, weekPlan } from './dashboard.js';
 import * as exams from './exams.js';
@@ -313,6 +315,8 @@ async function viewDashboard() {
     ${refreshCard}
     <section class="courses"><h2>Your courses</h2><div class="course-grid">${cards}</div></section>
     <section class="card exams" id="exams">${examsHtml(courses, here, refresh)}</section>
+    <section class="card classes-card"><div class="row-between"><h2>Classes</h2><a class="small" href="#/teach">For teachers</a></div>
+      <p class="muted small">In a class at school? Join with your teacher's code.</p><a class="btn ghost" href="#/classes">Your classes</a></section>
     <aside class="card side-lb" aria-labelledby="lb-h">
       <div class="row-between"><h2 id="lb-h">Leaderboard</h2><a class="small" href="#/leaderboard">See all</a></div>
       <div class="lb-mini"><p class="muted small">Loading…</p></div>
@@ -887,6 +891,14 @@ async function route() {
       else viewNotFound();
     }
     else if (parts[0] === 'leaderboard') { await useCourse(registry.default); await viewLeaderboard(); }
+    else if (['classes', 'join', 'teach'].includes(parts[0])) {
+      await useCourse(registry.default);
+      await sync.settled();
+      const ctx = { shell, app, sync, registry };
+      if (parts[0] === 'join') await viewJoin(ctx, parts[1]);
+      else if (parts[0] === 'teach') await (parts[1] ? viewTeachClass(ctx, parts[1]) : viewTeach(ctx));
+      else await (parts[1] ? viewClassBoard(ctx, parts[1]) : viewClasses(ctx));
+    }
     else if (parts[0] === 'account') await viewAccount();
     else if (parts[0] === 'about') viewAbout();
     else viewNotFound();

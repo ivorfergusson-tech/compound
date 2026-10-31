@@ -21,6 +21,8 @@ These settle the open points in the brief below. Where they differ from the brie
 | Support email | A new Compound address Ivor will make. Use a placeholder until then. |
 | Sign-up pop-up scope | The app (`index.html`) only. The static reading pages (`m/<id>/`) stay clean for search engines; their "Open in the course" button leads into the app. |
 | Dashboard (P2, 30 Oct 2026) | `#/` is the dashboard; a course's map is `#/c/<course>`. Exam dates are ones the learner adds (stored in `settings.exams`); official dates go in a course's `exams` list in `courses.json` only once checked against the board's timetable, with source and checked date. Refresh knowledge sets are recall attempts with id `rf` (5 XP per right answer, first set each day). Question ids are unique across courses; outside Money they start `<course>:`. My classes, Due soon and the class leaderboard come with classes (P3/P4). |
+| Teacher sign-up (P4, 31 Oct 2026) | "I'm a teacher" is a set-up page at `#/teach`, not a tick at sign-up, so it also works for Google sign-ins. Nickname resets need a verified teacher. A student who rejoins counts from the new date. Verified classes are capped at 200. |
+| P4 split (31 Oct 2026) | P4a: teachers, classes, joining, consent, roster, nickname reset, class leaderboard. P4b: teacher-set lesson order and locks. Until assignments arrive in P5, class XP means XP from the class's course since joining. |
 | Supabase region | Already West EU (London), set 27 Oct 2026. No move needed. |
 
 ---

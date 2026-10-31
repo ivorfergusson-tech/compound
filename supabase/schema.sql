@@ -246,3 +246,307 @@ begin
 end $$;
 revoke execute on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
+
+-- ---------- P4: teachers and classes ----------
+-- Privacy model: nothing here can be written directly, and students can't read classes directly. Every change goes
+-- through a function below that checks who is asking. Real names are only ever returned to the class's own teacher;
+-- classmates see nicknames. A teacher sees a student's work only between joining and leaving.
+create table if not exists public.teacher_domains (
+  domain text primary key check (domain = lower(domain))
+);
+
+create table if not exists public.teachers (
+  user_id      uuid primary key references auth.users (id) on delete cascade,
+  display_name text not null check (length(btrim(display_name)) between 2 and 60),
+  school       text check (length(school) <= 100),
+  status       text not null default 'unverified' check (status in ('unverified', 'verified')),
+  created_at   timestamptz not null default now(),
+  verified_at  timestamptz
+);
+
+create table if not exists public.classes (
+  id             uuid primary key default gen_random_uuid(),
+  teacher_id     uuid not null references auth.users (id) on delete cascade,
+  name           text not null check (length(btrim(name)) between 1 and 60),
+  course         text not null check (course ~ '^[a-z0-9-]{2,30}$'),
+  year_group     text check (length(year_group) <= 20),
+  join_code      text not null unique check (join_code ~ '^[A-HJ-NP-Z2-9]{6}$'),
+  joining_open   boolean not null default true,
+  leaderboard_on boolean not null default true,
+  plan           text not null default 'free',
+  created_at     timestamptz not null default now()
+);
+create index if not exists classes_teacher on public.classes (teacher_id);
+
+create table if not exists public.class_members (
+  class_id     uuid not null references public.classes (id) on delete cascade,
+  user_id      uuid not null references auth.users (id) on delete cascade,
+  real_name    text not null check (real_name ~ '^[^0-9<>@/\\]{2,60}$' and length(btrim(real_name)) >= 2),
+  consented_at timestamptz not null,
+  joined_at    timestamptz not null default now(),
+  left_at      timestamptz,
+  primary key (class_id, user_id)
+);
+create index if not exists class_members_user on public.class_members (user_id);
+
+alter table public.teacher_domains enable row level security;
+alter table public.teachers enable row level security;
+alter table public.classes enable row level security;
+alter table public.class_members enable row level security;
+-- Reads only, and only your own. There are deliberately no insert, update or delete policies.
+drop policy if exists "teachers: see own row" on public.teachers;
+create policy "teachers: see own row" on public.teachers for select to authenticated using (user_id = (select auth.uid()));
+drop policy if exists "classes: teacher sees own" on public.classes;
+create policy "classes: teacher sees own" on public.classes for select to authenticated using (teacher_id = (select auth.uid()));
+drop policy if exists "class_members: see own row" on public.class_members;
+create policy "class_members: see own row" on public.class_members for select to authenticated using (user_id = (select auth.uid()));
+
+-- Six characters from an alphabet of 32 with no I, O, 0 or 1, as those are easily misread.
+create or replace function public.new_join_code() returns text
+language plpgsql volatile as $$
+declare
+  a constant text := 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  b bytea := decode(replace(gen_random_uuid()::text, '-', ''), 'hex');
+  c text := '';
+  i int;
+begin
+  for i in 0..5 loop c := c || substr(a, 1 + (get_byte(b, i) % 32), 1); end loop;
+  return c;
+end $$;
+revoke execute on function public.new_join_code() from public, anon, authenticated;
+
+create or replace function public.require_user() returns uuid
+language plpgsql stable as $$
+begin
+  if auth.uid() is null then raise exception 'not signed in' using errcode = '42501'; end if;
+  return auth.uid();
+end $$;
+
+-- The class must belong to whoever is asking. Same error for "not yours" and "doesn't exist", so ids can't be probed.
+create or replace function public.require_own_class(p_class uuid) returns public.classes
+language plpgsql stable security definer set search_path = public as $$
+declare c public.classes;
+begin
+  select * into c from classes where id = p_class and teacher_id = require_user();
+  if not found then raise exception 'not your class' using errcode = '42501'; end if;
+  return c;
+end $$;
+revoke execute on function public.require_own_class(uuid) from public, anon, authenticated;
+
+create or replace function public.item_in_course(p_item text, p_course text) returns boolean
+language sql immutable as $$
+  select case when p_course = 'money' then p_item !~ ':' else left(p_item, length(p_course) + 1) = p_course || ':' end
+$$;
+
+-- Become a teacher. Tools work straight away; school and college email addresses are verified automatically.
+create or replace function public.become_teacher(p_name text, p_school text default null) returns text
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  mail text;
+  host text;
+  ok boolean;
+begin
+  select lower(email) into mail from auth.users where id = uid and (email_confirmed_at is not null or confirmed_at is not null);
+  host := split_part(coalesce(mail, ''), '@', 2);
+  ok := host like '%.sch.uk' or host like '%.ac.uk'
+        or exists (select 1 from teacher_domains d where host = d.domain or host like '%.' || d.domain);
+  insert into teachers (user_id, display_name, school, status, verified_at)
+  values (uid, btrim(p_name), nullif(btrim(p_school), ''), case when ok then 'verified' else 'unverified' end, case when ok then now() end)
+  on conflict (user_id) do update set display_name = excluded.display_name, school = excluded.school,
+    status = case when teachers.status = 'verified' then 'verified' else excluded.status end,
+    verified_at = coalesce(teachers.verified_at, excluded.verified_at);
+  return (select status from teachers where user_id = uid);
+end $$;
+
+create or replace function public.create_class(p_name text, p_course text, p_year text default null) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  new_id uuid;
+  tries int := 0;
+begin
+  if not exists (select 1 from teachers where user_id = uid) then raise exception 'not a teacher' using errcode = '42501'; end if;
+  if (select count(*) from classes where teacher_id = uid) >= 30 then raise exception 'too many classes' using errcode = 'CN107'; end if;
+  loop
+    begin
+      insert into classes (teacher_id, name, course, year_group, join_code)
+      values (uid, btrim(p_name), p_course, nullif(btrim(p_year), ''), new_join_code()) returning id into new_id;
+      return new_id;
+    exception when unique_violation then
+      tries := tries + 1;
+      if tries > 5 then raise; end if;
+    end;
+  end loop;
+end $$;
+
+create or replace function public.update_class(p_class uuid, p_name text, p_joining_open boolean, p_leaderboard_on boolean) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  update classes set name = btrim(p_name), joining_open = p_joining_open, leaderboard_on = p_leaderboard_on where id = p_class;
+end $$;
+
+create or replace function public.renew_join_code(p_class uuid) returns text
+language plpgsql security definer set search_path = public as $$
+declare code text;
+begin
+  perform require_own_class(p_class);
+  update classes set join_code = new_join_code() where id = p_class returning join_code into code;
+  return code;
+end $$;
+
+create or replace function public.delete_class(p_class uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  delete from classes where id = p_class;
+end $$;
+
+create or replace function public.teacher_classes()
+returns table (id uuid, name text, course text, year_group text, join_code text, joining_open boolean, leaderboard_on boolean, students bigint)
+language sql stable security definer set search_path = public as $$
+  select c.id, c.name, c.course, c.year_group, c.join_code, c.joining_open, c.leaderboard_on,
+         (select count(*) from class_members m where m.class_id = c.id and m.left_at is null)
+  from classes c where c.teacher_id = require_user() order by c.created_at
+$$;
+
+-- What the consent screen shows. Needs the right code, and gives away nothing about who is in the class.
+create or replace function public.class_preview(p_code text)
+returns table (name text, teacher text, school text, course text, year_group text, joining_open boolean, already boolean)
+language sql stable security definer set search_path = public as $$
+  select c.name, t.display_name, t.school, c.course, c.year_group, c.joining_open,
+         exists (select 1 from class_members m where m.class_id = c.id and m.user_id = require_user() and m.left_at is null)
+  from classes c join teachers t on t.user_id = c.teacher_id
+  where c.join_code = upper(btrim(p_code))
+$$;
+
+create or replace function public.join_class(p_code text, p_real_name text, p_consent boolean) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  c public.classes;
+  cap int;
+  active boolean;
+begin
+  if p_consent is not true then raise exception 'consent needed' using errcode = 'CN106'; end if;
+  if not exists (select 1 from profiles where user_id = uid) then raise exception 'pick a nickname first' using errcode = 'CN108'; end if;
+  select * into c from classes where join_code = upper(btrim(p_code)) for update; -- holds the class, so two joins can't both take the last place
+  if not found then raise exception 'no such class' using errcode = 'CN105'; end if;
+  if c.teacher_id = uid then raise exception 'this is your own class' using errcode = 'CN103'; end if;
+  select left_at is null into active from class_members where class_id = c.id and user_id = uid;
+  if active then return c.id; end if;
+  if not c.joining_open then raise exception 'joining is closed' using errcode = 'CN101'; end if;
+  cap := case when (select status from teachers where user_id = c.teacher_id) = 'verified' then 200 else 35 end;
+  if (select count(*) from class_members where class_id = c.id and left_at is null) >= cap then
+    raise exception 'class is full' using errcode = 'CN102';
+  end if;
+  begin
+    -- Coming back counts as joining afresh: the teacher sees nothing from the time away.
+    insert into class_members (class_id, user_id, real_name, consented_at, joined_at)
+    values (c.id, uid, btrim(p_real_name), now(), now())
+    on conflict (class_id, user_id) do update set real_name = excluded.real_name, consented_at = now(), joined_at = now(), left_at = null;
+  exception when check_violation then
+    raise exception 'name not allowed' using errcode = 'CN104';
+  end;
+  return c.id;
+end $$;
+
+create or replace function public.leave_class(p_class uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  update class_members set left_at = now() where class_id = p_class and user_id = require_user() and left_at is null;
+end $$;
+
+create or replace function public.my_classes()
+returns table (id uuid, name text, teacher text, course text, year_group text, leaderboard_on boolean, joined_at timestamptz, real_name text)
+language sql stable security definer set search_path = public as $$
+  select c.id, c.name, t.display_name, c.course, c.year_group, c.leaderboard_on, m.joined_at, m.real_name
+  from class_members m join classes c on c.id = m.class_id join teachers t on t.user_id = c.teacher_id
+  where m.user_id = require_user() and m.left_at is null order by m.joined_at
+$$;
+
+-- The teacher's view of a class. Work counts only between joining and leaving, so nothing from before can be seen.
+create or replace function public.class_roster(p_class uuid)
+returns table (user_id uuid, real_name text, nickname text, joined_at timestamptz, left_at timestamptz, passed bigint, last_active timestamptz)
+language plpgsql stable security definer set search_path = public as $$
+declare c public.classes := require_own_class(p_class);
+begin
+  return query
+    select m.user_id, m.real_name, p.nickname, m.joined_at, m.left_at,
+           (select count(distinct a.item_id) from attempts a
+            where a.user_id = m.user_id and a.passed and a.kind = 'quiz' and item_in_course(a.item_id, c.course)
+              and a.at >= m.joined_at and (m.left_at is null or a.at <= m.left_at)),
+           (select max(a.at) from attempts a
+            where a.user_id = m.user_id and item_in_course(a.item_id, c.course)
+              and a.at >= m.joined_at and (m.left_at is null or a.at <= m.left_at))
+    from class_members m left join profiles p on p.user_id = m.user_id
+    where m.class_id = p_class order by m.left_at nulls first, m.real_name;
+end $$;
+
+create or replace function public.remove_from_class(p_class uuid, p_user uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  update class_members set left_at = now() where class_id = p_class and user_id = p_user and left_at is null;
+end $$;
+
+-- Replace an unsuitable nickname straight away, so it leaves the public leaderboard. The student then picks a new one.
+create or replace function public.reset_nickname(p_class uuid, p_user uuid) returns void
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  tmp text;
+begin
+  perform require_own_class(p_class);
+  if (select status from teachers where user_id = uid) <> 'verified' then raise exception 'verified teachers only' using errcode = '42501'; end if;
+  if not exists (select 1 from class_members where class_id = p_class and user_id = p_user and left_at is null) then
+    raise exception 'not in this class' using errcode = '42501';
+  end if;
+  -- Digits the nickname filter doesn't read as letters, so the placeholder can never be refused by it.
+  tmp := 'Learner ' || translate(substr(replace(gen_random_uuid()::text, '-', ''), 1, 12), '0123456789abcdef', '2689268926892689');
+  perform set_config('compound.nickname_reset', 'on', true);
+  update profiles set nickname = tmp, nickname_must_change = true where user_id = p_user;
+  perform set_config('compound.nickname_reset', 'off', true);
+end $$;
+
+-- Class leaderboard: nicknames only, and only XP from this course since joining. Off if the teacher turns it off.
+create or replace function public.class_leaderboard(p_class uuid)
+returns table (nickname text, xp int, pos bigint, is_me boolean)
+language plpgsql stable security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  c public.classes;
+begin
+  select * into c from classes where id = p_class;
+  if not found or not (c.teacher_id = uid or (c.leaderboard_on and exists (
+    select 1 from class_members m where m.class_id = p_class and m.user_id = uid and m.left_at is null
+  ))) then raise exception 'not available' using errcode = '42501'; end if;
+  return query
+    with best as (
+      select a.user_id, a.item_id, max(a.auto) as top, bool_or(a.auto_passed) as won, max(a.kind) as kind
+      from attempts a join class_members m on m.user_id = a.user_id and m.class_id = p_class and m.left_at is null
+      where a.kind <> 'recall' and a.at >= m.joined_at and item_in_course(a.item_id, c.course)
+      group by a.user_id, a.item_id
+    ), totals as (
+      select m.user_id, coalesce(sum(b.top * 10 + case when b.won then (case when b.kind = 'checkpoint' then 150 else 50 end) else 0 end), 0)::int as x
+      from class_members m left join best b on b.user_id = m.user_id
+      where m.class_id = p_class and m.left_at is null group by m.user_id
+    )
+    select p.nickname, t.x, rank() over (order by t.x desc), t.user_id = uid
+    from totals t join profiles p on p.user_id = t.user_id order by t.x desc, p.nickname;
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array[
+    'become_teacher(text, text)', 'create_class(text, text, text)', 'update_class(uuid, text, boolean, boolean)',
+    'renew_join_code(uuid)', 'delete_class(uuid)', 'teacher_classes()', 'class_preview(text)', 'join_class(text, text, boolean)',
+    'leave_class(uuid)', 'my_classes()', 'class_roster(uuid)', 'remove_from_class(uuid, uuid)', 'reset_nickname(uuid, uuid)',
+    'class_leaderboard(uuid)'
+  ] loop
+    execute format('revoke execute on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+end $$;

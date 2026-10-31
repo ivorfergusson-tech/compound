@@ -84,3 +84,13 @@ The leaderboard is worked out on the server from stored attempts, and the databa
 ## 7. Admin preview account and private dashboard
 - **Admin account:** sign in on the live site with a second account (use a private window so your own progress isn't touched). Don't pick a nickname. Then add it in Supabase → **SQL Editor**: `insert into public.admins (user_id) select id from auth.users where email = 'that@email';` Signed in as admin, everything is unlocked, nothing is saved, and it never shows on the leaderboard.
 - **Dashboard:** `python tools/admin_dashboard.py` writes `.tmp/admin.html` (gitignored) from the live database and opens it. Accounts, how each module is going, most-missed topics. It never goes online.
+
+## Teachers and classes (P4)
+
+Run `supabase/schema.sql` again before pushing this code. Then:
+
+- **Verify a teacher by hand:** SQL Editor → `update public.teachers set status = 'verified', verified_at = now() where user_id = (select id from auth.users where email = 'them@example.com');`
+- **See who's waiting:** `select u.email, t.display_name, t.school, t.created_at from public.teachers t join auth.users u on u.id = t.user_id where t.status = 'unverified';`
+- **Trust another email domain:** `insert into public.teacher_domains (domain) values ('trust.org.uk');` Any confirmed address at that domain or below it is verified automatically. `.sch.uk` and `.ac.uk` already are.
+- **Test the rules without touching Supabase:** `npm i --no-save @electric-sql/pglite@0.2.17`, then `node tools/classes_sql_test.mjs supabase/schema.sql`.
+
