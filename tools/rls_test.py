@@ -12,6 +12,7 @@ Needs SUPABASE_URL, SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY in .env. Run
 """
 import json
 import secrets
+import subprocess
 import uuid
 import sys
 import urllib.error
@@ -238,11 +239,49 @@ def main():
         check("A sees B's mark", s == 200 and data and data[0]["best_marks"] == 1, f"{s} {data}")
         s, data = rpc(b, "assignment_overview", {"p_assignment": aid})
         check("B can't see the overview", s >= 400, f"{s} {data}")
+        # photos: real Supabase Storage, as the local tests use a stand-in
+        def put(u, path):
+            req = urllib.request.Request(f"{URL}/storage/v1/object/handins/{path}", data=bytes.fromhex("ffd8ffd9"), method="POST",
+                                         headers={"apikey": ANON, "Authorization": f"Bearer {u['token']}", "Content-Type": "image/jpeg"})
+            try:
+                with urllib.request.urlopen(req) as r:
+                    return r.status
+            except urllib.error.HTTPError as e:
+                return e.code
+        long = {"kind": "question", "id": "l", "q": {"type": "long", "text": "Evaluate", "marks": 9}}
+        s, pid = rpc(a, "create_assignment", {**work, "p_due": None, "p_items": [long]})
+        s, sub2 = rpc(b, "start_attempt", {"p_assignment": pid})
+        name = f"{uuid.uuid4()}.jpg"
+        good = f"{b['id']}/{sub2['id']}/1/{name}"
+        check("a stranger can't upload into B's folder", put(a, good) >= 400)
+        check("B can't upload to A's folder", put(b, f"{a['id']}/{sub2['id']}/1/{name}") >= 400)
+        check("B can't upload to a made-up path", put(b, f"{b['id']}/evil.jpg") >= 400)
+        check("B uploads a photo", put(b, good) == 200)
+        s, data = rpc(b, "add_photo", {"p_sub": sub2["id"], "p_position": 1, "p_path": good})
+        check("B registers it", s == 200, f"{s} {data}")
+        s, data = call("POST", f"/storage/v1/object/sign/handins/{good}", {"expiresIn": 60}, token=a["token"])
+        check("the teacher can open it", s == 200 and data.get("signedURL"), f"{s} {data}")
+        s, data = rpc(b, "submit_attempt", {"p_sub": sub2["id"], "p_answers": {}})
+        check("a photo alone waits for the teacher", s == 200 and data.get("marks") == 0, f"{s} {data}")
+        s, data = rpc(a, "assignment_overview", {"p_assignment": pid})
+        check("it shows as to mark", s == 200 and data[0]["to_mark"] == 1, f"{s} {data}")
+        s, data = rpc(a, "class_heatmap", {"p_class": cid})
+        check("the teacher can see class results", s == 200, f"{s} {data}")
+        s, data = rpc(b, "class_heatmap", {"p_class": cid})
+        check("a student can't", s >= 400, f"{s} {data}")
+        s, data = call("POST", "/rest/v1/rpc/photos_expired", {}, token=b["token"])
+        check("students can't list photos due for deletion", s >= 400, f"{s} {data}")
         s, _ = rpc(b, "leave_class", {"p_class": cid})
         s, data = rpc(b, "my_classes")
         check("B can leave", s == 200 and data == [], f"{s} {data}")
         s, _ = rpc(a, "delete_class", {"p_class": cid})
         check("A deletes the class", s in (200, 204), s)
+        purge = subprocess.run([sys.executable, str(Path(__file__).parent / "purge_photos.py")], capture_output=True, text=True)
+        check("the purge tool runs", purge.returncode == 0, purge.stderr[-300:])
+        s, data = call("GET", "/rest/v1/rpc/photos_expired", key=SECRET)
+        check("nothing is left to delete", s == 200 and data == [], f"{s} {data}")
+        s, data = call("POST", "/storage/v1/object/list/handins", {"prefix": b["id"] + "/" + sub2["id"] + "/1"}, key=SECRET)
+        check("the file has gone from storage", s == 200 and data == [], f"{s} {data}")
 
         # delete account
         s, _ = call("POST", "/rest/v1/rpc/delete_my_account", {}, token=a["token"])
