@@ -284,6 +284,17 @@ def main():
         check("A reserves a paper", s in (200, 204), f"{s} {data}")
         s, data = rpc(b, "my_reserved_papers", {"p_course": "econ-aqa"})
         check("B's list leaves it out", s == 200 and data and data[0]["paper_id"] == "E-J25-P1", f"{s} {data}")
+        # reports and review
+        s, data = rpc(b, "report_question", {"p_question": f"test:{uuid.uuid4()}", "p_reason": "typo", "p_note": None})
+        check("B reports a question", s in (200, 204), f"{s} {data}")
+        s, data = call("GET", "/rest/v1/reports?select=*", token=b["token"])
+        check("B can't read reports", s == 200 and data == [], f"{s} {data}")
+        for fn in ("review_reports", "admin_totals", "pending_teachers"):
+            s, data = rpc(b, fn)
+            check(f"a student can't call {fn}", s >= 400, f"{s} {data}")
+        s, data = rpc(b, "review_role")
+        check("B has no review role", s == 200 and data is None, f"{s} {data}")
+        s, data = call("DELETE", f"/rest/v1/reports?user_id=eq.{b['id']}", key=SECRET)
         s, _ = rpc(b, "leave_class", {"p_class": cid})
         s, data = rpc(b, "my_classes")
         check("B can leave", s == 200 and data == [], f"{s} {data}")

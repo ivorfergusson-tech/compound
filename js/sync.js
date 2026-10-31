@@ -488,6 +488,7 @@ export async function exportAll(state) {
       out.account[t] = data;
     }
     out.account.work = (await sb.rpc('my_work_export')).data;
+    out.account.more = (await sb.rpc('my_more_export')).data;
   }
   return out;
 }

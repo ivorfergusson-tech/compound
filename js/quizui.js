@@ -88,6 +88,26 @@ export function answerCard(q, { number, initial } = {}) {
   return card;
 }
 
+// Sends a report. Set by app.js when someone is signed in; the button stays away when it isn't set.
+let reporter = null;
+export const setReporter = fn => { reporter = fn; };
+
+function reportBox(card, q) {
+  const wrap = el(`<details class="report"><summary class="small muted">Report a problem</summary>
+    <form><label class="field">What's wrong?<select name="reason"><option value="wrong">Wrong answer</option><option value="typo">Typo</option><option value="unclear">Unclear</option></select></label>
+    <label class="field">Anything to add? (optional)<input name="note" maxlength="500"></label><button class="btn ghost">Send</button></form><p class="small report-msg" role="status" aria-live="polite"></p></details>`);
+  const msg = wrap.querySelector('.report-msg');
+  wrap.querySelector('form').addEventListener('submit', async e => {
+    e.preventDefault();
+    try {
+      await reporter(q.id || `check: ${q.text.slice(0, 100)}`, e.target.reason.value, e.target.note.value); // quick checks in lessons have no id
+      e.target.remove();
+      msg.textContent = 'Thanks. We\'ll take a look.';
+    } catch (err) { msg.textContent = err?.code === 'CN212' ? 'You\'ve sent a lot of reports today. Try again tomorrow.' : 'That didn\'t send. Try again.'; }
+  });
+  card.append(wrap);
+}
+
 // One question. onResult(result) fires when marked, and again if marks are claimed.
 export function questionCard(q, { label, onResult, number } = {}) {
   const card = el(`<div class="card question" data-type="${q.type}">
@@ -103,6 +123,7 @@ export function questionCard(q, { label, onResult, number } = {}) {
     speak([{ text: `${q.text} ${opts}` }]);
   });
   wireAnswer(card, q);
+  if (reporter) reportBox(card, q);
   const num = card.querySelector('input');
   if (num) num.addEventListener('keydown', e => { if (e.key === 'Enter') card.querySelector('.check-btn').click(); });
 

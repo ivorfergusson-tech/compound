@@ -549,6 +549,9 @@ a.course-card:hover { border-color: var(--accent); }
 .log-table td { padding: 4px 6px; }
 .log-table input { width: 4.5rem; min-height: 40px; border: 1px solid var(--border-2); border-radius: 8px; padding: 0 8px; background: var(--surface); color: var(--text); font: inherit; }
 .log-table select { min-height: 40px; max-width: 16rem; border: 1px solid var(--border-2); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; }
+.report { margin-top: 10px; }
+.report summary { cursor: pointer; }
+.report .btn { margin-top: 4px; }
 .pick { border-bottom: 1px solid var(--border); padding: 8px 0; }
 .pick summary { cursor: pointer; font-weight: 600; }
 .pick .check { align-items: flex-start; }

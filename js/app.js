@@ -8,6 +8,8 @@ import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_R
 import { viewClasses, viewJoin, viewClassBoard, viewTeach, viewTeachClass } from './classes.js';
 import { viewInsights, viewStudent } from './teacher.js';
 import { viewPapers, viewLogPaper, viewPaperAttempt } from './papers.js';
+import { viewReview } from './review.js';
+import { setReporter } from './quizui.js';
 import { viewWork, viewResult, viewSetWork, viewAssignment, viewSubmission, viewBank, dueCard } from './assign.js';
 
 const UnitOf = c => (unitOf(c) === 'lesson' ? 'Lesson' : 'Module');
@@ -885,6 +887,7 @@ function toast(text) {
 
 // ---------- router ----------
 async function route() {
+  setReporter(sync.signedIn() ? (id, reason, note) => sync.rpc('report_question', { p_question: id, p_reason: reason, p_note: note }) : null);
   cleanup.forEach(fn => fn()); cleanup = [];
   closePopover();
   const raw = location.hash.slice(1);
@@ -917,6 +920,7 @@ async function route() {
       else viewNotFound();
     }
     else if (parts[0] === 'leaderboard') { await useCourse(registry.default); await viewLeaderboard(); }
+    else if (parts[0] === 'review') { await useCourse(registry.default); await sync.settled(); await viewReview({ shell, app, sync }); }
     else if (['classes', 'join', 'teach', 'work'].includes(parts[0])) {
       await useCourse(registry.default);
       await sync.settled();

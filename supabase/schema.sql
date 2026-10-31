@@ -1871,3 +1871,118 @@ begin
     execute format('grant execute on function public.%s to authenticated', f);
   end loop;
 end $$;
+
+-- ---------- P9: reports, review and admin ----------
+-- Reviewers (added by hand, like admins) work through question reports at #/review. Admins also approve teachers and see
+-- the totals. Reports never show who sent them: if the account is deleted, the report stays with no link to anyone.
+create table if not exists public.reviewers (
+  user_id uuid primary key references auth.users (id) on delete cascade
+);
+create table if not exists public.reports (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid references auth.users (id) on delete set null,
+  question_id text not null check (length(question_id) between 1 and 120),
+  reason      text not null check (reason in ('wrong', 'typo', 'unclear')),
+  note        text check (length(note) <= 500),
+  status      text not null default 'open' check (status in ('open', 'fixed', 'rejected')),
+  created_at  timestamptz not null default now(),
+  resolved_at timestamptz
+);
+create unique index if not exists reports_one_open on public.reports (user_id, question_id) where status = 'open';
+create index if not exists reports_status on public.reports (status, created_at);
+alter table public.reviewers enable row level security;
+alter table public.reports enable row level security;
+
+create or replace function public.review_role() returns text
+language sql stable security definer set search_path = public as $$
+  select case when exists (select 1 from admins where user_id = auth.uid()) then 'admin'
+              when exists (select 1 from reviewers where user_id = auth.uid()) then 'reviewer' end
+$$;
+
+create or replace function public.require_role(p_admin boolean) returns void
+language plpgsql stable security definer set search_path = public as $$
+declare r text := review_role();
+begin
+  if r is null or (p_admin and r <> 'admin') then raise exception 'not allowed' using errcode = '42501'; end if;
+end $$;
+revoke execute on function public.require_role(boolean) from public, anon, authenticated;
+
+create or replace function public.report_question(p_question text, p_reason text, p_note text) returns void
+language plpgsql security definer set search_path = public as $$
+declare uid uuid := require_user();
+begin
+  if (select count(*) from reports where user_id = uid and created_at > now() - interval '1 day') >= 20 then
+    raise exception 'too many reports' using errcode = 'CN212';
+  end if;
+  insert into reports (user_id, question_id, reason, note) values (uid, p_question, p_reason, nullif(btrim(p_note), ''))
+    on conflict (user_id, question_id) where status = 'open' do nothing;
+end $$;
+
+create or replace function public.review_reports()
+returns table (id uuid, question_id text, reason text, note text, created_at timestamptz, same bigint)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  perform require_role(false);
+  return query
+    select r.id, r.question_id, r.reason, r.note, r.created_at,
+      (select count(*) from reports x where x.question_id = r.question_id and x.status = 'open')
+    from reports r where r.status = 'open' order by 6 desc, r.created_at limit 200;
+end $$;
+
+create or replace function public.resolve_report(p_id uuid, p_status text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  perform require_role(false);
+  if p_status not in ('fixed', 'rejected') then raise exception 'bad status' using errcode = '22023'; end if;
+  update reports set status = p_status, resolved_at = now() where id = p_id and status = 'open';
+end $$;
+
+create or replace function public.pending_teachers()
+returns table (user_id uuid, display_name text, school text, email text, created_at timestamptz)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  perform require_role(true);
+  return query select t.user_id, t.display_name, t.school, u.email::text, t.created_at
+    from teachers t join auth.users u on u.id = t.user_id where t.status = 'unverified' order by t.created_at;
+end $$;
+
+create or replace function public.verify_teacher(p_user uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  perform require_role(true);
+  update teachers set status = 'verified', verified_at = now() where user_id = p_user and status = 'unverified';
+end $$;
+
+create or replace function public.admin_totals() returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+begin
+  perform require_role(true);
+  return jsonb_build_object(
+    'teachers', (select count(*) from teachers), 'waiting', (select count(*) from teachers where status = 'unverified'),
+    'classes', (select count(*) from classes), 'students', (select count(distinct user_id) from class_members where left_at is null),
+    'work', (select count(*) from assignments where archived_at is null), 'handed_in', (select count(*) from submissions where submitted_at is not null),
+    'open_reports', (select count(*) from reports where status = 'open'),
+    'photos', (select count(*) from answer_photos),
+    'ai_marks', (select count(*) from ai_usage where created_at >= date_trunc('month', now())),
+    'ai_pence', (select coalesce(sum(pence), 0) from ai_usage where created_at >= date_trunc('month', now())),
+    'ai_budget', (select monthly_pence from ai_limits));
+end $$;
+
+-- The rest of "Export my data": what isn't readable from the browser directly.
+create or replace function public.my_more_export() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object(
+    'past_papers', (select coalesce(jsonb_agg(jsonb_build_object('paper', a.paper_id, 'date', a.done_on, 'marks', a.got, 'out_of', a.out_of, 'questions', a.items, 'consolidation', a.cons_got, 'consolidation_out_of', a.cons_of)), '[]') from paper_attempts a where a.user_id = require_user()),
+    'reports', (select coalesce(jsonb_agg(jsonb_build_object('question', r.question_id, 'reason', r.reason, 'note', r.note, 'status', r.status, 'date', r.created_at)), '[]') from reports r where r.user_id = require_user()),
+    'photos', (select coalesce(jsonb_agg(jsonb_build_object('uploaded', p.created_at, 'file', p.path)), '[]') from answer_photos p join submissions s on s.id = p.submission_id where s.user_id = require_user()))
+$$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['review_role()', 'report_question(text, text, text)', 'review_reports()', 'resolve_report(uuid, text)', 'pending_teachers()',
+    'verify_teacher(uuid)', 'admin_totals()', 'my_more_export()'] loop
+    execute format('revoke execute on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+end $$;

@@ -136,7 +136,7 @@ with sync_playwright() as p:
         if kind in ("mcq", "tf"):
             q.locator(".option").first.click()
         elif kind == "number":
-            q.locator("input").fill("1")
+            q.locator(".answer input").fill("1")
         elif kind == "explain":
             q.locator("textarea").fill("because")
         elif kind == "match":

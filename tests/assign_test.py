@@ -55,6 +55,7 @@ class Fake:
         self.ai = None
         self.photos = []
         self.beats = 0
+        self.resolved = self.verified = self.reported = None
         self.ai_calls = 0
 
     def row(self):
@@ -134,6 +135,23 @@ class Fake:
             return {"real_name": "Amy Ames", "joined_at": "2026-01-01T00:00:00Z", "left_at": None, "streak": 4, "passed": 3, "papers": [], "last_active": "2026-01-20T00:00:00Z",
                     "work": [{"title": "Week 1", "due_at": None, "submitted_at": "2026-01-20T00:00:00Z", "marks": 5, "out_of": 7, "attempt": 1, "seconds": 600}],
                     "topics": [{"spec": "4.1.1", "got": 3, "out_of": 4}, {"spec": "4.1.2", "got": 1, "out_of": 4}]}
+        if name == "review_role":
+            return "admin"
+        if name == "review_reports":
+            return [{"id": "r1", "question_id": "econ-aqa:q1", "reason": "wrong", "note": "Looks off", "created_at": "2026-01-01T00:00:00Z", "same": 2}] if not self.resolved else []
+        if name == "resolve_report":
+            self.resolved = a
+            return None
+        if name == "admin_totals":
+            return {"teachers": 3, "waiting": 1, "classes": 2, "students": 40, "work": 5, "handed_in": 30, "open_reports": 1, "photos": 4, "ai_marks": 0, "ai_pence": 0, "ai_budget": 1000}
+        if name == "pending_teachers":
+            return [] if self.verified else [{"user_id": "t1", "display_name": "Ms Tan", "school": "Hill School", "email": "t@x.com", "created_at": "2026-01-01T00:00:00Z"}]
+        if name == "verify_teacher":
+            self.verified = a
+            return None
+        if name == "report_question":
+            self.reported = a
+            return None
         if name == "fn:read-handwriting":
             return {"status": "read", "text": "Typed from my photo"}
         if name == "fn:mark-answer":
@@ -307,6 +325,36 @@ with sync_playwright() as p:
     page.wait_for_selector(".work-qs .question")
     check("no sideways scroll on a phone", page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"))
     page.screenshot(path=str(SHOTS / "work-phone.png"), full_page=True)
+    ctx.close()
+
+    # Reports and review
+    fake = Fake()
+    ctx, page = new_page(browser, fake)
+    page.goto(BASE + "#/c/money/m/01")
+    page.wait_for_selector(".question .report summary")
+    page.locator(".question .report summary").first.click()
+    page.locator(".question .report select").first.select_option("typo")
+    page.locator(".question .report input").first.fill("Spelling")
+    axe(page, "the report box")
+    page.locator(".question .report .btn").first.click()
+    page.wait_for_function("document.querySelector('.report-msg')?.textContent.includes('Thanks')")
+    check("a report is sent with the question id", fake.reported and fake.reported["p_reason"] == "typo" and fake.reported["p_note"] == "Spelling" and fake.reported["p_question"], fake.reported)
+    page.goto(BASE + "#/review")
+    page.wait_for_selector(".verify")
+    text = page.locator("main").inner_text()
+    check("the review page shows totals, teachers and reports", "£0.00 of £10.00" in text and "Ms Tan" in text and "2 reports" in text and "Looks off" in text, text[:300])
+    axe(page, "the review page")
+    page.locator(".verify").click()
+    page.wait_for_function("!document.querySelector('.verify')")
+    check("a teacher can be verified", fake.verified["p_user"] == "t1")
+    page.locator(".fix").click()
+    page.wait_for_function("!document.querySelector('.fix')")
+    check("a report can be closed", fake.resolved["p_status"] == "fixed")
+    fake.rpc = (lambda old: lambda n, a: None if n == "review_role" else old(n, a))(fake.rpc)
+    page.goto(BASE + "#/")
+    page.goto(BASE + "#/review")
+    page.wait_for_function("document.querySelector('main')?.innerText.includes('Not found')")
+    check("anyone else gets not found", True)
     ctx.close()
 
     # A teacher sets work

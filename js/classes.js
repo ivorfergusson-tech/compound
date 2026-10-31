@@ -26,6 +26,7 @@ const PROBLEMS = {
   CN207: 'One of your answers is too long.',
   CN209: "That photo couldn't be added.",
   CN211: 'Check your marks and the date.',
+  CN212: "You've sent a lot of reports today. Thank you. Try again tomorrow.",
   CN210: 'You can add up to 6 pages for each answer.',
   CN208: "You've reached the limit of 2000 questions.",
 };

@@ -154,6 +154,7 @@ ol {{ background:var(--card); border:1px solid var(--line); border-radius:12px; 
 </style></head><body><main>
 <h1>Compound admin</h1><p class="muted">Private: built on this computer at {made} from the live database. Notes, guesses and individual answers are left out. Don't share this page.</p>
 <div class="tiles">{tiles}</div>
+<h2>Totals</h2><p class="muted">Teacher approvals, reports and AI spend are on the site at #/review, for admin accounts.</p>
 <h2>Accounts</h2><div class="scroll"><table><tr><th>Nickname</th><th>Email</th><th>Sign-in</th><th>Joined</th><th>Last active</th>
 <th class=n>Level</th><th class=n>XP</th><th class=n>Read</th><th class=n>Modules passed</th><th class=n>Checkpoints</th><th class=n>Attempts</th><th>Furthest passed</th></tr>{acc}</table></div>
 <h2>How each module is going</h2><p class="muted">Admins left out. First try = average auto-marked score on each person's first attempt.</p>
