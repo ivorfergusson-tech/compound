@@ -134,7 +134,7 @@ def main():
         s, lb = call("GET", f"/rest/v1/leaderboard?select=xp&nickname=eq.{nick_a}")
         check("recall part adds no mark XP (still 70)", lb and lb[0]["xp"] == 70, lb)
         check("impossible recall part rejected", post(a, "attempts", {**with_recall, "recall_auto": 5, "id": str(uuid.uuid4())})[0] == 400)
-        other = {**att, "item_id": "econ-aqa:4.1.5", "auto": 0, "claimed": 0, "passed": False, "id": str(uuid.uuid4())}
+        other = {**att, "item_id": "econ-aqa:4.1.1.1", "auto": 0, "claimed": 0, "passed": False, "id": str(uuid.uuid4())}
         check("other course's item id accepted", post(a, "attempts", other)[0] == 201)
         check("junk item id rejected", post(a, "attempts", {**other, "item_id": "drop table", "id": str(uuid.uuid4())})[0] == 400)
         # nickname lock: 7 days after it's set, enforced by the database
@@ -163,6 +163,16 @@ def main():
         check("exam dates must be an object", s == 400, s)
         s, _ = post(b, "settings", {"user_id": a["id"], "exams": exams})
         check("B can't write A's exam dates", s in (401, 403, 409), s)
+
+        # score guards: the full set is in tools/classes_sql_test.mjs
+        fake = {**att, "item_id": "econ-aqa:nope", "id": str(uuid.uuid4())}
+        post(a, "attempts", fake)
+        s, data = call("GET", f"/rest/v1/attempts?select=id&id=eq.{fake['id']}", token=a["token"])
+        check("a score for a fake lesson is dropped", s == 200 and data == [], f"{s} {data}")
+        s, data = call("DELETE", f"/rest/v1/attempts?user_id=eq.{a['id']}", token=a["token"], prefer="return=representation")
+        check("saved scores can't be deleted", s in (200, 204, 403) and not data, f"{s} {data}")
+        s, data = call("PATCH", f"/rest/v1/attempts?user_id=eq.{a['id']}", {"auto": 7}, token=a["token"], prefer="return=representation")
+        check("saved scores can't be edited", s in (200, 204, 403) and not data, f"{s} {data}")
 
         # classes (P4): the full set of attacks is in tools/classes_sql_test.mjs; this proves they hold on the real database
         rpc = lambda u, fn, body=None: call("POST", f"/rest/v1/rpc/{fn}", body or {}, token=u["token"])

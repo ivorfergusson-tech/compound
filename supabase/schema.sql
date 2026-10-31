@@ -247,6 +247,201 @@ end $$;
 revoke execute on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
 
+-- ---------- score guards ----------
+-- Quizzes are marked in the browser, so a score can't be proved here. These rules limit what a forged one can do:
+-- scores can't be changed or deleted once saved, the server's clock decides when work arrived, and a score only
+-- counts for a real item and out of no more marks than its quiz can give. Doubtful rows are dropped quietly and
+-- never refused, because one refused row would fail a real learner's whole sync.
+alter table public.attempts add column if not exists received_at timestamptz not null default now();
+
+create table if not exists public.known_items (
+  item_id text primary key,
+  max_out int not null check (max_out >= 0)
+);
+alter table public.known_items enable row level security; -- no policies: only the checks below read it
+
+-- known items: start (written by tools/known_items.py)
+delete from public.known_items;
+insert into public.known_items (item_id, max_out) values
+  ('00', 0),
+  ('01', 12),
+  ('02', 12),
+  ('03', 13),
+  ('04', 12),
+  ('05', 12),
+  ('06', 12),
+  ('07', 13),
+  ('08', 12),
+  ('09', 12),
+  ('10', 12),
+  ('11', 13),
+  ('12', 13),
+  ('13', 12),
+  ('14', 12),
+  ('15', 12),
+  ('16', 13),
+  ('17', 12),
+  ('18', 12),
+  ('19', 12),
+  ('20', 12),
+  ('21', 13),
+  ('22', 12),
+  ('23', 12),
+  ('24', 12),
+  ('25', 13),
+  ('26', 12),
+  ('27', 12),
+  ('28', 12),
+  ('29', 12),
+  ('30', 13),
+  ('31', 12),
+  ('32', 13),
+  ('cp1', 60),
+  ('cp2', 60),
+  ('cp3', 60),
+  ('cp4', 60),
+  ('econ-aqa:4.1.1.1', 9),
+  ('econ-aqa:4.1.1.2', 12),
+  ('econ-aqa:4.1.1.4', 9),
+  ('econ-aqa:4.1.1.5', 9),
+  ('econ-aqa:4.1.2.1', 9),
+  ('econ-aqa:4.1.2.2', 9),
+  ('econ-aqa:4.1.2.3', 9),
+  ('econ-aqa:4.1.2.4', 9),
+  ('econ-aqa:4.1.3.1', 9),
+  ('econ-aqa:4.1.3.2', 10),
+  ('econ-aqa:4.1.3.3', 9),
+  ('econ-aqa:4.1.3.4', 9),
+  ('econ-aqa:4.1.3.5', 9),
+  ('econ-aqa:4.1.3.6', 9),
+  ('econ-aqa:4.1.4.1', 10),
+  ('econ-aqa:4.1.4.3', 9),
+  ('econ-aqa:4.1.4.4', 9),
+  ('econ-aqa:4.1.4.5', 9),
+  ('econ-aqa:4.1.4.6', 9),
+  ('econ-aqa:4.1.4.7', 9),
+  ('econ-aqa:4.1.4.8', 9),
+  ('econ-aqa:4.1.5.1', 9),
+  ('econ-aqa:4.1.5.10', 9),
+  ('econ-aqa:4.1.5.11', 9),
+  ('econ-aqa:4.1.5.2', 10),
+  ('econ-aqa:4.1.5.3', 10),
+  ('econ-aqa:4.1.5.4', 9),
+  ('econ-aqa:4.1.5.5a', 9),
+  ('econ-aqa:4.1.5.5b', 10),
+  ('econ-aqa:4.1.5.6', 10),
+  ('econ-aqa:4.1.5.7', 9),
+  ('econ-aqa:4.1.5.8', 9),
+  ('econ-aqa:4.1.5.9', 9),
+  ('econ-aqa:4.1.6.1', 9),
+  ('econ-aqa:4.1.6.2', 9),
+  ('econ-aqa:4.1.6.3', 9),
+  ('econ-aqa:4.1.6.4', 9),
+  ('econ-aqa:4.1.6.5', 9),
+  ('econ-aqa:4.1.6.6', 9),
+  ('econ-aqa:4.1.6.7', 9),
+  ('econ-aqa:4.1.7.1', 10),
+  ('econ-aqa:4.1.7.2', 9),
+  ('econ-aqa:4.1.7.3', 9),
+  ('econ-aqa:4.1.8.1', 9),
+  ('econ-aqa:4.1.8.10', 9),
+  ('econ-aqa:4.1.8.2', 9),
+  ('econ-aqa:4.1.8.3', 9),
+  ('econ-aqa:4.1.8.4', 9),
+  ('econ-aqa:4.1.8.5', 9),
+  ('econ-aqa:4.1.8.6', 9),
+  ('econ-aqa:4.1.8.7', 9),
+  ('econ-aqa:4.1.8.8', 9),
+  ('econ-aqa:4.1.8.9a', 9),
+  ('econ-aqa:4.1.8.9b', 9),
+  ('econ-aqa:4.2.1.1', 9),
+  ('econ-aqa:4.2.1.2', 9),
+  ('econ-aqa:4.2.1.3', 9),
+  ('econ-aqa:4.2.1.4', 9),
+  ('econ-aqa:4.2.2.1', 9),
+  ('econ-aqa:4.2.2.2', 9),
+  ('econ-aqa:4.2.2.3', 9),
+  ('econ-aqa:4.2.2.4', 9),
+  ('econ-aqa:4.2.2.5', 9),
+  ('econ-aqa:4.2.2.6', 9),
+  ('econ-aqa:4.2.3.1a', 9),
+  ('econ-aqa:4.2.3.1b', 9),
+  ('econ-aqa:4.2.3.2a', 9),
+  ('econ-aqa:4.2.3.2b', 9),
+  ('econ-aqa:4.2.3.3a', 9),
+  ('econ-aqa:4.2.3.3b', 9),
+  ('econ-aqa:4.2.3.4', 9),
+  ('econ-aqa:4.2.4.1', 9),
+  ('econ-aqa:4.2.4.2', 9),
+  ('econ-aqa:4.2.4.3a', 9),
+  ('econ-aqa:4.2.4.3b', 9),
+  ('econ-aqa:4.2.4.4', 9),
+  ('econ-aqa:4.2.5.1a', 9),
+  ('econ-aqa:4.2.5.1b', 9),
+  ('econ-aqa:4.2.5.1c', 9),
+  ('econ-aqa:4.2.5.2', 9),
+  ('econ-aqa:4.2.6.1', 9),
+  ('econ-aqa:4.2.6.2a', 9),
+  ('econ-aqa:4.2.6.2b', 9),
+  ('econ-aqa:4.2.6.3a', 9),
+  ('econ-aqa:4.2.6.3b', 9),
+  ('econ-aqa:4.2.6.4', 9),
+  ('econ-aqa:4.2.6.5a', 9),
+  ('econ-aqa:4.2.6.5b', 9),
+  ('econ-aqa:cp1', 60),
+  ('econ-aqa:cp2', 60),
+  ('econ-aqa:cp3', 60),
+  ('econ-aqa:cp4', 60),
+  ('econ-aqa:exam-1', 0),
+  ('econ-aqa:exam-2', 0),
+  ('econ-aqa:exam-3', 0),
+  ('econ-aqa:exam-4', 0),
+  ('rf', 60);
+-- known items: end
+
+-- Saved scores are permanent: learners can add and read them, never edit or delete them. Deleting an account still removes them.
+drop policy if exists "own rows" on public.attempts;
+drop policy if exists "attempts: see own" on public.attempts;
+drop policy if exists "attempts: add own" on public.attempts;
+create policy "attempts: see own" on public.attempts for select to authenticated using (user_id = (select auth.uid()));
+create policy "attempts: add own" on public.attempts for insert to authenticated with check (user_id = (select auth.uid()));
+
+create or replace function public.attempts_guard() returns trigger
+language plpgsql security definer set search_path = public as $$
+declare top int;
+begin
+  if exists (select 1 from attempts where id = new.id) then return new; end if; -- a re-send: the conflict rule ignores it
+  select max_out into top from known_items where item_id = new.item_id;
+  if top is null or new.out_of > (case when new.kind = 'recall' and new.item_id <> 'rf' then 12 else top end) then return null; end if;
+  new.received_at := now();
+  new.at := least(new.at, now());
+  return new;
+end $$;
+drop trigger if exists attempts_guard on public.attempts;
+create trigger attempts_guard before insert on public.attempts for each row execute function public.attempts_guard();
+revoke execute on function public.attempts_guard() from public, anon, authenticated;
+
+create or replace function public.reads_guard() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if not exists (select 1 from known_items where item_id = new.item_id) then return null; end if;
+  return new;
+end $$;
+drop trigger if exists reads_guard on public.module_reads;
+create trigger reads_guard before insert on public.module_reads for each row execute function public.reads_guard();
+revoke execute on function public.reads_guard() from public, anon, authenticated;
+
+-- A streak can't be built from days that haven't happened, or from before Compound existed.
+create or replace function public.days_guard() returns trigger
+language plpgsql as $$
+begin
+  if new.day > current_date + 1 or new.day < date '2026-01-01' then return null; end if;
+  return new;
+end $$;
+drop trigger if exists days_guard on public.active_days;
+create trigger days_guard before insert on public.active_days for each row execute function public.days_guard();
+revoke execute on function public.days_guard() from public, anon, authenticated;
+
 -- ---------- P4: teachers and classes ----------
 -- Privacy model: nothing here can be written directly, and students can't read classes directly. Every change goes
 -- through a function below that checks who is asking. Real names are only ever returned to the class's own teacher;
@@ -475,11 +670,11 @@ begin
   return query
     select m.user_id, m.real_name, p.nickname, m.joined_at, m.left_at,
            (select count(distinct a.item_id) from attempts a
-            where a.user_id = m.user_id and a.passed and a.kind = 'quiz' and item_in_course(a.item_id, c.course)
-              and a.at >= m.joined_at and (m.left_at is null or a.at <= m.left_at)),
-           (select max(a.at) from attempts a
+            where a.user_id = m.user_id and a.auto_passed and a.kind = 'quiz' and item_in_course(a.item_id, c.course)
+              and a.received_at >= m.joined_at and (m.left_at is null or a.received_at <= m.left_at)),
+           (select max(a.received_at) from attempts a
             where a.user_id = m.user_id and item_in_course(a.item_id, c.course)
-              and a.at >= m.joined_at and (m.left_at is null or a.at <= m.left_at))
+              and a.received_at >= m.joined_at and (m.left_at is null or a.received_at <= m.left_at))
     from class_members m left join profiles p on p.user_id = m.user_id
     where m.class_id = p_class order by m.left_at nulls first, m.real_name;
 end $$;
@@ -526,7 +721,7 @@ begin
     with best as (
       select a.user_id, a.item_id, max(a.auto) as top, bool_or(a.auto_passed) as won, max(a.kind) as kind
       from attempts a join class_members m on m.user_id = a.user_id and m.class_id = p_class and m.left_at is null
-      where a.kind <> 'recall' and a.at >= m.joined_at and item_in_course(a.item_id, c.course)
+      where a.kind <> 'recall' and a.received_at >= m.joined_at and item_in_course(a.item_id, c.course)
       group by a.user_id, a.item_id
     ), totals as (
       select m.user_id, coalesce(sum(b.top * 10 + case when b.won then (case when b.kind = 'checkpoint' then 150 else 50 end) else 0 end), 0)::int as x

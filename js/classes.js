@@ -208,9 +208,9 @@ export async function viewTeachClass(ctx, id) {
       ${c.joining_open ? '' : '<p class="small muted">Joining is closed.</p>'}</section>
     <section class="card"><h2>Students (${active.length})</h2>
       ${roster.length ? `<div class="table-scroll" tabindex="0" role="region" aria-label="Students in this class"><table class="roster">
-        <thead><tr><th scope="col">Name</th><th scope="col">Nickname</th><th scope="col">Lessons passed</th><th scope="col">Last active</th><th scope="col"><span class="sr">Actions</span></th></tr></thead>
+        <thead><tr><th scope="col">Name</th><th scope="col">Nickname</th><th scope="col">Lessons passed (auto-marked)</th><th scope="col">Last active</th><th scope="col"><span class="sr">Actions</span></th></tr></thead>
         <tbody>${active.map(row).join('')}${past.map(row).join('')}</tbody></table></div>
-        <p class="small muted">Work counts from the day a student joined. Real names are only shown to you.</p>` : '<p class="muted">Nobody has joined yet. Share the code, the link or the QR code.</p>'}
+        <p class="small muted">Work counts from the day a student joined. Quizzes are marked in the student's browser, so treat these as a guide, not an assessment. Real names are only shown to you.</p>` : '<p class="muted">Nobody has joined yet. Share the code, the link or the QR code.</p>'}
       <p class="auth-msg" role="status" aria-live="polite"></p></section>
     <section class="card"><h2>Settings</h2>
       <label class="check"><input type="checkbox" class="lb-on"${c.leaderboard_on ? ' checked' : ''}> Class leaderboard (students see nicknames and XP)</label>

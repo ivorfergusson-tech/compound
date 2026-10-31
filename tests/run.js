@@ -586,6 +586,17 @@ check('unit: Money has modules and A-levels have lessons', unitOf({}) === 'modul
   const recent = buildCp(pools, [1, 30], { size: 10 });
   check('checkpoint: the default still leans to the latest eight', recent.filter(x => x.module >= 23).length === 6);
 }
+{
+  // Every published item must be in the database's list, or real learners' scores would be dropped.
+  const schema = readFileSync(new URL('../supabase/schema.sql', import.meta.url), 'utf8');
+  for (const e of registry.courses.filter(c => c.live)) {
+    const c = JSON.parse(readFileSync(new URL(`courses/${e.id}/course.json`, contentRoot)));
+    for (const i of c.items) {
+      const key = c.legacyIds ? i.id : `${e.id}:${i.id}`;
+      check(`known_items has ${key} (run tools/known_items.py)`, schema.includes(`('${key}', `));
+    }
+  }
+}
 check('market: starts at £60 and 40', equilibrium(0, 0).p === 60 && equilibrium(0, 0).q === 40);
 check('market: more demand raises price and quantity', equilibrium(20, 0).p === 70 && equilibrium(20, 0).q === 50);
 check('market: more supply lowers price, raises quantity', equilibrium(0, 20).p === 50 && equilibrium(0, 20).q === 50);

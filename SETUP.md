@@ -93,4 +93,4 @@ Run `supabase/schema.sql` again before pushing this code. Then:
 - **See who's waiting:** `select u.email, t.display_name, t.school, t.created_at from public.teachers t join auth.users u on u.id = t.user_id where t.status = 'unverified';`
 - **Trust another email domain:** `insert into public.teacher_domains (domain) values ('trust.org.uk');` Any confirmed address at that domain or below it is verified automatically. `.sch.uk` and `.ac.uk` already are.
 - **Test the rules without touching Supabase:** `npm i --no-save @electric-sql/pglite@0.2.17`, then `node tools/classes_sql_test.mjs supabase/schema.sql`.
-
+- **After adding a course or changing a quiz:** `python tools/known_items.py`, then run `schema.sql` again **before** pushing. Otherwise scores for new items are dropped until you do. `node tests/run.js` fails if the list is out of date.

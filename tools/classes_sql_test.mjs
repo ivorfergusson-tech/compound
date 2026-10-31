@@ -96,8 +96,11 @@ await seed(A, 'money:nope', new Date().toISOString());
 await seed(A, '01', new Date().toISOString());
 r = await as(T, `select * from public.class_roster('${cid}')`);
 check('work since joining counts, in this course only', Number(amy().passed) === 1);
+await db.query(`insert into public.attempts (id, user_id, kind, item_id, auto, claimed, out_of, passed, auto_passed, day) values (gen_random_uuid(), '${A}', 'quiz', 'econ-aqa:4.1.1.5', 1, 5, 6, true, false, current_date)`);
+r = await as(T, `select * from public.class_roster('${cid}')`);
+check('a pass from self-claimed marks doesn\'t count for the teacher', Number(amy().passed) === 1);
 const pts = (await as(B, `select * from public.class_leaderboard('${cid}')`));
-check('class XP counts this work only', pts.find(x => x.nickname === 'Alpha').xp === 110 && pts.find(x => x.nickname === 'Alpha').is_me === false, JSON.stringify(pts));
+check('class XP counts this work only', pts.find(x => x.nickname === 'Alpha').xp === 120 && pts.find(x => x.nickname === 'Alpha').is_me === false, JSON.stringify(pts));
 check('money class counts bare ids', (await db.query(`select public.item_in_course('01', 'money') a, public.item_in_course('econ-aqa:1', 'money') b, public.item_in_course('econ-aqa-x:1', 'econ-aqa') c`)).rows[0].a === true);
 
 // Leaderboard switch
@@ -149,6 +152,39 @@ for (let i = 0; i < 35; i++) {
   await as(id, `select public.join_class('${smallCode}', 'Kid Name', true)`);
 }
 check('unverified class stops at 35', await fail(C, `select public.join_class('${smallCode}', 'Cat Cole', true)`) === 'CN102');
+
+// Score guards: what a student could try from the browser's own connection
+const fid = () => crypto.randomUUID();
+const put = (u, item, extra = '') => as(u, `insert into public.attempts (id, user_id, kind, item_id, auto, out_of, passed, auto_passed, day${extra ? ', at' : ''})
+  values ('${fid()}', '${u}', 'quiz', '${item}', 7, 7, true, true, current_date${extra})`);
+const count = async (u, item) => (await db.query(`select count(*)::int n from public.attempts where user_id = '${u}' and item_id = '${item}'`)).rows[0].n;
+await put(C, 'econ-aqa:made-up-lesson');
+check('a score for a lesson that doesn\'t exist is dropped', await count(C, 'econ-aqa:made-up-lesson') === 0);
+await as(C, `insert into public.attempts (id, user_id, kind, item_id, auto, out_of, passed, auto_passed, day) values ('${fid()}', '${C}', 'quiz', '01', 60, 60, true, true, current_date)`);
+check('a score out of too many marks is dropped', await count(C, '01') === 0);
+await as(C, `insert into public.attempts (id, user_id, kind, item_id, auto, out_of, passed, auto_passed, day) values ('${fid()}', '${C}', 'recall', '01', 40, 40, false, false, current_date)`);
+check('an inflated recall is dropped', await count(C, '01') === 0);
+await put(C, '01');
+check('a real score is kept', await count(C, '01') === 1);
+const rec = (await db.query(`select received_at from public.attempts where user_id = '${C}' and item_id = '01'`)).rows[0];
+check('the server sets when it arrived', Math.abs(new Date(rec.received_at) - Date.now()) < 60000);
+await put(C, '02', `, '2099-01-01'`);
+check('a date in the future is pulled back to now', new Date((await db.query(`select at from public.attempts where user_id = '${C}' and item_id = '02'`)).rows[0].at).getFullYear() < 2099);
+await as(C, `update public.attempts set received_at = '2000-01-01'`);
+check('you can\'t change the arrival time', new Date((await db.query(`select received_at r from public.attempts where user_id = '${C}' and item_id = '01'`)).rows[0].r).getFullYear() > 2000);
+check('a saved score can\'t be edited', (await as(C, `update public.attempts set auto = 7 where item_id = '01' returning 1`)).length === 0);
+check('a saved score can\'t be deleted', (await as(C, `delete from public.attempts where item_id = '01' returning 1`)).length === 0 && await count(C, '01') === 1);
+const dup = (await db.query(`select id from public.attempts where user_id = '${C}' and item_id = '01'`)).rows[0].id;
+await as(C, `insert into public.attempts (id, user_id, kind, item_id, auto, out_of, day) values ('${dup}', '${C}', 'quiz', '01', 1, 7, current_date) on conflict (id) do nothing`);
+check('a re-sent score causes no error and changes nothing', await count(C, '01') === 1);
+await as(C, `insert into public.module_reads (user_id, item_id) values ('${C}', 'fake-99')`);
+check('a read of a fake lesson is dropped', (await db.query(`select 1 from public.module_reads where user_id = '${C}'`)).rows.length === 0);
+await as(C, `insert into public.module_reads (user_id, item_id) values ('${C}', '01')`);
+check('a real read is kept', (await db.query(`select 1 from public.module_reads where user_id = '${C}'`)).rows.length === 1);
+await as(C, `insert into public.active_days (user_id, day) values ('${C}', '2099-01-01'), ('${C}', '2001-01-01'), ('${C}', current_date)`);
+check('only real days count towards a streak', (await db.query(`select 1 from public.active_days where user_id = '${C}'`)).rows.length === 1);
+check('students can\'t read the item list', (await as(C, 'select * from public.known_items')).length === 0);
+check('students can\'t change the item list', Boolean(await fail(C, `insert into public.known_items values ('x', 999)`)));
 
 // Deleting accounts
 await as(A, 'select public.delete_my_account()');
