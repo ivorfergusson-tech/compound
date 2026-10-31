@@ -968,6 +968,7 @@ begin
     when 'explain' then
       if jsonb_typeof(r) <> 'string' then return 0; end if;
       return public.mk_explain(r #>> '{}', q->'ideas');
+    when 'long' then return null; -- a written answer waits for the teacher
     else return 0;
   end case;
   return case when right_answer then full_marks else 0 end;
@@ -992,6 +993,7 @@ begin
     when 'order' then return jsonb_typeof(q->'items') = 'array' and jsonb_typeof(q->'shown') = 'array';
     when 'match' then return jsonb_typeof(q->'pairs') = 'array' and jsonb_typeof(q->'rightShown') = 'array';
     when 'explain' then return jsonb_typeof(q->'ideas') = 'array' and jsonb_array_length(q->'ideas') > 0;
+    when 'long' then return true;
     else return false;
   end case;
 end $$;
@@ -1117,9 +1119,10 @@ begin
 end $$;
 
 -- One row per student. Facts only: js/assign.js turns them into "late", "overdue" and so on.
+drop function if exists public.assignment_overview(uuid);
 create or replace function public.assignment_overview(p_assignment uuid)
 returns table (user_id uuid, real_name text, left_at timestamptz, attempts bigint, in_progress boolean, best_sub uuid,
-               best_marks int, out_of int, first_submitted timestamptz, auto_submitted boolean, lessons_done bigint, lessons_at timestamptz)
+               best_marks int, out_of int, first_submitted timestamptz, auto_submitted boolean, lessons_done bigint, lessons_at timestamptz, to_mark bigint)
 language plpgsql security definer set search_path = public as $$
 declare a public.assignments; c public.classes;
 begin
@@ -1132,7 +1135,8 @@ begin
       exists (select 1 from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is null and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
       b.id, b.marks, b.out_of,
       (select min(s.submitted_at) from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
-      b.auto_submitted, l.done, l.finished
+      b.auto_submitted, l.done, l.finished,
+      (select count(*) from answers x where x.submission_id = b.id and x.marks is null and x.teacher_marks is null)
     from class_members m
     left join lateral (select s.* from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is not null
                          and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)
@@ -1150,7 +1154,7 @@ language plpgsql stable security definer set search_path = public as $$
 declare s public.submissions := require_own_sub(p_sub);
 begin
   return jsonb_build_object('id', s.id, 'attempt', s.attempt, 'started_at', s.started_at, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
-    'items', (select coalesce(jsonb_agg(jsonb_build_object('position', i.position, 'marks', i.marks, 'text', i.q->'text', 'correct', i.q->'correctText', 'why', i.q->'whyText',
+    'items', (select coalesce(jsonb_agg(jsonb_build_object('position', i.position, 'marks', i.marks, 'text', i.q->'text', 'correct', i.q->'correctText', 'why', i.q->'whyText', 'scheme', i.q->'scheme',
                 'type', i.q->'type', 'options', i.q->'options', 'response', x.response, 'auto', x.marks, 'teacher_marks', x.teacher_marks, 'teacher_note', x.teacher_note) order by i.position), '[]')
               from assignment_items i left join answers x on x.submission_id = s.id and x.position = i.position
               where i.assignment_id = s.assignment_id and i.kind = 'question'));
@@ -1171,6 +1175,51 @@ begin
   select coalesce(sum(coalesce(teacher_marks, marks)), 0) into total from answers where submission_id = p_sub;
   update submissions set marks = total where id = p_sub;
   return total;
+end $$;
+
+-- ---------- a teacher's own questions ----------
+-- Private to the teacher. Stored ready to set, in the frozen format; setting one copies it, so editing or
+-- deleting it later doesn't change work already set.
+create table if not exists public.teacher_questions (
+  id         uuid primary key default gen_random_uuid(),
+  teacher_id uuid not null references auth.users (id) on delete cascade,
+  course     text not null check (course ~ '^[a-z0-9-]{2,30}$'),
+  q          jsonb not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists teacher_questions_teacher on public.teacher_questions (teacher_id, course);
+alter table public.teacher_questions enable row level security;
+
+create or replace function public.save_teacher_question(p_id uuid, p_course text, p_q jsonb) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := require_user();
+  m int := coalesce((p_q->>'marks')::int, 0);
+  r uuid;
+begin
+  if not exists (select 1 from teachers where user_id = uid) then raise exception 'teachers only' using errcode = '42501'; end if;
+  if not coalesce(q_ok(p_q), false) or p_q->>'type' = 'explain' or m not between 1 and 50 or length(p_q->>'text') > 4000 or octet_length(p_q::text) > 20000 then
+    raise exception 'bad question' using errcode = 'CN202';
+  end if;
+  if (select count(*) from teacher_questions where teacher_id = uid) >= 2000 then raise exception 'too many questions' using errcode = 'CN208'; end if;
+  if p_id is null then
+    insert into teacher_questions (teacher_id, course, q) values (uid, p_course, p_q) returning id into r;
+  else
+    update teacher_questions set q = p_q where id = p_id and teacher_id = uid returning id into r;
+    if not found then raise exception 'not your question' using errcode = '42501'; end if;
+  end if;
+  return r;
+end $$;
+
+create or replace function public.my_teacher_questions(p_course text) returns table (id uuid, q jsonb)
+language sql stable security definer set search_path = public as $$
+  select t.id, t.q from teacher_questions t where t.teacher_id = require_user() and t.course = p_course order by t.created_at desc
+$$;
+
+create or replace function public.delete_teacher_question(p_id uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  delete from teacher_questions where id = p_id and teacher_id = require_user();
 end $$;
 
 -- ---------- students ----------
@@ -1236,7 +1285,7 @@ begin
     perform finish_submission(s.id, s.deadline, true);
     return jsonb_build_object('closed', true);
   end if;
-  if octet_length(p_answers::text) > 200000 or exists (select 1 from jsonb_each(p_answers) e where octet_length(e.value::text) > 8000) then
+  if octet_length(p_answers::text) > 1000000 or exists (select 1 from jsonb_each(p_answers) e where octet_length(e.value::text) > 40000) then
     raise exception 'answer too long' using errcode = 'CN207';
   end if;
   insert into answers (submission_id, position, response)
@@ -1296,6 +1345,7 @@ begin
   end loop;
   foreach f in array array[
     'create_assignment(uuid, text, text, timestamptz, timestamptz, int, int, jsonb)', 'archive_assignment(uuid)', 'class_assignments(uuid)',
+    'save_teacher_question(uuid, text, jsonb)', 'my_teacher_questions(text)', 'delete_teacher_question(uuid)',
     'assignment_overview(uuid)', 'submission_detail(uuid)', 'set_answer_mark(uuid, int, int, text)', 'my_assignments()', 'start_attempt(uuid)',
     'save_answers(uuid, jsonb)', 'submit_attempt(uuid, jsonb)', 'my_result(uuid)', 'my_work_export()'
   ] loop

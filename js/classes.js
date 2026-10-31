@@ -22,6 +22,7 @@ const PROBLEMS = {
   CN205: 'That mark is out of range.',
   CN206: "You've used all your attempts.",
   CN207: 'One of your answers is too long.',
+  CN208: "You've reached the limit of 2000 questions.",
 };
 export const problemFor = e => PROBLEMS[e?.code] || (e?.code === '42501' ? "You don't have access to that." : "That didn't work. Try again.");
 export const cleanCode = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);

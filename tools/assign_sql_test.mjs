@@ -4,7 +4,7 @@ import { PGlite } from '@electric-sql/pglite'; // npm i --no-save @electric-sql/
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { mark, instantiate } from '../js/quiz.js';
 import { normalise, stem, tokens, editDistance, wordMatches, containsPhrase, parseNumber } from '../js/marking.js';
-import { freeze, statusOf } from '../js/assign.js';
+import { freeze, statusOf, buildMock, teacherQuestion, dueSoon } from '../js/assign.js';
 const db = new PGlite();
 let fails = 0, oks = 0;
 const check = (n, c, x = '') => { if (c) oks++; else { fails++; console.log('FAIL', n, x); } };
@@ -155,7 +155,7 @@ const again = await start(A, a1);
 check('autosave comes back on resume', again.answers['1'] === 1 && again.answers['2'] === '£42');
 check('unknown positions are dropped', !('99' in again.answers));
 check('someone else can\'t save to my attempt', await fail(B, `select public.save_answers('${s1.id}', '{"1":0}'::jsonb)`) === 'CN201');
-check('a huge answer is refused', await code_of(save(A, s1.id, { 3: 'x'.repeat(9000) })) === 'CN207');
+check('a huge answer is refused', await code_of(save(A, s1.id, { 3: 'x'.repeat(50000) })) === 'CN207');
 check('a student can\'t read a result before handing in', Boolean(await fail(A, `select public.my_result('${s1.id}')`)));
 
 // ---------- handing in and marks ----------
@@ -250,6 +250,25 @@ check('work from before joining is hidden', Boolean(await fail(T, `select public
 check('and from the overview', !(await as(T, `select * from public.assignment_overview('${a1}')`)).find(r => r.user_id === A).best_sub);
 await db.query(`update public.class_members set joined_at = now() - interval '1 hour' where user_id = '${A}'`);
 
+// ---------- mock papers and forms ----------
+const pool = { a: [1, 2, 3, 4].map(i => ({ id: `a${i}`, type: 'tf', q: 'x', answer: true, paper: 1 })), b: [1, 2, 3, 4].map(i => ({ id: `b${i}`, type: 'tf', q: 'x', answer: true, paper: 2, group: 'g' })) };
+const m1 = buildMock(pool, 3, { paper: 1 });
+check('a mock hits its target', m1.marks === 3 && m1.questions.length === 3);
+check('a mock keeps to its paper', m1.questions.every(q => q.paper === 1));
+check('a mock uses one of a group', buildMock(pool, 8).questions.filter(q => q.group === 'g').length === 1);
+check('a mock stops when the bank runs out', buildMock(pool, 99).marks === 5);
+const spread = buildMock(pool, 2, { rng: () => 0.5 }).questions.map(q => q.id[0]).sort().join('');
+check('a mock spreads across lessons', spread === 'ab', spread);
+const form = { text: ' Q ', why: '', options: ['a', 'b', '', ''], right: 1, truth: 'false', value: '4.5', unit: '%', marks: '9', scheme: 'S', model: 'M' };
+const tqs = ['mcq', 'tf', 'number', 'long'].map(type => teacherQuestion({ ...form, type }).q);
+for (const q of tqs) check(`the ${q.type} form makes a valid question`, (await db.query('select public.q_ok($1::jsonb) ok', [JSON.stringify(q)])).rows[0].ok);
+check('the mcq form marks properly', await sqlMark(tqs[0], 1) === 1 && await sqlMark(tqs[0], 0) === 0);
+check('the number form marks properly', await sqlMark(tqs[2], '4.5%') === 1);
+check('one option is refused', Boolean(teacherQuestion({ ...form, type: 'mcq', options: ['a', '', '', ''], right: 0 }).problem));
+check('an empty right option is refused', Boolean(teacherQuestion({ ...form, type: 'mcq', right: 3 }).problem));
+const due = dueSoon([{ id: 1, questions: 1, lessons: [], due_at: '2099-02-01' }, { id: 2, questions: 1, lessons: [], due_at: '2099-01-01' }, { id: 3, questions: 1, lessons: [] }, { id: 4, questions: 1, lessons: [], first_submitted: '2026-01-01' }]);
+check('due soon: soonest first, finished work gone', due.map(x => x.a.id).join() === '2,1,3');
+
 // ---------- status wording ----------
 const A0 = { questions: 2, lessons: 0, due_at: '2026-01-02T00:00:00Z' };
 const t0 = Date.parse('2026-01-01T00:00:00Z'), t9 = Date.parse('2026-01-03T00:00:00Z');
@@ -259,6 +278,38 @@ check('status: going', statusOf({ in_progress: true }, A0, t0).key === 'going');
 check('status: on time', statusOf({ first_submitted: '2026-01-01T12:00:00Z' }, A0, t9).key === 'done');
 check('status: late', statusOf({ first_submitted: '2026-01-02T12:00:00Z' }, A0, t9).key === 'late');
 check('status: exactly on time isn\'t late', statusOf({ first_submitted: A0.due_at }, A0, t9).key === 'done');
+
+// ---------- a teacher's own questions ----------
+const longQ = { type: 'long', text: 'Evaluate', marks: 9, scheme: 'SECRET-SCHEME', correctText: 'SECRET-MODEL' };
+const saveQ = (u, q, id = null) => as(u, 'select public.save_teacher_question($1, $2, $3::jsonb) id', [id, 'econ-aqa', JSON.stringify(q)]);
+check('a student can\'t save a question', Boolean(await code_of(saveQ(C, longQ))));
+const tq = (await saveQ(T, longQ))[0].id;
+check('the teacher sees it', (await as(T, `select * from public.my_teacher_questions('econ-aqa')`)).length === 1);
+check('another teacher doesn\'t', (await as(T2, `select * from public.my_teacher_questions('econ-aqa')`)).length === 0);
+check('it can\'t be read directly', (await as(T, 'select * from public.teacher_questions')).length === 0);
+check('another teacher can\'t edit it', Boolean(await code_of(saveQ(T2, longQ, tq))));
+await as(T2, `select public.delete_teacher_question('${tq}')`);
+check('another teacher can\'t delete it', (await as(T, `select * from public.my_teacher_questions('econ-aqa')`)).length === 1);
+check('no marks, no question', await code_of(saveQ(T, { ...longQ, marks: 0 })) === 'CN202');
+check('a keyword question can\'t be typed in', await code_of(saveQ(T, exp)) === 'CN202');
+
+// ---------- written answers ----------
+const a9 = await make({ attempts: 1 }, T, [{ kind: 'question', id: `t:${tq}`, q: longQ }, { kind: 'question', id: 'q1', q: mcq }]);
+const s9 = await start(A, a9);
+check('the scheme and model don\'t reach the student', !/SECRET/.test(JSON.stringify(s9.items.filter(i => i.type === 'long'))));
+const r9 = (await sub(A, s9.id, { 1: 'A long answer', 2: 1 }))[0].r;
+check('a written answer waits, the rest is marked', r9.marks === 1 && r9.out_of === 10, JSON.stringify(r9));
+const ov9 = await as(T, `select * from public.assignment_overview('${a9}')`);
+check('the teacher sees it to mark', Number(ov9.find(r => r.user_id === A).to_mark) === 1);
+const det9 = (await as(T, `select public.submission_detail('${s9.id}') r`))[0].r;
+check('the teacher gets the scheme', det9.items[0].scheme === 'SECRET-SCHEME');
+const mid = (await as(A, `select public.my_result('${s9.id}') r`))[0].r;
+check('the student never gets the scheme', !/SECRET-SCHEME/.test(JSON.stringify(mid)));
+check('an unmarked answer shows as waiting', mid.items[0].got === null);
+check('the teacher\'s mark completes it', (await as(T, `select public.set_answer_mark('${s9.id}', 1, 7, 'Good') t`))[0].t === 8);
+check('nothing left to mark', Number((await as(T, `select * from public.assignment_overview('${a9}')`)).find(r => r.user_id === A).to_mark) === 0);
+await as(T, `select public.delete_teacher_question('${tq}')`);
+check('deleting a question leaves set work alone', (await as(T, `select public.submission_detail('${s9.id}') r`))[0].r.items.length === 2);
 
 // ---------- deleting ----------
 check('export gives my work', (await as(A, 'select public.my_work_export() r'))[0].r.length > 0);

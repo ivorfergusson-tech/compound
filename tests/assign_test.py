@@ -50,6 +50,7 @@ class Fake:
         self.submitted = False
         self.created = None
         self.marked = None
+        self.bank = []
 
     def row(self):
         return {"id": AID, "class_id": CID, "class_name": "13A", "title": "Scarcity homework", "note": "Do it well", "open_at": "2026-01-01T00:00:00Z",
@@ -86,6 +87,14 @@ class Fake:
             return []
         if name == "class_plan":
             return []
+        if name == "my_teacher_questions":
+            return self.bank
+        if name == "save_teacher_question":
+            self.bank.insert(0, {"id": "44444444-0000-4000-8000-000000000001", "q": a["p_q"]})
+            return self.bank[0]["id"]
+        if name == "delete_teacher_question":
+            self.bank = []
+            return None
         if name == "create_assignment":
             self.created = a
             return AID
@@ -144,6 +153,9 @@ with sync_playwright() as p:
     # A student does the work
     fake = Fake()
     ctx, page = new_page(browser, fake)
+    page.goto(BASE + "#/")
+    page.wait_for_selector(".due-soon")
+    check("the dashboard shows due work", "Scarcity homework" in page.locator(".due-soon").inner_text())
     page.goto(BASE + "#/classes")
     page.wait_for_selector(".work-list")
     check("work is listed on the classes page", "Scarcity homework" in page.locator(".work-list").inner_text())
@@ -244,10 +256,10 @@ with sync_playwright() as p:
     check("the class page lists work", "Scarcity homework" in page.locator("#work").inner_text())
     page.goto(BASE + f"#/teach/{CID}/set")
     page.wait_for_selector(".set-form")
-    page.locator(".set-form .btn").click()
+    page.locator(".set-form .btn.wide").click()
     check("a title is needed", page.evaluate("document.querySelector('.set-form input[name=title]').validity.valid") is False)
     page.fill("input[name=title]", "Week 1")
-    page.locator(".set-form .btn").click()
+    page.locator(".set-form .btn.wide").click()
     check("something must be chosen", "Choose at least one" in page.locator(".auth-msg").inner_text() and not fake.created)
     page.select_option(".topic", index=1)
     page.wait_for_selector(".pick")
@@ -262,12 +274,40 @@ with sync_playwright() as p:
     page.fill("input[name=attempts]", "2")
     page.screenshot(path=str(SHOTS / "work-set.png"), full_page=True)
     axe(page, "the set work page")
-    page.locator(".set-form .btn").click()
+    page.locator(".set-form .btn.wide").click()
     page.wait_for_selector(".roster")
     c = fake.created
     check("the work is sent with its settings", c and c["p_title"] == "Week 1" and c["p_minutes"] == 30 and c["p_attempts"] == 2 and c["p_due"].startswith("2099-01-01"))
     check("lessons and questions both go", [i["kind"] for i in c["p_items"]] == ["lesson", "question", "question"], c and c["p_items"])
     check("a question carries its frozen answer", "text" in c["p_items"][1]["q"] and "whyText" in c["p_items"][1]["q"])
+
+    # The teacher's own questions
+    page.goto(BASE + f"#/teach/{CID}/bank")
+    page.wait_for_selector(".q-form")
+    axe(page, "the question bank")
+    page.fill(".q-form textarea[name=text]", "Evaluate the sugar tax.")
+    page.fill(".q-form input[name=marks]", "25")
+    page.fill(".q-form textarea[name=scheme]", "Level 5: well-developed chains")
+    page.locator(".q-form .btn").click()
+    page.wait_for_selector(".del")
+    check("a written question saves", fake.bank[0]["q"]["type"] == "long" and fake.bank[0]["q"]["marks"] == 25 and "Level 5" in fake.bank[0]["q"]["scheme"], fake.bank)
+    page.select_option(".q-form select[name=type]", "mcq")
+    check("the form changes with the type", page.locator("[data-for=mcq]").is_visible() and not page.locator("[data-for=long]").is_visible())
+    page.goto(BASE + f"#/teach/{CID}/set")
+    page.wait_for_selector(".set-form")
+    page.select_option(".topic", "__mine")
+    page.wait_for_selector(".picker .check")
+    page.locator(".picker input").check()
+    check("own questions count", "25 marks" in page.locator(".set-total").inner_text())
+    page.fill(".mock-marks", "30")
+    page.select_option(".mock-paper", index=1) if page.locator(".mock-paper").count() else None
+    page.locator(".build-mock").click()
+    page.wait_for_function("document.querySelector('input[name=minutes]').value !== ''")
+    check("a mock fills the time and the title", page.input_value("input[name=minutes]") == "83" and page.input_value("input[name=title]").startswith("Mock paper"), page.input_value("input[name=minutes]"))
+    check("a mock keeps own questions", "55 marks" in page.locator(".set-total").inner_text(), page.locator(".set-total").inner_text())
+    page.locator(".set-form .btn.wide").click()
+    page.wait_for_selector(".roster")
+    check("the own question goes in as written", fake.created["p_items"][0]["q"]["type"] == "long" and fake.created["p_items"][0]["id"].startswith("t:"), fake.created["p_items"][0])
 
     # The teacher reads the results
     text = page.locator("main").inner_text()

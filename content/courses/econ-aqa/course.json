@@ -8,6 +8,7 @@
  "specVersion": "1.3",
  "specDate": "2022-06-29",
  "legacyIds": false,
+ "papers": [1, 2],
  "review": {
   "status": "ai-draft",
   "by": null,

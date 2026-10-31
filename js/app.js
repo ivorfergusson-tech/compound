@@ -6,7 +6,7 @@ import { loadRegistry, loadFigures, courseFiles } from './content.js';
 import { Progress, courseStatus, levelFor, pickRecall, itemKey, attemptPct, XP_RULES, unitOf, planItems } from './progress.js';
 
 import { viewClasses, viewJoin, viewClassBoard, viewTeach, viewTeachClass } from './classes.js';
-import { viewWork, viewResult, viewSetWork, viewAssignment, viewSubmission } from './assign.js';
+import { viewWork, viewResult, viewSetWork, viewAssignment, viewSubmission, viewBank, dueCard } from './assign.js';
 
 const UnitOf = c => (unitOf(c) === 'lesson' ? 'Lesson' : 'Module');
 import { REFRESH_ID, lastActive, nextItem, coursePercent, srsModules, pickRefresh, weakSpots, upcoming, weekPlan } from './dashboard.js';
@@ -315,8 +315,16 @@ async function viewDashboard() {
       <span class="small"><strong>${p.pct}%</strong> · ${p.passed} of ${p.total} ${unitOf(c.course)}s passed${locked ? ' · needs a free account' : ''}</span></a>`;
   }).join('');
 
+  const fillDue = async () => {
+    await sync.settled();
+    if (!sync.signedIn() || !sync.hasNickname()) return;
+    const work = await sync.rpc('my_assignments').catch(() => []);
+    const slot = app.querySelector('.due-slot');
+    if (slot) slot.innerHTML = dueCard(work);
+  };
   shell(`<div class="home dash">
     <h1 class="dash-title">${nick ? `Hi ${esc(nick)}` : 'Your dashboard'}</h1>
+    <div class="due-slot"></div>
     ${hero}
     ${refreshCard}
     <section class="courses"><h2>Your courses</h2><div class="course-grid">${cards}</div></section>
@@ -329,6 +337,7 @@ async function viewDashboard() {
     </aside></div>`, { wide: true });
   wireExams(app.querySelector('#exams'));
   fillMiniLeaderboard(app.querySelector('.lb-mini'));
+  fillDue();
 }
 
 // Exam countdown: official dates from the course registry (with their source) and the learner's own,
@@ -909,6 +918,7 @@ async function route() {
       if (parts[0] === 'join') await viewJoin(ctx, parts[1]);
       else if (parts[0] === 'work') await (parts[2] === 'r' ? viewResult(ctx, parts[1], parts[3]) : viewWork(ctx, parts[1]));
       else if (parts[0] === 'teach' && parts[2] === 'set') await viewSetWork(ctx, parts[1]);
+      else if (parts[0] === 'teach' && parts[2] === 'bank') await viewBank(ctx, parts[1]);
       else if (parts[0] === 'teach' && parts[2] === 'a') await (parts[4] === 's' ? viewSubmission(ctx, parts[1], parts[3], parts[5]) : viewAssignment(ctx, parts[1], parts[3]));
       else if (parts[0] === 'teach') await (parts[1] ? viewTeachClass(ctx, parts[1]) : viewTeach(ctx));
       else await (parts[1] ? viewClassBoard(ctx, parts[1]) : viewClasses(ctx));

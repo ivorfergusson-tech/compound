@@ -3,7 +3,7 @@ import { esc, el } from './util.js';
 import { mark, score, combineScores } from './quiz.js';
 import { canSpeak, speak } from './speech.js';
 
-const TYPE_LABEL = { mcq: 'Pick one', tf: 'True or false', number: 'Number', order: 'Put in order', match: 'Match up', explain: 'Explain' };
+const TYPE_LABEL = { mcq: 'Pick one', tf: 'True or false', number: 'Number', order: 'Put in order', match: 'Match up', explain: 'Explain', long: 'Written answer' };
 
 function inputFor(q) {
   switch (q.type) {
@@ -19,6 +19,8 @@ function inputFor(q) {
       return `<div class="match">${q.pairs.map(([l], i) => `<label class="match-row"><span>${esc(l)}</span><select data-left="${esc(l)}" aria-label="${esc(l)}"><option value="">Choose…</option>${q.rightShown.map(r => `<option>${esc(r)}</option>`).join('')}</select></label>`).join('')}</div>`;
     case 'explain':
       return `<textarea rows="4" aria-label="Your answer" placeholder="Write a sentence or two"></textarea>`;
+    case 'long':
+      return '<textarea rows="12" aria-label="Your answer"></textarea>';
   }
   return '';
 }
@@ -34,7 +36,7 @@ export function readResponse(card, q) {
       for (const s of card.querySelectorAll('select')) { if (!s.value) return null; out[s.dataset.left] = s.value; }
       return out;
     }
-    case 'explain': { const v = card.querySelector('textarea').value.trim(); return v || null; }
+    case 'explain': case 'long': { const v = card.querySelector('textarea').value.trim(); return v || null; }
   }
 }
 
@@ -63,7 +65,7 @@ function fillResponse(card, q, value) {
   switch (q.type) {
     case 'mcq': case 'tf': card.querySelector(`.option[data-v="${value}"]`)?.setAttribute('aria-checked', 'true'); break;
     case 'number': card.querySelector('input').value = value; break;
-    case 'explain': card.querySelector('textarea').value = value; break;
+    case 'explain': case 'long': card.querySelector('textarea').value = value; break;
     case 'order': {
       const list = card.querySelector('.order');
       for (const item of value) { const li = [...list.children].find(x => x.dataset.item === item); if (li) list.append(li); }
@@ -80,7 +82,7 @@ export function answerCard(q, { number, initial } = {}) {
     <p class="q">${esc(q.text)}</p>
     <div class="answer">${inputFor(q)}</div>
   </div>`);
-  card.querySelector('textarea')?.setAttribute('maxlength', '2000');
+  card.querySelector('textarea')?.setAttribute('maxlength', q.type === 'long' ? '15000' : '2000');
   wireAnswer(card, q);
   fillResponse(card, q, initial);
   return card;
