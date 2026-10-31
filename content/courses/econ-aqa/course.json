@@ -107,7 +107,11 @@
   "4.2.6.4",
   "4.2.6.5a",
   "4.2.6.5b",
-  "cp4"
+  "cp4",
+  "exam-1",
+  "exam-2",
+  "exam-3",
+  "exam-4"
  ],
  "strands": {
   "4.1.1": {
@@ -2700,10 +2704,10 @@
    "buildsOn": [],
    "summary": "Papers, marks, timing and the four skills AQA rewards.",
    "review": {
-    "status": "ai-draft",
-    "by": null,
-    "role": null,
-    "date": null
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-31"
    }
   },
   {
@@ -2716,10 +2720,10 @@
    "buildsOn": [],
    "summary": "How to pick up the shorter marks in Section A.",
    "review": {
-    "status": "ai-draft",
-    "by": null,
-    "role": null,
-    "date": null
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-31"
    }
   },
   {
@@ -2732,10 +2736,10 @@
    "buildsOn": [],
    "summary": "Chains of reasoning, evaluation and a real conclusion.",
    "review": {
-    "status": "ai-draft",
-    "by": null,
-    "role": null,
-    "date": null
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-31"
    }
   },
   {
@@ -2748,10 +2752,10 @@
    "buildsOn": [],
    "summary": "Tactics for 30 multiple choice questions and the case study.",
    "review": {
-    "status": "ai-draft",
-    "by": null,
-    "role": null,
-    "date": null
+    "status": "reviewed-by-owner",
+    "by": "Ivor Fergusson",
+    "role": "Owner",
+    "date": "2026-10-31"
    }
   }
  ],
