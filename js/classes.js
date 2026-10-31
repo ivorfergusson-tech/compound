@@ -2,6 +2,7 @@
 // database functions in supabase/schema.sql, which check who is asking; nothing here is trusted by the server.
 import { esc } from './util.js';
 import { workList, drawWork } from './assign.js';
+import { drawInsightsLink } from './teacher.js';
 
 const QR_LIB = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/+esm';
 export const CONSENT = 'Your teacher will see your real name, your scores, time spent and work you hand in.';
@@ -272,6 +273,7 @@ export async function viewTeachClass(ctx, id) {
         <p class="small muted">Work counts from the day a student joined. Quizzes are marked in the student's browser, so treat these as a guide, not an assessment. Real names are only shown to you.</p>` : '<p class="muted">Nobody has joined yet. Share the code, the link or the QR code.</p>'}
       <p class="auth-msg" role="status" aria-live="polite"></p></section>
     <section class="card" id="work"></section>
+    <section class="card" id="insights"></section>
     <section class="card" id="plan"></section>
     <section class="card"><h2>Settings</h2>
       <label class="check"><input type="checkbox" class="lb-on"${c.leaderboard_on ? ' checked' : ''}> Class leaderboard (students see nicknames and XP)</label>
@@ -279,6 +281,7 @@ export async function viewTeachClass(ctx, id) {
       <div class="account-actions"><button type="button" class="btn ghost delete-class">Delete class</button></div></section>`, { title: c.name, wide: true });
   drawQr(app.querySelector('.qr'), link);
   drawWork(ctx, app.querySelector('#work'), id);
+  drawInsightsLink(app.querySelector('#insights'), id);
   drawPlan(ctx, app.querySelector('#plan'), id, c.course);
   const update = (open, lb) => sync.rpc('update_class', { p_class: id, p_name: c.name, p_joining_open: open, p_leaderboard_on: lb });
   app.querySelector('.toggle-join').addEventListener('click', async () => { await update(!c.joining_open, c.leaderboard_on); viewTeachClass(ctx, id); });

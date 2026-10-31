@@ -1123,7 +1123,7 @@ end $$;
 drop function if exists public.assignment_overview(uuid);
 create or replace function public.assignment_overview(p_assignment uuid)
 returns table (user_id uuid, real_name text, left_at timestamptz, attempts bigint, in_progress boolean, best_sub uuid,
-               best_marks int, out_of int, first_submitted timestamptz, auto_submitted boolean, lessons_done bigint, lessons_at timestamptz, to_mark bigint)
+               best_marks int, out_of int, first_submitted timestamptz, auto_submitted boolean, lessons_done bigint, lessons_at timestamptz, to_mark bigint, started_at timestamptz, seconds bigint)
 language plpgsql security definer set search_path = public as $$
 declare a public.assignments; c public.classes;
 begin
@@ -1137,7 +1137,9 @@ begin
       b.id, b.marks, b.out_of,
       (select min(s.submitted_at) from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
       b.auto_submitted, l.done, l.finished,
-      (select count(*) from answers x where x.submission_id = b.id and x.marks is null and x.teacher_marks is null)
+      (select count(*) from answers x where x.submission_id = b.id and x.marks is null and x.teacher_marks is null),
+      (select min(s.started_at) from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
+      (select coalesce(sum(s.active_seconds), 0)::bigint from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at))
     from class_members m
     left join lateral (select s.* from submissions s where s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is not null
                          and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)
@@ -1627,6 +1629,132 @@ begin
   end loop;
   execute 'revoke execute on function public.photos_for(uuid, int) from public, anon, authenticated';
   foreach f in array array['add_photo(uuid, int, text)', 'remove_photo(uuid)', 'can_upload_photo(text)', 'can_read_photo(text)'] loop
+    execute format('revoke execute on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+end $$;
+
+-- ---------- P7: analytics ----------
+-- Everything here repeats the teacher's rule: only their own class, and only work started between joining and leaving.
+-- Time is sent by the browser, so it's a guide. It can never add up to more than the real time since the last report.
+alter table public.submissions add column if not exists active_seconds int not null default 0;
+alter table public.submissions add column if not exists last_beat timestamptz;
+alter table public.answers add column if not exists seconds int not null default 0;
+
+-- p_seconds is { "position": seconds } since the last report.
+create or replace function public.beat(p_sub uuid, p_seconds jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+declare
+  s public.submissions := require_open_sub(p_sub);
+  room numeric := extract(epoch from now() - coalesce(s.last_beat, s.started_at)) + 5;
+  sent numeric;
+  k numeric;
+begin
+  select sum((e.value #>> '{}')::numeric) into sent from jsonb_each(p_seconds) e where jsonb_typeof(e.value) = 'number' and (e.value #>> '{}')::numeric > 0;
+  if coalesce(sent, 0) <= 0 then return; end if;
+  k := least(1, room / sent);
+  insert into answers (submission_id, position, seconds)
+    select s.id, i.position, floor((e.value #>> '{}')::numeric * k)::int from jsonb_each(p_seconds) e
+    join assignment_items i on i.assignment_id = s.assignment_id and i.kind = 'question' and i.position::text = e.key
+    where jsonb_typeof(e.value) = 'number' and (e.value #>> '{}')::numeric > 0
+    on conflict (submission_id, position) do update set seconds = answers.seconds + excluded.seconds;
+  update submissions set active_seconds = active_seconds + floor(sent * k)::int, last_beat = now() where id = s.id;
+end $$;
+
+-- Every marked answer the teacher may see. Internal: the functions below check the teacher first.
+create or replace function public.class_answers(p_class uuid)
+returns table (user_id uuid, real_name text, left_at timestamptz, assignment_id uuid, sub_id uuid, pos int, q jsonb, top int, got int, response jsonb, seconds int)
+language sql stable security definer set search_path = public as $$
+  select m.user_id, m.real_name, m.left_at, a.id, s.id, i.position, i.q, i.marks, coalesce(x.teacher_marks, x.marks), x.response, x.seconds
+  from class_members m
+  join assignments a on a.class_id = m.class_id
+  join submissions s on s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is not null and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)
+  join assignment_items i on i.assignment_id = a.id and i.kind = 'question'
+  join answers x on x.submission_id = s.id and x.position = i.position
+  where m.class_id = p_class
+$$;
+revoke execute on function public.class_answers(uuid) from public, anon, authenticated;
+
+create or replace function public.class_heatmap(p_class uuid)
+returns table (user_id uuid, real_name text, spec text, got bigint, out_of bigint)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  return query
+    select c.user_id, c.real_name, coalesce(c.q->>'spec', ''), sum(c.got)::bigint, sum(c.top)::bigint
+    from class_answers(p_class) c where c.left_at is null and c.got is not null group by 1, 2, 3 order by 2, 3;
+end $$;
+
+-- Answers that aren't right, most common first. A wrong answer in another form counts apart, so it stays what was written.
+create or replace function public.question_stats(p_assignment uuid)
+returns table (item int, text jsonb, type text, options jsonb, top int, answered bigint, full_marks bigint, avg_seconds int, common_wrong jsonb, wrong_times bigint)
+language plpgsql stable security definer set search_path = public as $$
+declare a public.assignments;
+begin
+  select * into a from assignments x where x.id = p_assignment;
+  perform require_own_class(a.class_id);
+  return query
+    with c as (select * from class_answers(a.class_id) where assignment_id = a.id)
+    select i.position, i.q->'text', i.q->>'type', i.q->'options', i.marks,
+      (select count(*) from c where c.pos = i.position and c.response is not null),
+      (select count(*) from c where c.pos = i.position and c.got = i.marks),
+      (select round(avg(c.seconds))::int from c where c.pos = i.position and c.seconds > 0),
+      w.response, w.n
+    from assignment_items i
+    left join lateral (select c.response, count(*) as n from c where c.pos = i.position and c.response is not null and c.got is not null and c.got < i.marks
+                       and i.q->>'type' <> 'long' group by c.response order by n desc, c.response::text limit 1) w on true
+    where i.assignment_id = a.id and i.kind = 'question' order by i.position;
+end $$;
+
+create or replace function public.student_profile(p_class uuid, p_user uuid) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare
+  c public.classes := require_own_class(p_class);
+  m public.class_members;
+  streak int := 0;
+  d date := current_date;
+begin
+  select * into m from class_members where class_id = p_class and user_id = p_user;
+  if not found then raise exception 'not in this class' using errcode = '42501'; end if;
+  if m.left_at is null then
+    if not exists (select 1 from active_days where user_id = p_user and day = d) then d := d - 1; end if;
+    while d >= m.joined_at::date and exists (select 1 from active_days where user_id = p_user and day = d) loop
+      streak := streak + 1;
+      d := d - 1;
+    end loop;
+  end if;
+  return jsonb_build_object('real_name', m.real_name, 'joined_at', m.joined_at, 'left_at', m.left_at, 'streak', streak,
+    'passed', (select count(distinct a.item_id) from attempts a where a.user_id = p_user and a.auto_passed and a.kind = 'quiz' and item_in_course(a.item_id, c.course)
+               and a.received_at >= m.joined_at and (m.left_at is null or a.received_at <= m.left_at)),
+    'last_active', (select max(a.received_at) from attempts a where a.user_id = p_user and item_in_course(a.item_id, c.course)
+               and a.received_at >= m.joined_at and (m.left_at is null or a.received_at <= m.left_at)),
+    'work', (select coalesce(jsonb_agg(jsonb_build_object('title', a.title, 'due_at', a.due_at, 'submitted_at', s.submitted_at, 'marks', s.marks, 'out_of', s.out_of,
+               'attempt', s.attempt, 'seconds', s.active_seconds) order by s.submitted_at), '[]')
+             from submissions s join assignments a on a.id = s.assignment_id
+             where a.class_id = p_class and s.user_id = p_user and s.submitted_at is not null and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)),
+    'topics', (select coalesce(jsonb_agg(jsonb_build_object('spec', t.spec, 'got', t.got, 'out_of', t.out_of)), '[]')
+               from (select coalesce(x.q->>'spec', '') as spec, sum(x.got) as got, sum(x.top) as out_of from class_answers(p_class) x
+                     where x.user_id = p_user and x.got is not null group by 1) t));
+end $$;
+
+-- One row per student and piece of work, for the CSV. js/teacher.js builds the file in the teacher's browser.
+create or replace function public.class_marks(p_class uuid)
+returns table (real_name text, left_at timestamptz, title text, due_at timestamptz, attempts bigint, best int, out_of int, first_submitted timestamptz, seconds bigint)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  perform require_own_class(p_class);
+  return query
+    select m.real_name, m.left_at, a.title, a.due_at, count(s.id), max(s.marks), max(s.out_of), min(s.submitted_at), coalesce(sum(s.active_seconds), 0)::bigint
+    from class_members m
+    join assignments a on a.class_id = m.class_id and a.archived_at is null
+    left join submissions s on s.assignment_id = a.id and s.user_id = m.user_id and s.submitted_at is not null and s.started_at >= m.joined_at and (m.left_at is null or s.started_at <= m.left_at)
+    where m.class_id = p_class group by m.real_name, m.left_at, a.id, a.title, a.due_at, a.open_at order by m.real_name, a.open_at;
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['beat(uuid, jsonb)', 'class_heatmap(uuid)', 'question_stats(uuid)', 'student_profile(uuid, uuid)', 'class_marks(uuid)'] loop
     execute format('revoke execute on function public.%s from public, anon', f);
     execute format('grant execute on function public.%s to authenticated', f);
   end loop;

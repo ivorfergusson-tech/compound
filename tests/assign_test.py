@@ -54,6 +54,7 @@ class Fake:
         self.bank = []
         self.ai = None
         self.photos = []
+        self.beats = 0
         self.ai_calls = 0
 
     def row(self):
@@ -119,6 +120,20 @@ class Fake:
         if name == "remove_photo":
             self.photos = []
             return None
+        if name == "beat":
+            self.beats += 1
+            return None
+        if name == "question_stats":
+            return [{"item": 1, "text": "Which is scarce?", "type": "mcq", "options": ["Air", "Oil"], "top": 1, "answered": 3, "full_marks": 2, "avg_seconds": 90, "common_wrong": 0, "wrong_times": 1}]
+        if name == "class_heatmap":
+            return [{"user_id": "a", "real_name": "Amy Ames", "spec": "4.1.1.1", "got": 3, "out_of": 4}, {"user_id": "a", "real_name": "Amy Ames", "spec": None, "got": 5, "out_of": 9},
+                    {"user_id": "b", "real_name": "Ben Bell", "spec": "4.1.2.1", "got": 0, "out_of": 2}]
+        if name == "class_marks":
+            return [{"real_name": "=Amy", "left_at": None, "title": "Week 1", "due_at": "2026-02-01T00:00:00Z", "attempts": 1, "best": 5, "out_of": 7, "first_submitted": "2026-01-20T00:00:00Z", "seconds": 600}]
+        if name == "student_profile":
+            return {"real_name": "Amy Ames", "joined_at": "2026-01-01T00:00:00Z", "left_at": None, "streak": 4, "passed": 3, "last_active": "2026-01-20T00:00:00Z",
+                    "work": [{"title": "Week 1", "due_at": None, "submitted_at": "2026-01-20T00:00:00Z", "marks": 5, "out_of": 7, "attempt": 1, "seconds": 600}],
+                    "topics": [{"spec": "4.1.1", "got": 3, "out_of": 4}, {"spec": "4.1.2", "got": 1, "out_of": 4}]}
         if name == "fn:read-handwriting":
             return {"status": "read", "text": "Typed from my photo"}
         if name == "fn:mark-answer":
@@ -231,6 +246,8 @@ with sync_playwright() as p:
     check("the count updates", "7 of 7 answered" in page.locator(".work-count").inner_text())
 
     # Resume, with the connection down for the last change
+    page.wait_for_timeout(15500)
+    check("time is reported while working", fake.beats > 0)
     fake.down = True
     q.nth(5).locator("textarea").fill("Because of scarcity and choice")
     page.wait_for_function("document.querySelector('.work-saved').textContent.includes('Not saved yet')", timeout=5000)
@@ -353,11 +370,35 @@ with sync_playwright() as p:
     page.wait_for_selector(".roster")
     check("the own question goes in as written", fake.created["p_items"][0]["q"]["type"] == "long" and fake.created["p_items"][0]["id"].startswith("t:"), fake.created["p_items"][0])
 
+    # Class results
+    page.goto(BASE + f"#/teach/{CID}/insights")
+    page.wait_for_selector(".heat")
+    text = page.locator(".heat").inner_text()
+    check("the heatmap shows students, topics and figures", "Amy Ames" in text and "4.1.1" in text and "75%" in text and "0%" in text, text)
+    check("own questions get a column", "Own" in text and "56%" in text)
+    check("gaps show a dash, not nought", "–" in text)
+    page.screenshot(path=str(SHOTS / "heatmap.png"), full_page=True)
+    axe(page, "the class results")
+    with page.expect_download() as dl:
+        page.locator(".csv").click()
+    body = Path(dl.value.path()).read_text(encoding="utf-8-sig")
+    check("the CSV downloads with its name", dl.value.suggested_filename == "13A marks.csv", dl.value.suggested_filename)
+    check("the CSV is safe from formulas", "'=Amy" in body and "71" in body, body)
+    page.locator(".heat tbody a").first.click()
+    page.wait_for_selector(".profile-facts")
+    text = page.locator("main").inner_text()
+    check("the profile shows the facts", "day streak" in text and "71%" in text and "Week 1" in text and "10 min" in text, text)
+    check("weakest topic first", text.index("25%") < text.index("75%"), text)
+    axe(page, "the student profile")
+    page.goto(BASE + f"#/teach/{CID}/a/{AID}")
+    page.wait_for_selector("h2:has-text('finished')")
+
     # The teacher reads the results
     text = page.locator("main").inner_text()
     check("not finished is named", "Not finished: Cal Cole" in text)
     check("on time, late and overdue show", "Finished late" in text and "Overdue" in text)
     check("marks show", "5/7" in text)
+    check("per question figures show", "67%" in text and "Air (1)" in text and "2 min" in text, text)
     page.screenshot(path=str(SHOTS / "work-overview.png"), full_page=True)
     axe(page, "the overview")
     page.locator(".roster a").first.click()

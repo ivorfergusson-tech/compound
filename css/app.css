@@ -531,6 +531,14 @@ a.course-card:hover { border-color: var(--accent); }
 .photo-row figure { margin: 0; }
 .side-by-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 12px; }
 .photo-add:focus-within { outline: 3px solid var(--accent); outline-offset: 2px; }
+.heat { border-collapse: separate; border-spacing: 2px; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.heat th { text-align: left; padding: 6px 8px; white-space: nowrap; font-weight: 600; }
+.heat thead th:not(:first-child) { text-align: center; }
+.heat td { --heat: 0%; min-width: 3.25rem; padding: 6px 8px; text-align: center; border-radius: 4px; color: var(--text); background: color-mix(in srgb, var(--accent) var(--heat), var(--surface-2)); }
+.roster.stats td { white-space: normal; min-width: 7rem; }
+.profile-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: 12px; }
+.profile-facts div { display: flex; flex-direction: column; }
+.profile-facts strong { font-size: 1.375rem; }
 .pick { border-bottom: 1px solid var(--border); padding: 8px 0; }
 .pick summary { cursor: pointer; font-weight: 600; }
 .pick .check { align-items: flex-start; }

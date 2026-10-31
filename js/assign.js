@@ -4,6 +4,7 @@ import { esc, el } from './util.js';
 import { instantiate, shuffle } from './quiz.js';
 import { answerCard, readResponse } from './quizui.js';
 import { gate, problemFor, say, twoStep, date } from './classes.js';
+import { minutes, pct } from './teacher.js';
 
 const when = iso => (iso ? new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '');
 const plural = (n, word) => `${n} ${word}${Number(n) === 1 ? '' : 's'}`;
@@ -283,6 +284,7 @@ function doWork(ctx, a, sub) {
     handedIn = true;
     clearTimeout(timer);
     collect();
+    report();
     try {
       await sync.rpc('submit_attempt', { p_sub: sub.id, p_answers: dirty });
       writeBackup(sub.id, {});
@@ -298,7 +300,21 @@ function doWork(ctx, a, sub) {
   };
   twoStep(app.querySelector('.hand-in'), 'Sure? Hand in now', handIn);
 
-  const retry = setInterval(save, 15000);
+  // Time on task: one second at a time, on the question last touched, and only while the page is seen and in use.
+  const spent = {};
+  let current = cards[0]?.key, lastUse = Date.now();
+  const used = e => { lastUse = Date.now(); const c = e.target.closest?.('.question'); const hit = cards.find(x => x.card === c); if (hit) current = hit.key; };
+  for (const ev of ['input', 'pointerdown', 'focusin', 'keydown']) box.addEventListener(ev, used);
+  const second = setInterval(() => {
+    if (document.hidden || Date.now() - lastUse > 120000 || !current) return;
+    spent[current] = (spent[current] || 0) + 1;
+  }, 1000);
+  const report = () => {
+    const sending = { ...spent };
+    if (!Object.keys(sending).length) return;
+    sync.rpc('beat', { p_sub: sub.id, p_seconds: sending }).then(() => { for (const k of Object.keys(sending)) { spent[k] -= sending[k]; if (!spent[k]) delete spent[k]; } }).catch(() => {});
+  };
+  const retry = setInterval(() => { save(); report(); }, 15000);
   window.addEventListener('online', save);
   let tick = null;
   if (sub.deadline) {
@@ -316,7 +332,8 @@ function doWork(ctx, a, sub) {
     tick = setInterval(beat, 1000);
   }
   onLeave(() => {
-    clearInterval(retry); clearInterval(tick); clearTimeout(timer);
+    clearInterval(retry); clearInterval(tick); clearInterval(second); clearTimeout(timer);
+    if (!closed) report();
     window.removeEventListener('online', save);
     if (!closed) save();
   });
@@ -478,17 +495,23 @@ export async function viewAssignment(ctx, classId, id) {
   const seen = rows.map(r => ({ r, s: statusOf(r, a) }));
   const waiting = seen.filter(x => !x.r.left_at && !x.s.finished);
   const toMark = rows.reduce((n, r) => n + Number(r.to_mark || 0), 0);
+  const stats = Number(a.questions) ? await sync.rpc('question_stats', { p_assignment: id }).catch(() => []) : [];
   shell(`<a class="small" href="#/teach/${esc(classId)}">← Back to the class</a><h1>${esc(a.title)}</h1>
     <p class="muted">${a.due_at ? `Due ${esc(when(a.due_at))}` : 'No due date'} · ${esc(plural(a.questions, 'question'))}, ${esc(plural(a.out_of, 'mark'))}${Number(a.lessons) ? `, ${esc(plural(a.lessons, 'lesson'))}` : ''} · ${esc(plural(a.max_attempts, 'attempt'))}${a.minutes ? ` · ${esc(a.minutes)} minutes` : ''}</p>
     <section class="card"><h2>${esc(now.length - waiting.length)} of ${esc(now.length)} finished</h2>
       ${waiting.length ? `<p class="small"><strong>Not finished:</strong> ${waiting.map(x => esc(x.r.real_name)).join(', ')}</p>` : ''}
       ${toMark ? `<p class="small"><strong>${esc(plural(toMark, 'written answer'))} to mark.</strong></p>` : ''}
       <div class="table-scroll" tabindex="0" role="region" aria-label="Student progress"><table class="roster">
-      <thead><tr><th scope="col">Name</th><th scope="col">Status</th><th scope="col">Best mark</th><th scope="col">Attempts</th>${Number(a.lessons) ? '<th scope="col">Lessons</th>' : ''}<th scope="col"><span class="sr">Work</span></th></tr></thead>
+      <thead><tr><th scope="col">Name</th><th scope="col">Status</th><th scope="col">Best mark</th><th scope="col">Attempts</th><th scope="col">Started</th><th scope="col">Finished</th><th scope="col">Time</th>${Number(a.lessons) ? '<th scope="col">Lessons</th>' : ''}<th scope="col"><span class="sr">Work</span></th></tr></thead>
       <tbody>${seen.map(({ r, s }) => `<tr><td>${esc(r.real_name)}${r.left_at ? ' <span class="muted small">(left)</span>' : ''}</td><td><span class="work-tag s-${esc(s.key)}">${esc(s.label)}</span>${r.auto_submitted ? ' <span class="muted small">Time ran out</span>' : ''}</td>
-        <td>${r.best_sub ? `${esc(r.best_marks)}/${esc(r.out_of)}${Number(r.to_mark) ? ` <span class="muted small">+${esc(r.to_mark)} to mark</span>` : ''}` : '–'}</td><td>${esc(r.attempts)}</td>${Number(a.lessons) ? `<td>${esc(r.lessons_done)}/${esc(a.lessons)}</td>` : ''}
+        <td>${r.best_sub ? `${esc(r.best_marks)}/${esc(r.out_of)}${Number(r.to_mark) ? ` <span class="muted small">+${esc(r.to_mark)} to mark</span>` : ''}` : '–'}</td><td>${esc(r.attempts)}</td><td>${esc(when(r.started_at))}</td><td>${esc(when(r.first_submitted))}</td><td>${esc(minutes(r.seconds))}</td>${Number(a.lessons) ? `<td>${esc(r.lessons_done)}/${esc(a.lessons)}</td>` : ''}
         <td>${r.best_sub ? `<a href="#/teach/${esc(classId)}/a/${esc(id)}/s/${esc(r.best_sub)}">View</a>` : ''}</td></tr>`).join('')}</tbody></table></div>
       ${Number(a.lessons) ? '<p class="small muted">Lessons are marked in the student\'s browser, so treat those as a guide. Questions are marked on our server.</p>' : ''}</section>
+    ${stats.some(q => Number(q.answered)) ? `<section class="card"><h2>Question by question</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Results for each question"><table class="roster stats">
+      <thead><tr><th scope="col">Question</th><th scope="col">Full marks</th><th scope="col">Most common wrong answer</th><th scope="col">Average time</th></tr></thead>
+      <tbody>${stats.map(q => `<tr><td>${esc(q.text)}</td><td>${esc(pct(q.full_marks, q.answered) ?? '–')}${q.answered > 0 ? '%' : ''}</td>
+        <td>${q.common_wrong === null ? '–' : `${esc(showResponse({ type: q.type, options: q.options, response: q.common_wrong }))} (${esc(q.wrong_times)})`}</td><td>${esc(minutes(q.avg_seconds))}</td></tr>`).join('')}</tbody></table></div>
+      <p class="small muted">Counts every attempt. Time is reported by the student's browser, so treat it as a guide.</p></section>` : ''}
     <div class="account-actions"><button type="button" class="btn ghost archive">Take this work down</button></div>`, { title: a.title, wide: true });
   twoStep(app.querySelector('.archive'), 'Sure? Students will no longer see it', async () => {
     await sync.rpc('archive_assignment', { p_assignment: id });
